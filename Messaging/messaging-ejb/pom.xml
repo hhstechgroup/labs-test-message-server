@@ -13,7 +13,11 @@
     <artifactId>messaging-ejb</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>ejb</packaging>
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> master
     <repositories>
         <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -22,6 +26,7 @@
             <layout>default</layout>
         </repository>
     </repositories>
+<<<<<<< HEAD
 	
 	<dependencies>
 - 		<dependency>
@@ -32,6 +37,9 @@
 		</dependency>
 	</dependencies>
 	
+=======
+
+>>>>>>> master
     <build>
         <plugins>
             <plugin>
