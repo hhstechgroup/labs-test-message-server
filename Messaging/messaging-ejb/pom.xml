@@ -13,11 +13,7 @@
     <artifactId>messaging-ejb</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>ejb</packaging>
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> master
     <repositories>
         <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -26,20 +22,16 @@
             <layout>default</layout>
         </repository>
     </repositories>
-<<<<<<< HEAD
-	
-	<dependencies>
-- 		<dependency>
-			<groupId>javax</groupId> 
-			<artifactId>javaee-api</artifactId> 
-			<version>6.0</version> 
-			<scope>provided</scope> 
-		</dependency>
-	</dependencies>
-	
-=======
 
->>>>>>> master
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
