@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml">
+
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="Car" value="#{bean.carsSmall}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{Car.id}" />
+                </p:column>
+
+                <p:column headerText="To">
+                    <h:outputText value="#{Car.to}" />
+                </p:column>
+
+                <p:column headerText="From">
+                    <h:outputText value="#{Car.from}" />
+                </p:column>
+
+                <p:column headerText="Subject">
+                    <h:outputText value="#{Car.subject}" />
+                </p:column>
+
+                <p:column headerText="Text">
+                    <h:outputText value="#{Car.text}" />
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
