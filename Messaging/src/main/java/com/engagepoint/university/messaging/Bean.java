@@ -16,12 +16,11 @@ public class Bean implements Serializable {
 
     public Bean() {
         carsSmall = new ArrayList<Car>();
-
         populateRandomCars(carsSmall, 9);
     }
 
     private void populateRandomCars(List<Car> list, int size) {
-        for(int i = 0 ; i < size ; i++)
+        for (int i = 0; i < size; i++)
             list.add(new Car(getRandomId(), getRandomTo(), getRandomFrom(), getRandomManufacturer(), getRandomText()));
     }
 
@@ -34,18 +33,18 @@ public class Bean implements Serializable {
     }
 
     private String getRandomTo() {
-        return ""+Math.random()+"qqq1";
+        return "" + Math.random() + "qqq1";
     }
 
     private String getRandomFrom() {
-        return ""+Math.random()+"qqq2";
+        return "" + Math.random() + "qqq2";
     }
 
     private String getRandomManufacturer() {
-        return ""+Math.random()+"qqq3";
+        return "" + Math.random() + "qqq3";
     }
 
     private String getRandomText() {
-        return ""+Math.random()+"qqq4";
+        return "" + Math.random() + "qqq4";
     }
 }

@@ -1,23 +1,46 @@
 package com.engagepoint.university.messaging.dto;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 
-@ManagedBean
-@SessionScoped
+@Entity
+@NamedQuery(name = "listALL", query = "select em from EmailMessageDTO em")
 public class EmailMessageDTO implements Serializable {
+    public static final String LIST_ALL = "listALL";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String from;
+
     private String to;
+
     private String subject;
+
     private String text;
+
     private String attachments;
+
     private Date date_insert;
+
     private Date date_delete;
+
     private boolean flag;
+
+    public EmailMessageDTO(String from, String to, String subject, String text, String attachments, Date date_insert) {
+        this.from = from;
+        this.to = to;
+        this.subject = subject;
+        this.text = text;
+        this.attachments = attachments;
+        this.date_insert = date_insert;
+    }
+
+    public EmailMessageDTO() {
+    }
 
     public int getId() {
         return id;
@@ -83,7 +106,7 @@ public class EmailMessageDTO implements Serializable {
         this.date_delete = date_delete;
     }
 
-    public boolean isFlag() {
+    public boolean getFlag() {
         return flag;
     }
 

@@ -10,10 +10,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <liquibase.changelogfile>src/main/resources/db-changelog.xml</liquibase.changelogfile>
+        <db.driver>org.hsqldb.JDBCDriver</db.driver>
+        <db.url>jdbc:hsqldb:mem:messaging</db.url>
         <db.username>SA</db.username>
-        <db.password/>
-        <db.driver>org.hsqldb.jdbc.JDBCDriver</db.driver>
-        <db.url>jdbc:hsqldb:hsql://localhost/Messaging</db.url>
+        <db.password></db.password>
     </properties>
     <dependencies>
 
@@ -44,9 +44,26 @@
         </dependency>
 
         <dependency>
-            <groupId>hsqldb</groupId>
+            <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.8.0.10</version>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+            <version>1.0.0.Final</version>
         </dependency>
 
     </dependencies>
@@ -68,13 +85,15 @@
                     </includes>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.1.1</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
                         <configuration>
                             <changeLogFile>${liquibase.changelogfile}</changeLogFile>
                             <driver>${db.driver}</driver>
@@ -82,9 +101,7 @@
                             <username>${db.username}</username>
                             <password>${db.password}</password>
                         </configuration>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
+
                     </execution>
                 </executions>
             </plugin>
