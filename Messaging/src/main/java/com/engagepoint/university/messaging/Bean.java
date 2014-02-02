@@ -1,16 +1,14 @@
 package com.engagepoint.university.messaging;
 
-import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean
+@Named
+@SessionScoped
 public class Bean implements Serializable {
-
-    //private String colors;
-
-    //private String manufacturers;
 
     private List<Car> carsSmall;
 
