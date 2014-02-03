@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://primefaces.org/ui ">
+
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="email" value="#{emailBean.allEmails}">
+                <p:column headerText="id">
+                    <h:outputText value="#{email.id}"/>
+                </p:column>
+
+                <p:column headerText="sender">
+                    <h:outputText value="#{email.sender}"/>
+                </p:column>
+
+                <p:column headerText="receiver">
+                    <h:outputText value="#{email.receiver}"/>
+                </p:column>
+
+                <p:column headerText="subject">
+                    <h:outputText value="#{email.subject}"/>
+                </p:column>
+
+                <p:column headerText="text">
+                    <h:outputText value="#{email.text}"/>
+                </p:column>
+
+                <p:column headerText="attachments">
+                    <h:outputText value="#{email.attachments}"/>
+                </p:column>
+
+                <p:column headerText="date_insert">
+                    <h:outputText value="#{email.date_insert}qwertyui"/>
+                </p:column>
+
+                <p:column headerText="date_delete">
+                    <h:outputText value="#{email.date_delete}"/>
+                </p:column>
+
+                <p:column headerText="flag">
+                    <h:outputText value="#{email.flag}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
