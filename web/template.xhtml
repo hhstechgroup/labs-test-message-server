@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://primefaces.org/ui ">
 
-
 <f:view contentType="text/html">
     <h:head>
         <f:facet name="first">
@@ -15,11 +14,9 @@
             <title>PrimeFaces - ShowCase</title>
         </f:facet>
 
-
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css"/>
         <link type="text/css" rel="stylesheet"
               href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css"/>
-
 
         <style type="text/css">
             .ui-layout-north {
@@ -35,52 +32,6 @@
 
     <h:body>
         <p:layout fullPage="true">
-            <p:layoutUnit id="top" position="north" size="50">
-                <p:menubar>
-                    <p:submenu label="File" icon="ui-icon-document">
-                        <p:submenu label="New" icon="ui-icon-contact">
-                            <p:menuitem value="Project" url="#"/>
-                            <p:menuitem value="Other" url="#"/>
-                        </p:submenu>
-                        <p:menuitem value="Open" url="#"/>
-                        <p:menuitem value="Quit" url="#"/>
-                    </p:submenu>
-
-                    <p:submenu label="Help" icon="ui-icon-help">
-                        <p:menuitem value="Contents" url="#"/>
-                        <p:submenu label="Search" icon="ui-icon-search">
-                            <p:submenu label="Text">
-                                <p:menuitem value="Workspace" url="#"/>
-                            </p:submenu>
-                            <p:menuitem value="File" url="#"/>
-                        </p:submenu>
-                    </p:submenu>
-                </p:menubar>
-            </p:layoutUnit>
-
-            <p:layoutUnit id="bottom" position="south" size="160">
-                <img src="resources/e-engagepoint-85641965.jpg" alt="альтернативный текст"/>
-            </p:layoutUnit>
-
-
-            <p:layoutUnit id="left" position="west" size="300" resizable="true" closable="true" collapsible="true"
-                          header="Options" minSize="200">
-                <p:accordionPanel>
-                    <p:tab title="Menu 1">
-                        <br/>
-                        <p:calendar mode="inline" navigator="none"/>
-                        <br/>
-                    </p:tab>
-
-                    <p:tab title="Menu 2">
-                        <h:outputText value="Menu 2 Content"/>
-                    </p:tab>
-
-                    <p:tab title="Menu 3">
-                        <h:outputText value="Menu 3 Content"/>
-                    </p:tab>
-                </p:accordionPanel>
-            </p:layoutUnit>
 
             <p:layoutUnit id="center" position="center">
                 <h:form>
@@ -92,6 +43,7 @@
         <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
             <h:outputText value="Resistance to PrimeFaces is futile!"/>
         </p:dialog>
+
     </h:body>
 </f:view>
 </html>
