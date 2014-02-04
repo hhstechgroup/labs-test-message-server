@@ -19,7 +19,6 @@ public class EmailDAOImpl implements GenericDAO {
 
 //    @Inject
 //    private UserTransaction utx;
-
     public EmailDAOImpl() {
         em = Persistence.createEntityManagerFactory("messaging").createEntityManager();
     }
