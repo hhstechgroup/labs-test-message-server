@@ -8,5 +8,6 @@
 ## Additional for IntelliJ
 out/
 target/
+classes/
 
 .idea_modules/
