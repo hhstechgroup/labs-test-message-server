@@ -7,7 +7,7 @@
     <groupId>labs-test-message-server</groupId>
     <artifactId>labs-test-message-server</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <dependencies>
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
