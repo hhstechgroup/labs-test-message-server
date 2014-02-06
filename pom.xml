@@ -7,13 +7,25 @@
     <groupId>labs-test-message-server</groupId>
     <artifactId>labs-test-message-server</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
+
+    <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-web</artifactId>
             <version>4.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--liquibase-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>2.0.5</version>
         </dependency>
 
         <dependency>
@@ -66,6 +78,50 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version> 2.8</version>
+            <executions>
+                <execution>
+                    <id>default-deploy</id>
+                    <phase>none</phase>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+                <propertyFile>src\main\resources\liquibase.hsql.properties</propertyFile>
+                <changeLogFile>src\main\resources\db-changelog.xml</changeLogFile>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>
+                        process-resources
+                    </phase>
+                    <!--<configuration>-->
+                    <!--<changeLogFile>${liquibase.changelogfile}</changeLogFile>-->
+                    <!--<driver>${db.hsql.driver}</driver>-->
+                    <!--<url>${db.hsql.url}</url>-->
+                    <!--<username>${db.hsql.username}</username>-->
+                    <!--<password>${db.hsql.password}</password>-->
+                    <!--</configuration>-->
+                    <goals>
+                        <goal>update</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>5.1.13</version>
+                </dependency>
+            </dependencies>
+
+        </plugin>
         </plugins>
     </build>
 
