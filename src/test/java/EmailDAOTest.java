@@ -1,35 +1,65 @@
 import com.engagepoint.university.messaging.dao.impl.EmailDAOImpl;
-import com.engagepoint.university.messaging.dto.EmailMessageDTO;
-import org.junit.Assert;
+import com.engagepoint.university.messaging.entity.EmailMessageEntity;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 public class EmailDAOTest {
+
+    private EmailDAOImpl dao;
+
+    @Before
+    public void setUp(){
+        dao = new EmailDAOImpl();
+    }
+
     @Test
-    public void getAllEmail(){
-        EmailDAOImpl dao = new EmailDAOImpl();
-        dao.saveEmail(new EmailMessageDTO("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol1","rew1","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol1","rew1","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol1","rew1","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol2","rew2","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol2","rew2","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-        dao.saveEmail(new EmailMessageDTO("lol2","rew2","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
-//        System.out.println(dao.getAllEmails());
+    public void shouldGetAllSenderEmails(){
+        // Given
+        EmailMessageEntity fistEmail = new EmailMessageEntity("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L));
+        EmailMessageEntity secondEmail = new EmailMessageEntity("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L));
+        EmailMessageEntity thirdEmail = new EmailMessageEntity("foo","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L));
+        dao.save(fistEmail);
+        dao.save(secondEmail);
+        dao.save(thirdEmail);
 
+        // When
+        List<EmailMessageEntity> emails = dao.getEmailsBySender("lol");
 
+        // Then
+        assertThat(emails, hasItems(fistEmail, secondEmail));
+        assertThat(emails, not(hasItems(thirdEmail)));
+    }
 
+    @Test
+    public void shouldGetAllEmails(){
+        // Given
+        dao.save(new EmailMessageEntity("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
+        dao.save(new EmailMessageEntity("rol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
+        dao.save(new EmailMessageEntity("fol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L)));
 
-        Assert.assertNotNull(dao.getAllEmails());
-        Assert.assertNotNull(dao.getEmail(1));
-        Assert.assertNotNull(dao.getEmailByReceiver("rew"));
-        Assert.assertNotNull(dao.getEmailBySender("lol"));
+        // When
+        List<EmailMessageEntity> emails = dao.getAll();
 
-        dao.deleteEmail(2);
-        EmailMessageDTO email1 = dao.getEmail(2);
-        Assert.assertNull(email1);
+        // Then
+        assertEquals(3, emails.size());
+    }
+     @Test
+    public void shouldDeleteEmail(){
+         // Given
+         EmailMessageEntity email = new EmailMessageEntity("lol","rew","qwerty","sdfghjkllkjh5+64","url",new Date(12345678L));
+         dao.save(email);
+
+         // When
+         dao.delete(email);
+
+         //Then
+         assertNull(dao.getById(0));
     }
 }

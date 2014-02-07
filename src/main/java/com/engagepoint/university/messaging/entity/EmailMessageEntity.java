@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.dto;
+package com.engagepoint.university.messaging.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,14 +7,11 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "getAll", query = "select em from EmailMessageDTO em"),
-    @NamedQuery(name = "getEmailById", query = "select em from EmailMessageDTO em where em.id = :id"),
-    @NamedQuery(name = "getEmailBySender", query = "select em from EmailMessageDTO em where em.sender = :sender"),
-    @NamedQuery(name = "getEmailByReceiver", query = "select em from EmailMessageDTO em where em.receiver like :receiver")
+    @NamedQuery(name = "getEmailById", query = "select em from EmailMessageEntity em where em.id = :id"),
+    @NamedQuery(name = "getEmailBySender", query = "select em from EmailMessageEntity em where em.sender = :sender"),
+    @NamedQuery(name = "getEmailByReceiver", query = "select em from EmailMessageEntity em where em.receiver like :receiver")
 })
-public class EmailMessageDTO implements Serializable {
-    public static final String GET_ALL = "getAll";
-    public static final String GET_EMAIL_BY_ID = "getEmailById";
+public class EmailMessageEntity implements Serializable {
     public static final String GET_EMAIL_BY_SENDER = "getEmailBySender";
     public static final String GET_EMAIL_BY_RECEIVER = "getEmailByReceiver";
 
@@ -31,7 +28,7 @@ public class EmailMessageDTO implements Serializable {
     private Date date_delete;
     private boolean flag;
 
-    public EmailMessageDTO(String sender, String receiver, String subject, String text, String attachments, Date date_insert) {
+    public EmailMessageEntity(String sender, String receiver, String subject, String text, String attachments, Date date_insert) {
         this.sender = sender;
         this.receiver = receiver;
         this.subject = subject;
@@ -40,7 +37,7 @@ public class EmailMessageDTO implements Serializable {
         this.date_insert = date_insert;
     }
 
-    public EmailMessageDTO() {
+    public EmailMessageEntity() {
     }
 
     public int getId() {
@@ -117,7 +114,7 @@ public class EmailMessageDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EmailMessageDTO{" +
+        return "EmailMessageEntity{" +
                 "id=" + id +
                 ", sender='" + sender + '\'' +
                 ", reciver='" + receiver + '\'' +

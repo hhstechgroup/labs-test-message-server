@@ -7,7 +7,7 @@
                 xsi:schemaLocation="http://primefaces.org/ui ">
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="email" value="#{emailBean.allEmails}">
+            <p:dataTable var="email" value="#{emailController.allEmails}">
                 <p:column headerText="id">
                     <h:outputText value="#{email.id}"/>
                 </p:column>
@@ -33,7 +33,7 @@
                 </p:column>
 
                 <p:column headerText="date_insert">
-                    <h:outputText value="#{email.date_insert}qwertyui"/>
+                    <h:outputText value="#{email.date_insert}"/>
                 </p:column>
 
                 <p:column headerText="date_delete">
