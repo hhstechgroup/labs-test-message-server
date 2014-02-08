@@ -139,13 +139,6 @@
                     <phase>
                         process-resources
                     </phase>
-                    <!--<configuration>-->
-                    <!--<changeLogFile>${liquibase.changelogfile}</changeLogFile>-->
-                    <!--<driver>${db.hsql.driver}</driver>-->
-                    <!--<url>${db.hsql.url}</url>-->
-                    <!--<username>${db.hsql.username}</username>-->
-                    <!--<password>${db.hsql.password}</password>-->
-                    <!--</configuration>-->
                     <goals>
                         <goal>update</goal>
                     </goals>
@@ -158,9 +151,7 @@
                     <version>5.1.13</version>
                 </dependency>
             </dependencies>
-
         </plugin>
         </plugins>
     </build>
-
 </project>
