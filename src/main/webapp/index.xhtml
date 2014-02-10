@@ -7,16 +7,27 @@
                 xsi:schemaLocation="http://primefaces.org/ui ">
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="email" value="#{emailBean.allEmails}">
-                <p:column headerText="id">
+            <p:commandButton value="Generate Message" update="table" id="GenMes"
+                             actionListener="#{initBean.init}"/>
+
+            <p:dataTable id="table" var="email" value="#{emailBean.myList}"
+                         paginator="true" rows="10" paginatorAlwaysVisible="false"
+                         paginatorPosition="top"
+                         sortBy="sender" sortOrder="descending"
+                         >
+                <f:facet name="header">
+                    Email List
+                </f:facet>
+
+                <p:column sortBy="#{email.idEmail}" headerText="id" >
                     <h:outputText value="#{email.idEmail}"/>
                 </p:column>
 
-                <p:column headerText="deliveryDate">
+                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
                     <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
-                <p:column headerText="sender">
+                <p:column sortBy="#{email.sender}" headerText="sender">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
@@ -24,11 +35,11 @@
                     <h:outputText value="#{email.receiver}"/>
                 </p:column>-->
 
-                <p:column headerText="subject">
+                <p:column sortBy="#{email.subject}" headerText="subject">
                     <h:outputText value="#{email.subject}"/>
                 </p:column>
 
-                <p:column headerText="Text">
+                <p:column sortBy="#{email.body}" headerText="Text">
                     <h:outputText value="#{email.body}"/>
                 </p:column>
 
