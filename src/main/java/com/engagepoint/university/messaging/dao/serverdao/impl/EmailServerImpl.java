@@ -1,6 +1,6 @@
 package com.engagepoint.university.messaging.dao.serverdao.impl;
 
-import com.engagepoint.university.messaging.dao.serverdao.EmailServerDaoInterface;
+import com.engagepoint.university.messaging.dao.serverdao.EmailServerInterface;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetupTest;
@@ -19,7 +19,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EmailServerImpl implements EmailServerDaoInterface{
+public class EmailServerImpl implements EmailServerInterface {
     private static final String USERNAME_PATTERN = "^[a-z0-9_-]{3,15}$";
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
