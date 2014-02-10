@@ -18,6 +18,9 @@ public abstract class GenericDAOImpl<EntityType extends Base> implements Generic
         this.entityClass = entityClass;
     }
 
+    protected GenericDAOImpl() {
+    }
+
     protected abstract EntityManager getEntityManager();
 
     @Override
