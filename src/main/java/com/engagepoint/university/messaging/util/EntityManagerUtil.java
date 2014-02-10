@@ -3,15 +3,18 @@ package com.engagepoint.university.messaging.util;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+/**
+ * Created by Alexey on 2/10/14.
+ */
 public class EntityManagerUtil {
 
-    private EntityManager entityManager;
+    private static final EntityManager entityManager = buildEntityManager();
 
-    public EntityManagerUtil(){
-        entityManager = Persistence.createEntityManagerFactory("messaging").createEntityManager();
+    private static EntityManager buildEntityManager() {
+        return Persistence.createEntityManagerFactory("messaging").createEntityManager();
     }
 
-    public EntityManager getEntityManager(){
+    public static EntityManager getEntityManager() {
         return entityManager;
     }
 }

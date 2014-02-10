@@ -1,4 +1,3 @@
-import com.engagepoint.university.messaging.dao.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.util.EntityManagerUtil;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
@@ -30,14 +29,12 @@ public class mailServerTest {
     private static final String LOCALHOST = "127.0.0.1";
 
     private GreenMail mailServer;
-    private EmailDAOImpl dao;
     private EntityManager em;
     private EntityManagerUtil emu;
 
     @Before
     public void setUp() {
         mailServer = new GreenMail(ServerSetup.POP3);
-        dao = new EmailDAOImpl();
         emu = new EntityManagerUtil();
         em = emu.getEntityManager();
         mailServer.start();

@@ -7,42 +7,35 @@
                 xsi:schemaLocation="http://primefaces.org/ui ">
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="email" value="#{emailController.allEmails}">
+            <p:dataTable var="email" value="#{emailBean.allEmails}">
                 <p:column headerText="id">
-                    <h:outputText value="#{email.id}"/>
+                    <h:outputText value="#{email.idEmail}"/>
+                </p:column>
+
+                <p:column headerText="deliveryDate">
+                    <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
                 <p:column headerText="sender">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column headerText="receiver">
+                <!--<p:column headerText="receiver">
                     <h:outputText value="#{email.receiver}"/>
-                </p:column>
+                </p:column>-->
 
                 <p:column headerText="subject">
                     <h:outputText value="#{email.subject}"/>
                 </p:column>
 
-                <p:column headerText="text">
-                    <h:outputText value="#{email.text}"/>
+                <p:column headerText="Text">
+                    <h:outputText value="#{email.body}"/>
                 </p:column>
 
-                <p:column headerText="attachments">
+                <!--<p:column headerText="attachments">
                     <h:outputText value="#{email.attachments}"/>
-                </p:column>
+                </p:column>-->
 
-                <p:column headerText="date_insert">
-                    <h:outputText value="#{email.date_insert}"/>
-                </p:column>
-
-                <p:column headerText="date_delete">
-                    <h:outputText value="#{email.date_delete}"/>
-                </p:column>
-
-                <p:column headerText="flag">
-                    <h:outputText value="#{email.flag}"/>
-                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>
