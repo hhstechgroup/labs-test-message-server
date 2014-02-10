@@ -15,7 +15,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "email")
+@Table(name = "Email")
 @NamedQueries({
         @NamedQuery(name = Email.GET_ALL, query = "SELECT em FROM Email em"),
         @NamedQuery(name = Email.GET_ALL_BY_EMAIL_ID, query = "SELECT em FROM Email em WHERE em.idEmail = :idEmail"),

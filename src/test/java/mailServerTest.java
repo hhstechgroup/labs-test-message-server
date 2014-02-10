@@ -1,8 +1,10 @@
-import com.engagepoint.university.messaging.util.EntityManagerUtil;
+import com.engagepoint.university.messaging.dao.condao.EmailDAO;
+import com.engagepoint.university.messaging.dao.condao.implementation.EmailDAOImpl;
+import com.engagepoint.university.messaging.entities.Email;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
+import com.icegreen.greenmail.util.ServerSetupTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,33 +12,30 @@ import org.junit.Test;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.persistence.EntityManager;
+import javax.validation.ValidationException;
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 public class mailServerTest {
-    private static final String EMAIL_USER_ADDRESS = "hascode@localhost.com";
+    private static final String USER_EMAIL_ADDRESS = "hascode@localhost.com";
     private static final String USER_NAME = "hascode";
     private static final String USER_PASSWORD = "abcdef123";
     private static final String EMAIL_TO = "someone@localhost.com";
     private static final String EMAIL_SUBJECT = "Test E-Mail";
     private static final String EMAIL_TEXT = "Hello Miklosh!";
     private static final String LOCALHOST = "127.0.0.1";
+    private static final String WRONG_USER_EMAIL = "hascode@.localhost.com";
+    private static final String WRONG_USER_NAME = "Mykola@";
 
     private GreenMail mailServer;
-    private EntityManager em;
-    private EntityManagerUtil emu;
+    private EmailDAO emailDAO;
 
     @Before
-    public void setUp() {
-        mailServer = new GreenMail(ServerSetup.POP3);
-        emu = new EntityManagerUtil();
-        em = emu.getEntityManager();
+    public void startUp() {
+        mailServer = new GreenMail(ServerSetupTest.SMTP);
+        emailDAO = new EmailDAOImpl(mailServer);
         mailServer.start();
     }
 
@@ -46,29 +45,79 @@ public class mailServerTest {
     }
 
     @Test
-    public void getMessage() throws IOException, MessagingException,
+    public void sendAndGetOneMessageFromServer() throws IOException, MessagingException,
             UserException, InterruptedException {
-        GreenMailUser user = mailServer.setUser(EMAIL_USER_ADDRESS, USER_NAME, USER_PASSWORD);
-        MimeMessage message = new MimeMessage((Session) null);
-        message.setFrom(new InternetAddress(EMAIL_TO));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(EMAIL_USER_ADDRESS));
-        message.setSubject(EMAIL_SUBJECT);
-        message.setText(EMAIL_TEXT);
-        user.deliver(message);
+        GreenMailUser user = emailDAO.createUser(USER_EMAIL_ADDRESS,USER_NAME,USER_PASSWORD);
+        assertNotNull(user);
+        assertNotNull(user.getEmail());
+        assertEquals(USER_EMAIL_ADDRESS,user.getEmail());
+        assertNotNull(user.getLogin());
+        assertEquals(USER_NAME,user.getLogin());
+        assertNotNull(user.getPassword());
+        assertEquals(USER_PASSWORD,user.getPassword());
+        Session session = emailDAO.initSession(LOCALHOST);
+        assertNotNull(session);
+        Message message = emailDAO.createMessage(USER_EMAIL_ADDRESS,EMAIL_TO,EMAIL_SUBJECT,EMAIL_TEXT,session);
+        assertNotNull(message);
+        emailDAO.sendEmail(LOCALHOST, USER_EMAIL_ADDRESS,USER_PASSWORD,session,message);
+        Message[] messages = emailDAO.getTestEmailArray();
+        assertNotNull(messages);
+        assertEquals(1,messages.length);
+        assertNotNull(messages[0].getRecipients(Message.RecipientType.TO));
+        assertEquals(EMAIL_TO,messages[0].getRecipients(Message.RecipientType.TO)[0].toString());
+        assertNotNull(messages[0].getSubject());
+        assertEquals(EMAIL_SUBJECT,messages[0].getSubject());
+        assertNotNull(messages[0].getContent().toString());
+    }
 
-        /*Email are stored in mailServer sever queue in the array
-        * so we can access e-mails by array index
-        * */
-//        checking that we had received e-mail
-        assertNotNull(mailServer.getReceivedMessages()[0].getContent());
-//        checking received e-mail content : text
-        assertThat((String) mailServer.getReceivedMessages()[0].getContent(),
-                equalTo("Hello Miklosh!"));
-//        checking received e-mail content : sender
-        assertThat(mailServer.getReceivedMessages()[0].getFrom()[0].toString(),
-                equalTo("someone@localhost.com"));
-//        checking received e-mail content : subject
-        assertThat(mailServer.getReceivedMessages()[0].getSubject(),
-                equalTo("Test E-Mail"));
+    @Test(expected = ValidationException.class)
+     public void wrongUserEmailTest() throws IOException, MessagingException,
+            UserException, InterruptedException {
+        GreenMailUser user = emailDAO.createUser(WRONG_USER_EMAIL, USER_NAME, USER_PASSWORD);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void wrongUserLoginTest() throws IOException, MessagingException,
+            UserException, InterruptedException {
+        GreenMailUser user = emailDAO.createUser(USER_EMAIL_ADDRESS, WRONG_USER_NAME, USER_PASSWORD);
+        assertNotNull(user);
+    }
+
+//    @Test
+    public void sendAndGetMessagesFromServer() throws IOException, MessagingException,
+            UserException, InterruptedException {
+
+    }
+
+    @Test
+    public void setMessageToDB () throws MessagingException, IOException {
+        GreenMailUser user = emailDAO.createUser(USER_EMAIL_ADDRESS,USER_NAME,USER_PASSWORD);
+        assertNotNull(user);
+        assertNotNull(user.getEmail());
+        assertEquals(USER_EMAIL_ADDRESS,user.getEmail());
+        assertNotNull(user.getLogin());
+        assertEquals(USER_NAME,user.getLogin());
+        assertNotNull(user.getPassword());
+        assertEquals(USER_PASSWORD,user.getPassword());
+        Session session = emailDAO.initSession(LOCALHOST);
+        assertNotNull(session);
+        Message message = emailDAO.createMessage(USER_EMAIL_ADDRESS,EMAIL_TO,EMAIL_SUBJECT,EMAIL_TEXT,session);
+        assertNotNull(message);
+        emailDAO.sendEmail(LOCALHOST, USER_EMAIL_ADDRESS,USER_PASSWORD,session,message);
+        Message[] messages = emailDAO.getTestEmailArray();
+        assertNotNull(messages);
+        assertEquals(1,messages.length);
+        assertNotNull(messages[0].getRecipients(Message.RecipientType.TO));
+        assertEquals(EMAIL_TO,messages[0].getRecipients(Message.RecipientType.TO)[0].toString());
+        assertNotNull(messages[0].getSubject());
+        assertEquals(EMAIL_SUBJECT,messages[0].getSubject());
+        assertNotNull(messages[0].getContent().toString());
+        Email email = new Email();
+        email.setSender(messages[0].getFrom()[0].toString());
+        email.setSubject(messages[0].getSubject());
+        email.setBody(messages[0].getContent().toString());
+        email.setSendDate(messages[0].getSentDate());
+        email.setDeliveryDate(messages[0].getSentDate());
+        emailDAO.save(email);
     }
 }

@@ -49,10 +49,12 @@ public class User extends Base implements Serializable {
     private String email;
 
     @Basic(optional = false)
+    //TODO Why notNull? in future use it may cause a problem
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
+    //TODO where is password field?
 
     @ManyToMany(mappedBy = "userCollection")
     private Collection<Email> emailCollection;
