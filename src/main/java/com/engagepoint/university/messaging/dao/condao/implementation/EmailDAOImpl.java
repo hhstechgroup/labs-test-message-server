@@ -40,6 +40,7 @@ public class EmailDAOImpl extends GenericDAOImpl<Email> implements EmailDAO {
     private Matcher matcher;
 
     public EmailDAOImpl() {
+        super(Email.class);
     }
 
     public EmailDAOImpl(GreenMail mailServer) {
