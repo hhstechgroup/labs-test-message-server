@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.entities;
 
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,13 +10,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-/**
- * Created by Alexey on 2/9/14.
- */
 @Entity
-@Table(name = "sms")
 @NamedQueries({
-        @NamedQuery(name = Sms.GET_ALL, query = "SELECT sm FROM Sms sm"),
         @NamedQuery(name = Sms.GET_ALL_BY_SMS_ID, query = "SELECT sm FROM Sms sm WHERE sm.idSms = :idSms"),
         @NamedQuery(name = Sms.GET_ALL_BY_SENDER, query = "SELECT sm FROM Sms sm WHERE sm.sender = :sender"),
         @NamedQuery(name = Sms.GET_ALL_BY_SEND_DATE, query = "SELECT sm FROM Sms sm WHERE sm.sendDate = :sendDate"),
@@ -25,7 +20,6 @@ import java.util.Date;
 public class Sms extends Base implements Serializable {
 
     private static final long serialVersionUID = 6745638798781234739L;
-    public static final String GET_ALL = "Sms.findAll";
     public static final String GET_ALL_BY_SMS_ID = "Sms.findByIdSms";
     public static final String GET_ALL_BY_SENDER = "Sms.findBySender";
     public static final String GET_ALL_BY_SEND_DATE = "Sms.findBySendDate";
@@ -33,35 +27,30 @@ public class Sms extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_sms")
     private Integer idSms;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "sender")
     private String sender;
 
     @Lob
     @Size(max = 65535)
-    @Column(name = "body")
     private String body;
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "send_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
 
+    //delivery Date can be initially later
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "delivery_date")
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
 
     @JoinTable(name = "mapped_user_sms", joinColumns = {
-            @JoinColumn(name = "Sms_id_sms", referencedColumnName = "id_sms")}, inverseJoinColumns = {
-            @JoinColumn(name = "User_id_user", referencedColumnName = "id_user")})
+            @JoinColumn(name = "Sms_id_sms", referencedColumnName = "idsms")}, inverseJoinColumns = {
+            @JoinColumn(name = "User_id_user", referencedColumnName = "iduser")})
     @ManyToMany
     private Collection<User> userCollection;
 

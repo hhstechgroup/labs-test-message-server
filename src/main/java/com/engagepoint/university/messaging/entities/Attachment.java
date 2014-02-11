@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.entities;
 
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,49 +9,42 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
-/**
- * Created by Alexey on 2/9/14.
- */
-
 @Entity
 @NamedQueries({
-        @NamedQuery(name = Attachment.GET_ALL, query = "SELECT at FROM Attachment at"),
         @NamedQuery(name = Attachment.GET_ALL_BY_ATTACHMENT_ID, query = "SELECT at FROM Attachment at WHERE at.idAttachment = :idAttachment"),
         @NamedQuery(name = Attachment.GET_ALL_BY_MIME_TYPE, query = "SELECT at FROM Attachment at WHERE at.mimeType = :mimeType"),
-        @NamedQuery(name = Attachment.GET_ALL_BY_NAME, query = "SELECT at FROM Attachment at WHERE at.name = :name")})
+        @NamedQuery(name = Attachment.GET_ALL_BY_NAME, query = "SELECT at FROM Attachment at WHERE at.name = :name"),
+        @NamedQuery(name = Attachment.GET_ATTACHMENT_BY_MESSAGE, query = "SELECT at FROM Attachment at ")})
+
 
 public class Attachment extends Base implements Serializable {
 
     private static final long serialVersionUID = 765348739781231295L;
-    public static final String GET_ALL = "Attachment.findAll";
     public static final String GET_ALL_BY_ATTACHMENT_ID = "Attachment.findByIdAttachment";
     public static final String GET_ALL_BY_MIME_TYPE = "Attachment.findByMimeType";
     public static final String GET_ALL_BY_NAME = "Attachment.findByName";
+    public static final String GET_ATTACHMENT_BY_MESSAGE = "Attachment.getAttachmentByMessage";
 
     @Id
     @NotNull
-    @Column(name = "id_attachment")
     private Integer idAttachment;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "mime_type")
     private String mimeType;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "name")
     private String name;
 
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Column(name = "content")
-    private byte[] content;
+    private String content;
 
-    @ManyToMany(mappedBy = "attachmentCollection")
+    @ManyToMany
     private Collection<Email> emailCollection;
 
     public Attachment() {
@@ -87,11 +80,11 @@ public class Attachment extends Base implements Serializable {
         this.name = name;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

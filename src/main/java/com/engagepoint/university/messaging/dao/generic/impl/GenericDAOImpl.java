@@ -1,15 +1,13 @@
-package com.engagepoint.university.messaging.dao.generic.implementation;
+package com.engagepoint.university.messaging.dao.generic.impl;
 
 import com.engagepoint.university.messaging.dao.generic.GenericDAO;
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 import com.engagepoint.university.messaging.util.EntityManagerUtil;
+import org.hibernate.Criteria;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-/**
- * Created by Alexey on 2/9/14.
- */
 public abstract class GenericDAOImpl<EntityType extends Base> implements GenericDAO<EntityType> {
 
     private Class<EntityType> entityClass;
@@ -18,10 +16,12 @@ public abstract class GenericDAOImpl<EntityType extends Base> implements Generic
         this.entityClass = entityClass;
     }
 
-    protected GenericDAOImpl() {
+    public GenericDAOImpl() {
     }
 
-    protected abstract EntityManager getEntityManager();
+    public EntityManager getEntityManager() {
+        return EntityManagerUtil.getEntityManager();
+    }
 
     @Override
     public EntityType getById(Integer id) {
@@ -49,16 +49,16 @@ public abstract class GenericDAOImpl<EntityType extends Base> implements Generic
 
     @Override
     public void delete(Integer id) {
-        EntityManagerUtil.getEntityManager().getTransaction().begin();
-        EntityManagerUtil.getEntityManager().find(entityClass, id);
-        EntityManagerUtil.getEntityManager().getTransaction().commit();
+        getEntityManager().getTransaction().begin();
+        getEntityManager().remove(getEntityManager().find(entityClass, id));
+        getEntityManager().getTransaction().commit();
     }
 
     @Override
     public void delete(EntityType entityType) {
-        EntityManagerUtil.getEntityManager().getTransaction().begin();
-        EntityManagerUtil.getEntityManager().remove(EntityManagerUtil.getEntityManager()
+        getEntityManager().getTransaction().begin();
+        getEntityManager().remove(getEntityManager()
                 .find(entityClass, entityType));
-        EntityManagerUtil.getEntityManager().getTransaction().commit();
+        getEntityManager().getTransaction().commit();
     }
 }

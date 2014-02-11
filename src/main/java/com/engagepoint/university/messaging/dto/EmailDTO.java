@@ -1,13 +1,10 @@
 package com.engagepoint.university.messaging.dto;
 
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import java.util.Date;
 
-/**
- * Created by Alexey on 2/9/14.
- */
-public class EmailDTO extends Base {
+public class EmailDTO{
 
     private Integer id;
     private String sender;
@@ -15,6 +12,17 @@ public class EmailDTO extends Base {
     private String body;
     private Date sendDate;
     private Date deliveryDate;
+
+    public EmailDTO() {
+    }
+
+    public EmailDTO(String sender, String subject, String body, Date sendDate, Date deliveryDate) {
+        this.sender = sender;
+        this.subject = subject;
+        this.body = body;
+        this.sendDate = sendDate;
+        this.deliveryDate = deliveryDate;
+    }
 
     public Integer getId() {
         return id;

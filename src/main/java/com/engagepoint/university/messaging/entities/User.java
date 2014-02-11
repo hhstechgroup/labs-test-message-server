@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.entities;
 
 import com.engagepoint.university.messaging.dto.UserDTO;
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,14 +9,9 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
-/**
- * Created by Alexey on 2/9/14.
- */
 
 @Entity
-@Table(name = "user")
 @NamedQueries({
-        @NamedQuery(name = User.GET_ALL, query = "SELECT us FROM User us"),
         @NamedQuery(name = User.GET_ALL_BY_USER_ID, query = "SELECT us FROM User us WHERE us.idUser = :idUser"),
         @NamedQuery(name = User.GET_ALL_BY_USER_NAME, query = "SELECT us FROM User us WHERE us.name = :name"),
         @NamedQuery(name = User.GET_ALL_BY_USER_EMAIL, query = "SELECT us FROM User us WHERE us.email = :email"),
@@ -25,7 +20,6 @@ import java.util.Collection;
 public class User extends Base implements Serializable {
 
     private static final long serialVersionUID = 1345678798781231239L;
-    public static final String GET_ALL = "User.findAll";
     public static final String GET_ALL_BY_USER_ID = "User.findByIdUser";
     public static final String GET_ALL_BY_USER_NAME = "User.findByName";
     public static final String GET_ALL_BY_USER_EMAIL = "User.findByEmail";
@@ -33,28 +27,22 @@ public class User extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
     private Integer idUser;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "name")
     private String name;
 
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "email")
     private String email;
 
     @Basic(optional = false)
-    //TODO Why notNull? in future use it may cause a problem
-    @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "phone_number")
     private String phoneNumber;
-    //TODO where is password field?
+
+    private String password;
 
     @ManyToMany(mappedBy = "userCollection")
     private Collection<Email> emailCollection;
@@ -117,6 +105,15 @@ public class User extends Base implements Serializable {
 
     public void setSmsCollection(Collection<Sms> smsCollection) {
         this.smsCollection = smsCollection;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

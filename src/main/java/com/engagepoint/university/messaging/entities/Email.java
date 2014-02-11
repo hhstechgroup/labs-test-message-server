@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.entities;
 
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,14 +10,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-/**
- * Created by Alexey on 2/9/14.
- */
 
 @Entity
-@Table(name = "Email")
 @NamedQueries({
-        @NamedQuery(name = Email.GET_ALL, query = "SELECT em FROM Email em"),
         @NamedQuery(name = Email.GET_ALL_BY_EMAIL_ID, query = "SELECT em FROM Email em WHERE em.idEmail = :idEmail"),
         @NamedQuery(name = Email.GET_ALL_BY_SENDER, query = "SELECT em FROM Email em WHERE em.sender = :sender"),
         @NamedQuery(name = Email.GET_ALL_BY_SUBJECT, query = "SELECT em FROM Email em WHERE em.subject = :subject"),
@@ -27,7 +22,6 @@ import java.util.Date;
 public class Email extends Base implements Serializable {
 
     private static final long serialVersionUID = 985345798781234739L;
-    public static final String GET_ALL = "Email.findAll";
     public static final String GET_ALL_BY_EMAIL_ID = "Email.findByIdEmail";
     public static final String GET_ALL_BY_SENDER = "Email.findBySender";
     public static final String GET_ALL_BY_SUBJECT = "Email.findBySubject";
@@ -36,46 +30,43 @@ public class Email extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_email")
     private Integer idEmail;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "sender")
     private String sender;
 
     @Size(max = 255)
-    @Column(name = "subject")
     private String subject;
 
     @Lob
     @Size(max = 65535)
-    @Column(name = "body")
     private String body;
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "send_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "delivery_date")
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
 
-    @JoinTable(name = "mapped_user_email", joinColumns = {
-            @JoinColumn(name = "Email_id_email", referencedColumnName = "id_email")}, inverseJoinColumns = {
-            @JoinColumn(name = "User_id_user", referencedColumnName = "id_user")})
+
+    // TODO: need it do
+//    @JoinTable(name = "Mapped_User_Email", joinColumns = {
+//            @JoinColumn(name = "Email_id_email", referencedColumnName = "idemail")}, inverseJoinColumns = {
+//            @JoinColumn(name = "User_id_user", referencedColumnName = "iduser")})
     @ManyToMany
     private Collection<User> userCollection;
 
-    @JoinTable(name = "mapped_email_attachment", joinColumns = {
-            @JoinColumn(name = "Email_id_email", referencedColumnName = "id_email")}, inverseJoinColumns = {
-            @JoinColumn(name = "Attachment_id_attachment", referencedColumnName = "id_attachment")})
-    @ManyToMany
+    // TODO: need it do
+//    @JoinTable(name = "Mapped_Email_Attachment", joinColumns = {
+//            @JoinColumn(name = "email_id")}, inverseJoinColumns = {
+//            @JoinColumn(name = "attachment_id")})
+    @ManyToMany(mappedBy = "emailCollection")
     private Collection<Attachment> attachmentCollection;
 
     public Email() {

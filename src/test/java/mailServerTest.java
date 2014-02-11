@@ -1,5 +1,5 @@
 import com.engagepoint.university.messaging.dao.condao.EmailDAO;
-import com.engagepoint.university.messaging.dao.condao.implementation.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.condao.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dao.serverdao.impl.EmailServerImpl;
 import com.engagepoint.university.messaging.entities.Email;
 import com.icegreen.greenmail.user.GreenMailUser;

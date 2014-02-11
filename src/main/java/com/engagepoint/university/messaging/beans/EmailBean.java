@@ -16,10 +16,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Alexey on 2/10/14.
- */
-
 @Named
 @ViewScoped
 public class EmailBean implements Serializable {

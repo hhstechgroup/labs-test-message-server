@@ -1,11 +1,8 @@
 package com.engagepoint.university.messaging.dto;
 
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
-/**
- * Created by Alexey on 2/9/14.
- */
-public class UserDTO extends Base {
+public class UserDTO{
 
     private Integer id;
     private String name;

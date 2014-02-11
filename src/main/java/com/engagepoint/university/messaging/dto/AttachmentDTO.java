@@ -1,18 +1,15 @@
 package com.engagepoint.university.messaging.dto;
 
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import java.util.Arrays;
 
-/**
- * Created by Alexey on 2/9/14.
- */
-public class AttachmentDTO extends Base {
+public class AttachmentDTO{
 
     private Integer id;
     private String mimeType;
     private String name;
-    private byte[] content;
+    private String content;
 
     public Integer getId() {
         return id;
@@ -38,11 +35,11 @@ public class AttachmentDTO extends Base {
         this.name = name;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -53,7 +50,7 @@ public class AttachmentDTO extends Base {
 
         AttachmentDTO that = (AttachmentDTO) o;
 
-        if (!Arrays.equals(content, that.content)) return false;
+        if (content.equals(that.content)) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (!mimeType.equals(that.mimeType)) return false;
         if (!name.equals(that.name)) return false;
@@ -64,9 +61,9 @@ public class AttachmentDTO extends Base {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + mimeType.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + (content != null ? Arrays.hashCode(content) : 0);
+        result = 31 * result + (mimeType != null ? mimeType.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
 
@@ -76,7 +73,7 @@ public class AttachmentDTO extends Base {
                 "id=" + id +
                 ", mimeType='" + mimeType + '\'' +
                 ", name='" + name + '\'' +
-                ", content=" + Arrays.toString(content) +
+                ", content=" + content +
                 '}';
     }
 }

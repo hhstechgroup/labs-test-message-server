@@ -1,10 +1,6 @@
-package com.engagepoint.university.messaging.entities.baseentity;
+package com.engagepoint.university.messaging.entities.base;
 
 import javax.persistence.MappedSuperclass;
-
-/**
- * Created by Alexey on 2/9/14.
- */
 
 @MappedSuperclass
 public class Base {

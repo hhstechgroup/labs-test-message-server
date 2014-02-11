@@ -1,18 +1,33 @@
 package com.engagepoint.university.messaging.dto;
 
-import com.engagepoint.university.messaging.entities.baseentity.Base;
+import com.engagepoint.university.messaging.entities.base.Base;
 
 import java.util.Date;
 
-/**
- * Created by Alexey on 2/9/14.
- */
-public class SmsDTO extends Base {
+public class SmsDTO{
 
+    private int id;
     private String sender;
     private String body;
     private Date sendDate;
     private Date deliveryDate;
+
+    public SmsDTO(String sender, String body, Date sendDate, Date deliveryDate) {
+        this.sender = sender;
+        this.body = body;
+        this.sendDate = sendDate;
+        this.deliveryDate = deliveryDate;
+    }
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getSender() {
         return sender;
