@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 
 @Entity
-@Table(name = "attachment")
 @NamedQueries({
         @NamedQuery(name = Attachment.GET_ALL, query = "SELECT at FROM Attachment at"),
         @NamedQuery(name = Attachment.GET_ALL_BY_ATTACHMENT_ID, query = "SELECT at FROM Attachment at WHERE at.idAttachment = :idAttachment"),
