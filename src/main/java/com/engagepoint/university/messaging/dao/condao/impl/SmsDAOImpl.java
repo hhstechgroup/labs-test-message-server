@@ -4,6 +4,8 @@ import com.engagepoint.university.messaging.dao.condao.SmsDAO;
 import com.engagepoint.university.messaging.dao.generic.impl.GenericDAOImpl;
 import com.engagepoint.university.messaging.entities.Sms;
 import com.engagepoint.university.messaging.util.EntityManagerUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RequestScoped
 public class SmsDAOImpl extends GenericDAOImpl<Sms> implements SmsDAO {
+    private static final Logger LOG = LoggerFactory.getLogger(SmsDAOImpl.class);
 
     public SmsDAOImpl() {
         super(Sms.class);

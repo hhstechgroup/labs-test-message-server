@@ -4,11 +4,14 @@ import com.engagepoint.university.messaging.dao.generic.GenericDAO;
 import com.engagepoint.university.messaging.entities.base.Base;
 import com.engagepoint.university.messaging.util.EntityManagerUtil;
 import org.hibernate.Criteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 public abstract class GenericDAOImpl<EntityType extends Base> implements GenericDAO<EntityType> {
+    private static final Logger LOG = LoggerFactory.getLogger(GenericDAOImpl.class);
 
     private Class<EntityType> entityClass;
 

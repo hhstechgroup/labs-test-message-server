@@ -6,6 +6,8 @@ import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.entities.Sms;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,6 +18,7 @@ import java.util.Date;
 @Named
 @ApplicationScoped
 public class InitBean implements Serializable {
+    private static final Logger LOG = LoggerFactory.getLogger(InitBean.class);
 
     @Inject
     private EmailDAO emailDAO;

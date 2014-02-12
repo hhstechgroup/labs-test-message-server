@@ -1,6 +1,8 @@
 package com.engagepoint.university.messaging.beans;
 
 import com.engagepoint.university.messaging.dao.condao.AttachmentDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Named
 public class AttachmentBean {
+    private static final Logger LOG = LoggerFactory.getLogger(AttachmentBean.class);
+
     @Inject
     private AttachmentDAO attachmentDAO;
 

@@ -3,6 +3,8 @@ import com.engagepoint.university.messaging.dao.condao.AttachmentDAO;
 import com.engagepoint.university.messaging.dao.generic.impl.GenericDAOImpl;
 import com.engagepoint.university.messaging.entities.Attachment;
 import com.engagepoint.university.messaging.util.EntityManagerUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RequestScoped
 public class AttachmentsDAOImpl extends GenericDAOImpl<Attachment> implements AttachmentDAO {
+    private static final Logger LOG = LoggerFactory.getLogger(AttachmentsDAOImpl.class);
 
     public AttachmentsDAOImpl() {
         super(Attachment.class);

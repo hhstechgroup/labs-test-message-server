@@ -5,6 +5,8 @@ import com.engagepoint.university.messaging.dao.condao.SmsDAO;
 import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.entities.Sms;
 import org.primefaces.model.SortMeta;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import java.util.List;
 @Named
 @ViewScoped
 public class SmsBean implements Serializable{
+    private static final Logger LOG = LoggerFactory.getLogger(SmsBean.class);
 
     @Inject
     private SmsDAO smsDAO;
