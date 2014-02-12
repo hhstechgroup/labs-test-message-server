@@ -36,10 +36,10 @@ public class EmailBean implements Serializable {
 
     public List<Email> getEmailList(){
         LOG.info("Get email list");
-        if (emailList ==null)
-                return emailDAO.getAll();
 
-        return emailList;
+                return emailDAO.getEmailsSortByDeliverDate();
+
+
     }
 
 

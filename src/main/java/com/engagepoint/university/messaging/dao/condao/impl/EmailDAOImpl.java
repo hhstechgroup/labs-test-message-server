@@ -39,4 +39,14 @@ public class EmailDAOImpl extends GenericDAOImpl<Email> implements EmailDAO {
         return emails;
     }
 
+    @Override
+    public List<Email> getEmailsSortByDeliverDate(){
+        getEntityManager().getTransaction().begin();
+        List<Email> emails = getEntityManager()
+                .createNamedQuery(Email.GET_ALL_SORT_BY_DELIVERY_DATE, Email.class)
+                .getResultList();
+        getEntityManager().getTransaction().commit();
+        return emails;
+    }
+
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface EmailDAO extends GenericDAO<Email> {
     public List<Email> getEmailsBySender(String sender);
     public List<Email> getEmailsBySubject(String subject);
+    public List<Email> getEmailsSortByDeliverDate();
 }
