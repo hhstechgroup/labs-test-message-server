@@ -70,9 +70,17 @@
                         <h:outputText value="#{email.body}"/>
                     </p:column>
 
-                    <!--<p:column headerText="attachments">
-                        <h:outputText value="#{email.attachments}"/>
-                    </p:column>-->
+                    <p:column headerText="attachments">
+                        <p:commandButton id="downloadLink" value="Download" ajax="false">
+                            <p:fileDownload value="#{attachmentBean.downloadAttachment(email.idEmail)}" />
+                        </p:commandButton>
+
+                        <!--TODO: don't work link-->
+                        <!--<p:commandLink value="Download" ajax="false">-->
+                            <!--<p:fileDownload value="#{attachmentBean.downloadAttachment(email.idEmail)}" />-->
+                        <!--</p:commandLink>-->
+
+                    </p:column>
 
                 </p:dataTable>
                 <p:commandButton value="Generate Message" update="EmailTable"

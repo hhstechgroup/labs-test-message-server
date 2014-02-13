@@ -1,44 +1,55 @@
 package com.engagepoint.university.messaging.beans;
 
 import com.engagepoint.university.messaging.dao.condao.AttachmentDAO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.engagepoint.university.messaging.dao.condao.EmailDAO;
+import com.engagepoint.university.messaging.entities.Attachment;
+import com.engagepoint.university.messaging.entities.Email;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BASE64DecoderStream;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import javax.servlet.ServletContext;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 @Named
 public class AttachmentBean {
-    private static final Logger LOG = LoggerFactory.getLogger(AttachmentBean.class);
 
     @Inject
     private AttachmentDAO attachmentDAO;
 
-    public List<ObjectOutputStream> getAttachments(int id){
-        String lol = "lol";
+    @Inject
+    private EmailDAO emailDAO;
+
+    //TODO: how save and receive attachment???  Maybe List<InputStream> or List<File> or Name, Type, Content ???
+    public void saveAttachments(List<Attachment> attachments){
+
+    }
+
+    //TODO: Create query,that receive idAttachmnet for idEmail !!!!!
+    public List<Attachment> downloadAttachments(int emailId){
+        Email email = emailDAO.getById(emailId);
+        return (List<Attachment>) email.getAttachmentCollection();
+    }
+
+    public  StreamedContent downloadAttachment(int id){
+
+        String lol = "attachment #" + id;
         BASE64Encoder encoder = new BASE64Encoder();
-        String code = encoder.encode(lol.getBytes());
+        String s = encoder.encode(lol.getBytes());
+
         BASE64Decoder decoder = new BASE64Decoder();
-        byte[] result;
-        ObjectOutputStream os = null;
         try {
-             result = decoder.decodeBuffer(code);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            os =  new ObjectOutputStream(baos);
-            os.write(result);
+            return new DefaultStreamedContent(new ByteArrayInputStream(decoder.decodeBuffer(s)), "application/force-download", "attachment_№" + id + ".txt");
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
-
-
-        return Arrays.asList(os);
     }
 }
