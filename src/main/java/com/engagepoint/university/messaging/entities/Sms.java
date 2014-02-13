@@ -1,5 +1,26 @@
 package com.engagepoint.university.messaging.entities;
 
+/*
+ * #%L
+ * labs-test-message-server
+ * %%
+ * Copyright (C) 2012 - 2014 Cloudhopper by Twitter
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.entities.base.Base;
 
@@ -48,6 +69,11 @@ public class Sms extends Base implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    private String recipient;  //Viktor - add
+
     @JoinTable(name = "mapped_user_sms", joinColumns = {
             @JoinColumn(name = "Sms_id_sms", referencedColumnName = "idsms")}, inverseJoinColumns = {
             @JoinColumn(name = "User_id_user", referencedColumnName = "iduser")})
@@ -61,6 +87,14 @@ public class Sms extends Base implements Serializable {
         this.sender = smsDTO.getSender();
         this.sendDate = smsDTO.getSendDate();
         this.deliveryDate = smsDTO.getDeliveryDate();
+    }
+
+    public String getRecipient() {     //Viktor - add
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) { //Viktor - add
+        this.recipient = recipient;
     }
 
     public Integer getIdSms() {

@@ -1,6 +1,30 @@
 package com.engagepoint.university.messaging.dto;
 
+/*
+ * #%L
+ * labs-test-message-server
+ * %%
+ * Copyright (C) 2012 - 2014 Cloudhopper by Twitter
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
+import com.engagepoint.university.messaging.dao.condao.impl.SmsDAOImpl;
+import com.engagepoint.university.messaging.entities.Sms;
 import com.engagepoint.university.messaging.entities.base.Base;
+
 
 import java.util.Date;
 
@@ -11,7 +35,13 @@ public class SmsDTO{
     private String body;
     private Date sendDate;
     private Date deliveryDate;
+    private String recipient;  //Viktor - add constructor and recipient(get/set)
 
+    private SmsDAOImpl smsDAOImpl = new SmsDAOImpl();
+
+    public SmsDTO(){
+
+    }
     public SmsDTO(String sender, String body, Date sendDate, Date deliveryDate) {
         this.sender = sender;
         this.body = body;
@@ -19,7 +49,29 @@ public class SmsDTO{
         this.deliveryDate = deliveryDate;
     }
 
+    public void saveSms(Sms sms){      //Viktor - add
+        smsDAOImpl.save(sms);
+    }
+    public void saveSmsDTO(SmsDTO smsDTO){    //Viktor - add
+             // from DTO to SMS
+          Sms sms = new Sms();
+        sms.setSender(smsDTO.getSender());
+        sms.setBody(smsDTO.getBody());
+        sms.setRecipient(smsDTO.getRecipient());
+        sms.setDeliveryDate(smsDTO.getDeliveryDate());
+        sms.setSendDate(smsDTO.getSendDate());
 
+        saveSms(sms);
+
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
 
     public int getId() {
         return id;
