@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.beans;
+package com.engagepoint.university.messaging.services;
 
 /*
  * #%L
@@ -25,8 +25,6 @@ import com.engagepoint.university.messaging.smpp.ServerMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -42,8 +40,8 @@ import javax.inject.Singleton;
 @Named
 /*@ApplicationScoped*/
 @Singleton
-public class SmsServerBean {
-    private static final Logger logger = LoggerFactory.getLogger(SmsServerBean.class);
+public class SmsServerService {
+    private static final Logger logger = LoggerFactory.getLogger(SmsServerService.class);
 
     @Inject
     private ServerMain serverMain;

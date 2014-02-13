@@ -186,8 +186,8 @@ public class ServerMain {
             smsDTO.setSender(req.getSourceAddress().getAddress());
             smsDTO.setDeliveryDate(new Date());
             smsDTO.setSendDate(new Date());
-            smsDTO.setRecipient(req.getDestAddress().getAddress());
-     /*1 */     smsDTO.saveSmsDTO(smsDTO);
+            //smsDTO.setRecipient(req.getDestAddress().getAddress());
+     /*1 */     //smsDTO.saveSmsDTO(smsDTO);
 
     /*2*/     //  smsDTO.saveSms(sms);
 

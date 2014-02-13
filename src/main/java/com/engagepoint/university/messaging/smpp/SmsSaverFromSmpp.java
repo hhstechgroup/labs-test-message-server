@@ -24,10 +24,13 @@ package com.engagepoint.university.messaging.smpp;
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 
+import com.engagepoint.university.messaging.dao.condao.SmsDAO;
 import com.engagepoint.university.messaging.dao.condao.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.entities.Sms;
 
+import javax.inject.Inject;
 import java.util.Date;
 
 
@@ -39,6 +42,10 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class SmsSaverFromSmpp {
+
+    @Inject
+    private SmsDAO smsDAO;
+
     public void saveSms(SubmitSm submitSm){
 
         System.out.println(" *** Try to save SMS *** " + submitSm.getResponseClass());
@@ -57,17 +64,17 @@ public class SmsSaverFromSmpp {
         sms.setSender(submitSm.getSourceAddress().getAddress());
         sms.setSendDate(new Date());
         sms.setDeliveryDate(new Date());
-        sms.setRecipient(submitSm.getDestAddress().getAddress());
+        //sms.setRecipient(submitSm.getDestAddress().getAddress());
         //smsDTO сохранить получателя
         SmsDTO smsDTO = new SmsDTO();
         smsDTO.setBody(str);
         smsDTO.setSender(submitSm.getSourceAddress().getAddress());
         smsDTO.setDeliveryDate(new Date());
         smsDTO.setSendDate(new Date());
-        smsDTO.setRecipient(submitSm.getDestAddress().getAddress());
-        smsDTO.saveSmsDTO(smsDTO);
-
-        smsDTO.saveSms(sms);
+        //smsDTO.setRecipient(submitSm.getDestAddress().getAddress());
+        //smsDTO.saveSmsDTO(smsDTO);
+        smsDAO.save(new Sms(smsDTO));
+        //smsDTO.saveSms(sms);
 
        /* SmsDAOImpl smsDAOImpl = new SmsDAOImpl();
         smsDAOImpl.                     //generik only sms or email

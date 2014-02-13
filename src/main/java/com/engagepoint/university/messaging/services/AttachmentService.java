@@ -1,25 +1,21 @@
-package com.engagepoint.university.messaging.beans;
+package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.condao.AttachmentDAO;
 import com.engagepoint.university.messaging.dao.condao.EmailDAO;
 import com.engagepoint.university.messaging.entities.Attachment;
 import com.engagepoint.university.messaging.entities.Email;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BASE64DecoderStream;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import java.io.*;
-import java.util.Arrays;
 import java.util.List;
 
 @Named
-public class AttachmentBean {
+public class AttachmentService {
 
     @Inject
     private AttachmentDAO attachmentDAO;
