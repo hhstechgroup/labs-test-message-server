@@ -7,7 +7,6 @@ import java.util.Arrays;
 public class AttachmentDTO{
 
     private Integer id;
-    private String mimeType;
     private String name;
     private String content;
 
@@ -19,13 +18,13 @@ public class AttachmentDTO{
         this.id = id;
     }
 
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
-    }
+//    public String getMimeType() {
+//        return mimeType;
+//    }
+//
+//    public void setMimeType(String mimeType) {
+//        this.mimeType = mimeType;
+//    }
 
     public String getName() {
         return name;
@@ -52,7 +51,7 @@ public class AttachmentDTO{
 
         if (content.equals(that.content)) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (!mimeType.equals(that.mimeType)) return false;
+//        if (!mimeType.equals(that.mimeType)) return false;
         if (!name.equals(that.name)) return false;
 
         return true;
@@ -61,7 +60,7 @@ public class AttachmentDTO{
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (mimeType != null ? mimeType.hashCode() : 0);
+//        result = 31 * result + (mimeType != null ? mimeType.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
@@ -71,7 +70,7 @@ public class AttachmentDTO{
     public String toString() {
         return "AttachmentDTO{" +
                 "id=" + id +
-                ", mimeType='" + mimeType + '\'' +
+//                ", mimeType='" + mimeType + '\'' +
                 ", name='" + name + '\'' +
                 ", content=" + content +
                 '}';

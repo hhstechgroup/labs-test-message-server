@@ -33,14 +33,6 @@ import com.engagepoint.university.messaging.entities.Sms;
 import javax.inject.Inject;
 import java.util.Date;
 
-
-/**
- * Created with IntelliJ IDEA.
- * User: User
- * Date: 11.02.14
- * Time: 10:33
- * To change this template use File | Settings | File Templates.
- */
 public class SmsSaverFromSmpp {
 
     @Inject

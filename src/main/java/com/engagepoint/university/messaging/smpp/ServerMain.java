@@ -43,10 +43,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- *
- * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
- */
 @Singleton
 public class ServerMain {
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);

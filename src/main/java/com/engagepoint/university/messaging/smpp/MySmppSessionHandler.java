@@ -30,13 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.cloudhopper.commons.charset.CharsetUtil;
 
 
-/**
- * Created with IntelliJ IDEA.
- * User: User
- * Date: 09.02.14
- * Time: 15:29
- * To change this template use File | Settings | File Templates.
- */
 public class MySmppSessionHandler extends DefaultSmppSessionHandler {
     public static Logger log = LoggerFactory.getLogger(MySmppSessionHandler.class);
  //добавили-------------
