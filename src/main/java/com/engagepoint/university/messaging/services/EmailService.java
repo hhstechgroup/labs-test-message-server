@@ -2,7 +2,6 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.condao.EmailDAO;
 import com.engagepoint.university.messaging.entities.Email;
-import com.engagepoint.university.messaging.smtp.SMTPEmailServer;
 import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
@@ -16,19 +15,19 @@ import java.util.List;
 @ViewScoped
 public class EmailService implements Serializable,Runnable {
 
-    private SMTPEmailServer emailServer;
     private SMTPMessageHandlerFactory emailFactory;
-//    InetAddress addr = InetAddress.getByName("127.0.0.1");
 
     public EmailService() {
         Thread thread = new Thread();
         thread.start();
-//        emailServer = new SMTPEmailServer();
-//        emailFactory = new SMTPMessageHandlerFactory();
-//        emailServer.setMailserver(emailFactory);
-//        emailServer.getServer().setHostName("127.0.0.1");
-//        emailServer.setPort(24000);
-//        emailServer.getServer().start();
+    }
+
+    @Override
+    public void run() {
+        emailFactory = new SMTPMessageHandlerFactory();
+        SMTPServer server = new SMTPServer(emailFactory);
+        server.setPort(25000);
+        server.start();
     }
 
     @Inject
@@ -59,14 +58,5 @@ public class EmailService implements Serializable,Runnable {
     public List<Email> getEmailList2(){
 
         return initService.getEmailDTOList();
-    }
-
-
-    @Override
-    public void run() {
-        SMTPMessageHandlerFactory factory = new SMTPMessageHandlerFactory();
-        SMTPServer server = new SMTPServer(factory);
-        server.setPort(10001);
-        server.start();
     }
 }
