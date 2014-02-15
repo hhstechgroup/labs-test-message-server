@@ -24,10 +24,9 @@ package com.engagepoint.university.messaging.smpp;
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 
-import com.engagepoint.university.messaging.dao.condao.SmsDAO;
-import com.engagepoint.university.messaging.dao.condao.impl.SmsDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.SmsDAO;
+import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.entities.Sms;
 
 import javax.inject.Inject;
@@ -36,7 +35,7 @@ import java.util.Date;
 public class SmsSaverFromSmpp {
 
     @Inject
-    private SmsDAO smsDAO;
+    private SmsDAOImpl smsDAO;
 
     public void saveSms(SubmitSm submitSm){
 
@@ -65,7 +64,7 @@ public class SmsSaverFromSmpp {
         smsDTO.setSendDate(new Date());
         //smsDTO.setRecipient(submitSm.getDestAddress().getAddress());
         //smsDTO.saveSmsDTO(smsDTO);
-        smsDAO.save(new Sms(smsDTO));
+        smsDAO.save(smsDTO);
         //smsDTO.saveSms(sms);
 
        /* SmsDAOImpl smsDAOImpl = new SmsDAOImpl();

@@ -1,8 +1,7 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.dao.condao.EmailDAO;
+import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,31 +18,31 @@ public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
     @Inject
-    private EmailDAO emailDAO;
+    private EmailDAOImpl emailDAO;
 
     @Inject
     private InitService initService;
 
-    private List<Email> emailList;
+    private List<EmailDTO> emailList;
 
-    private List<Email> emailList2;
+    private List<EmailDTO> emailList2;
 
-    public void setEmailList(List<Email> emails) {
+    public void setEmailList(List<EmailDTO> emails) {
 
         this.emailList = emails;
     }
 
-    public List<Email> getEmailList(){
+    public List<EmailDTO> getEmailList(){
 
         return emailDAO.getEmailsSortByDeliverDate();
     }
 
-    public void setEmailList2(List<Email> emails) {
+    public void setEmailList2(List<EmailDTO> emails) {
 
         this.emailList = emails;
     }
 
-    public List<Email> getEmailList2(){
+    public List<EmailDTO> getEmailList2(){
 
         return initService.getEmailDTOList();
     }

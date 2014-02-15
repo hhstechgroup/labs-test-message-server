@@ -1,6 +1,7 @@
-import com.engagepoint.university.messaging.dao.condao.EmailDAO;
-import com.engagepoint.university.messaging.dao.condao.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.serverdao.impl.EmailServerImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entities.Email;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
@@ -114,7 +115,7 @@ public class mailServerTest {
         assertNotNull(messages[0].getSubject());
         assertEquals(EMAIL_SUBJECT, messages[0].getSubject());
         assertNotNull(messages[0].getContent().toString());
-        Email email = new Email();
+        EmailDTO email = new EmailDTO();
         email.setSender(messages[0].getFrom()[0].toString());
         email.setSubject(messages[0].getSubject());
         email.setBody(messages[0].getContent().toString());

@@ -1,11 +1,9 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.dao.condao.EmailDAO;
-import com.engagepoint.university.messaging.dao.condao.SmsDAO;
+import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.entities.Email;
-import com.engagepoint.university.messaging.entities.Sms;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,34 +23,34 @@ public class InitService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
 
     @Inject
-    private EmailDAO emailDAO;
+    private EmailDAOImpl emailDAO;
 
     @Inject
-    private SmsDAO smsDAO;
+    private SmsDAOImpl smsDAO;
 
-    private List<Email> emailDTOList;
-    private List<Sms> smsDTOList;
+    private List<EmailDTO> emailDTOList;
+    private List<SmsDTO> smsDTOList;
 
-    public List<Email> getEmailDTOList() {
+    public List<EmailDTO> getEmailDTOList() {
         return emailDTOList;
     }
 
-    public void setEmailDTOList(List<Email> emailDTOList) {
+    public void setEmailDTOList(List<EmailDTO> emailDTOList) {
         this.emailDTOList = emailDTOList;
     }
 
-    public List<Sms> getSmsDTOList() {
+    public List<SmsDTO> getSmsDTOList() {
         return smsDTOList;
     }
 
-    public void setSmsDTOList(List<Sms> smsDTOList) {
+    public void setSmsDTOList(List<SmsDTO> smsDTOList) {
         this.smsDTOList = smsDTOList;
     }
 
     @PostConstruct
     void init(){
-        emailDTOList = new ArrayList<Email>();
-        smsDTOList = new ArrayList<Sms>();
+        emailDTOList = new ArrayList<EmailDTO>();
+        smsDTOList = new ArrayList<SmsDTO>();
     }
 
     public void addEmail() {
@@ -64,7 +61,7 @@ public class InitService implements Serializable {
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        emailDAO.save(new Email(emailDTO1));
+        emailDAO.save(emailDTO1);
         //emailDTOList.add(new Email(emailDTO1));
 
         EmailDTO emailDTO2 = new EmailDTO();
@@ -74,7 +71,7 @@ public class InitService implements Serializable {
         emailDTO2.setSendDate(new Date());
         emailDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO2.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        emailDAO.save(new Email(emailDTO2));
+        emailDAO.save(emailDTO2);
         //emailDTOList.add(new Email(emailDTO2));
 
         EmailDTO emailDTO3 = new EmailDTO();
@@ -84,7 +81,7 @@ public class InitService implements Serializable {
         emailDTO3.setSendDate(new Date());
         emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO3.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        emailDAO.save(new Email(emailDTO3));
+        emailDAO.save(emailDTO3);
         //emailDTOList.add(new Email(emailDTO3));
         emailDTOList = emailDAO.getEmailsSortByDeliverDate();
     }
@@ -96,7 +93,7 @@ public class InitService implements Serializable {
         smsDTO1.setSendDate(new Date());
         smsDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(new Sms(smsDTO1));
+        smsDAO.save(smsDTO1);
 
         SmsDTO smsDTO2 = new SmsDTO();
         smsDTO2.setSender("author 2");
@@ -104,7 +101,7 @@ public class InitService implements Serializable {
         smsDTO2.setSendDate(new Date());
         smsDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(new Sms(smsDTO2));
+        smsDAO.save(smsDTO2);
 
         SmsDTO smsDTO3 = new SmsDTO();
         smsDTO3.setSender("author 3");
@@ -112,7 +109,7 @@ public class InitService implements Serializable {
         smsDTO3.setSendDate(new Date());
         smsDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(new Sms(smsDTO3));
+        smsDAO.save(smsDTO3);
 
         smsDTOList = smsDAO.getAll();
     }

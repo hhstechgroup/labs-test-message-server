@@ -1,10 +1,8 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.dao.condao.AttachmentDAO;
-import com.engagepoint.university.messaging.dao.condao.EmailDAO;
+import com.engagepoint.university.messaging.dao.specific.impl.AttachmentDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
-import com.engagepoint.university.messaging.entities.Attachment;
-import com.engagepoint.university.messaging.entities.Email;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import sun.misc.BASE64Decoder;
@@ -13,17 +11,15 @@ import sun.misc.BASE64Encoder;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.*;
-import java.util.List;
-import java.util.Set;
 
 @Named
 public class AttachmentService {
 
     @Inject
-    private AttachmentDAO attachmentDAO;
+    private AttachmentDAOImpl attachmentDAO;
 
     @Inject
-    private EmailDAO emailDAO;
+    private EmailDAOImpl emailDAO;
 
     private BASE64Decoder decoder;
 
@@ -42,17 +38,15 @@ public class AttachmentService {
 
         //TODO: Create via attachmentDTO, delete Entity
 //        attachmentDAO.save(attachmentDTO);
-
-        Attachment attachment = new Attachment(attachmentDTO);
-        attachmentDAO.save(attachment);
+        attachmentDAO.save(attachmentDTO);
 
     }
 
     //TODO: Create query,that receive idAttachmnet for idEmail !!!!!
-    public List<Attachment> downloadAttachments(int emailId){
-        Email email = emailDAO.getById(emailId);
-        return (List<Attachment>) email.getAttachmentCollection();
-    }
+//    public List<Attachment> downloadAttachments(int emailId){
+//        EmailDTO email = emailDAO.getById(emailId);
+//        return (List<Attachment>) email.getAttachmentCollection();
+//    }
 
     public  StreamedContent downloadAttachment(int id){
 

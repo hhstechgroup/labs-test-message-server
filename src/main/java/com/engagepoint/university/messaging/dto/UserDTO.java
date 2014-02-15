@@ -1,21 +1,13 @@
 package com.engagepoint.university.messaging.dto;
 
-import com.engagepoint.university.messaging.entities.base.Base;
+import com.engagepoint.university.messaging.dto.base.BaseDTO;
 
-public class UserDTO{
+public class UserDTO extends BaseDTO {
 
-    private Integer id;
     private String name;
     private String email;
     private String phoneNumber;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private String password;
 
     public String getName() {
         return name;
@@ -41,37 +33,22 @@ public class UserDTO{
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserDTO userDTO = (UserDTO) o;
-
-        if (email != null ? !email.equals(userDTO.email) : userDTO.email != null) return false;
-        if (!id.equals(userDTO.id)) return false;
-        if (!name.equals(userDTO.name)) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(userDTO.phoneNumber) : userDTO.phoneNumber != null) return false;
-
-        return true;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        return result;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "UserDTO{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

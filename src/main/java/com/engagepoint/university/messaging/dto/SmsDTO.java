@@ -1,25 +1,15 @@
 package com.engagepoint.university.messaging.dto;
 
+import com.engagepoint.university.messaging.dto.base.BaseDTO;
+
 import java.util.Date;
 
-public class SmsDTO{
+public class SmsDTO extends BaseDTO {
 
-    private int id;
     private String sender;
     private String body;
     private Date sendDate;
     private Date deliveryDate;
-
-    public SmsDTO(){
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getSender() {
         return sender;
@@ -54,33 +44,10 @@ public class SmsDTO{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SmsDTO smsDTO = (SmsDTO) o;
-
-        if (body != null ? !body.equals(smsDTO.body) : smsDTO.body != null) return false;
-        if (!deliveryDate.equals(smsDTO.deliveryDate)) return false;
-        if (!sendDate.equals(smsDTO.sendDate)) return false;
-        if (sender != null ? !sender.equals(smsDTO.sender) : smsDTO.sender != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = sender != null ? sender.hashCode() : 0;
-        result = 31 * result + (body != null ? body.hashCode() : 0);
-        result = 31 * result + sendDate.hashCode();
-        result = 31 * result + deliveryDate.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "SmsDTO{" +
-                "sender='" + sender + '\'' +
+                "id=" + this.getId() +
+                ", sender='" + sender + '\'' +
                 ", body='" + body + '\'' +
                 ", sendDate=" + sendDate +
                 ", deliveryDate=" + deliveryDate +

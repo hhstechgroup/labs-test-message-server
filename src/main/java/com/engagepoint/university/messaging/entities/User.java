@@ -1,94 +1,77 @@
 package com.engagepoint.university.messaging.entities;
 
-import com.engagepoint.university.messaging.dto.UserDTO;
-import com.engagepoint.university.messaging.entities.base.Base;
-
+import com.engagepoint.university.messaging.entities.base.BaseEntity;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
-
 @Entity
 @NamedQueries({
-        @NamedQuery(name = User.GET_ALL_BY_USER_ID, query = "SELECT us FROM User us WHERE us.idUser = :idUser"),
+        @NamedQuery(name = User.GET_ALL_USERS, query = "SELECT us FROM User us"),
+        @NamedQuery(name = User.GET_ALL_BY_USER_ID, query = "SELECT us FROM User us WHERE us.id = :idUser"),
         @NamedQuery(name = User.GET_ALL_BY_USER_NAME, query = "SELECT us FROM User us WHERE us.name = :name"),
         @NamedQuery(name = User.GET_ALL_BY_USER_EMAIL, query = "SELECT us FROM User us WHERE us.email = :email"),
         @NamedQuery(name = User.GET_ALL_BY_USER_PHONE_NUMBER, query = "SELECT us FROM User us WHERE us.phoneNumber = :phoneNumber")})
 
-public class User extends Base implements Serializable {
+public class User implements Serializable, BaseEntity {
 
-    private static final long serialVersionUID = 1345678798781231239L;
+    private static final long serialVersionUID = 765348739781231295L;
+    public static final String GET_ALL_USERS = "User.findAll";
     public static final String GET_ALL_BY_USER_ID = "User.findByIdUser";
     public static final String GET_ALL_BY_USER_NAME = "User.findByName";
     public static final String GET_ALL_BY_USER_EMAIL = "User.findByEmail";
     public static final String GET_ALL_BY_USER_PHONE_NUMBER = "User.findByPhoneNumber";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUser;
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
-
-    @Basic(optional = false)
-    @Size(min = 1, max = 45)
     private String email;
-
-    @Basic(optional = false)
-    @Size(min = 1, max = 45)
     private String phoneNumber;
-
     private String password;
-
     @ManyToMany(mappedBy = "userCollection")
     private Collection<Email> emailCollection;
-
     @ManyToMany(mappedBy = "userCollection")
     private Collection<Sms> smsCollection;
 
-    public User() {
+    public Long getId() {
+        return id;
     }
 
-    public User(UserDTO newUser) {
-        this.name = newUser.getName();
-        this.email = newUser.getEmail();
-        this.phoneNumber = newUser.getPhoneNumber();
-    }
-
-    public Integer getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Collection<Email> getEmailCollection() {
@@ -106,38 +89,4 @@ public class User extends Base implements Serializable {
     public void setSmsCollection(Collection<Sms> smsCollection) {
         this.smsCollection = smsCollection;
     }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idUser != null ? idUser.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.User[ idUser=" + idUser + " ]";
-    }
-
 }

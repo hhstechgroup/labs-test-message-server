@@ -1,12 +1,19 @@
-import com.engagepoint.university.messaging.dao.condao.EmailDAO;
-import com.engagepoint.university.messaging.dao.condao.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.AttachmentDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.impl.UserDAOImpl;
+import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.Email;
+import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.dto.UserDTO;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -15,29 +22,84 @@ import static org.junit.Assert.assertEquals;
 public class EmailDAOTest {
     private static final Logger LOG = LoggerFactory.getLogger(EmailDAOTest.class);
 
-    EmailDAO emailDAO;
+    @Inject
+    AttachmentDAOImpl attachmentDAOImpl;
+    @Inject
+    EmailDAOImpl emailDAOImpl;
+    @Inject
+    SmsDAOImpl smsDAOImpl;
+    @Inject
+    UserDAOImpl userDAOImpl;
 
     @Before
     public void setUp() {
-        emailDAO = new EmailDAOImpl();
+
     }
 
     @Test
     public void shouldGetAllEmails() {
-        //Given
-        Email email1 = new Email(new EmailDTO("author 1","Hello 1!","Body 1",new Date(),new Date()));
-        LOG.info("new emailObject", email1);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName("engagepoint");
+        userDTO.setEmail("engagepoint@engagepoint.com");
+        userDTO.setPhoneNumber("555-777-000-888");
+        userDTO.setPassword("passphrase");
 
-        emailDAO.save(email1);
-        LOG.info("save emailObject to DB", email1);
+        UserDTO userDTO1 = new UserDTO();
+        userDTO1.setName("engagepoint1");
+        userDTO1.setEmail("engagepoint1@engagepoint.com");
+        userDTO1.setPhoneNumber("111-777-222-888");
+        userDTO1.setPassword("passphrase1");
 
-        emailDAO.save(new Email(new EmailDTO("author 2","Hello 2!","Body 2",new Date(),new Date())));
-        emailDAO.save(new Email(new EmailDTO("author 3","Hello 3!","Body 3",new Date(),new Date())));
+        SmsDTO smsDTO = new SmsDTO();
+        smsDTO.setSender("engagepoint-sender");
+        smsDTO.setBody("engagepoint-body");
+        smsDTO.setSendDate(new Date());
+        smsDTO.setDeliveryDate(new Date());
 
-        // When
-        List<Email> emails = emailDAO.getAll();
+        SmsDTO smsDTO1 = new SmsDTO();
+        smsDTO1.setSender("engagepoint-sender1");
+        smsDTO1.setBody("engagepoint-body1");
+        smsDTO1.setSendDate(new Date());
+        smsDTO1.setDeliveryDate(new Date());
 
-        // Then
-        assertEquals(3, emails.size());
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setSender("engagepoint-sender-email");
+        emailDTO.setSubject("engagepoint-sender-subject");
+        emailDTO.setBody("engagepoint-sender-body");
+        emailDTO.setSendDate(new Date());
+        emailDTO.setDeliveryDate(new Date());
+
+        EmailDTO emailDTO1 = new EmailDTO();
+        emailDTO1.setSender("engagepoint-sender-email1");
+        emailDTO1.setSubject("engagepoint-sender-subject1");
+        emailDTO1.setBody("engagepoint-sender-body1");
+        emailDTO1.setSendDate(new Date());
+        emailDTO1.setDeliveryDate(new Date());
+
+        AttachmentDTO attachmentDTO = new AttachmentDTO();
+        attachmentDTO.setMimeType("engagepoint-sender-MimeType");
+        attachmentDTO.setName("engagepoint-attachment-name");
+        attachmentDTO.setContent("engagepoint-attachment-content");
+
+        AttachmentDTO attachmentDTO1 = new AttachmentDTO();
+        attachmentDTO1.setMimeType("engagepoint-sender-MimeType1");
+        attachmentDTO1.setName("engagepoint-attachment-name1");
+        attachmentDTO1.setContent("engagepoint-attachment-content1");
+
+        userDAOImpl.save(userDTO);
+        userDAOImpl.save(userDTO1);
+        Assert.assertEquals(2, userDAOImpl.getAll().size());
+
+        smsDAOImpl.save(smsDTO);
+        smsDAOImpl.save(smsDTO1);
+        Assert.assertEquals(2, smsDAOImpl.getAll().size());
+
+        emailDAOImpl.save(emailDTO);
+        emailDAOImpl.save(emailDTO1);
+        Assert.assertEquals(2, emailDAOImpl.getAll().size());
+
+        attachmentDAOImpl.save(attachmentDTO);
+        attachmentDAOImpl.save(attachmentDTO1);
+        Assert.assertEquals(2, attachmentDAOImpl.getAll().size());
     }
 }

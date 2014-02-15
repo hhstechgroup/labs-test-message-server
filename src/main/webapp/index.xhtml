@@ -46,8 +46,8 @@
                         Email List
                     </f:facet>
 
-                    <p:column sortBy="#{email.idEmail}" headerText="id" >
-                        <h:outputText value="#{email.idEmail}"/>
+                    <p:column sortBy="#{email.id}" headerText="id" >
+                        <h:outputText value="#{email.id}"/>
                     </p:column>
 
                     <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
@@ -72,9 +72,9 @@
 
                     <p:column headerText="attachments">
                         <p:commandButton id="attachment" value="Download" ajax="false" style="visibility: hidden; width: 0px; height: 0px;">
-                            <p:fileDownload value="#{attachmentService.downloadAttachment(email.idEmail)}" />
+                            <p:fileDownload value="#{attachmentService.downloadAttachment(email.id)}" />
                         </p:commandButton>
-                        <a href="#" onclick="document.getElementById('#{p:component('attachment')}').click();">Name Attachment #{email.idEmail}</a>
+                        <a href="#" onclick="document.getElementById('#{p:component('attachment')}').click();">Name Attachment #{email.id}</a>
                     </p:column>
 
                 </p:dataTable>
@@ -94,8 +94,8 @@
                             Sms List
                         </f:facet>
 
-                        <p:column sortBy="#{sms.idSms}" headerText="id" >
-                            <h:outputText value="#{sms.idSms}"/>
+                        <p:column sortBy="#{sms.id}" headerText="id" >
+                            <h:outputText value="#{sms.id}"/>
                         </p:column>
 
                         <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate">

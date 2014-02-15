@@ -22,15 +22,11 @@ package com.engagepoint.university.messaging.smpp;
 
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.*;
-import com.cloudhopper.smpp.impl.DefaultSmppClient;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.*;
-import com.cloudhopper.smpp.type.Address;
 import com.cloudhopper.smpp.type.SmppProcessingException;
-import com.engagepoint.university.messaging.dao.condao.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.entities.Sms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
