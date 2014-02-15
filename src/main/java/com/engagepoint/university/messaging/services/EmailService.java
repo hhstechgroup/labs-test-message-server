@@ -1,11 +1,13 @@
 package com.engagepoint.university.messaging.services;
 
+import javax.faces.bean.ViewScoped;
+
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.faces.view.ViewScoped;
+import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
+import org.subethamail.smtp.server.SMTPServer;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -13,9 +15,22 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class EmailService implements Serializable {
+public class EmailService implements Serializable, Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
+    private SMTPMessageHandlerFactory emailFactory;
+
+    public EmailService() {
+        Thread thread = new Thread();
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+        emailFactory = new SMTPMessageHandlerFactory();
+        SMTPServer server = new SMTPServer(emailFactory);
+        server.setPort(25000);
+        server.start();
+    }
 
     @Inject
     private EmailDAOImpl emailDAO;
@@ -46,6 +61,4 @@ public class EmailService implements Serializable {
 
         return initService.getEmailDTOList();
     }
-
-
 }
