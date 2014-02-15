@@ -18,7 +18,7 @@ public class EmailService implements Serializable,Runnable {
     private SMTPMessageHandlerFactory emailFactory;
 
     public EmailService() {
-        Thread thread = new Thread();
+        Thread thread = new Thread(this,"SubeThaSMTP");
         thread.start();
     }
 
