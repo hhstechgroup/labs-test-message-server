@@ -30,7 +30,6 @@
     <ui:define name="content">
         <!-- <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="listEmails"/>-->
         <!--<p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsMessages"/>-->
-        <p:commandButton id="smpp" value="Start Sms Server"  actionListener="#{smsServerService.startSmppServer}" /> <!--styleClass="ui-priority-primary"-->
         <h:form>
             <p:tabView id="tabView" dynamic="true">
 
@@ -115,6 +114,10 @@
                             <h:outputText value="#{sms.body}"/>
                         </p:column>
                     </p:dataTable>
+                </p:tab>
+                <p:tab title="Server Management" id="ServerManagement">
+                    <p:commandButton id="smpp" value="Start Sms Server"
+                                     actionListener="#{smsServerService.startSmppServer}"/> <!--styleClass="ui-priority-primary"-->
                 </p:tab>
 
             </p:tabView>
