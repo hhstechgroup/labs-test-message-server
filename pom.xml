@@ -8,24 +8,9 @@
     <packaging>war</packaging>
     <version>0.2-SNAPSHOT</version>
 
-<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <slf4j.version>1.7.6</slf4j.version>
-    <main.java.package>com.cloudhopper.smpp</main.java.package>
-    <ch-commons-util.version>[6.0.0,)</ch-commons-util.version>
-    <ch-commons-charset.version>[3.0.0,)</ch-commons-charset.version>
-    <ch-commons-gsm.version>[3.0.0,)</ch-commons-gsm.version>
-    <netty.version>3.9.0.Final</netty.version>
-    <version>0.1-SNAPSHOT</version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
-
-
-<parent>
-    <groupId>com.cloudhopper</groupId>
-    <artifactId>ch-maven-parent-oss</artifactId>
-    <version>1.4</version>
-</parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
 
@@ -35,6 +20,7 @@
             <artifactId>primefaces</artifactId>
             <version>4.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-web</artifactId>
@@ -48,34 +34,31 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.1.6.Final</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <version>1.0.1.Final</version>
         </dependency>
+
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
             <artifactId>jboss-transaction-api_1.2_spec</artifactId>
             <version>1.0.0.Final</version>
         </dependency>
+
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.3.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>2.0.5</version>
         </dependency>
 
-        <!--Test dependencies-->
-        <!--<dependency>-->
-            <!--<groupId>com.icegreen</groupId>-->
-            <!--<artifactId>greenmail</artifactId>-->
-            <!--<version>1.3</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -100,6 +83,12 @@
             <version>1.0.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>1.3.1b</version>
+        </dependency>
+
         <!--Logger dependencies-->
         <dependency>
             <groupId>log4j</groupId>
@@ -110,138 +99,124 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <version>1.7.6</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-simple</artifactId>-->
-            <!--<version>${slf4j.version}</version>-->
-        <!--</dependency>-->
 
         <dependency>
-            <groupId>com.icegreen</groupId>
-            <artifactId>greenmail</artifactId>
-            <version>1.3.1b</version>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-smpp</artifactId>
+            <version>5.0.0</version>
         </dependency>
 
+        <!--CloudHopper dependencies-->
 
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-util</artifactId>
+            <version>6.0.0</version>
+        </dependency>
 
-    <dependency>
-        <groupId>com.cloudhopper</groupId>
-        <artifactId>ch-smpp</artifactId>
-        <version>5.0.0</version>
-    </dependency>
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-charset</artifactId>
+            <version>3.0.0</version>
+        </dependency>
 
-        <!-- =============================================-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.9.0.Final</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-gsm</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-        <!-- compile scope -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
 
-
-
-    <dependency>
-        <groupId>com.cloudhopper</groupId>
-        <artifactId>ch-commons-util</artifactId>
-        <version>${ch-commons-util.version}</version>
-    </dependency>
-
-
-    <dependency>
-        <groupId>com.cloudhopper</groupId>
-        <artifactId>ch-commons-charset</artifactId>
-        <version>${ch-commons-charset.version}</version>
-    </dependency>
-
-
-    <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty</artifactId>
-        <version>${netty.version}</version>
-    </dependency>
-
-        <!-- provided scope -->
-
-
-        <!-- runtime scope -->
-
-
-        <!-- testing scope -->
-
-
-
-    <dependency>
-        <groupId>com.cloudhopper</groupId>
-        <artifactId>ch-commons-gsm</artifactId>
-        <version>${ch-commons-gsm.version}</version>
-        <scope>provided</scope>
-    </dependency>
-
-
-    <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-core</artifactId>
-        <version>${logback.version}</version>
-        <scope>provided</scope>
-    </dependency>
-
-
-    <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${logback.version}</version>
-        <scope>provided</scope>
-    </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
-    <build>
-        <finalName>labs-test-message-server</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version> 2.8</version>
-            <executions>
-                <execution>
-                    <id>default-deploy</id>
-                    <phase>none</phase>
-                </execution>
-            </executions>
-        </plugin>
-        <!--<plugin>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
-            <version>3.1.1</version>
-            <configuration>
-                <propertyFile>src\main\resources\liquibase.hsql.properties</propertyFile>
-                <changeLogFile>src\main\resources\db-changelog.xml</changeLogFile>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>
-                        process-resources
-                    </phase>
-                    <goals>
-                        <goal>update</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <dependencies>
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>5.1.13</version>
-                </dependency>
-            </dependencies>
-        </plugin>-->
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>main-profile</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <finalName>labs-test-message-server</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>2.3.2</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8</version>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>liquibase-profile</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <configuration>
+                            <propertyFile>src\main\resources\liquibase.hsql.properties</propertyFile>
+                            <changeLogFile>src\main\resources\db-changelog.xml</changeLogFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>
+                                    process-resources
+                                </phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.13</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
