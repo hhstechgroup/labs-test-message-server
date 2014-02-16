@@ -24,64 +24,66 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="template.xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://primefaces.org/ui ">
-  <!--  <p:commandButton value="Start Smpp Server" action="#{serverService.startSmppServer}"/>-->
+    <!--  <p:commandButton value="Start Smpp Server" action="#{serverService.startSmppServer}"/>-->
     <!--=======-->
-
+    <!--<p:commandButton id="smpp" value="Start Sms Server"  actionListener="#{smsServerService.startSmppServer}" /> &lt;!&ndash;styleClass="ui-priority-primary"&ndash;&gt;-->
     <ui:define name="content">
-       <!-- <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="listEmails"/>-->
+        <!-- <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="listEmails"/>-->
         <!--<p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsMessages"/>-->
         <p:commandButton id="smpp" value="Start Sms Server"  actionListener="#{smsServerService.startSmppServer}" /> <!--styleClass="ui-priority-primary"-->
 
         <h:form>
             <p:tabView id="tabView" dynamic="true">
 
-            <p:tab title="Email Messages" id="EmailMessages">
+                <p:tab title="Email Messages" id="EmailMessages">
 
-                <p:dataTable id="EmailTable" var="email" value="#{emailService.emailList}"
-                         paginator="true" rows="10" paginatorAlwaysVisible="false"
-                         paginatorPosition="top"
-                         sortBy="sender" sortOrder="descending"
-                         >
-                    <f:facet name="header">
-                        Email List
-                    </f:facet>
+                    <p:dataTable id="EmailTable" var="email" value="#{emailService.emailList}"
+                                 paginator="true" rows="10" paginatorAlwaysVisible="false"
+                                 paginatorPosition="top"
+                                 sortBy="sender" sortOrder="descending"
+                            >
+                        <f:facet name="header">
+                            Email List
+                        </f:facet>
 
-                    <p:column sortBy="#{email.id}" headerText="id" >
-                        <h:outputText value="#{email.id}"/>
-                    </p:column>
+                        <p:column sortBy="#{email.id}" headerText="id">
+                            <h:outputText value="#{email.id}"/>
+                        </p:column>
 
-                    <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
-                        <h:outputText value="#{email.deliveryDate}"/>
-                    </p:column>
+                        <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
+                            <h:outputText value="#{email.deliveryDate}"/>
+                        </p:column>
 
-                    <p:column sortBy="#{email.sender}" headerText="sender">
-                        <h:outputText value="#{email.sender}"/>
-                    </p:column>
+                        <p:column sortBy="#{email.sender}" headerText="sender">
+                            <h:outputText value="#{email.sender}"/>
+                        </p:column>
 
-                    <!--<p:column headerText="receiver">
-                        <h:outputText value="#{email.receiver}"/>
-                    </p:column>-->
+                        <!--<p:column headerText="receiver">
+                            <h:outputText value="#{email.receiver}"/>
+                        </p:column>-->
 
-                    <p:column sortBy="#{email.subject}" headerText="subject">
-                        <h:outputText value="#{email.subject}"/>
-                    </p:column>
+                        <p:column sortBy="#{email.subject}" headerText="subject">
+                            <h:outputText value="#{email.subject}"/>
+                        </p:column>
 
-                    <p:column sortBy="#{email.body}" headerText="Text">
-                        <h:outputText value="#{email.body}"/>
-                    </p:column>
+                        <p:column sortBy="#{email.body}" headerText="Text">
+                            <h:outputText value="#{email.body}"/>
+                        </p:column>
 
-                    <p:column headerText="attachments">
-                        <p:commandButton id="attachment" value="Download" ajax="false" style="visibility: hidden; width: 0px; height: 0px;">
-                            <p:fileDownload value="#{attachmentService.downloadAttachment(email.id)}" />
-                        </p:commandButton>
-                        <a href="#" onclick="document.getElementById('#{p:component('attachment')}').click();">Name Attachment #{email.id}</a>
-                    </p:column>
+                        <p:column headerText="attachments">
+                            <p:commandButton id="attachment" value="Download" ajax="false" style="visibility: hidden;
+                        width: 0px; height: 0px;">
+                                <p:fileDownload value="#{attachmentService.downloadAttachment(email.id)}"/>
+                            </p:commandButton>
+                            <a href="#" onclick="document.getElementById('#{p:component('attachment')}').click();">
+                                Name Attachment #{email.id}</a>
+                        </p:column>
 
-                </p:dataTable>
-                <p:commandButton value="Generate Message" update="EmailTable"
-                                 actionListener="#{initService.addEmail}"/>
-                <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
-            </p:tab>
+                    </p:dataTable>
+                    <p:commandButton value="Generate Message" update="EmailTable"
+                                     actionListener="#{initService.addEmail}"/>
+                    <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
+                </p:tab>
 
                 <p:tab title="SMS Messages" id="SmsMessages">
 
@@ -94,7 +96,7 @@
                             Sms List
                         </f:facet>
 
-                        <p:column sortBy="#{sms.id}" headerText="id" >
+                        <p:column sortBy="#{sms.id}" headerText="id">
                             <h:outputText value="#{sms.id}"/>
                         </p:column>
 

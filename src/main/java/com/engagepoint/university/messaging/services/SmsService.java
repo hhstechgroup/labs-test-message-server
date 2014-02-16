@@ -2,6 +2,7 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.smpp.ServerMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class SmsService implements Serializable{
+public class SmsService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(SmsService.class);
 
     @Inject
@@ -21,6 +22,9 @@ public class SmsService implements Serializable{
 
     @Inject
     private InitService initService;
+
+    @Inject
+    private ServerMain serverMain;
 
     private List<SmsDTO> smsList;
 

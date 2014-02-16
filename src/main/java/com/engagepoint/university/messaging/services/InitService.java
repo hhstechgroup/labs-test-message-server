@@ -113,5 +113,4 @@ public class InitService implements Serializable {
 
         smsDTOList = smsDAO.getAll();
     }
-
 }

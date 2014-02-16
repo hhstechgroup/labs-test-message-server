@@ -14,18 +14,17 @@ public class MySmppSessionHandler extends DefaultSmppSessionHandler {
 
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
-        if (
-                pduRequest.isRequest()
-                        && pduRequest.getClass() == DeliverSm.class
-                ) {
+        if (pduRequest.isRequest()
+                        && pduRequest.getClass() == DeliverSm.class) {
             System.out.println("Got DELIVER_SM");
             log.info("Got DELIVER_SM");
 
-            DeliverSm dlr = (DeliverSm)pduRequest;
-            System.out.println("Msg id={} "+ dlr.getOptionalParameter(SmppConstants.TAG_RECEIPTED_MSG_ID));
+            DeliverSm dlr = (DeliverSm) pduRequest;
+
+            System.out.println("Msg id={} " + dlr.getOptionalParameter(SmppConstants.TAG_RECEIPTED_MSG_ID));
             log.info("Msg id={}", dlr.getOptionalParameter(SmppConstants.TAG_RECEIPTED_MSG_ID));
 
-            System.out.println("Status={}"+ dlr.getOptionalParameter(SmppConstants.TAG_MSG_STATE));
+            System.out.println("Status={}" + dlr.getOptionalParameter(SmppConstants.TAG_MSG_STATE));
             log.info("Status={}", dlr.getOptionalParameter(SmppConstants.TAG_MSG_STATE));
 
             return pduRequest.createResponse();
@@ -38,27 +37,24 @@ public class MySmppSessionHandler extends DefaultSmppSessionHandler {
     @Override
     public void fireExpectedPduResponseReceived(PduAsyncResponse pduAsyncResponse) {
         if (pduAsyncResponse.getResponse().getClass() == SubmitSmResp.class) {
-            SubmitSm req = (SubmitSm)pduAsyncResponse.getRequest();
+            SubmitSm req = (SubmitSm) pduAsyncResponse.getRequest();
 
             log.info("Got response for APPID={}", req.getReferenceObject());
-            log.info("!!! SubmitSm req.getDestAddress(); - "+ req.getDestAddress());
-            log.info("!!! SubmitSm req.getSourceAddress(); - "+ req.getSourceAddress());
+            log.info("!!! SubmitSm req.getDestAddress(); - " + req.getDestAddress());
+            log.info("!!! SubmitSm req.getSourceAddress(); - " + req.getSourceAddress());
             log.info("!!! SubmitSm req.getShortMessage() in byte - " + req.getShortMessage());
 
             String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
             log.info("!!! SubmitSm body - " + str);
 
-            SubmitSmResp ssmr = (SubmitSmResp)pduAsyncResponse.getResponse();
+            SubmitSmResp ssmr = (SubmitSmResp) pduAsyncResponse.getResponse();
 
             System.out.println("!!! fireExpectedPduResponseReceived ssmr.getResultMessage()" + ssmr.getResultMessage());
-            System.out.println("!!! fireExpectedPduResponseReceived ssmr.getName()"+ ssmr.getName());
+            System.out.println("!!! fireExpectedPduResponseReceived ssmr.getName()" + ssmr.getName());
 
             log.info("Got response with MSG ID={} for seqnum={}", ssmr.getMessageId(), ssmr.getSequenceNumber());
-
         }
     }
-
-
 }
 
 

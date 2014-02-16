@@ -5,7 +5,8 @@ import javax.persistence.Persistence;
 
 public class EntityManagerUtil {
 
-    private static final EntityManager entityManager = Persistence.createEntityManagerFactory("messaging").createEntityManager();
+    private static final EntityManager entityManager = Persistence.
+            createEntityManagerFactory("messaging").createEntityManager();
 
     public static EntityManager getEntityManager() {
         return entityManager;

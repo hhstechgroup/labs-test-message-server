@@ -1,26 +1,5 @@
 package com.engagepoint.university.messaging.smpp;
 
-/*
- * #%L
- * labs-test-message-server
- * %%
- * Copyright (C) 2012 - 2014 Cloudhopper by Twitter
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
-
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.*;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
@@ -28,7 +7,6 @@ import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.*;
 import com.cloudhopper.smpp.type.SmppProcessingException;
 import com.engagepoint.university.messaging.dao.specific.SmsDAO;
-import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,35 +24,48 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Singleton
 public class ServerMain {
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);
+
+    private ThreadPoolExecutor executor;
+    private ScheduledThreadPoolExecutor monitorExecutor;
+    private SmppServerConfiguration configuration;
+
     @Inject
     private SmsDTO smsDTO;
     @Inject
     private SmsDAO smsDAO;
 
-    ServerMain (){
-        try{
-            startSmppServer();
-            logger.info("START - startSmppServer");
-        } catch (Exception ex){
-            logger.info("Exception SMPP server..." + ex);
-        }
+    public ServerMain() {
+        setExecutor();
+        setConfiguration();
+        setMonitorExecutor();
     }
 
     public void startSmppServer() throws Exception {
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        ScheduledThreadPoolExecutor monitorExecutor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(1, new ThreadFactory() {
-            private AtomicInteger sequence = new AtomicInteger(0);
+        DefaultSmppServer smppServer = new DefaultSmppServer(this.configuration, new DefaultSmppServerHandler(),
+                this.executor, this.monitorExecutor);
+        smppServer.start();
+    }
 
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread t = new Thread(r);
-                t.setName("SmppServerSessionWindowMonitorPool-" + sequence.getAndIncrement());
-                return t;
-            }
-        });
+    public void setExecutor() {
+        this.executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    }
 
-        // create a server configuration
-        SmppServerConfiguration configuration = new SmppServerConfiguration();
+    public void setMonitorExecutor() {
+        this.monitorExecutor = (ScheduledThreadPoolExecutor)
+                Executors.newScheduledThreadPool(1, new ThreadFactory() {
+                    private AtomicInteger sequence = new AtomicInteger(0);
+
+                    @Override
+                    public Thread newThread(Runnable r) {
+                        Thread t = new Thread(r);
+                        t.setName("SmppServerSessionWindowMonitorPool-" + sequence.getAndIncrement());
+                        return t;
+                    }
+                });
+    }
+
+    public void setConfiguration() {
+        this.configuration = new SmppServerConfiguration();
         configuration.setPort(2776);
         configuration.setMaxConnectionSize(10);
         configuration.setNonBlockingSocketsEnabled(true);
@@ -84,13 +75,6 @@ public class ServerMain {
         configuration.setDefaultWindowWaitTimeout(configuration.getDefaultRequestExpiryTimeout());
         configuration.setDefaultSessionCountersEnabled(true);
         configuration.setJmxEnabled(true);
-
-        // create a server, start it up
-        DefaultSmppServer smppServer = new DefaultSmppServer(configuration, new DefaultSmppServerHandler(), executor, monitorExecutor);
-
-        logger.info("Starting SMPP server...");
-        smppServer.start();
-        logger.info("SMPP server started");
     }
 
     public /*static*/ class DefaultSmppServerHandler implements SmppServerHandler {
@@ -98,13 +82,11 @@ public class ServerMain {
         @Override
         public void sessionBindRequested(Long sessionId, SmppSessionConfiguration sessionConfiguration, final BaseBind bindRequest) throws SmppProcessingException {
             sessionConfiguration.setName("Application.SMPP." + sessionConfiguration.getSystemId());
-            System.out.println("kuku1" + 1);
         }
 
         @Override
         public void sessionCreated(Long sessionId, SmppServerSession session, BaseBindResp preparedBindResponse) throws SmppProcessingException {
             logger.info("Session created: {}", session);
-            System.out.println("kuku2" + 2);
             // need to do something it now (flag we're ready)
             session.serverReady(new TestSmppSessionHandler(session));
         }
@@ -112,13 +94,11 @@ public class ServerMain {
         @Override
         public void sessionDestroyed(Long sessionId, SmppServerSession session) {
             logger.info("Session destroyed: {}", session);
-            System.out.println("kuku3");
             if (session.hasCounters()) {
                 logger.info(" final session rx-submitSM: {}", session.getCounters().getRxSubmitSM());
             }
             session.destroy();
         }
-
     }
 
     public /*static*/ class TestSmppSessionHandler extends DefaultSmppSessionHandler {
@@ -133,7 +113,7 @@ public class ServerMain {
         public PduResponse firePduRequestReceived(PduRequest pduRequest) {
             SmppSession session = sessionRef.get();
 
-            logger.info("PduRequest .getReferenceObject()"+ pduRequest.getName());
+            logger.info("PduRequest .getReferenceObject()" + pduRequest.getName());
 
             SubmitSm req = (SubmitSm) pduRequest;
 
@@ -148,17 +128,15 @@ public class ServerMain {
 
             logger.info("SMS body - " + str);
 
-           // SmsDTO smsDTO = new SmsDTO();
+            // SmsDTO smsDTO = new SmsDTO();
             smsDTO.setBody(str);
             smsDTO.setSender(req.getSourceAddress().getAddress());
             smsDTO.setDeliveryDate(new Date());
             smsDTO.setSendDate(new Date());
 
-           // SmsDAOImpl smsDAO = new SmsDAOImpl();
+            // SmsDAOImpl smsDAO = new SmsDAOImpl();
             smsDAO.save(smsDTO);
 
-
-            System.out.println("kuku4");
             // mimic how long processing could take on a slower smsc
             try {
                 //Thread.sleep(50);

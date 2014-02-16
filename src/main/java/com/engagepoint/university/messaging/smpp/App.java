@@ -29,9 +29,9 @@ public class App {
     public static void main(String[] args) throws SmppInvalidArgumentException {
    // public void sendSMS(String sender, String reciver,String body) {
         SendSMS sendSMS = new SendSMS();
-//        sendSMS.sendSMS("Sender 1","98989898","Hi");
-//        sendSMS.sendSMS("Sender 2","97979797","Hi-Hi");
-//        sendSMS.sendSMS("Sender 3","96969696","Hi-Hi-Hi");
+        sendSMS.sendSMS("Sender 1","98989898","Hi");
+        sendSMS.sendSMS("Sender 2","97979797","Hi-Hi");
+        sendSMS.sendSMS("Sender 3","96969696","Hi-Hi-Hi");
 
         DefaultSmppClient client = new DefaultSmppClient();
 
@@ -68,7 +68,8 @@ public class App {
             SubmitSm sm2 = createSubmitSm("Test1", "79111234567", "Hello cloudHopper!", "UCS-2");
             sm2.setReferenceObject("Hello2" + sm2+"//***//");
 
-            WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(60), false);
+            WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2,
+                    TimeUnit.SECONDS.toMillis(60), false);
             while (!future2.isDone()) {
                 log.debug("Not done");
                 log.debug("Not done Succes is {}", future2.isSuccess());
@@ -117,7 +118,8 @@ public class App {
         }
     }
 
-    public static SubmitSm createSubmitSm(String src, String dst, String text, String charset) throws SmppInvalidArgumentException {
+    public static SubmitSm createSubmitSm(String src, String dst, String text, String charset)
+            throws SmppInvalidArgumentException {
         SubmitSm sm = new SubmitSm();
 
         // For alpha numeric will use
@@ -142,10 +144,5 @@ public class App {
 
         return sm;
     }
-
-
 }
-
-
-//=========================================================================
 

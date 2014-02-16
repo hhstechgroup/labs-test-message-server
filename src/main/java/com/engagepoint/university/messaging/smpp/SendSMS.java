@@ -1,26 +1,5 @@
 package com.engagepoint.university.messaging.smpp;
 
-/*
- * #%L
- * labs-test-message-server
- * %%
- * Copyright (C) 2012 - 2014 Cloudhopper by Twitter
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
-
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.commons.util.windowing.WindowFuture;
 import com.cloudhopper.smpp.SmppBindType;
@@ -30,23 +9,14 @@ import com.cloudhopper.smpp.impl.DefaultSmppClient;
 import com.cloudhopper.smpp.pdu.PduRequest;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.cloudhopper.smpp.pdu.SubmitSm;
-
+import com.cloudhopper.smpp.type.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.TimeUnit;
-import com.cloudhopper.smpp.type.Address;
-import com.cloudhopper.smpp.type.RecoverablePduException;
-import com.cloudhopper.smpp.type.SmppChannelException;
-import com.cloudhopper.smpp.type.SmppInvalidArgumentException;
-import com.cloudhopper.smpp.type.SmppTimeoutException;
-import com.cloudhopper.smpp.type.UnrecoverablePduException;
-import com.cloudhopper.smpp.type.SmppBindException;
-
-
 
 public class SendSMS {
     public static Logger log = LoggerFactory.getLogger(App.class);
-
 
     //public static void main(String[] args) throws SmppInvalidArgumentException {
     public void sendSMS(String sender, String receiver, String body) {
