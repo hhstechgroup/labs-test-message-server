@@ -10,17 +10,11 @@ import com.cloudhopper.smpp.pdu.PduRequest;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
-import java.util.concurrent.TimeUnit;
-import com.cloudhopper.smpp.type.Address;
-import com.cloudhopper.smpp.type.RecoverablePduException;
-import com.cloudhopper.smpp.type.SmppChannelException;
-import com.cloudhopper.smpp.type.SmppInvalidArgumentException;
-import com.cloudhopper.smpp.type.SmppTimeoutException;
-import com.cloudhopper.smpp.type.UnrecoverablePduException;
-import com.cloudhopper.smpp.type.SmppBindException;
- import org.slf4j.Logger;
+import com.cloudhopper.smpp.type.*;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.logging.Level;
+
+import java.util.concurrent.TimeUnit;
 
 public class App {
     public static Logger log = LoggerFactory.getLogger(App.class);
@@ -35,9 +29,9 @@ public class App {
     public static void main(String[] args) throws SmppInvalidArgumentException {
    // public void sendSMS(String sender, String reciver,String body) {
         SendSMS sendSMS = new SendSMS();
-        sendSMS.sendSMS("Sender 1","98989898","Hi");
-        sendSMS.sendSMS("Sender 2","97979797","Hi-Hi");
-        sendSMS.sendSMS("Sender 3","96969696","Hi-Hi-Hi");
+//        sendSMS.sendSMS("Sender 1","98989898","Hi");
+//        sendSMS.sendSMS("Sender 2","97979797","Hi-Hi");
+//        sendSMS.sendSMS("Sender 3","96969696","Hi-Hi-Hi");
 
         DefaultSmppClient client = new DefaultSmppClient();
 
