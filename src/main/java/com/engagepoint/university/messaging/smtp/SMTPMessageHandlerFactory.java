@@ -48,7 +48,7 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             String s = this.convertStreamToStringTwo(data);
             String[] wer = s.split("Date:");
             String[] wer1 = wer[1].split("From:");
-            mail.setSendDate(new Date(wer1[0]));
+            mail.setDeliveryDate(new Date(wer1[0]));
             String[] wer2 = s.split("Subject:");
             String[] wer3 = wer2[1].split("Content-Type:");
             mail.setSubject(wer3[0].trim());
