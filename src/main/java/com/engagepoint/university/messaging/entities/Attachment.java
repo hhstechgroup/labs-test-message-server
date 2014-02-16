@@ -22,7 +22,7 @@ public class Attachment implements Serializable, BaseEntity {
     public static final String GET_ALL_ATTACHMENTS = "Attachment.getAttachmentByMessage";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String mimeType;
     private String name;

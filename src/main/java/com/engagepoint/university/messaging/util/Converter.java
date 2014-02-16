@@ -22,6 +22,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public UserDTO convert(User from) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(from.getId());
         userDTO.setEmail(from.getEmail());
         userDTO.setPassword(from.getPassword());
         userDTO.setPhoneNumber(from.getPhoneNumber());
@@ -29,6 +30,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public User convert(UserDTO from) {
         User user = new User();
+        user.setId(from.getId());
         user.setEmail(from.getEmail());
         user.setPassword(from.getPassword());
         user.setPhoneNumber(from.getPhoneNumber());
@@ -37,6 +39,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public SmsDTO convert(Sms sms) {
         SmsDTO smsDTO = new SmsDTO();
+        smsDTO.setId(sms.getId());
         smsDTO.setSender(sms.getSender());
         smsDTO.setBody(sms.getBody());
         smsDTO.setSendDate(sms.getSendDate());
@@ -45,6 +48,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public Sms convert(SmsDTO from) {
         Sms sms = new Sms();
+        sms.setId(from.getId());
         sms.setSender(from.getSender());
         sms.setBody(from.getBody());
         sms.setSendDate(from.getSendDate());
@@ -53,6 +57,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public EmailDTO convert(Email email) {
         EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setId(email.getId());
         emailDTO.setSender(email.getSender());
         emailDTO.setSubject(email.getSubject());
         emailDTO.setBody(email.getBody());
@@ -62,6 +67,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public Email convert(EmailDTO from) {
         Email email = new Email();
+        email.setId(from.getId());
         email.setSender(from.getSender());
         email.setSubject(from.getSubject());
         email.setBody(from.getBody());
@@ -71,6 +77,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public AttachmentDTO convert(Attachment attachment) {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
+        attachmentDTO.setId(attachment.getId());
         attachmentDTO.setMimeType(attachment.getMimeType());
         attachmentDTO.setName(attachment.getName());
         attachmentDTO.setContent(attachment.getContent());
@@ -78,6 +85,7 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     }
     public Attachment convert(AttachmentDTO from) {
         Attachment attachment = new Attachment();
+        attachment.setId(from.getId());
         attachment.setMimeType(from.getMimeType());
         attachment.setName(from.getName());
         attachment.setContent(from.getContent());
