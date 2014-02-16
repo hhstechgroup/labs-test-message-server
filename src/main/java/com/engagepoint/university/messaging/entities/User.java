@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Table(name = "user")
 @NamedQueries({
         @NamedQuery(name = User.GET_ALL_USERS, query = "SELECT us FROM User us"),
         @NamedQuery(name = User.GET_ALL_BY_USER_ID, query = "SELECT us FROM User us WHERE us.id = :idUser"),
@@ -22,18 +23,17 @@ public class User implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_USER_EMAIL = "User.findByEmail";
     public static final String GET_ALL_BY_USER_PHONE_NUMBER = "User.findByPhoneNumber";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;
     private String phoneNumber;
     private String password;
-    @ManyToMany(mappedBy = "userCollection")
     private Collection<Email> emailCollection;
-    @ManyToMany(mappedBy = "userCollection")
     private Collection<Sms> smsCollection;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -42,38 +42,46 @@ public class User implements Serializable, BaseEntity {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(name = "phone_number")
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @JoinTable(name = "user_has_email", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "email_id", referencedColumnName = "id")})
+    @ManyToMany
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }
@@ -82,6 +90,7 @@ public class User implements Serializable, BaseEntity {
         this.emailCollection = emailCollection;
     }
 
+    @ManyToMany(mappedBy = "userCollection")
     public Collection<Sms> getSmsCollection() {
         return smsCollection;
     }

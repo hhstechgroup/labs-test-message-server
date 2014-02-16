@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
+@Table(name = "sms")
 @NamedQueries({
         @NamedQuery(name = Sms.GET_ALL_SMS, query = "SELECT sm FROM Sms sm"),
         @NamedQuery(name = Sms.GET_ALL_BY_SMS_ID, query = "SELECT sm FROM Sms sm WHERE sm.id = :idSms"),
@@ -23,9 +24,6 @@ public class Sms implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_SEND_DATE = "Sms.findBySendDate";
     public static final String GET_ALL_BY_DELIVERY_DATE = "Sms.findByDeliveryDate";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
     private String sender;
     private String body;
@@ -33,9 +31,11 @@ public class Sms implements Serializable, BaseEntity {
     private Date sendDate;
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
-    @ManyToMany
     private Collection<User> userCollection;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -44,6 +44,7 @@ public class Sms implements Serializable, BaseEntity {
         this.id = id;
     }
 
+    @Column(name = "sender")
     public String getSender() {
         return sender;
     }
@@ -52,6 +53,7 @@ public class Sms implements Serializable, BaseEntity {
         this.sender = sender;
     }
 
+    @Column(name = "body")
     public String getBody() {
         return body;
     }
@@ -60,6 +62,7 @@ public class Sms implements Serializable, BaseEntity {
         this.body = body;
     }
 
+    @Column(name = "send_date")
     public Date getSendDate() {
         return sendDate;
     }
@@ -68,6 +71,7 @@ public class Sms implements Serializable, BaseEntity {
         this.sendDate = sendDate;
     }
 
+    @Column(name = "delivery_date")
     public Date getDeliveryDate() {
         return deliveryDate;
     }
@@ -76,6 +80,10 @@ public class Sms implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
+    @JoinTable(name = "sms_has_user", joinColumns = {
+            @JoinColumn(name = "sms_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")})
+    @ManyToMany
     public Collection<User> getUserCollection() {
         return userCollection;
     }

@@ -7,11 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
+@Table(name = "email")
 @NamedQueries({
+        @NamedQuery(name = Email.GET_ALL, query = "SELECT e FROM Email e"),
         @NamedQuery(name = Email.GET_ALL_BY_EMAIL_ID, query = "SELECT em FROM Email em WHERE em.id = :idEmail"),
         @NamedQuery(name = Email.GET_ALL_BY_SENDER, query = "SELECT em FROM Email em WHERE em.sender = :sender"),
         @NamedQuery(name = Email.GET_ALL_BY_SUBJECT, query = "SELECT em FROM Email em WHERE em.subject = :subject"),
@@ -22,6 +25,7 @@ import java.util.Date;
 public class Email implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 985345798781234739L;
+    public static final String GET_ALL = "Email.findAll";
     public static final String GET_ALL_BY_EMAIL_ID = "Email.findByIdEmail";
     public static final String GET_ALL_BY_SENDER = "Email.findBySender";
     public static final String GET_ALL_BY_SUBJECT = "Email.findBySubject";
@@ -29,8 +33,6 @@ public class Email implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_DELIVERY_DATE = "Email.findByDeliveryDate";
     public static final String GET_ALL_SORT_BY_DELIVERY_DATE = "Email.sortByDeliveryDate";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String sender;
     private String subject;
@@ -39,11 +41,12 @@ public class Email implements Serializable, BaseEntity {
     private Date sendDate;
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
-    @ManyToMany
     private Collection<User> userCollection;
-    @ManyToMany(mappedBy = "emailCollection")
     private Collection<Attachment> attachmentCollection;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -52,6 +55,7 @@ public class Email implements Serializable, BaseEntity {
         this.id = id;
     }
 
+    @Column(name = "sender")
     public String getSender() {
         return sender;
     }
@@ -60,6 +64,7 @@ public class Email implements Serializable, BaseEntity {
         this.sender = sender;
     }
 
+    @Column(name = "subject")
     public String getSubject() {
         return subject;
     }
@@ -68,6 +73,7 @@ public class Email implements Serializable, BaseEntity {
         this.subject = subject;
     }
 
+    @Column(name = "body")
     public String getBody() {
         return body;
     }
@@ -76,6 +82,7 @@ public class Email implements Serializable, BaseEntity {
         this.body = body;
     }
 
+    @Column(name = "send_date")
     public Date getSendDate() {
         return sendDate;
     }
@@ -84,6 +91,7 @@ public class Email implements Serializable, BaseEntity {
         this.sendDate = sendDate;
     }
 
+    @Column(name = "delivery_date")
     public Date getDeliveryDate() {
         return deliveryDate;
     }
@@ -92,6 +100,7 @@ public class Email implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
+    @ManyToMany(mappedBy = "emailCollection")
     public Collection<Attachment> getAttachmentCollection() {
         return attachmentCollection;
     }
@@ -100,6 +109,7 @@ public class Email implements Serializable, BaseEntity {
         this.attachmentCollection = attachmentCollection;
     }
 
+    @ManyToMany(mappedBy = "emailCollection")
     public Collection<User> getUserCollection() {
         return userCollection;
     }
