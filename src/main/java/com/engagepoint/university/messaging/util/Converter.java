@@ -78,7 +78,6 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     public AttachmentDTO convert(Attachment attachment) {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setId(attachment.getId());
-        attachmentDTO.setMimeType(attachment.getMimeType());
         attachmentDTO.setName(attachment.getName());
         attachmentDTO.setContent(attachment.getContent());
         return attachmentDTO;
@@ -86,7 +85,6 @@ public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityC
     public Attachment convert(AttachmentDTO from) {
         Attachment attachment = new Attachment();
         attachment.setId(from.getId());
-        attachment.setMimeType(from.getMimeType());
         attachment.setName(from.getName());
         attachment.setContent(from.getContent());
         return attachment;

@@ -6,17 +6,8 @@ import java.util.Arrays;
 
 public class AttachmentDTO extends BaseDTO {
 
-    private String mimeType;
     private String name;
     private String content;
-
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
-    }
 
     public String getName() {
         return name;
@@ -38,7 +29,6 @@ public class AttachmentDTO extends BaseDTO {
     public String toString() {
         return "AttachmentDTO{" +
                 "id=" + this.getId() +
-                ", mimeType='" + mimeType + '\'' +
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 '}';

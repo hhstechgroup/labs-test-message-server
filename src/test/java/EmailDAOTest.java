@@ -77,12 +77,10 @@ public class EmailDAOTest {
         emailDTO1.setDeliveryDate(new Date());
 
         AttachmentDTO attachmentDTO = new AttachmentDTO();
-        attachmentDTO.setMimeType("engagepoint-sender-MimeType");
         attachmentDTO.setName("engagepoint-attachment-name");
         attachmentDTO.setContent("engagepoint-attachment-content");
 
         AttachmentDTO attachmentDTO1 = new AttachmentDTO();
-        attachmentDTO1.setMimeType("engagepoint-sender-MimeType1");
         attachmentDTO1.setName("engagepoint-attachment-name1");
         attachmentDTO1.setContent("engagepoint-attachment-content1");
 

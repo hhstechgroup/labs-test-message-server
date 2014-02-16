@@ -11,7 +11,6 @@ import java.util.Collection;
 @Table(name = "attachment")
 @NamedQueries({
         @NamedQuery(name = Attachment.GET_ALL_BY_ATTACHMENT_ID, query = "SELECT at FROM Attachment at WHERE at.id = :idAttachment"),
-        @NamedQuery(name = Attachment.GET_ALL_BY_MIME_TYPE, query = "SELECT at FROM Attachment at WHERE at.mimeType = :mimeType"),
         @NamedQuery(name = Attachment.GET_ALL_BY_NAME, query = "SELECT at FROM Attachment at WHERE at.name = :name"),
         @NamedQuery(name = Attachment.GET_ALL_BY_CONTENT, query = "SELECT at FROM Attachment at WHERE at.content = :content"),
         @NamedQuery(name = Attachment.GET_ALL_ATTACHMENTS, query = "SELECT at FROM Attachment at")})
@@ -26,7 +25,6 @@ public class Attachment implements Serializable, BaseEntity {
     public static final String GET_ALL_ATTACHMENTS = "Attachment.getAttachmentByMessage";
 
     private Long id;
-    private String mimeType;
     private String name;
     private String content;
     private Collection<Email> emailCollection;
@@ -40,15 +38,6 @@ public class Attachment implements Serializable, BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @Column(name = "mime_type")
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
     }
 
     @Column(name = "name")
