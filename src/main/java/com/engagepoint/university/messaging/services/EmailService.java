@@ -36,26 +36,26 @@ public class EmailService implements Serializable, Runnable {
         server.start();
     }
 
-    private List<EmailDTO> emailList;
+    private List<EmailDTO> emailListSortedByBackend;
 
-    private List<EmailDTO> emailList2;
+    private List<EmailDTO> emailListSortedByFrontend;
 
-    public void setEmailList(List<EmailDTO> emails) {
+    public void setEmailListSortedByBackend(List<EmailDTO> emails) {
 
-        this.emailList = emails;
+        this.emailListSortedByBackend = emails;
     }
 
-    public List<EmailDTO> getEmailList(){
+    public List<EmailDTO> getEmailListSortedByBackend(){
 
         return emailDAO.getEmailsSortByDeliverDate();
     }
 
-    public void setEmailList2(List<EmailDTO> emails) {
+    public void setEmailListSortedByFrontend(List<EmailDTO> emails) {
 
-        this.emailList = emails;
+        this.emailListSortedByBackend = emails;
     }
 
-    public List<EmailDTO> getEmailList2(){
+    public List<EmailDTO> getEmailListSortedByFrontend(){
 
         return initService.getEmailDTOList();
     }

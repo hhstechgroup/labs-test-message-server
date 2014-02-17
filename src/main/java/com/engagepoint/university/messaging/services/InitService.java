@@ -51,9 +51,12 @@ public class InitService implements Serializable {
     void init(){
         emailDTOList = new ArrayList<EmailDTO>();
         smsDTOList = new ArrayList<SmsDTO>();
+        emailDTOList = emailDAO.getAll();
+        smsDTOList = smsDAO.getAll();
     }
 
     public void addEmail() {
+        LOG.debug("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
         emailDTO1.setSender("author 1");
         emailDTO1.setSubject("Hello 1!");
@@ -83,7 +86,7 @@ public class InitService implements Serializable {
         //emailDTO3.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailDAO.save(emailDTO3);
         //emailDTOList.add(new Email(emailDTO3));
-        emailDTOList = emailDAO.getEmailsSortByDeliverDate();
+        emailDTOList = emailDAO.getAll();
     }
 
     public void addSms() {
