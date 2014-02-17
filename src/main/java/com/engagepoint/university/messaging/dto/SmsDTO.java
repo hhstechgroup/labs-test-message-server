@@ -45,12 +45,10 @@ public class SmsDTO extends BaseDTO {
 
     @Override
     public String toString() {
-        return "SmsDTO{" +
-                "id=" + this.getId() +
-                ", sender='" + sender + '\'' +
-                ", body='" + body + '\'' +
-                ", sendDate=" + sendDate +
-                ", deliveryDate=" + deliveryDate +
-                '}';
+        return  "\n\nSMS id: " + this.getId() +
+                "\nSender: " + sender + '\'' +
+                "\nMessage: " + body + '\'' +
+                "\nSend date: " + sendDate +
+                "\nDelivery date: " + deliveryDate;
     }
 }
