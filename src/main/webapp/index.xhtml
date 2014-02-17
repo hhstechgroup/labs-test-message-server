@@ -14,6 +14,8 @@
                     <p:commandButton value="Generate Message" update="EmailTable"
                                      actionListener="#{initService.addEmail}"/>
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
+                    <p:commandButton value="Delete Email" update="@(form)"
+                            actionListener="#{initService.deleteCheckedEmails}"/>
                     <p:dataTable id="EmailTable" var="email" value="#{emailService.emailListSortedByFrontend}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
@@ -23,6 +25,10 @@
                             Email List
                         </f:facet>
 
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{email.flag}" />
+                        </p:column>
+
                         <p:column sortBy="#{email.id}" headerText="id">
                             <h:outputText value="#{email.id}"/>
                         </p:column>
@@ -31,7 +37,7 @@
                             <h:outputText value="#{email.deliveryDate}"/>
                         </p:column>
 
-                        <p:column sortBy="#{email.sender}" headerText="sender">
+                        <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender">
                             <h:outputText value="#{email.sender}"/>
                         </p:column>
 

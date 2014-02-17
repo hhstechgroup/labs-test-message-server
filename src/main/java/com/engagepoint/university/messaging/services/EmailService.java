@@ -5,10 +5,12 @@ import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -59,4 +61,7 @@ public class EmailService implements Serializable, Runnable {
 
         return initService.getEmailDTOList();
     }
+
+
+
 }

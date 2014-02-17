@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class InitService implements Serializable {
     private SmsDAOImpl smsDAO;
 
     private List<EmailDTO> emailDTOList;
+
     private List<SmsDTO> smsDTOList;
 
     public List<EmailDTO> getEmailDTOList() {
@@ -115,5 +117,25 @@ public class InitService implements Serializable {
         smsDAO.save(smsDTO3);
 
         smsDTOList = smsDAO.getAll();
+    }
+
+    public void deleteCheckedEmails(){
+        List<Long> idList = new ArrayList<Long>();
+        List<EmailDTO> removeList = new ArrayList<EmailDTO>();
+
+        for (EmailDTO item: emailDTOList){
+            if (item.getFlag()){
+                idList.add(item.getId());
+                removeList.add(item);
+            }
+        }
+
+        for (EmailDTO item:removeList){
+            emailDTOList.remove(item);
+        }
+
+        emailDAO.deleteIdList(idList);
+        idList.clear();
+        removeList.clear();
     }
 }
