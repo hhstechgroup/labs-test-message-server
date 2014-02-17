@@ -4,9 +4,11 @@ import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,7 +22,7 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-public class InitService implements Serializable {
+public class InitService implements Serializable,Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
 
     @Inject
@@ -29,6 +31,25 @@ public class InitService implements Serializable {
     @Inject
     private SmsDAOImpl smsDAO;
 
+    @Inject
+    private SMTPMessageHandlerFactory emailFactory;
+
+    @PostConstruct
+    void init(){
+        emailDTOList = new ArrayList<EmailDTO>();
+        smsDTOList = new ArrayList<SmsDTO>();
+        emailDTOList = emailDAO.getAll();
+        smsDTOList = smsDAO.getAll();
+        Thread thread = new Thread(this,"SubeThaSMTP");
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+        SMTPServer server = new SMTPServer(emailFactory);
+        server.setPort(25000);
+        server.start();
+    }
     private List<EmailDTO> emailDTOList;
 
     private List<SmsDTO> smsDTOList;
@@ -47,14 +68,6 @@ public class InitService implements Serializable {
 
     public void setSmsDTOList(List<SmsDTO> smsDTOList) {
         this.smsDTOList = smsDTOList;
-    }
-
-    @PostConstruct
-    void init(){
-        emailDTOList = new ArrayList<EmailDTO>();
-        smsDTOList = new ArrayList<SmsDTO>();
-        emailDTOList = emailDAO.getAll();
-        smsDTOList = smsDAO.getAll();
     }
 
     public void addEmail() {
