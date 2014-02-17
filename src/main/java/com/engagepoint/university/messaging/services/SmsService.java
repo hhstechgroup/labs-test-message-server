@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -35,4 +36,6 @@ public class SmsService implements Serializable {
     public List<SmsDTO> getSmsList(){
         return initService.getSmsDTOList();
     }
+
+
 }

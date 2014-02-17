@@ -166,4 +166,24 @@ public class InitService implements Serializable,Runnable {
         idList.clear();
         removeList.clear();
     }
+
+    public void deleteCheckedSMS(){
+        List<Long> idList = new ArrayList<Long>();
+        List<SmsDTO> removeList = new ArrayList<SmsDTO>();
+
+        for (SmsDTO item: smsDTOList ){
+            if (item.getFlag()){
+                idList.add(item.getId());
+                removeList.add(item);
+            }
+        }
+
+        for (SmsDTO item:removeList){
+            smsDTOList.remove(item);
+        }
+
+        smsDAO.deleteIdList(idList);
+        idList.clear();
+        removeList.clear();
+    }
 }

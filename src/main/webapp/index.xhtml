@@ -69,8 +69,9 @@
 
                 <p:tab title="SMS Messages" id="SmsMessages">
                     <p:commandButton value="Generate Message" update="SmsTable" actionListener="#{initService.addSms}"/>
-
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable" actionListener="#{initService.refreshSms}"/>
+                    <p:commandButton value="Delete SMS" update="@(form)"
+                                     actionListener="#{initService.deleteCheckedSMS}"/>
 
 
                     <p:dataTable id="SmsTable" var="sms" value="#{smsService.smsList}"
@@ -80,6 +81,10 @@
                         <f:facet name="header">
                             Sms List
                         </f:facet>
+
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{sms.flag}" />
+                        </p:column>
 
                         <p:column sortBy="#{sms.id}" headerText="id">
                             <h:outputText value="#{sms.id}"/>
