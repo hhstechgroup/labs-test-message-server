@@ -4,6 +4,7 @@ import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.smpp.ServerMain;
 import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
@@ -23,7 +24,8 @@ import java.util.List;
 @ApplicationScoped
 public class InitService implements Serializable,Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
-
+    @Inject
+    private ServerMain serverMain;
     @Inject
     private EmailDAOImpl emailDAO;
 
@@ -41,6 +43,13 @@ public class InitService implements Serializable,Runnable {
         smsDTOList = smsDAO.getAll();
         Thread thread = new Thread(this,"SubeThaSMTP");
         thread.start();
+        try {
+            serverMain.startSmppServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -128,5 +137,12 @@ public class InitService implements Serializable,Runnable {
         smsDAO.save(smsDTO3);
 
         smsDTOList = smsDAO.getAll();
+    }
+
+    public void refreshSms (){
+        smsDTOList = smsDAO.getAll();
+    }
+    public void refreshEmail (){
+        emailDTOList = emailDAO.getAll();
     }
 }
