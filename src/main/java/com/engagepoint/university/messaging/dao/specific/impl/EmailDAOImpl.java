@@ -116,4 +116,11 @@ public class EmailDAOImpl implements EmailDAO {
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
     }
+
+    @Override
+    public void deleteIdList(List<Long> idList) {
+        EntityManagerUtil.getEntityManager().getTransaction().begin();
+        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST,idList).executeUpdate();
+        EntityManagerUtil.getEntityManager().getTransaction().commit();
+    }
 }

@@ -11,16 +11,14 @@
             <p:tabView id="tabView" dynamic="true">
 
                 <p:tab title="Email Messages" id="EmailMessages">
-
                     <p:commandButton value="Generate Message" update="EmailTable"
                                      actionListener="#{initService.addEmail}"/>
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
-
                     <p:dataTable id="EmailTable" var="email" value="#{emailService.emailListSortedByFrontend}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
-                                 sortBy="sender" sortOrder="descending">
-
+                                 sortBy="sender" sortOrder="descending"
+                            >
                         <f:facet name="header">
                             Email List
                         </f:facet>
@@ -62,10 +60,8 @@
                 </p:tab>
 
                 <p:tab title="SMS Messages" id="SmsMessages">
-
                     <p:commandButton value="Generate Message" update="SmsTable" actionListener="#{initService.addSms}"/>
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable"/>
-
                     <p:dataTable id="SmsTable" var="sms" value="#{smsService.smsList}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
@@ -98,7 +94,7 @@
                 </p:tab>
                 <p:tab title="Server Management" id="ServerManagement">
                     <p:commandButton id="smpp" value="Start Sms Server"
-                                     actionListener="#{smsServerService.startSmppServer}"/>
+                                     actionListener="#{smsServerService.startSmppServer}"/> <!--styleClass="ui-priority-primary"-->
                 </p:tab>
 
             </p:tabView>
