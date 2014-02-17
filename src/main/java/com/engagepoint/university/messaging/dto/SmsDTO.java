@@ -10,7 +10,7 @@ public class SmsDTO extends BaseDTO {
     private String body;
     private Date sendDate;
     private Date deliveryDate;
-    private Boolean flag;
+    private Boolean flag = Boolean.FALSE;
 
     public String getSender() {
         return sender;

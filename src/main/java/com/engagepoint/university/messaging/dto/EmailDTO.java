@@ -13,7 +13,7 @@ public class EmailDTO extends BaseDTO {
     private Date sendDate;
     private Date deliveryDate;
     private Collection<AttachmentDTO> attachmentCollection;
-    private Boolean flag;
+    private Boolean flag = Boolean.FALSE;
 
     public String getSender() {
         return sender;
