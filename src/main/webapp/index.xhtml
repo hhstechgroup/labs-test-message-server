@@ -85,7 +85,7 @@
                             <h:outputText value="#{sms.deliveryDate}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.sender}" headerText="sender">
+                        <p:column id="sender" sortBy="#{sms.sender}" filterBy="sender" headerText="sender">
                             <h:outputText value="#{sms.sender}"/>
                         </p:column>
 
