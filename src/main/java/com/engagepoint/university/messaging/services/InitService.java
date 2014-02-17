@@ -2,6 +2,7 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
+import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.smpp.ServerMain;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +81,19 @@ public class InitService implements Serializable,Runnable {
     }
 
     public void addEmail() {
+        LOG.debug("Create attachment");
+        AttachmentDTO attachmentDTO = new AttachmentDTO();
+        attachmentDTO.setName("attachment.txt");
+        attachmentDTO.setContent("YXR0YWNobWVudA==");
+
+        AttachmentDTO attachmentDTO1 = new AttachmentDTO();
+        attachmentDTO1.setName("attachment1.txt");
+        attachmentDTO1.setContent("YXR0YWNobWVudA==");
+
+        Collection<AttachmentDTO> attachmentCollection = new ArrayList<>();
+        attachmentCollection.add(attachmentDTO);
+        attachmentCollection.add(attachmentDTO1);
+
         LOG.debug("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
         emailDTO1.setSender("author 1");
@@ -86,6 +101,7 @@ public class InitService implements Serializable,Runnable {
         emailDTO1.setBody("Body 1");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        emailDTO1.setAttachmentCollection(attachmentCollection);
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailDAO.save(emailDTO1);
         //emailDTOList.add(new Email(emailDTO1));
