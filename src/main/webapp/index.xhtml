@@ -13,10 +13,16 @@
                 <p:tab title="Email Messages" id="EmailMessages">
                     <p:commandButton value="Generate Message" update="EmailTable"
                                      actionListener="#{initService.addEmail}"/>
+<<<<<<< HEAD
 
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"  actionListener="#{initService.refreshEmail}"/>
 
 
+=======
+                    <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
+                    <p:commandButton value="Delete Email" update="@(form)"
+                                     actionListener="#{initService.deleteCheckedEmails}"/>
+>>>>>>> ccbdb8c4764c746ab0325865ff2ec8e3b8a2be7a
                     <p:dataTable id="EmailTable" var="email" value="#{emailService.emailListSortedByFrontend}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
@@ -26,6 +32,10 @@
                             Email List
                         </f:facet>
 
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{email.flag}" />
+                        </p:column>
+
                         <p:column sortBy="#{email.id}" headerText="id">
                             <h:outputText value="#{email.id}"/>
                         </p:column>
@@ -34,7 +44,7 @@
                             <h:outputText value="#{email.deliveryDate}"/>
                         </p:column>
 
-                        <p:column sortBy="#{email.sender}" headerText="sender">
+                        <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender">
                             <h:outputText value="#{email.sender}"/>
                         </p:column>
 
@@ -84,7 +94,7 @@
                             <h:outputText value="#{sms.deliveryDate}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.sender}" headerText="sender">
+                        <p:column sortBy="#{sms.sender}"  headerText="sender">
                             <h:outputText value="#{sms.sender}"/>
                         </p:column>
 
