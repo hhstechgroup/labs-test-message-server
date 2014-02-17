@@ -59,6 +59,7 @@ public class InitService implements Serializable,Runnable {
         server.start();
     }
     private List<EmailDTO> emailDTOList;
+
     private List<SmsDTO> smsDTOList;
 
     public List<EmailDTO> getEmailDTOList() {
@@ -144,5 +145,25 @@ public class InitService implements Serializable,Runnable {
     }
     public void refreshEmail (){
         emailDTOList = emailDAO.getAll();
+    }
+
+    public void deleteCheckedEmails(){
+        List<Long> idList = new ArrayList<Long>();
+        List<EmailDTO> removeList = new ArrayList<EmailDTO>();
+
+        for (EmailDTO item: emailDTOList){
+            if (item.getFlag()){
+                idList.add(item.getId());
+                removeList.add(item);
+            }
+        }
+
+        for (EmailDTO item:removeList){
+            emailDTOList.remove(item);
+        }
+
+        emailDAO.deleteIdList(idList);
+        idList.clear();
+        removeList.clear();
     }
 }

@@ -20,7 +20,8 @@ import java.util.Date;
         @NamedQuery(name = Email.GET_ALL_BY_SUBJECT, query = "SELECT em FROM Email em WHERE em.subject = :subject"),
         @NamedQuery(name = Email.GET_ALL_BY_SEND_DATE, query = "SELECT em FROM Email em WHERE em.sendDate = :sendDate"),
         @NamedQuery(name = Email.GET_ALL_BY_DELIVERY_DATE, query = "SELECT em FROM Email em WHERE em.deliveryDate = :deliveryDate"),
-        @NamedQuery(name = Email.GET_ALL_SORT_BY_DELIVERY_DATE, query = "SELECT em FROM Email em ORDER BY em.sender DESC")})
+        @NamedQuery(name = Email.GET_ALL_SORT_BY_DELIVERY_DATE, query = "SELECT em FROM Email em ORDER BY em.sender DESC"),
+        @NamedQuery(name = Email.DELETE_EMAILS_LIST, query = "DELETE FROM Email em WHERE em.id IN :idList")})
 
 public class Email implements Serializable, BaseEntity {
 
@@ -32,6 +33,8 @@ public class Email implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_SEND_DATE = "Email.findBySendDate";
     public static final String GET_ALL_BY_DELIVERY_DATE = "Email.findByDeliveryDate";
     public static final String GET_ALL_SORT_BY_DELIVERY_DATE = "Email.sortByDeliveryDate";
+    public static final String DELETE_EMAILS_LIST = "Email.deleteEmailsList";
+    public static final String PARAM_IDS_LIST = "idList";
 
     private Long id;
     private String sender;

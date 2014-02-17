@@ -11,16 +11,19 @@
             <p:tabView id="tabView" dynamic="true">
 
                 <p:tab title="Email Messages" id="EmailMessages">
-
                     <p:commandButton value="Generate Message" update="EmailTable"
                                      actionListener="#{initService.addEmail}"/>
+<<<<<<< HEAD
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"  actionListener="#{initService.refreshEmail}"/>
 
+=======
+                    <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"/>
+>>>>>>> 7bb9ffeda25f2342d084ad25431193ff335b1aa9
                     <p:dataTable id="EmailTable" var="email" value="#{emailService.emailListSortedByFrontend}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
-                                 sortBy="sender" sortOrder="descending">
-
+                                 sortBy="sender" sortOrder="descending"
+                            >
                         <f:facet name="header">
                             Email List
                         </f:facet>
@@ -62,10 +65,13 @@
                 </p:tab>
 
                 <p:tab title="SMS Messages" id="SmsMessages">
-
                     <p:commandButton value="Generate Message" update="SmsTable" actionListener="#{initService.addSms}"/>
+<<<<<<< HEAD
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable" actionListener="#{initService.refreshSms}"/>
 
+=======
+                    <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable"/>
+>>>>>>> 7bb9ffeda25f2342d084ad25431193ff335b1aa9
                     <p:dataTable id="SmsTable" var="sms" value="#{smsService.smsList}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
@@ -95,7 +101,14 @@
                         </p:column>
                     </p:dataTable>
                 </p:tab>
+<<<<<<< HEAD
 
+=======
+                <p:tab title="Server Management" id="ServerManagement">
+                    <p:commandButton id="smpp" value="Start Sms Server"
+                                     actionListener="#{smsServerService.startSmppServer}"/> <!--styleClass="ui-priority-primary"-->
+                </p:tab>
+>>>>>>> 7bb9ffeda25f2342d084ad25431193ff335b1aa9
 
             </p:tabView>
 

@@ -25,7 +25,7 @@ public class SmsDAOImpl implements SmsDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<Sms> smses = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Sms.GET_ALL_SMS, Sms.class).getResultList();
-        List<SmsDTO> smsDTOs = new ArrayList<SmsDTO>();
+        List<SmsDTO> smsDTOs = new ArrayList<>();
         Iterator<Sms> smsIterator = smses.iterator();
         while (smsIterator.hasNext()) {
             smsDTOs.add(new Converter().convert(smsIterator.next()));
@@ -78,7 +78,7 @@ public class SmsDAOImpl implements SmsDAO {
         List<Sms> smses = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Sms.GET_ALL_BY_SENDER, Sms.class)
                 .setParameter("sender", sender).getResultList();
-        List<SmsDTO> smsDTOs = new ArrayList<SmsDTO>();
+        List<SmsDTO> smsDTOs = new ArrayList<>();
         Iterator<Sms> smsIterator = smses.iterator();
         while (smsIterator.hasNext()) {
             smsDTOs.add(new Converter().convert(smsIterator.next()));

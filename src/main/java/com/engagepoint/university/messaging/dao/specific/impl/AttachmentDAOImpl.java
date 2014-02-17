@@ -19,7 +19,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     public AttachmentDTO getById(Integer id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Attachment attachment = EntityManagerUtil.getEntityManager().find(Attachment.class, id);
-        AttachmentDTO attachmentDTO = new Converter().convert(attachment);
+        AttachmentDTO attachmentDTO = Converter.convert(attachment);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return attachmentDTO;
     }
@@ -29,10 +29,10 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<Attachment> attachments = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Attachment.GET_ALL_ATTACHMENTS, Attachment.class).getResultList();
-        List<AttachmentDTO> attachmentDTOs = new ArrayList<AttachmentDTO>();
+        List<AttachmentDTO> attachmentDTOs = new ArrayList<>();
         Iterator<Attachment> attachmentIterator = attachments.iterator();
         while (attachmentIterator.hasNext()) {
-            attachmentDTOs.add(new Converter().convert(attachmentIterator.next()));
+            attachmentDTOs.add(Converter.convert(attachmentIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return attachmentDTOs;
@@ -41,7 +41,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     @Override
     public void save(AttachmentDTO attachmentDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Attachment attachment = new Converter().convert(attachmentDTO);
+        Attachment attachment = Converter.convert(attachmentDTO);
         if (!EntityManagerUtil.getEntityManager().contains(attachment)) {
             EntityManagerUtil.getEntityManager().merge(attachment);
         } else {
@@ -53,7 +53,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     @Override
     public void update(AttachmentDTO attachmentDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Attachment attachment = new Converter().convert(attachmentDTO);
+        Attachment attachment = Converter.convert(attachmentDTO);
         EntityManagerUtil.getEntityManager().merge(attachment);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -71,24 +71,9 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     @Override
     public void delete(AttachmentDTO attachmentDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Attachment attachment = new Converter().convert(attachmentDTO);
+        Attachment attachment = Converter.convert(attachmentDTO);
         EntityManagerUtil.getEntityManager().detach(attachment);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
-    }
-
-    @Override
-    public List<AttachmentDTO> getAttachmentsByMimetype(String mimetype) {
-        EntityManagerUtil.getEntityManager().getTransaction().begin();
-        List<Attachment> attachments = EntityManagerUtil.getEntityManager()
-                .createNamedQuery(Attachment.GET_ALL_BY_MIME_TYPE, Attachment.class)
-                .setParameter("mimeType", mimetype).getResultList();
-        List<AttachmentDTO> attachmentDTOs = new ArrayList<AttachmentDTO>();
-        Iterator<Attachment> attachmentIterator = attachments.iterator();
-        while (attachmentIterator.hasNext()) {
-            attachmentDTOs.add(new Converter().convert(attachmentIterator.next()));
-        }
-        EntityManagerUtil.getEntityManager().getTransaction().commit();
-        return attachmentDTOs;
     }
 
     @Override
@@ -97,10 +82,10 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         List<Attachment> attachments = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Attachment.GET_ALL_BY_NAME, Attachment.class)
                 .setParameter("name", name).getResultList();
-        List<AttachmentDTO> attachmentDTOs = new ArrayList<AttachmentDTO>();
+        List<AttachmentDTO> attachmentDTOs = new ArrayList<>();
         Iterator<Attachment> attachmentIterator = attachments.iterator();
         while (attachmentIterator.hasNext()) {
-            attachmentDTOs.add(new Converter().convert(attachmentIterator.next()));
+            attachmentDTOs.add(Converter.convert(attachmentIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return attachmentDTOs;

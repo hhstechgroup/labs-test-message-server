@@ -26,7 +26,7 @@ public class EmailDAOImpl implements EmailDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<Email> attachments = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Email.GET_ALL_SORT_BY_DELIVERY_DATE, Email.class).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<EmailDTO>();
+        List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = attachments.iterator();
         while (emailIterator.hasNext()) {
             emailDTOs.add(new Converter().convert(emailIterator.next()));
@@ -79,7 +79,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<Email> emails = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Email.GET_ALL_BY_SENDER, Email.class)
                 .setParameter("sender", sender).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<EmailDTO>();
+        List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
             emailDTOs.add(new Converter().convert(emailIterator.next()));
@@ -94,7 +94,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<Email> emails = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Email.GET_ALL_BY_SUBJECT, Email.class)
                 .setParameter("subject", subject).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<EmailDTO>();
+        List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
             emailDTOs.add(new Converter().convert(emailIterator.next()));
@@ -108,12 +108,19 @@ public class EmailDAOImpl implements EmailDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<Email> emails = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(Email.GET_ALL_SORT_BY_DELIVERY_DATE, Email.class).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<EmailDTO>();
+        List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
             emailDTOs.add(new Converter().convert(emailIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
+    }
+
+    @Override
+    public void deleteIdList(List<Long> idList) {
+        EntityManagerUtil.getEntityManager().getTransaction().begin();
+        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST,idList).executeUpdate();
+        EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
 }

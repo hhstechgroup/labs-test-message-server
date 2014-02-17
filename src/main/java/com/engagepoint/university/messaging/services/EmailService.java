@@ -3,10 +3,12 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -42,4 +44,7 @@ public class EmailService implements Serializable{
 
         return initService.getEmailDTOList();
     }
+
+
+
 }

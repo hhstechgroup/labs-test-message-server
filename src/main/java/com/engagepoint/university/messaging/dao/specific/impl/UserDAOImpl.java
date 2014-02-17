@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<User> users = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(User.GET_ALL_USERS, User.class).getResultList();
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+        List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
             userDTOs.add(new Converter().convert(userIterator.next()));
@@ -91,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         List<User> users = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(User.GET_ALL_BY_USER_EMAIL, User.class).getResultList();
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+        List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
             userDTOs.add(new Converter().convert(userIterator.next()));
@@ -106,7 +106,7 @@ public class UserDAOImpl implements UserDAO {
         List<User> users = EntityManagerUtil.getEntityManager()
                 .createNamedQuery(User.GET_ALL_BY_USER_PHONE_NUMBER, User.class)
                 .setParameter("phoneNumber", phoneNumber).getResultList();
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+        List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
             userDTOs.add(new Converter().convert(userIterator.next()));
