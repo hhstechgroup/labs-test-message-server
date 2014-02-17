@@ -13,6 +13,7 @@ public class EmailDTO extends BaseDTO {
     private Date sendDate;
     private Date deliveryDate;
     private Collection<AttachmentDTO> attachmentCollection;
+    private Boolean flag;
 
     public String getSender() {
         return sender;
@@ -52,6 +53,14 @@ public class EmailDTO extends BaseDTO {
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public Boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
     }
 
     public Collection<AttachmentDTO> getAttachmentCollection() {
