@@ -2,6 +2,7 @@ package com.engagepoint.university.messaging.dto;
 
 import com.engagepoint.university.messaging.dto.base.BaseDTO;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class EmailDTO extends BaseDTO {
@@ -11,6 +12,8 @@ public class EmailDTO extends BaseDTO {
     private String body;
     private Date sendDate;
     private Date deliveryDate;
+    private Collection<AttachmentDTO> attachmentCollection;
+    private Boolean flag = Boolean.FALSE;
 
     public String getSender() {
         return sender;
@@ -50,6 +53,22 @@ public class EmailDTO extends BaseDTO {
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public Boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
+    }
+
+    public Collection<AttachmentDTO> getAttachmentCollection() {
+        return attachmentCollection;
+    }
+
+    public void setAttachmentCollection(Collection<AttachmentDTO> attachmentCollection) {
+        this.attachmentCollection = attachmentCollection;
     }
 
     @Override

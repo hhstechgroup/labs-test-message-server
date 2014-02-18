@@ -4,9 +4,12 @@ import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.smpp.ServerMain;
+import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -19,16 +22,44 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-public class InitService implements Serializable {
+public class InitService implements Serializable,Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
-
+    @Inject
+    private ServerMain serverMain;
     @Inject
     private EmailDAOImpl emailDAO;
 
     @Inject
     private SmsDAOImpl smsDAO;
 
+    @Inject
+    private SMTPMessageHandlerFactory emailFactory;
+
+    @PostConstruct
+    void init(){
+        emailDTOList = new ArrayList<EmailDTO>();
+        smsDTOList = new ArrayList<SmsDTO>();
+        emailDTOList = emailDAO.getAll();
+        smsDTOList = smsDAO.getAll();
+        Thread thread = new Thread(this,"SubeThaSMTP");
+        thread.start();
+        try {
+            serverMain.startSmppServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void run() {
+        SMTPServer server = new SMTPServer(emailFactory);
+        server.setPort(25000);
+        server.start();
+    }
     private List<EmailDTO> emailDTOList;
+
     private List<SmsDTO> smsDTOList;
 
     public List<EmailDTO> getEmailDTOList() {
@@ -47,13 +78,8 @@ public class InitService implements Serializable {
         this.smsDTOList = smsDTOList;
     }
 
-    @PostConstruct
-    void init(){
-        emailDTOList = new ArrayList<EmailDTO>();
-        smsDTOList = new ArrayList<SmsDTO>();
-    }
-
     public void addEmail() {
+        LOG.debug("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
         emailDTO1.setSender("author 1");
         emailDTO1.setSubject("Hello 1!");
@@ -83,7 +109,7 @@ public class InitService implements Serializable {
         //emailDTO3.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailDAO.save(emailDTO3);
         //emailDTOList.add(new Email(emailDTO3));
-        emailDTOList = emailDAO.getEmailsSortByDeliverDate();
+        emailDTOList = emailDAO.getAll();
     }
 
     public void addSms() {
@@ -112,5 +138,52 @@ public class InitService implements Serializable {
         smsDAO.save(smsDTO3);
 
         smsDTOList = smsDAO.getAll();
+    }
+
+    public void refreshSms (){
+        smsDTOList = smsDAO.getAll();
+    }
+    public void refreshEmail (){
+        emailDTOList = emailDAO.getAll();
+    }
+
+    public void deleteCheckedEmails(){
+        List<Long> idList = new ArrayList<Long>();
+        List<EmailDTO> removeList = new ArrayList<EmailDTO>();
+
+        for (EmailDTO item: emailDTOList){
+            if (item.getFlag()){
+                idList.add(item.getId());
+                removeList.add(item);
+            }
+        }
+
+        for (EmailDTO item:removeList){
+            emailDTOList.remove(item);
+        }
+
+        emailDAO.deleteIdList(idList);
+        idList.clear();
+        removeList.clear();
+    }
+
+    public void deleteCheckedSMS(){
+        List<Long> idList = new ArrayList<Long>();
+        List<SmsDTO> removeList = new ArrayList<SmsDTO>();
+
+        for (SmsDTO item: smsDTOList ){
+            if (item.getFlag()){
+                idList.add(item.getId());
+                removeList.add(item);
+            }
+        }
+
+        for (SmsDTO item:removeList){
+            smsDTOList.remove(item);
+        }
+
+        smsDAO.deleteIdList(idList);
+        idList.clear();
+        removeList.clear();
     }
 }

@@ -10,6 +10,7 @@ public class SmsDTO extends BaseDTO {
     private String body;
     private Date sendDate;
     private Date deliveryDate;
+    private Boolean flag = Boolean.FALSE;
 
     public String getSender() {
         return sender;
@@ -43,14 +44,20 @@ public class SmsDTO extends BaseDTO {
         this.deliveryDate = deliveryDate;
     }
 
+    public Boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
-        return "SmsDTO{" +
-                "id=" + this.getId() +
-                ", sender='" + sender + '\'' +
-                ", body='" + body + '\'' +
-                ", sendDate=" + sendDate +
-                ", deliveryDate=" + deliveryDate +
-                '}';
+        return  "\n\nSMS id: " + this.getId() +
+                "\nSender: " + sender + '\'' +
+                "\nMessage: " + body + '\'' +
+                "\nSend date: " + sendDate +
+                "\nDelivery date: " + deliveryDate;
     }
 }

@@ -2,18 +2,18 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
-import org.subethamail.smtp.server.SMTPServer;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
 @ViewScoped
-public class EmailService implements Serializable, Runnable {
+public class EmailService implements Serializable{
 
     @Inject
     private EmailDAOImpl emailDAO;
@@ -21,42 +21,30 @@ public class EmailService implements Serializable, Runnable {
     @Inject
     private InitService initService;
 
-    @Inject
-    private SMTPMessageHandlerFactory emailFactory;
+    private List<EmailDTO> emailListSortedByBackend;
 
-    public EmailService() {
-        Thread thread = new Thread(this,"SubeThaSMTP");
-        thread.start();
+    private List<EmailDTO> emailListSortedByFrontend;
+
+    public void setEmailListSortedByBackend(List<EmailDTO> emails) {
+
+        this.emailListSortedByBackend = emails;
     }
 
-    @Override
-    public void run() {
-        SMTPServer server = new SMTPServer(emailFactory);
-        server.setPort(25000);
-        server.start();
-    }
-
-    private List<EmailDTO> emailList;
-
-    private List<EmailDTO> emailList2;
-
-    public void setEmailList(List<EmailDTO> emails) {
-
-        this.emailList = emails;
-    }
-
-    public List<EmailDTO> getEmailList(){
+    public List<EmailDTO> getEmailListSortedByBackend(){
 
         return emailDAO.getEmailsSortByDeliverDate();
     }
 
-    public void setEmailList2(List<EmailDTO> emails) {
+    public void setEmailListSortedByFrontend(List<EmailDTO> emails) {
 
-        this.emailList = emails;
+        this.emailListSortedByBackend = emails;
     }
 
-    public List<EmailDTO> getEmailList2(){
+    public List<EmailDTO> getEmailListSortedByFrontend(){
 
         return initService.getEmailDTOList();
     }
+
+
+
 }

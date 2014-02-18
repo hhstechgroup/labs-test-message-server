@@ -11,6 +11,7 @@ import com.engagepoint.university.messaging.dto.SmsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.lang.ref.WeakReference;
@@ -22,6 +23,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Singleton
+@Startup
 public class ServerMain {
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);
 
