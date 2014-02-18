@@ -56,12 +56,15 @@
                         </p:column>
 
                         <p:column headerText="attachments">
-                            <p:commandButton id="attachment" value="Download" ajax="false" style="visibility: hidden;
-                        width: 0px; height: 0px;">
-                                <p:fileDownload value="#{attachmentService.downloadAttachment(email.id)}"/>
-                            </p:commandButton>
-                            <a href="#" onclick="document.getElementById('#{p:component('attachment')}').click();">
-                                Name Attachment #{email.id}</a>
+                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="definition">
+                                <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
+                            width: 0px; height: 0px;">
+                                    <p:fileDownload value="#{attachmentService.downloadAttachment(attachment.id)}"/>
+                                </p:commandButton>
+                                <a href="#"
+                                   onclick="document.getElementById('#{p:component('attachmentId')}').click();">
+                                    #{attachment.name}</a>
+                            </p:dataList>
                         </p:column>
 
                     </p:dataTable>

@@ -1,13 +1,9 @@
 package com.engagepoint.university.messaging.entities;
 
-import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entities.base.BaseEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -103,7 +99,10 @@ public class Email implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    @ManyToMany(mappedBy = "emailCollection")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "attachment_has_email", joinColumns = {
+            @JoinColumn(name = "attachment_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "email_id", referencedColumnName = "id")})
     public Collection<Attachment> getAttachmentCollection() {
         return attachmentCollection;
     }
