@@ -2,6 +2,7 @@ package com.engagepoint.university.messaging.smtp;
 
 import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import org.subethamail.smtp.MessageContext;
 import org.subethamail.smtp.MessageHandler;
@@ -12,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
@@ -28,6 +31,8 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
         MessageContext ctx;
         EmailDAO mdao = new EmailDAOImpl();
         EmailDTO mail ;
+        AttachmentDTO attdto;
+        Collection<AttachmentDTO> atachCollection;
 
         public EmailHandler(MessageContext ctx) {
             this.ctx = ctx;
@@ -53,7 +58,17 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             String[] wer3 = wer2[1].split("Content-Type:");
             mail.setSubject(wer3[0].trim());
             String[] wer4 = wer3[1].split("7bit");
-            mail.setBody(wer4[1].trim().trim());
+            mail.setBody(wer4[1]);
+            if  (wer4[1].contains("filename")) {
+                atachCollection = new ArrayList<>();
+                attdto = new AttachmentDTO();
+                String[] att = wer4[1].split("filename=\"");
+                String[] att1 = att[1].split("\"");
+                attdto.setName(att1[0]);
+                attdto.setContent(att1[1]);
+                atachCollection.add(attdto);
+                mail.setAttachmentCollection(atachCollection);
+            }
         }
 
         public void done() {
