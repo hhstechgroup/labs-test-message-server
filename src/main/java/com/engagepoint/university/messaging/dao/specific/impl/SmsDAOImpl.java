@@ -15,7 +15,7 @@ public class SmsDAOImpl implements SmsDAO {
     public SmsDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Sms sms = EntityManagerUtil.getEntityManager().find(Sms.class, id);
-        SmsDTO smsDTO = new Converter().convert(sms);
+        SmsDTO smsDTO = Converter.convert(sms);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return smsDTO;
     }
@@ -28,7 +28,7 @@ public class SmsDAOImpl implements SmsDAO {
         List<SmsDTO> smsDTOs = new ArrayList<>();
         Iterator<Sms> smsIterator = smses.iterator();
         while (smsIterator.hasNext()) {
-            smsDTOs.add(new Converter().convert(smsIterator.next()));
+            smsDTOs.add(Converter.convert(smsIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return smsDTOs;
@@ -37,7 +37,7 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     public void save(SmsDTO smsDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Sms sms = new Converter().convert(smsDTO);
+        Sms sms = Converter.convert(smsDTO);
         if (!EntityManagerUtil.getEntityManager().contains(sms)) {
             EntityManagerUtil.getEntityManager().merge(sms);
         } else {
@@ -49,7 +49,7 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     public void update(SmsDTO smsDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Sms sms = new Converter().convert(smsDTO);
+        Sms sms = Converter.convert(smsDTO);
         EntityManagerUtil.getEntityManager().merge(sms);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -67,7 +67,7 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     public void delete(SmsDTO smsDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Sms sms = new Converter().convert(smsDTO);
+        Sms sms = Converter.convert(smsDTO);
         EntityManagerUtil.getEntityManager().detach(sms);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -81,7 +81,7 @@ public class SmsDAOImpl implements SmsDAO {
         List<SmsDTO> smsDTOs = new ArrayList<>();
         Iterator<Sms> smsIterator = smses.iterator();
         while (smsIterator.hasNext()) {
-            smsDTOs.add(new Converter().convert(smsIterator.next()));
+            smsDTOs.add(Converter.convert(smsIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return smsDTOs;

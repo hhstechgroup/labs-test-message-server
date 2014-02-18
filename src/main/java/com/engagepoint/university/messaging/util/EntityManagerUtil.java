@@ -8,6 +8,9 @@ public class EntityManagerUtil {
     private static final EntityManager entityManager = Persistence.
             createEntityManagerFactory("messaging").createEntityManager();
 
+    private EntityManagerUtil() {
+    }
+
     public static EntityManager getEntityManager() {
         return entityManager;
     }

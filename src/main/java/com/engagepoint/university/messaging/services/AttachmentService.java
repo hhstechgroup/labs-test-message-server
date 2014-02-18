@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.AttachmentDAO;
-import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -24,7 +24,7 @@ public class AttachmentService {
     private AttachmentDAO attachmentDAO;
 
     @Inject
-    private EmailDAOImpl emailDAO;
+    private EmailDAO emailDAO;
 
     private BASE64Decoder decoder;
 
@@ -35,23 +35,12 @@ public class AttachmentService {
         encoder = new BASE64Encoder();
     }
 
-    //TODO: how save and receive attachment???  Maybe List<InputStream> or List<File> or Name, Type, Content ???
-    public void saveAttachment(String name, byte[] content){
+    public AttachmentDTO encodeAttachment(String name, byte[] content) {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setName(name);
         attachmentDTO.setContent(encoder.encode(content));
-
-        //TODO: Create via attachmentDTO, delete Entity
-//        attachmentDAO.save(attachmentDTO);
-        attachmentDAO.save(attachmentDTO);
-
+        return attachmentDTO;
     }
-
-    //TODO: Create query,that receive idAttachmnet for idEmail !!!!!
-//    public List<Attachment> downloadAttachments(int emailId){
-//        EmailDTO email = emailDAO.getById(emailId);
-//        return (List<Attachment>) email.getAttachmentCollection();
-//    }
 
     public StreamedContent downloadAttachment(Long id) {
         AttachmentDTO attachmentDTO = attachmentDAO.getById(id);

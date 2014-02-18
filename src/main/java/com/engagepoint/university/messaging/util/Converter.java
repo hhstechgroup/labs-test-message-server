@@ -14,7 +14,11 @@ import com.engagepoint.university.messaging.entities.base.BaseEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityConverter<BaseDTO, BaseEntity> {
+public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToEntityConverter<BaseDTO, BaseEntity> {
+
+    private Converter() {
+    }
+
     @Override
     public BaseDTO convert(BaseEntity from) {
         return null;

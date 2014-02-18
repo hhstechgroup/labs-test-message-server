@@ -16,7 +16,7 @@ public class EmailDAOImpl implements EmailDAO {
     public EmailDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
-        EmailDTO emailDTO = new Converter().convert(email);
+        EmailDTO emailDTO = Converter.convert(email);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTO;
     }
@@ -29,7 +29,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = attachments.iterator();
         while (emailIterator.hasNext()) {
-            emailDTOs.add(new Converter().convert(emailIterator.next()));
+            emailDTOs.add(Converter.convert(emailIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
@@ -38,7 +38,7 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public void save(EmailDTO emailDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Email email = new Converter().convert(emailDTO);
+        Email email = Converter.convert(emailDTO);
         if (!EntityManagerUtil.getEntityManager().contains(email)) {
             EntityManagerUtil.getEntityManager().merge(email);
         } else {
@@ -50,7 +50,7 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public void update(EmailDTO emailDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Email email = new Converter().convert(emailDTO);
+        Email email = Converter.convert(emailDTO);
         EntityManagerUtil.getEntityManager().merge(email);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -68,7 +68,7 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public void delete(EmailDTO emailDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        Email email = new Converter().convert(emailDTO);
+        Email email = Converter.convert(emailDTO);
         EntityManagerUtil.getEntityManager().detach(email);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -82,7 +82,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
-            emailDTOs.add(new Converter().convert(emailIterator.next()));
+            emailDTOs.add(Converter.convert(emailIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
@@ -97,7 +97,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
-            emailDTOs.add(new Converter().convert(emailIterator.next()));
+            emailDTOs.add(Converter.convert(emailIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
@@ -111,7 +111,7 @@ public class EmailDAOImpl implements EmailDAO {
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
-            emailDTOs.add(new Converter().convert(emailIterator.next()));
+            emailDTOs.add(Converter.convert(emailIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return emailDTOs;
