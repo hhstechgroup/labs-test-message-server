@@ -1,7 +1,6 @@
-import com.engagepoint.university.messaging.dao.specific.impl.AttachmentDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
+
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
-import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
-import com.engagepoint.university.messaging.dao.specific.impl.UserDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,16 +15,11 @@ public class EmailDAOTest {
     private static final Logger LOG = LoggerFactory.getLogger(EmailDAOTest.class);
 
     @Inject
-    AttachmentDAOImpl attachmentDAOImpl;
-    @Inject
-    EmailDAOImpl emailDAOImpl;
-    @Inject
-    SmsDAOImpl smsDAOImpl;
-    @Inject
-    UserDAOImpl userDAOImpl;
+    EmailDAO emailDAOImpl;
 
     @Before
     public void setUp() {
+        emailDAOImpl = new EmailDAOImpl();
     }
 
     @Test

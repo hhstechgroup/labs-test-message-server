@@ -22,7 +22,7 @@ import java.io.IOException;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
-public class mailServerTest {
+public class MailServerTest {
     private static final Logger LOG = LoggerFactory.getLogger(EmailDAOImpl.class);
 
     private static final String USER_EMAIL_ADDRESS = "hascode@localhost.com";
