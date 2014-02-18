@@ -33,7 +33,6 @@ public class EmailDAOTest {
 
     @Before
     public void setUp() {
-
     }
 
     @Test
