@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.AttachmentDAO;
-import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -24,7 +24,7 @@ public class AttachmentService {
     private AttachmentDAO attachmentDAO;
 
     @Inject
-    private EmailDAOImpl emailDAO;
+    private EmailDAO emailDAO;
 
     private BASE64Decoder decoder;
 

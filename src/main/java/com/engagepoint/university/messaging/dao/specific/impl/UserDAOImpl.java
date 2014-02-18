@@ -15,7 +15,7 @@ public class UserDAOImpl implements UserDAO {
     public UserDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         User user = EntityManagerUtil.getEntityManager().find(User.class, id);
-        UserDTO userDTO = new Converter().convert(user);
+        UserDTO userDTO = Converter.convert(user);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return userDTO;
     }
@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
         List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
-            userDTOs.add(new Converter().convert(userIterator.next()));
+            userDTOs.add(Converter.convert(userIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return userDTOs;
@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void save(UserDTO userDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        User user = new Converter().convert(userDTO);
+        User user = Converter.convert(userDTO);
         if (!EntityManagerUtil.getEntityManager().contains(user)) {
             EntityManagerUtil.getEntityManager().merge(user);
         } else {
@@ -49,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void update(UserDTO userDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        User user = new Converter().convert(userDTO);
+        User user = Converter.convert(userDTO);
         EntityManagerUtil.getEntityManager().merge(user);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -67,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void delete(UserDTO userDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        User user = new Converter().convert(userDTO);
+        User user = Converter.convert(userDTO);
         EntityManagerUtil.getEntityManager().detach(user);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -80,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
         List<UserDTO> userDTOs = new ArrayList<UserDTO>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
-            userDTOs.add(new Converter().convert(userIterator.next()));
+            userDTOs.add(Converter.convert(userIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return userDTOs;
@@ -94,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
         List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
-            userDTOs.add(new Converter().convert(userIterator.next()));
+            userDTOs.add(Converter.convert(userIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return userDTOs;
@@ -109,7 +109,7 @@ public class UserDAOImpl implements UserDAO {
         List<UserDTO> userDTOs = new ArrayList<>();
         Iterator<User> userIterator = users.iterator();
         while (userIterator.hasNext()) {
-            userDTOs.add(new Converter().convert(userIterator.next()));
+            userDTOs.add(Converter.convert(userIterator.next()));
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
         return userDTOs;

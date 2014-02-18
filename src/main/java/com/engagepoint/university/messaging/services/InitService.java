@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
-import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
+import com.engagepoint.university.messaging.dao.specific.SmsDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
@@ -24,26 +24,27 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-public class InitService implements Serializable,Runnable {
+public class InitService implements Serializable, Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
     @Inject
     private ServerMain serverMain;
-    @Inject
-    private EmailDAOImpl emailDAO;
 
     @Inject
-    private SmsDAOImpl smsDAO;
+    private EmailDAO emailDAO;
+
+    @Inject
+    private SmsDAO smsDAO;
 
     @Inject
     private SMTPMessageHandlerFactory emailFactory;
 
     @PostConstruct
-    void init(){
+    void init() {
         emailDTOList = new ArrayList<EmailDTO>();
         smsDTOList = new ArrayList<SmsDTO>();
         emailDTOList = emailDAO.getAll();
         smsDTOList = smsDAO.getAll();
-        Thread thread = new Thread(this,"SubeThaSMTP");
+        Thread thread = new Thread(this, "SubeThaSMTP");
         thread.start();
         try {
             serverMain.startSmppServer();
@@ -60,6 +61,7 @@ public class InitService implements Serializable,Runnable {
         server.setPort(25000);
         server.start();
     }
+
     private List<EmailDTO> emailDTOList;
 
     private List<SmsDTO> smsDTOList;
@@ -161,25 +163,26 @@ public class InitService implements Serializable,Runnable {
         smsDTOList = smsDAO.getAll();
     }
 
-    public void refreshSms (){
+    public void refreshSms() {
         smsDTOList = smsDAO.getAll();
     }
-    public void refreshEmail (){
+
+    public void refreshEmail() {
         emailDTOList = emailDAO.getAll();
     }
 
-    public void deleteCheckedEmails(){
+    public void deleteCheckedEmails() {
         List<Long> idList = new ArrayList<Long>();
         List<EmailDTO> removeList = new ArrayList<EmailDTO>();
 
-        for (EmailDTO item: emailDTOList){
-            if (item.getFlag()){
+        for (EmailDTO item : emailDTOList) {
+            if (item.getFlag()) {
                 idList.add(item.getId());
                 removeList.add(item);
             }
         }
 
-        for (EmailDTO item:removeList){
+        for (EmailDTO item : removeList) {
             emailDTOList.remove(item);
         }
 
@@ -188,18 +191,18 @@ public class InitService implements Serializable,Runnable {
         removeList.clear();
     }
 
-    public void deleteCheckedSMS(){
+    public void deleteCheckedSMS() {
         List<Long> idList = new ArrayList<Long>();
         List<SmsDTO> removeList = new ArrayList<SmsDTO>();
 
-        for (SmsDTO item: smsDTOList ){
-            if (item.getFlag()){
+        for (SmsDTO item : smsDTOList) {
+            if (item.getFlag()) {
                 idList.add(item.getId());
                 removeList.add(item);
             }
         }
 
-        for (SmsDTO item:removeList){
+        for (SmsDTO item : removeList) {
             smsDTOList.remove(item);
         }
 
