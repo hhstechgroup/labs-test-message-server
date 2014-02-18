@@ -4,7 +4,6 @@ import com.engagepoint.university.messaging.entities.base.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -57,10 +56,8 @@ public class Attachment implements Serializable, BaseEntity {
     public void setContent(String content) {
         this.content = content;
     }
-    @JoinTable(name = "attachment_has_email", joinColumns = {
-            @JoinColumn(name = "attachment_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "email_id", referencedColumnName = "id")})
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "attachmentCollection")
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }

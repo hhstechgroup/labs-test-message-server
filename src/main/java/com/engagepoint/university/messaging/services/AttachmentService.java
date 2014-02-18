@@ -1,22 +1,27 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.dao.specific.impl.AttachmentDAOImpl;
+import com.engagepoint.university.messaging.dao.specific.AttachmentDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.List;
 
 @Named
 public class AttachmentService {
+    private static final Logger LOG = LoggerFactory.getLogger(AttachmentService.class);
 
     @Inject
-    private AttachmentDAOImpl attachmentDAO;
+    private AttachmentDAO attachmentDAO;
 
     @Inject
     private EmailDAOImpl emailDAO;
@@ -48,15 +53,22 @@ public class AttachmentService {
 //        return (List<Attachment>) email.getAttachmentCollection();
 //    }
 
-    public  StreamedContent downloadAttachment(int id){
-
-        String lol = "attachment #" + id;
-        String s = encoder.encode(lol.getBytes());
+    public StreamedContent downloadAttachment(Long id) {
+        AttachmentDTO attachmentDTO = attachmentDAO.getById(id);
+        LOG.info(attachmentDTO.toString());
         try {
-            return new DefaultStreamedContent(new ByteArrayInputStream(decoder.decodeBuffer(s)), "application/force-download", "attachment_№" + id + ".txt");
+            return new DefaultStreamedContent(
+                    new ByteArrayInputStream(decoder.decodeBuffer(attachmentDTO.getContent())),
+                    "application/force-download",
+                    attachmentDTO.getName());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    public List<AttachmentDTO> allAttachment() {
+        return attachmentDAO.getAll();
+    }
+
 }

@@ -88,11 +88,16 @@ public class InitService implements Serializable,Runnable {
 
         AttachmentDTO attachmentDTO1 = new AttachmentDTO();
         attachmentDTO1.setName("attachment1.txt");
-        attachmentDTO1.setContent("YXR0YWNobWVudA==");
+        attachmentDTO1.setContent("YXR0YWNobWVudCBURVNU");
+
+        AttachmentDTO attachmentDTO2 = new AttachmentDTO();
+        attachmentDTO2.setName("attachment2.txt");
+        attachmentDTO2.setContent("SGkgSXZhbiBWYXNpbGlpdiEhIQ==");
 
         Collection<AttachmentDTO> attachmentCollection = new ArrayList<>();
         attachmentCollection.add(attachmentDTO);
         attachmentCollection.add(attachmentDTO1);
+        attachmentCollection.add(attachmentDTO2);
 
         LOG.debug("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();

@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface GenericDAO<DTOType extends BaseDTO> {
 
-    public DTOType getById(Integer id);
+    public DTOType getById(Long id);
+
     public List<DTOType> getAll();
     public void save(DTOType DTOType);
     public void update(DTOType DTOType);

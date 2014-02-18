@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     @Override
-    public UserDTO getById(Integer id) {
+    public UserDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         User user = EntityManagerUtil.getEntityManager().find(User.class, id);
         UserDTO userDTO = new Converter().convert(user);

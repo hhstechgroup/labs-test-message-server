@@ -13,7 +13,7 @@ import java.util.List;
 public class EmailDAOImpl implements EmailDAO {
 
     @Override
-    public EmailDTO getById(Integer id) {
+    public EmailDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
         EmailDTO emailDTO = new Converter().convert(email);
@@ -120,7 +120,7 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public void deleteIdList(List<Long> idList) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST,idList).executeUpdate();
+        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST, idList).executeUpdate();
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
 }

@@ -16,7 +16,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     private static final Logger LOG = LoggerFactory.getLogger(AttachmentDAOImpl.class);
 
     @Override
-    public AttachmentDTO getById(Integer id) {
+    public AttachmentDTO getById(Long id) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Attachment attachment = EntityManagerUtil.getEntityManager().find(Attachment.class, id);
         AttachmentDTO attachmentDTO = Converter.convert(attachment);
