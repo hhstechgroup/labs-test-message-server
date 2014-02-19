@@ -11,8 +11,8 @@
             <p:tabView id="tabView" dynamic="true">
 
                 <p:tab title="Email Messages" id="EmailMessages">
-                    <p:commandButton value="Generate Message" update="EmailTable"
-                                     actionListener="#{initService.addEmail}"/>
+                    <!--<p:commandButton value="Generate Message" update="EmailTable"-->
+                    <!--actionListener="/*{initService.addEmail}"/>-->
 
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"  actionListener="#{initService.refreshEmail}"/>
 
@@ -71,7 +71,7 @@
                 </p:tab>
 
                 <p:tab title="SMS Messages" id="SmsMessages">
-                    <p:commandButton value="Generate Message" update="SmsTable" actionListener="#{initService.addSms}"/>
+                    <!--<p:commandButton value="Generate Message" update="SmsTable" actionListener="{initService.addSms}"/>-->
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable" actionListener="#{initService.refreshSms}"/>
                     <p:commandButton value="Delete SMS" update="@(form)"
                                      actionListener="#{initService.deleteCheckedSMS}"/>
