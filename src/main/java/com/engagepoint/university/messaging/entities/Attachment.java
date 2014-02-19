@@ -48,7 +48,6 @@ public class Attachment implements Serializable, BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
     @Lob
     @Size(max = 14000000)
     @Column(name = "content")
