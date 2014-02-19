@@ -11,8 +11,16 @@
             <p:tabView id="tabView" dynamic="true">
 
                 <p:tab title="Email Messages" id="EmailMessages">
-                    <!--<p:commandButton value="Generate Message" update="EmailTable"-->
-                    <!--actionListener="/*{initService.addEmail}"/>-->
+
+                    <p:panel id="FilterPanel1" header="Filter">
+                        <h:outputText value="Sender " />
+                        <p:inputText id="inputEmailSender" value="#{initService.senderForFilteringEmail}" />
+                        <p:commandButton value="Do Filter" update="EmailTable" actionListener="#{initService.doFilterEmail}"/>
+                        <p:commandButton value="Cancel Filter" update="EmailTable,inputEmailSender" actionListener="#{initService.cancelFilterEmail}"/>
+                    </p:panel>
+
+                    <p:commandButton value="Generate Message" update="EmailTable"
+                                     actionListener="#{initService.addEmail}"/>
 
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"  actionListener="#{initService.refreshEmail}"/>
 
@@ -71,7 +79,15 @@
                 </p:tab>
 
                 <p:tab title="SMS Messages" id="SmsMessages">
-                    <!--<p:commandButton value="Generate Message" update="SmsTable" actionListener="{initService.addSms}"/>-->
+
+                    <p:panel id="FilterPanel2" header="Filter">
+                        <h:outputText value="Sender " />
+                        <p:inputText id="inputSmsSender" value="#{initService.senderForFilteringSms}" />
+                        <p:commandButton value="Do Filter" update="SmsTable" actionListener="#{initService.doFilterSms}"/>
+                        <p:commandButton value="Cancel Filter" update="SmsTable,inputSmsSender" actionListener="#{initService.cancelFilterSms}"/>
+                    </p:panel>
+
+                    <p:commandButton value="Generate Message" update="SmsTable" actionListener="#{initService.addSms}"/>
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable" actionListener="#{initService.refreshSms}"/>
                     <p:commandButton value="Delete SMS" update="@(form)"
                                      actionListener="#{initService.deleteCheckedSMS}"/>

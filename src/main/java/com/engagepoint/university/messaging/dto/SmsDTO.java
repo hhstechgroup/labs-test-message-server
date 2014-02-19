@@ -12,6 +12,10 @@ public class SmsDTO extends BaseDTO {
     private Date deliveryDate;
     private Boolean flag = Boolean.FALSE;
 
+    public SmsDTO(){
+
+    }
+
     public String getSender() {
         return sender;
     }

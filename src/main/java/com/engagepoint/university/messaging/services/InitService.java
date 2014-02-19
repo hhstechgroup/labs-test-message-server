@@ -26,6 +26,30 @@ import java.util.List;
 @ApplicationScoped
 public class InitService implements Serializable, Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
+
+    private String senderForFilteringEmail;  //word which the list of email will be sorted by
+
+    public String getSenderForFilteringEmail() {
+        return senderForFilteringEmail;
+    }
+
+    public void setSenderForFilteringEmail(String senderForFilteringEmail) {
+        this.senderForFilteringEmail = senderForFilteringEmail;
+    }
+
+    private String senderForFilteringSms;  //word which the list of sms will be sorted by
+
+    public String getSenderForFilteringSms() {
+        return senderForFilteringEmail;
+    }
+
+    public void setSenderForFilteringSms(String senderForFilteringSms) {
+        this.senderForFilteringSms = senderForFilteringSms;
+    }
+
+    private boolean flagFilterEmail = false;  //checks if user use FilterEmail
+    private boolean flagFilterSms = false;  //checks if user use FilterSms
+
     @Inject
     private ServerMain serverMain;
 
@@ -67,7 +91,12 @@ public class InitService implements Serializable, Runnable {
     private List<SmsDTO> smsDTOList;
 
     public List<EmailDTO> getEmailDTOList() {
-        return emailDTOList;
+
+        if (flagFilterEmail) return doFilterEmail();
+        else{
+
+            return cancelFilterEmail();
+        }
     }
 
     public void setEmailDTOList(List<EmailDTO> emailDTOList) {
@@ -75,7 +104,12 @@ public class InitService implements Serializable, Runnable {
     }
 
     public List<SmsDTO> getSmsDTOList() {
-        return smsDTOList;
+
+        if (flagFilterSms) return doFilterSms();
+        else{
+
+            return cancelFilterSms();
+        }
     }
 
     public void setSmsDTOList(List<SmsDTO> smsDTOList) {
@@ -210,4 +244,50 @@ public class InitService implements Serializable, Runnable {
         idList.clear();
         removeList.clear();
     }
+
+    //performed when user press Do FilterEmail button
+    public List<EmailDTO> doFilterEmail(){
+
+        flagFilterEmail = true;
+        List<EmailDTO> l = emailDTOList;
+        List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
+        if (getSenderForFilteringEmail().equals("")) listForReturn = l;
+        else{
+            for (EmailDTO i:l){
+                if (i.getSender().equals(getSenderForFilteringEmail()) )
+                    listForReturn.add(i);
+            }
+        }
+        return listForReturn;
+    }
+
+    //performed when user press Cancel FilterEmail button
+    public List<EmailDTO> cancelFilterEmail(){
+        flagFilterEmail = false;
+        //setSenderForFilteringEmail("");
+        return emailDTOList;
+    }
+
+    //performed when user press Do FilterSms button
+    public List<SmsDTO> doFilterSms(){
+        flagFilterSms = true;
+        List<SmsDTO> l = smsDTOList;
+        List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
+        if (senderForFilteringSms.equals("")) listForReturn = l;
+        else{
+            for (SmsDTO i:l){
+                if (i.getSender().equals(senderForFilteringSms) )
+                    listForReturn.add(i);
+            }
+        }
+        return listForReturn;
+    }
+
+    //performed when user press Cancel FilterSms button
+    public List<SmsDTO> cancelFilterSms(){
+        flagFilterSms = false;
+        //setSenderForFilteringSms("");
+        return smsDTOList;
+    }
+
 }

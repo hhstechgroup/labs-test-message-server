@@ -39,7 +39,6 @@ public class EmailService implements Serializable{
     }
 
     public List<EmailDTO> getEmailListSortedByFrontend(){
-
         return initService.getEmailDTOList();
     }
 
