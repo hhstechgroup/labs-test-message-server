@@ -1,3 +1,5 @@
+package junit;
+
 import com.engagepoint.university.messaging.dao.specific.SmsDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.SmsDAOImpl;
 import com.engagepoint.university.messaging.dto.SmsDTO;

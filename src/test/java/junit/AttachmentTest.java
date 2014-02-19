@@ -1,3 +1,5 @@
+package junit;
+
 import org.junit.Test;
 import sun.misc.BASE64Encoder;
 

@@ -1,3 +1,5 @@
+package junit;
+
 import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;

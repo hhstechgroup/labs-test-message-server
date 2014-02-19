@@ -1,6 +1,7 @@
+package junit;
+
 import com.engagepoint.university.messaging.dao.specific.UserDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.UserDAOImpl;
-import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.dto.UserDTO;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
-import java.util.Date;
 
 public class UserDAOTest {
     private static final Logger LOG = LoggerFactory.getLogger(EmailDAOTest.class);
