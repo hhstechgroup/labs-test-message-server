@@ -30,14 +30,42 @@ public class EmailDAOTest {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setSender("engagepoint-sender-email");
         emailDTO.setSubject("engagepoint-sender-subject");
-        emailDTO.setBody("engagepoint-sender-body");
+        emailDTO.setBody("engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-" +
+                "engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body-engagepoint-sender-body");
         emailDTO.setSendDate(new Date());
         emailDTO.setDeliveryDate(new Date());
 
         EmailDTO emailDTO1 = new EmailDTO();
-        emailDTO1.setSender("engagepoint-sender-email1");
-        emailDTO1.setSubject("engagepoint-sender-subject1");
-        emailDTO1.setBody("engagepoint-sender-body1");
+        emailDTO1.setSender("engagepoint-sender-email1-email1-email1");
+        emailDTO1.setSubject("engagepoint-sender-subject1-subject1-subject1");
+        emailDTO1.setBody("engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-" +
+                "engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1-engagepoint-sender-body1");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(new Date());
 
