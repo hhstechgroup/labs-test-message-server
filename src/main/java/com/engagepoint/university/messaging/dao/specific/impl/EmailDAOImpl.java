@@ -60,7 +60,7 @@ public class EmailDAOImpl implements EmailDAO {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
         if (email != null) {
-            EntityManagerUtil.getEntityManager().detach(email);
+            EntityManagerUtil.getEntityManager().remove(email);
         }
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
@@ -69,7 +69,7 @@ public class EmailDAOImpl implements EmailDAO {
     public void delete(EmailDTO emailDTO) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
         Email email = Converter.convert(emailDTO);
-        EntityManagerUtil.getEntityManager().detach(email);
+        EntityManagerUtil.getEntityManager().remove(email);
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
 
@@ -120,7 +120,13 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public void deleteIdList(List<Long> idList) {
         EntityManagerUtil.getEntityManager().getTransaction().begin();
-        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST, idList).executeUpdate();
+        for (Long id : idList) {
+            Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
+            if (email != null) {
+                EntityManagerUtil.getEntityManager().remove(email);
+            }
+        }
+//        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST, idList).executeUpdate();
         EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
 }

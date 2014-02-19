@@ -57,7 +57,7 @@ public class Attachment implements Serializable, BaseEntity {
         this.content = content;
     }
 
-    @ManyToMany(mappedBy = "attachmentCollection")
+    @ManyToMany(mappedBy = "attachmentCollection", cascade = CascadeType.ALL)
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }

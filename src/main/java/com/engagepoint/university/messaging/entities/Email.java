@@ -102,7 +102,7 @@ public class Email implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "attachment_has_email", joinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")})
