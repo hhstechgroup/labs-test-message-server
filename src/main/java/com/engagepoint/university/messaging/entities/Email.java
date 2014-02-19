@@ -102,7 +102,7 @@ public class Email implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "attachment_has_email", joinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")})
@@ -114,7 +114,7 @@ public class Email implements Serializable, BaseEntity {
         this.attachmentCollection = attachmentCollection;
     }
 
-    @ManyToMany(mappedBy = "emailCollection")
+    @ManyToMany(mappedBy = "emailCollection", cascade = CascadeType.ALL)
     public Collection<User> getUserCollection() {
         return userCollection;
     }

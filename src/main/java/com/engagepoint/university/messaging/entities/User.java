@@ -1,6 +1,7 @@
 package com.engagepoint.university.messaging.entities;
 
 import com.engagepoint.university.messaging.entities.base.BaseEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -78,10 +79,10 @@ public class User implements Serializable, BaseEntity {
         this.password = password;
     }
 
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_email", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")})
-    @ManyToMany
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }
@@ -90,7 +91,10 @@ public class User implements Serializable, BaseEntity {
         this.emailCollection = emailCollection;
     }
 
-    @ManyToMany(mappedBy = "userCollection")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "sms_has_user", joinColumns = {
+            @JoinColumn(name = "sms_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")})
     public Collection<Sms> getSmsCollection() {
         return smsCollection;
     }
