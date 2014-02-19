@@ -3,6 +3,7 @@ package com.engagepoint.university.messaging.entities;
 import com.engagepoint.university.messaging.entities.base.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -48,6 +49,8 @@ public class Attachment implements Serializable, BaseEntity {
         this.name = name;
     }
 
+    @Lob
+    @Size(max = 14000000)
     @Column(name = "content")
     public String getContent() {
         return content;
