@@ -47,25 +47,54 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
 //            mail.set(recipient);
         }
 
+        public String getSendDate(String stream) {
+            String[] wer = stream.split("Date:");
+            String[] wer1 = wer[1].split("From:");
+            return wer1[0].trim();
+        }
+
+        public String getSubject (String stream) {
+            String[] wer2 = stream.split("Subject:");
+            String[] wer3 = wer2[1].split("Content-Type:");
+            return wer3[0].trim();
+        }
+
+        public String getContent (String stream) {
+            String s ="";
+            if (stream.contains("filename")){
+                String[] wer4 = stream.split("7bit");
+                String[] wer5 = wer4[1].split("-");
+                s = wer5[0].trim();
+            } else {
+                String[] wer4 = stream.split("7bit");
+                s = wer4[1].trim();
+            }
+            return s;
+        }
+
+        public String getAttachmentName (String stream) {
+            String[] att = stream.split("filename=\"");
+            String[] att1 = att[1].split("\"");
+            return att1[0].trim();
+        }
+
+        public String getAttachmentBase64 (String stream) {
+            String[] att = stream.split("filename=\"");
+            String[] att1 = att[1].split("\"");
+            return att1[1].trim();
+        }
         @Override
         public void data(InputStream data)  {
             //TODO fantasticheskoe rakovstvo. Peredelat'.
             String s = this.convertStreamToStringTwo(data);
-            String[] wer = s.split("Date:");
-            String[] wer1 = wer[1].split("From:");
-            mail.setDeliveryDate(new Date(wer1[0]));
-            String[] wer2 = s.split("Subject:");
-            String[] wer3 = wer2[1].split("Content-Type:");
-            mail.setSubject(wer3[0].trim());
-            String[] wer4 = wer3[1].split("7bit");
-            mail.setBody(wer4[1]);
-            if  (wer4[1].contains("filename")) {
+            mail.setDeliveryDate(new Date(getSendDate(s)));
+            mail.setSubject(getSubject(s));
+            mail.setBody(getContent(s));
+            if  (s.contains("filename")) {
                 atachCollection = new ArrayList<>();
                 attdto = new AttachmentDTO();
-                String[] att = wer4[1].split("filename=\"");
-                String[] att1 = att[1].split("\"");
-                attdto.setName(att1[0]);
-                attdto.setContent(att1[1]);
+                attdto.setName(getAttachmentName(s));
+                attdto.setContent(getAttachmentBase64(s));
                 atachCollection.add(attdto);
                 mail.setAttachmentCollection(atachCollection);
             }

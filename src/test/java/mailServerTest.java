@@ -1,8 +1,7 @@
-import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.serverdao.impl.EmailServerImpl;
+import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.Email;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
@@ -22,7 +21,7 @@ import java.io.IOException;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
-public class MailServerTest {
+class MailServerTest {
     private static final Logger LOG = LoggerFactory.getLogger(EmailDAOImpl.class);
 
     private static final String USER_EMAIL_ADDRESS = "hascode@localhost.com";
