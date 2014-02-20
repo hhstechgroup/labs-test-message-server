@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.Singleton;
 import java.io.Serializable;
 
-@Named
-@ApplicationScoped
+@Startup
+@Singleton
 public class InitService implements Serializable, Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
 
@@ -32,6 +32,7 @@ public class InitService implements Serializable, Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("APP STARTUP");
     }
 
     @Override
@@ -40,4 +41,6 @@ public class InitService implements Serializable, Runnable {
         server.setPort(25000);
         server.start();
     }
+
+
 }
