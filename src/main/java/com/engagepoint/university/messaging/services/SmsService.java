@@ -32,7 +32,7 @@ public class SmsService implements Serializable {
     public List<SmsDTO> getSmsDTOList() {
 
         if (flagFilterSms) return doFilterSms();
-        else{
+        else {
 
             return cancelFilterSms();
         }
@@ -57,32 +57,32 @@ public class SmsService implements Serializable {
     public void deleteCheckedSMS() {
         List<Long> idList = new ArrayList<Long>();
         List<SmsDTO> removeList = new ArrayList<SmsDTO>();
-
-        for (SmsDTO item : smsDTOList) {
-            if (item.getFlag()) {
-                idList.add(item.getId());
-                removeList.add(item);
+        if (smsDTOList != null) {
+            for (SmsDTO item : smsDTOList) {
+                if (item.getFlag()) {
+                    idList.add(item.getId());
+                    removeList.add(item);
+                }
             }
-        }
 
-        for (SmsDTO item : removeList) {
-            smsDTOList.remove(item);
+            for (SmsDTO item : removeList) {
+                smsDTOList.remove(item);
+            }
+            smsDAO.deleteIdList(idList);
+            idList.clear();
+            removeList.clear();
         }
-
-        smsDAO.deleteIdList(idList);
-        idList.clear();
-        removeList.clear();
     }
 
     //performed when user press Do FilterSms button
-    public List<SmsDTO> doFilterSms(){
+    public List<SmsDTO> doFilterSms() {
         flagFilterSms = true;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
         if (senderForFilteringSms.equals("")) listForReturn = l;
-        else{
-            for (SmsDTO i:l){
-                if (i.getSender().equals(senderForFilteringSms) )
+        else {
+            for (SmsDTO i : l) {
+                if (i.getSender().equals(senderForFilteringSms))
                     listForReturn.add(i);
             }
         }
@@ -90,7 +90,7 @@ public class SmsService implements Serializable {
     }
 
     //performed when user press Cancel FilterSms button
-    public List<SmsDTO> cancelFilterSms(){
+    public List<SmsDTO> cancelFilterSms() {
         flagFilterSms = false;
         //setSenderForFilteringSms("");
         return smsDTOList;

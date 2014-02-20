@@ -19,7 +19,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class EmailService implements Serializable{
+public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
     @Inject
@@ -32,7 +32,7 @@ public class EmailService implements Serializable{
     private boolean flagFilterEmail = false;  //checks if user use FilterEmail
 
     @PostConstruct
-    public void init(){
+    public void init() {
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailDAO.getAll();
         System.out.println("INIT SERVICE EMAIL BEAN");
@@ -46,7 +46,7 @@ public class EmailService implements Serializable{
     public List<EmailDTO> getEmailDTOList() {
 
         if (flagFilterEmail) return doFilterEmail();
-        else{
+        else {
 
             return cancelFilterEmail();
         }
@@ -67,33 +67,34 @@ public class EmailService implements Serializable{
     public void deleteCheckedEmails() {
         List<Long> idList = new ArrayList<Long>();
         List<EmailDTO> removeList = new ArrayList<EmailDTO>();
-
-        for (EmailDTO item : emailDTOList) {
-            if (item.getFlag()) {
-                idList.add(item.getId());
-                removeList.add(item);
+        if (emailDTOList != null) {
+            for (EmailDTO item : emailDTOList) {
+                if (item.getFlag()) {
+                    idList.add(item.getId());
+                    removeList.add(item);
+                }
             }
-        }
 
-        for (EmailDTO item : removeList) {
-            emailDTOList.remove(item);
-        }
+            for (EmailDTO item : removeList) {
+                emailDTOList.remove(item);
+            }
 
-        emailDAO.deleteIdList(idList);
-        idList.clear();
-        removeList.clear();
+            emailDAO.deleteIdList(idList);
+            idList.clear();
+            removeList.clear();
+        }
     }
 
     //performed when user press Do FilterEmail button
-    public List<EmailDTO> doFilterEmail(){
+    public List<EmailDTO> doFilterEmail() {
 
         flagFilterEmail = true;
         List<EmailDTO> l = emailDTOList;
         List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
         if (getSenderForFilteringEmail().equals("")) listForReturn = l;
-        else{
-            for (EmailDTO i:l){
-                if (i.getSender().equals(getSenderForFilteringEmail()) )
+        else {
+            for (EmailDTO i : l) {
+                if (i.getSender().equals(getSenderForFilteringEmail()))
                     listForReturn.add(i);
             }
         }
@@ -101,7 +102,7 @@ public class EmailService implements Serializable{
     }
 
     //performed when user press Cancel FilterEmail button
-    public List<EmailDTO> cancelFilterEmail(){
+    public List<EmailDTO> cancelFilterEmail() {
         flagFilterEmail = false;
         //setSenderForFilteringEmail("");
         return emailDTOList;
