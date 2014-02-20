@@ -8,6 +8,7 @@ import org.subethamail.smtp.MessageContext;
 import org.subethamail.smtp.MessageHandler;
 import org.subethamail.smtp.MessageHandlerFactory;
 import org.subethamail.smtp.RejectException;
+import sun.misc.BASE64Encoder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,6 +35,10 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
         EmailDTO mail ;
         AttachmentDTO attdto;
         Collection<AttachmentDTO> atachCollection;
+        private BASE64Encoder encoder = new BASE64Encoder();
+        private final String WARNING1 = "Sorry, the attachment was too big.";
+        String encodedAttachmentWarning = encoder.encode(WARNING1.getBytes());
+        private final String WARNING2 = "Sorry, the message body was too big.";
 
         public EmailHandler(MessageContext ctx) {
             this.ctx = ctx;
@@ -123,21 +128,32 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             } else {
                 mail.setSubject("");
             }
-            mail.setBody(getContent(s));
-
+            byte [] msgBodyArr = getContent(s).getBytes();
+            if (!(msgBodyArr.length>1553)) {
+                mail.setBody(getContent(s));
+            } else {
+                mail.setBody(WARNING2);
+            }
             if  (s.contains("filename")) {
-                atachCollection = new ArrayList<AttachmentDTO>();
+                atachCollection = new ArrayList<>();
                 String[] arr = s.split("Content-Disposition:");
                 ArrayList<String> attaches = new ArrayList<>(Arrays.asList(arr));
                 attaches.remove(0);
+                //TODO отрефакторить и запилить чистку boundary
                 String boundString = getBoundary(s);
                 byte [] boundArr = boundString.getBytes();
                 for (String attachments : attaches) {
                     attdto = new AttachmentDTO();
                     attdto.setName(getAttachmentName(attachments));
-                    String attBase = getAttachmentBase64(attachments);
-                    byte [] att = attBase.getBytes();
-                    attdto.setContent(attBase);
+                    byte[] checkAttBody = getAttachmentBase64(attachments).getBytes();
+                    if (!(checkAttBody.length >14000000)){
+                        String attBase = getAttachmentBase64(attachments);
+                        byte [] att = attBase.getBytes();
+                        attdto.setContent(attBase);
+                    } else {
+                        attdto.setContent(encodedAttachmentWarning);
+                    }
+
                     atachCollection.add(attdto);
                 }
                     mail.setAttachmentCollection(atachCollection);

@@ -36,8 +36,7 @@ public class Email implements Serializable, BaseEntity {
     private Long id;
     private String sender;
     private String subject;
-    @Lob
-    @Size(max = 65535)
+
     private String body;
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
@@ -75,6 +74,8 @@ public class Email implements Serializable, BaseEntity {
         this.subject = subject;
     }
 
+    @Lob
+    @Size(max = 1553)
     @Column(name = "body")
     public String getBody() {
         return body;
