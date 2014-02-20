@@ -49,7 +49,8 @@ public class InitService implements Serializable, Runnable {
 
     private boolean flagFilterEmail = false;  //checks if user use FilterEmail
     private boolean flagFilterSms = false;  //checks if user use FilterSms
-
+    private Boolean flagEmail = Boolean.FALSE;
+    private Boolean flagSMS = Boolean.FALSE;
     @Inject
     private ServerMain serverMain;
 
@@ -93,7 +94,7 @@ public class InitService implements Serializable, Runnable {
     public List<EmailDTO> getEmailDTOList() {
 
         if (flagFilterEmail) return doFilterEmail();
-        else{
+        else {
 
             return cancelFilterEmail();
         }
@@ -106,7 +107,7 @@ public class InitService implements Serializable, Runnable {
     public List<SmsDTO> getSmsDTOList() {
 
         if (flagFilterSms) return doFilterSms();
-        else{
+        else {
 
             return cancelFilterSms();
         }
@@ -208,53 +209,59 @@ public class InitService implements Serializable, Runnable {
     public void deleteCheckedEmails() {
         List<Long> idList = new ArrayList<Long>();
         List<EmailDTO> removeList = new ArrayList<EmailDTO>();
-
-        for (EmailDTO item : emailDTOList) {
-            if (item.getFlag()) {
-                idList.add(item.getId());
-                removeList.add(item);
+        if (emailDTOList != null) {
+            for (EmailDTO item : emailDTOList) {
+                if (item.getFlag()) {
+                    idList.add(item.getId());
+                    removeList.add(item);
+                    flagEmail = Boolean.TRUE;
+                }
             }
         }
 
-        for (EmailDTO item : removeList) {
-            emailDTOList.remove(item);
-        }
-
-        emailDAO.deleteIdList(idList);
-        idList.clear();
-        removeList.clear();
+            for (EmailDTO item : removeList) {
+                emailDTOList.remove(item);
+            }
+            if (flagEmail){
+            emailDAO.deleteIdList(idList);
+            flagEmail=Boolean.FALSE;}
+            idList.clear();
+            removeList.clear();
     }
 
     public void deleteCheckedSMS() {
         List<Long> idList = new ArrayList<Long>();
         List<SmsDTO> removeList = new ArrayList<SmsDTO>();
-
-        for (SmsDTO item : smsDTOList) {
-            if (item.getFlag()) {
-                idList.add(item.getId());
-                removeList.add(item);
+        if (smsDTOList != null) {
+            for (SmsDTO item : smsDTOList) {
+                if (item.getFlag()) {
+                    idList.add(item.getId());
+                    removeList.add(item);
+                    flagSMS=Boolean.TRUE;
+                }
             }
         }
 
-        for (SmsDTO item : removeList) {
-            smsDTOList.remove(item);
-        }
-
-        smsDAO.deleteIdList(idList);
-        idList.clear();
-        removeList.clear();
+            for (SmsDTO item : removeList) {
+                smsDTOList.remove(item);
+            }
+            if (flagSMS){
+            smsDAO.deleteIdList(idList);
+            flagSMS=Boolean.FALSE;}
+            idList.clear();
+            removeList.clear();
     }
 
     //performed when user press Do FilterEmail button
-    public List<EmailDTO> doFilterEmail(){
+    public List<EmailDTO> doFilterEmail() {
 
         flagFilterEmail = true;
         List<EmailDTO> l = emailDTOList;
         List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
         if (getSenderForFilteringEmail().equals("")) listForReturn = l;
-        else{
-            for (EmailDTO i:l){
-                if (i.getSender().equals(getSenderForFilteringEmail()) )
+        else {
+            for (EmailDTO i : l) {
+                if (i.getSender().equals(getSenderForFilteringEmail()))
                     listForReturn.add(i);
             }
         }
@@ -262,21 +269,21 @@ public class InitService implements Serializable, Runnable {
     }
 
     //performed when user press Cancel FilterEmail button
-    public List<EmailDTO> cancelFilterEmail(){
+    public List<EmailDTO> cancelFilterEmail() {
         flagFilterEmail = false;
         //setSenderForFilteringEmail("");
         return emailDTOList;
     }
 
     //performed when user press Do FilterSms button
-    public List<SmsDTO> doFilterSms(){
+    public List<SmsDTO> doFilterSms() {
         flagFilterSms = true;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
         if (senderForFilteringSms.equals("")) listForReturn = l;
-        else{
-            for (SmsDTO i:l){
-                if (i.getSender().equals(senderForFilteringSms) )
+        else {
+            for (SmsDTO i : l) {
+                if (i.getSender().equals(senderForFilteringSms))
                     listForReturn.add(i);
             }
         }
@@ -284,7 +291,7 @@ public class InitService implements Serializable, Runnable {
     }
 
     //performed when user press Cancel FilterSms button
-    public List<SmsDTO> cancelFilterSms(){
+    public List<SmsDTO> cancelFilterSms() {
         flagFilterSms = false;
         //setSenderForFilteringSms("");
         return smsDTOList;
