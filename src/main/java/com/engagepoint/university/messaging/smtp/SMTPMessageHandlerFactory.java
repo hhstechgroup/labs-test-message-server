@@ -88,7 +88,11 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             //TODO fantasticheskoe rakovstvo. Peredelat'.
             String s = this.convertStreamToStringTwo(data);
             mail.setDeliveryDate(new Date(getSendDate(s)));
-            mail.setSubject(getSubject(s));
+            if  (s.contains("Subject:")){
+                mail.setSubject(getSubject(s));
+            } else {
+                mail.setSubject("");
+            }
             mail.setBody(getContent(s));
             if  (s.contains("filename")) {
                 atachCollection = new ArrayList<>();
