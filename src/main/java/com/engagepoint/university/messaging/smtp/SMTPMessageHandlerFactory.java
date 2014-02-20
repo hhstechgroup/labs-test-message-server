@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -89,6 +90,29 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             String[] bound1 = bound[1].split("\"");
             return bound1[0].trim();
         }
+
+        public Collection<AttachmentDTO> testGetMultiAttachments (String stream) {
+            AttachmentDTO attachmentDTO;
+            atachCollection = new ArrayList<AttachmentDTO>();
+            String s = stream;
+            String boundString = getBoundary(s);
+            byte [] boundArr = boundString.getBytes();
+            String[] arr = stream.split("Content-Type:");
+            if (arr.length>0){
+                for (int i = 1;i<=arr.length;i++){
+                    attachmentDTO = new AttachmentDTO();
+                    String[] att = stream.split("filename=\"");
+                    String[] att1 = att[1].split("\"");
+                    attachmentDTO.setName(att1[0]);
+                    String attString = att1[1];
+                    byte [] attArr = attString.getBytes();
+                    attachmentDTO.setContent(attString.substring(0,(attArr.length-4) - boundArr.length));
+                    atachCollection.add(attachmentDTO);
+                }
+            }
+            return atachCollection;
+        }
+
         @Override
         public void data(InputStream data)  {
             //TODO fantasticheskoe rakovstvo. Peredelat'.
@@ -100,16 +124,23 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
                 mail.setSubject("");
             }
             mail.setBody(getContent(s));
+
             if  (s.contains("filename")) {
-                atachCollection = new ArrayList<>();
-                attdto = new AttachmentDTO();
-                attdto.setName(getAttachmentName(s));
-                String attBase = getAttachmentBase64(s);
-                byte [] boud = getBoundary(s).getBytes();
-                byte [] att = attBase.getBytes();
-                attdto.setContent(attBase.substring(0,(att.length - 4) - boud.length));
-                atachCollection.add(attdto);
-                mail.setAttachmentCollection(atachCollection);
+                atachCollection = new ArrayList<AttachmentDTO>();
+                String[] arr = s.split("Content-Disposition:");
+                ArrayList<String> attaches = new ArrayList<>(Arrays.asList(arr));
+                attaches.remove(0);
+                String boundString = getBoundary(s);
+                byte [] boundArr = boundString.getBytes();
+                for (String attachments : attaches) {
+                    attdto = new AttachmentDTO();
+                    attdto.setName(getAttachmentName(attachments));
+                    String attBase = getAttachmentBase64(attachments);
+                    byte [] att = attBase.getBytes();
+                    attdto.setContent(attBase);
+                    atachCollection.add(attdto);
+                }
+                    mail.setAttachmentCollection(atachCollection);
             }
         }
 
