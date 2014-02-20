@@ -30,41 +30,38 @@
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
                                  sortBy="sender" sortOrder="descending"
-                            >
+                                 styleClass="emailTable">
                         <f:facet name="header">
                             Email List
                         </f:facet>
 
-                        <p:column>
-                            <p:selectBooleanCheckbox value="#{email.flag}"/>
+                        <p:column style="width: 3%">
+                        <p:selectBooleanCheckbox value="#{email.flag}"/>
                         </p:column>
 
-                        <p:column sortBy="#{email.id}" headerText="id">
-                            <h:outputText value="#{email.id}"/>
+                        <p:column sortBy="#{email.id}" headerText="id" style="width: 2%">
+                        <h:outputText value="#{email.id}"/>
                         </p:column>
 
-                        <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
-                            <h:outputText value="#{email.deliveryDate}"/>
+                        <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                        <h:outputText value="#{email.deliveryDate}"/>
                         </p:column>
 
-                        <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender">
-                            <h:outputText value="#{email.sender}"/>
+                        <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender"
+                                  style="width: 10%">
+                        <h:outputText value="#{email.sender}"/>
                         </p:column>
 
-                        <!--<p:column headerText="receiver">
-                            <h:outputText value="#{email.receiver}"/>
-                        </p:column>-->
-
-                        <p:column sortBy="#{email.subject}" headerText="subject">
-                            <h:outputText value="#{email.subject}"/>
+                        <p:column sortBy="#{email.subject}" headerText="subject" style="width: 10%">
+                        <h:outputText value="#{email.subject}"/>
                         </p:column>
 
-                        <p:column sortBy="#{email.body}" headerText="Text">
-                            <h:outputText value="#{email.body}"/>
+                        <p:column sortBy="#{email.body}" headerText="Text" style="width: 50%">
+                        <h:outputText value="#{email.body}"/>
                         </p:column>
 
-                        <p:column headerText="attachments">
-                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="definition">
+                        <p:column headerText="attachments" style="width: 10%">
+                        <p:dataList value="#{email.attachmentCollection}" var="attachment" type="definition">
                                 <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
                             width: 0px; height: 0px;">
                                     <p:fileDownload value="#{attachmentService.downloadAttachment(attachment.id)}"/>
@@ -97,25 +94,26 @@
                     <p:dataTable id="SmsTable" var="sms" value="#{smsService.smsList}"
                                  paginator="true" rows="10" paginatorAlwaysVisible="false"
                                  paginatorPosition="top"
-                                 sortBy="sender" sortOrder="descending">
+                                 sortBy="sender" sortOrder="descending"
+                                 styleClass="smsTable">
                         <f:facet name="header">
                             Sms List
                         </f:facet>
 
-                        <p:column>
-                            <p:selectBooleanCheckbox value="#{sms.flag}"/>
+                        <p:column style="width: 3%">
+                        <p:selectBooleanCheckbox value="#{sms.flag}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.id}" headerText="id">
-                            <h:outputText value="#{sms.id}"/>
+                        <p:column sortBy="#{sms.id}" headerText="id" style="width: 2%">
+                        <h:outputText value="#{sms.id}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate">
-                            <h:outputText value="#{sms.deliveryDate}"/>
+                        <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                        <h:outputText value="#{sms.deliveryDate}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.sender}" headerText="sender">
-                            <h:outputText value="#{sms.sender}"/>
+                        <p:column sortBy="#{sms.sender}" headerText="sender" style="width: 10%">
+                        <h:outputText value="#{sms.sender}"/>
                         </p:column>
 
                         <!--<p:column headerText="receiver">
