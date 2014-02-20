@@ -23,7 +23,6 @@
 
                     <p:commandButton value="Refresh Email" icon="ui-icon-refresh" update="EmailTable"
                                      actionListener="#{initService.refreshEmail}"/>
-
                     <p:commandButton value="Delete Email" update="@(form)"
                                      actionListener="#{initService.deleteCheckedEmails}"/>
                     <p:dataTable id="EmailTable" var="email" value="#{emailService.emailListSortedByFrontend}"

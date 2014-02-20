@@ -119,14 +119,15 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public void deleteIdList(List<Long> idList) {
-        EntityManagerUtil.getEntityManager().getTransaction().begin();
-        for (Long id : idList) {
-            Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
-            if (email != null) {
-                EntityManagerUtil.getEntityManager().remove(email);
+        if (idList != null) {
+            EntityManagerUtil.getEntityManager().getTransaction().begin();
+            for (Long id : idList) {
+                Email email = EntityManagerUtil.getEntityManager().find(Email.class, id);
+                if (email != null) {
+                    EntityManagerUtil.getEntityManager().remove(email);
+                }
             }
+            EntityManagerUtil.getEntityManager().getTransaction().commit();
         }
-//        EntityManagerUtil.getEntityManager().createNamedQuery(Email.DELETE_EMAILS_LIST).setParameter(Email.PARAM_IDS_LIST, idList).executeUpdate();
-        EntityManagerUtil.getEntityManager().getTransaction().commit();
     }
 }
