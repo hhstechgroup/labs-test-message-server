@@ -83,6 +83,12 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
             String[] att1 = att[1].split("\"");
             return att1[1].trim();
         }
+
+        public String getBoundary(String stream) {
+            String[] bound = stream.split("boundary=\"");
+            String[] bound1 = bound[1].split("\"");
+            return bound1[0].trim();
+        }
         @Override
         public void data(InputStream data)  {
             //TODO fantasticheskoe rakovstvo. Peredelat'.
@@ -98,7 +104,10 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
                 atachCollection = new ArrayList<>();
                 attdto = new AttachmentDTO();
                 attdto.setName(getAttachmentName(s));
-                attdto.setContent(getAttachmentBase64(s));
+                String attBase = getAttachmentBase64(s);
+                byte [] boud = getBoundary(s).getBytes();
+                byte [] att = attBase.getBytes();
+                attdto.setContent(attBase.substring(0,(att.length - 4) - boud.length));
                 atachCollection.add(attdto);
                 mail.setAttachmentCollection(atachCollection);
             }
