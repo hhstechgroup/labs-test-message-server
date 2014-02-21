@@ -54,9 +54,13 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
         }
 
         public String getSendDate(String stream) {
+            String[] wer1 = null;
             String[] wer = stream.split("Date:");
-            String[] wer1 = wer[1].split("From:");
-            return wer1[0].trim();
+            if(wer.length>1){
+                wer1 = wer[1].split("From:");
+                return wer1[0].trim();
+            }
+            return null;
         }
 
         public String getSubject (String stream) {
@@ -122,7 +126,12 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
         public void data(InputStream data)  {
             //TODO fantasticheskoe rakovstvo. Peredelat'.
             String s = this.convertStreamToStringTwo(data);
-            mail.setDeliveryDate(new Date(getSendDate(s)));
+
+
+            if(getSendDate(s) != null){
+                mail.setDeliveryDate(new Date(getSendDate(s)));
+            }
+
             if  (s.contains("Subject:")){
                 mail.setSubject(getSubject(s));
             } else {

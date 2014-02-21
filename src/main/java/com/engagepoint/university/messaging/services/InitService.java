@@ -8,6 +8,7 @@ import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
@@ -35,13 +36,17 @@ public class InitService implements Serializable, Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("APP STARTUP");
     }
 
     @PreDestroy
-    public void cleanUp () {
-        server.stop();
-        serverMain.stopSmppServer();
+    void shutdown() {
+        try {
+            serverMain.stopSmppServer();
+            server.stop();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     @Override

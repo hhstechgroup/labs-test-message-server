@@ -30,13 +30,12 @@ public class ServerMain {
     private ThreadPoolExecutor executor;
     private ScheduledThreadPoolExecutor monitorExecutor;
     private SmppServerConfiguration configuration;
+    private DefaultSmppServer smppServer;
 
     @Inject
     private SmsDTO smsDTO;
     @Inject
     private SmsDAO smsDAO;
-
-    DefaultSmppServer smppServer;
 
     public ServerMain() {
         setExecutor();
@@ -48,10 +47,12 @@ public class ServerMain {
         smppServer = new DefaultSmppServer(this.configuration, new DefaultSmppServerHandler(),
                 this.executor, this.monitorExecutor);
         smppServer.start();
+
     }
 
-    public void stopSmppServer () {
+    public void stopSmppServer() throws Exception {
         smppServer.stop();
+        smppServer.destroy();
     }
 
     public void setExecutor() {
@@ -83,9 +84,10 @@ public class ServerMain {
         configuration.setDefaultWindowWaitTimeout(configuration.getDefaultRequestExpiryTimeout());
         configuration.setDefaultSessionCountersEnabled(true);
         configuration.setJmxEnabled(true);
+        configuration.setReuseAddress(true);
     }
 
-    public /*static*/ class DefaultSmppServerHandler implements SmppServerHandler {
+    public class DefaultSmppServerHandler implements SmppServerHandler {
 
         @Override
         public void sessionBindRequested(Long sessionId, SmppSessionConfiguration sessionConfiguration, final BaseBind bindRequest) throws SmppProcessingException {
@@ -109,7 +111,7 @@ public class ServerMain {
         }
     }
 
-    public /*static*/ class TestSmppSessionHandler extends DefaultSmppSessionHandler {
+    public class TestSmppSessionHandler extends DefaultSmppSessionHandler {
 
         private WeakReference<SmppSession> sessionRef;
 

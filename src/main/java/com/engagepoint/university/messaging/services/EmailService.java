@@ -35,7 +35,6 @@ public class EmailService implements Serializable {
     public void init() {
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailDAO.getAll();
-        System.out.println("INIT SERVICE EMAIL BEAN");
     }
 
     public void setEmailDTOList(List<EmailDTO> emails) {
