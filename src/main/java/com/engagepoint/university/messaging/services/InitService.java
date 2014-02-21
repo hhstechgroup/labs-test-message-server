@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.ejb.Singleton;
 import java.io.Serializable;
 
 @Startup
@@ -23,9 +24,11 @@ public class InitService implements Serializable, Runnable {
     @Inject
     private SMTPMessageHandlerFactory emailFactory;
 
+    SMTPServer server;
+    Thread thread;
     @PostConstruct
     void init() {
-        Thread thread = new Thread(this, "SubeThaSMTP");
+        thread = new Thread(this, "SubeThaSMTP");
         thread.start();
         try {
             serverMain.startSmppServer();
@@ -35,9 +38,15 @@ public class InitService implements Serializable, Runnable {
         System.out.println("APP STARTUP");
     }
 
+    @PreDestroy
+    public void cleanUp () {
+        server.stop();
+        serverMain.stopSmppServer();
+    }
+
     @Override
     public void run() {
-        SMTPServer server = new SMTPServer(emailFactory);
+        server = new SMTPServer(emailFactory);
         server.setPort(25000);
         server.start();
     }

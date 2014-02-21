@@ -36,6 +36,8 @@ public class ServerMain {
     @Inject
     private SmsDAO smsDAO;
 
+    DefaultSmppServer smppServer;
+
     public ServerMain() {
         setExecutor();
         setConfiguration();
@@ -43,9 +45,13 @@ public class ServerMain {
     }
 
     public void startSmppServer() throws Exception {
-        DefaultSmppServer smppServer = new DefaultSmppServer(this.configuration, new DefaultSmppServerHandler(),
+        smppServer = new DefaultSmppServer(this.configuration, new DefaultSmppServerHandler(),
                 this.executor, this.monitorExecutor);
         smppServer.start();
+    }
+
+    public void stopSmppServer () {
+        smppServer.stop();
     }
 
     public void setExecutor() {

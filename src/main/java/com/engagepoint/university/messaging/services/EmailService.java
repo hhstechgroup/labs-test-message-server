@@ -88,20 +88,19 @@ public class EmailService implements Serializable {
     //performed when user press Do FilterEmail button
     public List<EmailDTO> doFilterEmail() {
         flagFilterEmail = true;
-        List<EmailDTO> l = emailDTOList;
+        List<EmailDTO> emailListToFilter = emailDTOList;
         List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
         if((emailDTOList) != null){
-
-        if (getSenderForFilteringEmail().equals("")) listForReturn = l;
-        else {
-            for (EmailDTO i : l) {
-                if (i.getSender().indexOf(getSenderForFilteringEmail()) >= 0)
-                    listForReturn.add(i);
+            if (getSenderForFilteringEmail().equals("")){
+                listForReturn = emailListToFilter;
+            } else {
+                for (EmailDTO filteredEmails : emailListToFilter) {
+                    if (filteredEmails.getSender().contains(getSenderForFilteringEmail()))
+                        listForReturn.add(filteredEmails);
+                }
             }
         }
-        }
         return listForReturn;
-
     }
 
     //performed when user press Cancel FilterEmail button
