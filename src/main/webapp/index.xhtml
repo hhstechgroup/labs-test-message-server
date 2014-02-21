@@ -86,6 +86,7 @@
                         <p:commandButton value="Cancel Filter" update="SmsTable,inputSmsSender"
                                          actionListener="#{smsService.cancelFilterSms}"/>
                     </p:panel>
+
                     <p:commandButton value="Refresh SMS" icon="ui-icon-refresh" update="SmsTable"
                                      actionListener="#{smsService.refreshSms}"/>
                     <p:commandButton value="Delete SMS" update="@(form)"

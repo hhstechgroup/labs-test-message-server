@@ -79,12 +79,14 @@ public class SmsService implements Serializable {
         flagFilterSms = true;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
+        if((smsDTOList) != null){
         if (senderForFilteringSms.equals("")) listForReturn = l;
         else {
             for (SmsDTO i : l) {
-                if (i.getSender().equals(senderForFilteringSms))
+                if (i.getSender().indexOf(getSenderForFilteringSms()) >= 0)
                     listForReturn.add(i);
             }
+        }
         }
         return listForReturn;
     }
