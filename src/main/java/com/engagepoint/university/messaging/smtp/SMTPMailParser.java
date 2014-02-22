@@ -46,11 +46,17 @@ public class SMTPMailParser {
     }
 
     public String getAttachmentName(String stream) {
-        String[] att = stream.split("filename=\"");
-        String[] att1 = att[1].split("\"");
-        // use trim to get read of useless string remains
-        // use substring to prevent "too long attachment name" error
-        return att1[0].trim().substring(0, 20);
+        String attName = "";
+        if (stream.contains("filename*")){
+            String [] arr = stream.split("filename*");
+            String [] arr1 = arr[1].split("\"");
+            attName = arr1[1].trim();
+        } else {
+            String[] att = stream.split("filename=\"");
+            String[] att1 = att[1].split("\"");
+            attName = att1[0].trim();
+        }
+        return attName;
     }
 
     public String getAttachmentBase64(String stream) {
