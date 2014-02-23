@@ -51,7 +51,7 @@ public class SMTPMailParser {
             String [] arr = stream.split("filename*");
             String [] arr1 = arr[1].split("\"");
             if (arr[1].length()>15){
-                attName = arr1[1].substring(0,15).trim()+"...";
+                attName = arr1[1].trim();
             } else {
                 attName = arr[1].trim();
             }
@@ -59,7 +59,7 @@ public class SMTPMailParser {
             String[] att = stream.split("filename=\"");
             String[] att1 = att[1].split("\"");
             if (att1[0].length()>15) {
-                attName = att1[0].substring(0,15).trim()+"...";
+                attName = att1[0].trim();
             } else {
                 attName = att1[0].trim();
             }
