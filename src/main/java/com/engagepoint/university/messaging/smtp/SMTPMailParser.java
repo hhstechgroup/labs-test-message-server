@@ -50,19 +50,33 @@ public class SMTPMailParser {
         if (stream.contains("filename*")){
             String [] arr = stream.split("filename*");
             String [] arr1 = arr[1].split("\"");
-            attName = arr1[1].trim();
+            if (arr[1].length()>15){
+                attName = arr1[1].substring(0,15).trim()+"...";
+            } else {
+                attName = arr[1].trim();
+            }
         } else {
             String[] att = stream.split("filename=\"");
             String[] att1 = att[1].split("\"");
-            attName = att1[0].trim();
+            if (att1[0].length()>15) {
+                attName = att1[0].substring(0,15).trim()+"...";
+            } else {
+                attName = att1[0].trim();
+            }
         }
         return attName;
     }
 
     public String getAttachmentBase64(String stream) {
-        String[] att = stream.split("filename=\"");
-        String[] att1 = att[1].split("\"");
-        return att1[1].trim();
+        if (stream.contains("filename*")){
+            String[] att = stream.split("filename*");
+            String[] att1 = att[att.length-1].split("\"");
+            return att1[2].trim();
+        } else {
+            String[] att = stream.split("filename=\"");
+            String[] att1 = att[1].split("\"");
+            return att1[1].trim();
+        }
     }
 
     public String getBoundary(String stream) {
