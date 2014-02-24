@@ -1,13 +1,11 @@
 package com.engagepoint.university.messaging.services;
 
-import com.engagepoint.university.messaging.smpp.ServerMain;
-import com.engagepoint.university.messaging.smtp.SMTPMessageHandlerFactory;
+import com.engagepoint.university.messaging.smpp.SMPPServerMain;
+import com.engagepoint.university.messaging.smtp.SMTPServerMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.subethamail.smtp.server.SMTPServer;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -16,23 +14,20 @@ import java.io.Serializable;
 
 @Startup
 @Singleton
-public class InitService implements Serializable, Runnable {
+public class InitService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
 
     @Inject
-    private ServerMain serverMain;
+    private SMPPServerMain serverSMPP;
 
     @Inject
-    private SMTPMessageHandlerFactory emailFactory;
+    private SMTPServerMain serverSMTP;
 
-    SMTPServer server;
-    Thread thread;
     @PostConstruct
     void init() {
-        thread = new Thread(this, "SubeThaSMTP");
-        thread.start();
         try {
-            serverMain.startSmppServer();
+            serverSMTP.startSMTPServer();
+            serverSMPP.startSmppServer();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,20 +36,11 @@ public class InitService implements Serializable, Runnable {
     @PreDestroy
     void shutdown() {
         try {
-            serverMain.stopSmppServer();
-            server.stop();
+            serverSMPP.stopSmppServer();
+            serverSMTP.shutDownSMTPServer();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
-
-    @Override
-    public void run() {
-        server = new SMTPServer(emailFactory);
-        server.setPort(25000);
-        server.start();
-    }
-
-
 }

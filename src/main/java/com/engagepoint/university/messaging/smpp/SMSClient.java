@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class App {
-    public static Logger log = LoggerFactory.getLogger(App.class);
+public class SMSClient {
+    public static Logger log = LoggerFactory.getLogger(SMSClient.class);
 
     private static void log(WindowFuture<Integer, PduRequest, PduResponse> future) {
         SubmitSm req = (SubmitSm)future.getRequest();
@@ -99,22 +99,22 @@ public class App {
             System.out.println("Bye!");
         } catch (SmppTimeoutException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SmppChannelException ex) {
             log.error("{}", ex);
-            // Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SmppBindException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnrecoverablePduException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (RecoverablePduException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

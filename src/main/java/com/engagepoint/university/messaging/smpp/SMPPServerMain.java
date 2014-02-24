@@ -24,20 +24,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Singleton
 @Startup
-public class ServerMain {
-    private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);
+public class SMPPServerMain {
+    private static final Logger logger = LoggerFactory.getLogger(SMPPServerMain.class);
 
     private ThreadPoolExecutor executor;
     private ScheduledThreadPoolExecutor monitorExecutor;
     private SmppServerConfiguration configuration;
     private DefaultSmppServer smppServer;
+    private final static int PORT = 2776;
 
     @Inject
     private SmsDTO smsDTO;
     @Inject
     private SmsDAO smsDAO;
 
-    public ServerMain() {
+    public SMPPServerMain() {
         setExecutor();
         setConfiguration();
         setMonitorExecutor();
@@ -75,7 +76,7 @@ public class ServerMain {
 
     public void setConfiguration() {
         this.configuration = new SmppServerConfiguration();
-        configuration.setPort(2776);
+        configuration.setPort(PORT);
         configuration.setMaxConnectionSize(10);
         configuration.setNonBlockingSocketsEnabled(true);
         configuration.setDefaultRequestExpiryTimeout(30000);
@@ -85,6 +86,10 @@ public class ServerMain {
         configuration.setDefaultSessionCountersEnabled(true);
         configuration.setJmxEnabled(true);
         configuration.setReuseAddress(true);
+    }
+
+    public int getPort () {
+        return PORT;
     }
 
     public class DefaultSmppServerHandler implements SmppServerHandler {
@@ -123,20 +128,9 @@ public class ServerMain {
         public PduResponse firePduRequestReceived(PduRequest pduRequest) {
             SmppSession session = sessionRef.get();
 
-            logger.info("PduRequest .getReferenceObject()" + pduRequest.getName());
-
             SubmitSm req = (SubmitSm) pduRequest;
 
             String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
-
-            logger.info("SMS sender - " + req.getSourceAddress().getAddress());
-            logger.info("SMS reciver - " + req.getDestAddress().getAddress());
-            logger.info("SMS body in byte - " + req.getShortMessage());
-            System.out.println("SMS reciver in server SMPP - " + req.getDestAddress().getAddress());
-            System.out.println("SMS sender in server SMPP - " + req.getSourceAddress().getAddress());
-            System.out.println("SMS body in server SMPP - " + str);
-
-            logger.info("SMS body - " + str);
 
             // SmsDTO smsDTO = new SmsDTO();
             smsDTO.setBody(str);
@@ -146,12 +140,6 @@ public class ServerMain {
 
             // SmsDAOImpl smsDAO = new SmsDAOImpl();
             smsDAO.save(smsDTO);
-
-            // mimic how long processing could take on a slower smsc
-            try {
-                //Thread.sleep(50);
-            } catch (Exception e) {
-            }
 
             return pduRequest.createResponse();
         }
