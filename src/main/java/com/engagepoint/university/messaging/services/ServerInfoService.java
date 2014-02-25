@@ -24,6 +24,10 @@ public class ServerInfoService {
         return serverSMTP.getPort();
     }
 
+    public String getSMPPhost () {
+        return serverSMPP.getHost();
+    }
+
     public int getSMPPport () {
         return serverSMPP.getPort();
     }

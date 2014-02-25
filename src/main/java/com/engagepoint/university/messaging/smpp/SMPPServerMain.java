@@ -32,6 +32,7 @@ public class SMPPServerMain {
     private SmppServerConfiguration configuration;
     private DefaultSmppServer smppServer;
     private final static int PORT = 2776;
+    private final static String HOST = "127.0.0.1";
 
     @Inject
     private SmsDTO smsDTO;
@@ -90,6 +91,10 @@ public class SMPPServerMain {
 
     public int getPort () {
         return PORT;
+    }
+
+    public String getHost () {
+        return HOST;
     }
 
     public class DefaultSmppServerHandler implements SmppServerHandler {

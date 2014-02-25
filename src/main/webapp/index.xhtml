@@ -130,14 +130,17 @@
 
                 <p:tab title="Server Info" id="serverInfo">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Email server host:" style="font-weight: bold"/>
-                        <h:outputText value="#{serverInfoService.SMTPhostName}"/>
+                        <h:outputText id="emailServerHostNameLabel" value="Email server host:" style="font-weight: bold"/>
+                        <h:outputText id="emailServerHostName" value="#{serverInfoService.SMTPhostName}"/>
 
-                        <h:outputText value="Email server port:" style="font-weight: bold"/>
-                        <h:outputText value="#{serverInfoService.SMTPport}"/>
+                        <h:outputText id="emailServerPortLabel" value="Email server port:" style="font-weight: bold"/>
+                        <h:outputText id="emailServerPort" value="#{serverInfoService.SMTPport}"/>
 
-                        <h:outputText value="SMS server port:" style="font-weight: bold"/>
-                        <h:outputText value="#{serverInfoService.SMPPport}"/>
+                        <h:outputText id="smsServerHostNameLabel" value="SMS Server host:" style="font-weight: bold"/>
+                        <h:outputText id="smsServerHostName" value="#{serverInfoService.SMPPhost}"/>
+
+                        <h:outputText id="smsServerPortLabel" value="SMS server port:" style="font-weight: bold"/>
+                        <h:outputText id="smsServerPort" value="#{serverInfoService.SMPPport}"/>
                     </h:panelGrid>
                 </p:tab>
             </p:tabView>
