@@ -3,7 +3,6 @@ package com.engagepoint.university.messaging.entities;
 import com.engagepoint.university.messaging.entities.base.BaseEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -72,7 +71,7 @@ public class Email implements Serializable, BaseEntity {
     }
 
     @Lob
-    @Size(max = 1553)
+//    @Size(max = 1553)
     @Column(name = "body")
     public String getBody() {
         return body;

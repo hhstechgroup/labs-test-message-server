@@ -62,8 +62,8 @@
                         </p:column>
 
                         <p:column headerText="attachments" style="width: 10%">
-                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="definition">
-                                <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
+                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
+                            <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
                             width: 0px; height: 0px; font-size: 9pt">
                                     <p:fileDownload value="#{attachmentService.downloadAttachment(attachment.id)}"/>
                                 </p:commandButton>
