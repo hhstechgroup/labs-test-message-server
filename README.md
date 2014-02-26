@@ -1,11 +1,11 @@
-1. glassfish. Connection Pool and JNDI JDBC resource
+Glassfish. Connection Pool and JNDI JDBC resource
 asadmin start-domain domain1
 asadmin add-resources path/glassfish-resource.xml
 asadmin stop-domain domain1
 
 messagingserver/hsql - JNDI
 
-2. HSQLDB (change path)
+HSQLDB (change path)
 Create db and start.
 java -cp ./hsqldb/lib/hsqldb.jar  org.hsqldb.server.Server --database.0 file:D:\TRASH\hsqldb-2.3.2\hsqldb-2.3.2\db\messagingserver --dbname.0 messagingserver
 
