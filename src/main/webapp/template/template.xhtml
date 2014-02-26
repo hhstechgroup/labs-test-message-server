@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uib:page xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:uib="http://engagepoint.com/uib"
+          xmlns:ui-headerUtilityBar="http://java.sun.com/jsf/composite/uibootstrap/components/headerUtilityBar"
+          markupType="html5"
+          contentType="text/html"
+          showFooter="false"
+          project="notify"
+          pageTitle="EngagePoint Message server"
+        >
+
+    <uib:pageLayout id="pageLayoutId">
+
+        <uib:pageHeaderFacet
+                hideHelpMenu="true"
+                logo="#{resource['gfx/logo.png']}">
+            <ui:include src=""/>
+        </uib:pageHeaderFacet>
+
+        <uib:pageHeaderUtilityBarFacet>
+
+            <ui:insert name=""/>
+
+        </uib:pageHeaderUtilityBarFacet>
+
+        <uib:pageMenuFacet id="pageMenu">
+
+            <ui:include src=""/>
+
+        </uib:pageMenuFacet>
+
+        <uib:pageBodyFacet>
+
+            <ui:insert name="content"/>
+
+        </uib:pageBodyFacet>
+
+    </uib:pageLayout>
+
+</uib:page>
+
