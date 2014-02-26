@@ -4,7 +4,7 @@ import org.subethamail.smtp.MessageHandlerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
 public class SMTPServerMain implements Runnable{
-    private static final int PORT = 25000;
+    private static final int PORT = 25;
     private static final String HOSTNAME = "localhost";
     SMTPServer server;
     MessageHandlerFactory messageHandlerFactory;
