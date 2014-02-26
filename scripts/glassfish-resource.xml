@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+
+  <jdbc-connection-pool
+    is-isolation-level-guaranteed="false" driver-classname="org.hsqldb.jdbcDriver"
+    datasource-classname="org.hsqldb.jdbc.JDBCDataSource"
+    res-type="javax.sql.DataSource" name="HSQL-messagingserver-inmemory-pool"
+    ping="true">
+    <property name="PortNumber" value="9001" />
+    <property name="serverName" value="localhost" />
+    <property name="DatabaseName" value="jdbc:hsqldb:hsql://localhost:9001/messagingserver" />
+    <property name="user" value="sa" />
+    <property name="password" value="" />
+    <property name="connectionAttributes" value=";ifexists=true"></property>
+  </jdbc-connection-pool>
+
+  <jdbc-resource jndi-name="messagingserver/hsql" pool-name="HSQL-messagingserver-inmemory-pool" />
+
+</resources>

@@ -8,5 +8,4 @@ public interface UserDAO extends GenericDAO<UserDTO> {
     public List<UserDTO> getUsersByName(String name);
     public List<UserDTO> getUsersByEmail(String email);
     public List<UserDTO> getUsersByPhoneNumber(String phoneNumber);
-
 }

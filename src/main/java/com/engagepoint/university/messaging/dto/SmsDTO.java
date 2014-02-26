@@ -1,6 +1,5 @@
 package com.engagepoint.university.messaging.dto;
 
-
 import com.engagepoint.university.messaging.dto.base.BaseDTO;
 
 import java.util.Date;

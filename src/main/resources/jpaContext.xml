@@ -15,10 +15,10 @@
 
     <!-- We will going use annotation to configure application -->
     <context:annotation-config></context:annotation-config>
-    <context:component-scan base-package="com.engagepoint.university.messaging"></context:component-scan>
+    <context:component-scan base-package="com.engagepoint.university.messaging.dao"></context:component-scan>
 
     <!-- Looks for Spring data jpa repositories -->
-    <jpa:repositories base-package="com.engagepoint.university.messaging.dao"></jpa:repositories>
+    <!--<jpa:repositories base-package="com.xilibit.edu.application.repository"></jpa:repositories>-->
 
     <!-- Use restfull application, annotations.
          Inject the persistence context and the EntityManagerFactory into our resource. -->
@@ -43,18 +43,21 @@
 
     <!-- All our JPA is wrapped in transactions now.
          We pass our EntityManagerFactory up here, into it. -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"></property>
-    </bean>
+    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+    <!--<property name="entityManagerFactory" ref="entityManagerFactory"></property>-->
+    <!--</bean>-->
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
 
     <!-- We will going to configure transactions using annotation @Transactional as well. -->
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
+    <tx:jta-transaction-manager/>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"></property>
-        <property name="url" value="jdbc:hsqldb:hsql://localhost:9001/messagingserver"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="root"></property>
+        <property name="url" value="jdbc:hsqldb:hsql://localhost:9001/messagingserver?autoReconnect=true"></property>
+        <property name="username" value="sa"></property>
+        <property name="password" value=""></property>
     </bean>
 
 </beans>
