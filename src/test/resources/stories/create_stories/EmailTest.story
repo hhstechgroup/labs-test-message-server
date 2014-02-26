@@ -10,3 +10,5 @@ When the user opens the 'http://localhost:8080/labs-test-message-server/' link
 When clicks link with text 'Email Messages'
 When clicks link with text 'SMS Messages'
 When clicks link with text 'Server Info'
+When clicks link with text 'Email Messages'
+When clicks link with text 'SUBJECT'
