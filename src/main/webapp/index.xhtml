@@ -102,9 +102,9 @@
                         <p:inputText id="inputSmsSender" value="#{smsService.senderForFilteringSms}"/>
                         <p:watermark for="inputSmsSender" value="input sender.."/>
                         <uib:buttonGroup>
-                            <p:commandButton value="Do Filter" update="SmsTable" styleClass="small"
+                            <p:commandButton id="DoFilter" value="Do Filter" update="SmsTable" styleClass="small"
                                              actionListener="#{smsService.doFilterSms}"/>
-                            <p:commandButton value="Cancel Filter" update="SmsTable,inputSmsSender" styleClass="small"
+                            <p:commandButton id="CancelFilter" value="Cancel Filter" update="SmsTable,inputSmsSender" styleClass="small"
                                              actionListener="#{smsService.cancelFilterSms}"/>
                         </uib:buttonGroup>
                     </p:panel>
@@ -139,11 +139,11 @@
                                                      onchange="selectAllChkBoxDisable('selectAllSMSReportChkBox')"/>
                         </uib:column>
 
-                        <p:column sortBy="#{sms.id}" headerText="id" style="width: 2%">
+                        <p:column id="columnId" sortBy="#{sms.id}" headerText="id" style="width: 2%">
                             <h:outputText value="#{sms.id}"/>
                         </p:column>
 
-                        <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                        <p:column id="sortByid" sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
                             <h:outputText value="#{sms.deliveryDate}"/>
                         </p:column>
 
