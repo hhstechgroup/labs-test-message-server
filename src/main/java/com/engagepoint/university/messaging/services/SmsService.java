@@ -6,6 +6,7 @@ import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,6 +33,12 @@ public class SmsService implements Serializable {
     private SmsDAO smsDAO;
 
     private List<SmsDTO> smsDTOList;
+
+    @PostConstruct
+    public void init() {
+        smsDTOList = new ArrayList<SmsDTO>();
+        smsDTOList = smsDAO.getAll();
+    }
 
     private String senderForFilteringSms;  //word which the list of sms will be sorted by
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="../template/default.xhtml">
+    <ui:define name="page">
+
+        <h:form>
+
+            <p:panel id="quickSearchSmsPanel" name="Quick Search">
+                <p:inputText value="#{smsService.quickSearch}"/>
+                <p:commandButton value="Search" update="SmsTable"
+                                 actionListener="#{smsService.doQuickSearch}" styleClass="small"/>
+            </p:panel>
+
+            <p:panel id="FilterPanel">
+                <p:inputText id="inputSmsSender" value="#{smsService.senderForFilteringSms}"/>
+                <p:watermark for="inputSmsSender" value="input sender.."/>
+                <uib:buttonGroup>
+                    <p:commandButton value="Do Filter" update="SmsTable" styleClass="small"
+                                     actionListener="#{smsService.doFilterSms}"/>
+                    <p:commandButton value="Cancel Filter" update="SmsTable,FilterPanel" styleClass="small"
+                                     actionListener="#{smsService.cancelFilterSms}"/>
+                </uib:buttonGroup>
+            </p:panel>
+
+            <uib:dataTable id="SmsTable" var="sms" value="#{smsService.smsDTOList}" rows="10"
+                           paginator="true" paginatorAlwaysVisible="false"
+                           paginatorPosition="top"
+                           sortBy="sender" sortOrder="descending"
+                           styleClass="smsTable">
+
+                <f:facet name="header">
+
+                    <h:outputText value="SMS  "/>
+                    <uib:buttonGroup>
+                        <p:commandButton value="Refresh"
+                                         icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"
+                                         actionListener="#{smsService.refreshSms}"/>
+                        <p:commandButton value="Delete" update="SmsTable" styleClass="small blue"
+                                         actionListener="#{smsService.deleteCheckedSMS}"/>
+                    </uib:buttonGroup>
+                </f:facet>
+
+                <uib:column style="width: 3%">
+                    <f:facet name="header">
+                        <p:outputLabel for="selectAllSMSReportChkBox" value="select all checkbox"
+                                       style="display: none;"/>
+                        <p:selectBooleanCheckbox id="selectAllSMSReportChkBox"
+                                                 onchange="selectAllChkBox(this,'reportRecordSMSChkBox')"/>
+                    </f:facet>
+                    <p:outputLabel for="reportRecordSMSChkBox" value="select row checkbox"
+                                   style="display: none;"/>
+                    <p:selectBooleanCheckbox value="#{sms.flag}" id="reportRecordSMSChkBox"
+                                             onchange="selectAllChkBoxDisable('selectAllSMSReportChkBox')"/>
+                </uib:column>
+
+                <p:column sortBy="#{sms.id}" headerText="id" style="width: 2%">
+                    <h:outputText value="#{sms.id}"/>
+                </p:column>
+
+                <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                    <h:outputText value="#{sms.deliveryDate}"/>
+                </p:column>
+
+                <p:column sortBy="#{sms.sender}" headerText="sender" style="width: 10%">
+                    <h:outputText value="#{sms.sender}"/>
+                </p:column>
+
+                <!--<p:column headerText="receiver">
+                    <h:outputText value="#{email.receiver}"/>
+                </p:column>-->
+
+                <p:column sortBy="#{sms.body}" headerText="Text">
+                    <h:outputText value="#{sms.body}"/>
+                </p:column>
+            </uib:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

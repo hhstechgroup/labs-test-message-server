@@ -96,8 +96,12 @@ public class SmsDAOImpl implements SmsDAO {
     public void deleteIdList(List<Long> idList) {
         if (idList != null) {
             EntityManagerUtil.getEntityManager().getTransaction().begin();
-            EntityManagerUtil.getEntityManager().createNamedQuery(Sms.DELETE_SMS_LIST)
-                    .setParameter(Sms.PARAM_IDS_LIST, idList).executeUpdate();
+            for (Long id : idList) {
+                Sms sms = EntityManagerUtil.getEntityManager().find(Sms.class, id);
+                if (sms != null) {
+                    EntityManagerUtil.getEntityManager().remove(sms);
+                }
+            }
             EntityManagerUtil.getEntityManager().getTransaction().commit();
         }
     }
