@@ -100,7 +100,7 @@
             <version>4.0</version>
         </dependency>
 
-        <!--For tests-->
+        <!--For dbunit-->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>

@@ -31,6 +31,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
 
     public static UserDTO convert(User from) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setName(from.getName());
         userDTO.setId(from.getId());
         userDTO.setEmail(from.getEmail());
         userDTO.setPassword(from.getPassword());
