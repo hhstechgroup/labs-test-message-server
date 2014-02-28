@@ -31,6 +31,8 @@ public class Attachment implements Serializable, BaseEntity {
 
     private String name;
     private String content;
+
+    @ManyToMany(mappedBy = "attachmentCollection")
     private Collection<Email> emailCollection;
 
 
@@ -61,7 +63,7 @@ public class Attachment implements Serializable, BaseEntity {
         this.content = content;
     }
 
-    @ManyToMany(mappedBy = "attachmentCollection")
+
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }

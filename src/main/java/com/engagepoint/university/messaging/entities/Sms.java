@@ -42,6 +42,8 @@ public class Sms implements Serializable, BaseEntity {
     private Date sendDate;
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
+
+    @ManyToMany(mappedBy = "smsCollection")
     private Collection<User> userCollection;
 
 
@@ -89,7 +91,7 @@ public class Sms implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    @ManyToMany(mappedBy = "smsCollection")
+
     public Collection<User> getUserCollection() {
         return userCollection;
     }

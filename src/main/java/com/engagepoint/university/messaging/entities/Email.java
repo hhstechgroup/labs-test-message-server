@@ -43,7 +43,15 @@ public class Email implements Serializable, BaseEntity {
     private Date sendDate;
     @Temporal(TemporalType.DATE)
     private Date deliveryDate;
+
+    @ManyToMany(mappedBy = "emailCollection")
     private Collection<User> userCollection;
+
+    @ManyToMany
+    @JoinTable(name = "email_attachment", joinColumns = {
+            @JoinColumn(name = "email_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "attachment_id", referencedColumnName = "id")
+            })
     private Collection<Attachment> attachmentCollection;
 
     public Long getId() {
@@ -101,10 +109,7 @@ public class Email implements Serializable, BaseEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "attachment_has_email", joinColumns = {
-            @JoinColumn(name = "attachment_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "email_id", referencedColumnName = "id")})
+
     public Collection<Attachment> getAttachmentCollection() {
         return attachmentCollection;
     }
@@ -113,7 +118,6 @@ public class Email implements Serializable, BaseEntity {
         this.attachmentCollection = attachmentCollection;
     }
 
-    @ManyToMany(mappedBy = "emailCollection", cascade = CascadeType.ALL)
     public Collection<User> getUserCollection() {
         return userCollection;
     }
