@@ -19,6 +19,14 @@ import java.util.List;
 public class SmsService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(SmsService.class);
 
+    private String quickSearch;
+    public String getQuickSearch() {
+        return quickSearch;
+    }
+
+    public void setQuickSearch(String quickSearch) {
+        this.quickSearch = quickSearch;
+    }
 
     @Inject
     private SmsDAO smsDAO;
@@ -28,14 +36,26 @@ public class SmsService implements Serializable {
     private String senderForFilteringSms;  //word which the list of sms will be sorted by
 
     private boolean flagFilterSms = false;  //checks if user use FilterSms
+    private boolean flagQuickSearchSms = false; //checks if user use QuickSearch
+    private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
     public List<SmsDTO> getSmsDTOList() {
-
-        if (flagFilterSms) return doFilterSms();
-        else {
-
-            return cancelFilterSms();
+        List<SmsDTO> forReturnOnUI;
+        switch (CustSearchFiltUse){
+            case 1:
+                forReturnOnUI = doFilterSms();
+                break;
+            case 2:
+                forReturnOnUI = doQuickSearch();
+                break;
+            case 0:
+                forReturnOnUI = cancelFilterSms();
+                break;
+            default:
+                forReturnOnUI = cancelFilterSms();
+                break;
         }
+        return forReturnOnUI;
     }
 
     public void setSmsDTOList(List<SmsDTO> smsDTOList) {
@@ -76,7 +96,7 @@ public class SmsService implements Serializable {
 
     //performed when user press Do FilterSms button
     public List<SmsDTO> doFilterSms() {
-        flagFilterSms = true;
+        CustSearchFiltUse = 1;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
         if((smsDTOList) != null){
@@ -93,7 +113,7 @@ public class SmsService implements Serializable {
 
     //performed when user press Cancel FilterSms button
     public List<SmsDTO> cancelFilterSms() {
-        flagFilterSms = false;
+        CustSearchFiltUse = 0;
         //setSenderForFilteringSms("");
         return smsDTOList;
     }
@@ -124,5 +144,10 @@ public class SmsService implements Serializable {
         smsDAO.save(smsDTO3);
 
         smsDTOList = smsDAO.getAll();
+    }
+
+    public List<SmsDTO> doQuickSearch(){
+        CustSearchFiltUse = 2;
+        return smsDAO.search(getQuickSearch());
     }
 }

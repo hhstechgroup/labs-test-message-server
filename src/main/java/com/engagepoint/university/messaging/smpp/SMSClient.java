@@ -73,7 +73,7 @@ public class SMSClient {
             // обработка поступающих сообщений
             SmppSession session = client.bind(sessionConfig, new MySmppSessionHandler());
 
-            SubmitSm sm2 = createSubmitSm("Test1", "79111234567", "Hello cloudHopper!", "UCS-2");
+            SubmitSm sm2 = createSubmitSm("Test1", "79111234567", "Hello cloudhopper world!", "UCS-2");
             sm2.setReferenceObject("Hello2" + sm2+"//***//");
 
             WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2,

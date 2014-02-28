@@ -101,4 +101,20 @@ public class SmsDAOImpl implements SmsDAO {
             EntityManagerUtil.getEntityManager().getTransaction().commit();
         }
     }
+
+    public List<SmsDTO> search(String s){
+        EntityManagerUtil.getEntityManager().getTransaction().begin();
+
+        List<Sms> forReturn = EntityManagerUtil.getEntityManager().createNamedQuery(Sms.GET_SEARCHING_SMS)
+                .setParameter("sender", "%"+s+"%" )
+                .setParameter("body", "%"+s+"%" )
+                .getResultList();
+        List<SmsDTO> smsDTOs = new ArrayList<>();
+        Iterator<Sms> smsIterator = forReturn.iterator();
+        while (smsIterator.hasNext()) {
+            smsDTOs.add(Converter.convert(smsIterator.next()));
+        }
+        EntityManagerUtil.getEntityManager().getTransaction().commit();
+        return smsDTOs;
+    }
 }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -26,6 +25,8 @@
                                              actionListener="#{emailService.cancelFilterEmail}" styleClass="small"/>
                         </uib:buttonGroup>
                     </p:panel>
+
+
 
                     <uib:dataTable id="EmailTable" var="email" value="#{emailService.emailDTOList}" rows="10"
                                    summary="Table with pagination"
@@ -107,6 +108,12 @@
                             <p:commandButton id="CancelFilter" value="Cancel Filter" update="SmsTable,inputSmsSender" styleClass="small"
                                              actionListener="#{smsService.cancelFilterSms}"/>
                         </uib:buttonGroup>
+                    </p:panel>
+
+                    <p:panel id="quickSearchSmsPanel" name="Quick Search">
+                        <p:inputText value="#{smsService.quickSearch}"/>
+                        <p:commandButton value="Search" update="SmsTable"
+                                         actionListener="#{smsService.doQuickSearch}" styleClass="small"/>
                     </p:panel>
 
                     <uib:dataTable id="SmsTable" var="sms" value="#{smsService.smsDTOList}"

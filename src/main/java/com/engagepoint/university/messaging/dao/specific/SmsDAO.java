@@ -8,4 +8,6 @@ public interface SmsDAO extends GenericDAO<SmsDTO>{
     public List<SmsDTO> getSmsBySender(String sender);
     public void saveSmsDAO (SmsDTO smsDTO);
     public void deleteIdList(List<Long> idList);
+
+    public List<SmsDTO> search(String s);
 }

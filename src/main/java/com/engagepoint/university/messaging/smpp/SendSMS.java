@@ -34,8 +34,8 @@ public class SendSMS {
         sessionConfig.setPassword("password");
         sessionConfig.getLoggingOptions().setLogBytes(true);
         // to enable monitoring (request expiration)
-        sessionConfig.setRequestExpiryTimeout(30000);
-        sessionConfig.setWindowMonitorInterval(15000);
+        sessionConfig.setRequestExpiryTimeout(10000);
+        sessionConfig.setWindowMonitorInterval(10000);
         sessionConfig.setCountersEnabled(true);
 
         try {
@@ -46,7 +46,7 @@ public class SendSMS {
             SubmitSm sm2 = createSubmitSm(sender, receiver, body, "UCS-2");
             sm2.setReferenceObject("Hello2" + sm2+"//***//");
 
-            WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(60), false);
+            WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(10), false);
             while (!future2.isDone()) {
                 log.debug("Not done");
                 log.debug("Not done Succes is {}", future2.isSuccess());
