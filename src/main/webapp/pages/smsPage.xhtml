@@ -6,12 +6,13 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:uib="http://engagepoint.com/uib"
                 template="../template/default.xhtml">
+
     <ui:define name="page">
 
         <h:form>
 
             <p:panel id="quickSearchSmsPanel" name="Quick Search">
-                <p:inputText value="#{smsService.quickSearch}"/>
+                <p:inputText value="#{smsService.quickSearch}" style="width:150px"/>
                 <p:commandButton value="Search" update="SmsTable"
                                  actionListener="#{smsService.doQuickSearch}" styleClass="small"/>
             </p:panel>
@@ -43,6 +44,7 @@
                         <p:commandButton value="Delete" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.deleteCheckedSMS}"/>
                     </uib:buttonGroup>
+
                 </f:facet>
 
                 <uib:column style="width: 3%">
