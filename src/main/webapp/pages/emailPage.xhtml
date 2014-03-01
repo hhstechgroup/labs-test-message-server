@@ -24,10 +24,9 @@
             </p:panel>
 
             <uib:dataTable id="EmailTable" var="email" value="#{emailService.emailDTOList}" rows="10"
-                           paginator="true" paginatorAlwaysVisible="false"
-                           paginatorPosition="top"
                            summary="Table with pagination"
-                           >
+                           paginator="true" paginatorAlwaysVisible="false"
+                           paginatorPosition="top">
 
                 <f:facet name="header">
 
@@ -46,7 +45,7 @@
                         <p:outputLabel for="selectAllEmailReportChkBox" value="select all checkbox"
                                        style="display: none;"/>
                         <p:selectBooleanCheckbox id="selectAllEmailReportChkBox"
-                                                 onchange="selectAllChkBox(this,'reportRecordEmailChkBox')" />
+                                                 onchange="selectAllChkBox(this,'reportRecordEmailChkBox')"/>
                     </f:facet>
                     <p:outputLabel for="reportRecordEmailChkBox" value="select row checkbox"
                                    style="display: none;"/>

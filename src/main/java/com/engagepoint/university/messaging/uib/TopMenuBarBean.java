@@ -24,7 +24,7 @@ public class TopMenuBarBean {
 
         MenuItem menuItem = new MenuItem();
         menuItem.setId("emailItem");
-        if (viewId.startsWith("emailItem")) {
+        if (viewId.endsWith("/emailPage.xhtml")) {
             menuItem.setStyleClass("active");
         }
         menuItem.setValue("Emails");
@@ -33,7 +33,7 @@ public class TopMenuBarBean {
 
         menuItem = new MenuItem();
         menuItem.setId("smsItem");
-        if (viewId.startsWith("smsItem")) {
+        if (viewId.endsWith("/smsPage.xhtml")) {
             menuItem.setStyleClass("active");
         }
         menuItem.setValue("SMS");
@@ -42,7 +42,7 @@ public class TopMenuBarBean {
 
         menuItem = new MenuItem();
         menuItem.setId("infoItem");
-        if (viewId.startsWith("infoItem")) {
+        if (viewId.endsWith("/infoPage.xhtml")) {
             menuItem.setStyleClass("active");
         }
         menuItem.setValue("Info");
