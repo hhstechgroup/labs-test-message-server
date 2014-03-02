@@ -6,7 +6,18 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/jpaContext.xml</param-value>
     </context-param>
-
+    <welcome-file-list>
+        <welcome-file>pages/emailPage.xhtml</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
     <persistence-unit-ref>
         <persistence-unit-ref-name>persistence/persistenceUnit</persistence-unit-ref-name>
         <persistence-unit-name>persistenceUnit</persistence-unit-name>
