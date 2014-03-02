@@ -33,7 +33,17 @@ public class User implements Serializable, BaseEntity {
     private String email;
     private String phoneNumber;
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_email", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "email_id", referencedColumnName = "id")})
     private Collection<Email> emailCollection;
+
+    @ManyToMany
+    @JoinTable(name = "user_sms", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "sms_id", referencedColumnName = "id")})
     private Collection<Sms> smsCollection;
 
     public Long getId() {
@@ -80,10 +90,7 @@ public class User implements Serializable, BaseEntity {
         this.password = password;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_has_email", joinColumns = {
-            @JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "email_id", referencedColumnName = "id")})
+
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }
@@ -92,10 +99,7 @@ public class User implements Serializable, BaseEntity {
         this.emailCollection = emailCollection;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "sms_has_user", joinColumns = {
-            @JoinColumn(name = "sms_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "user_id", referencedColumnName = "id")})
+
     public Collection<Sms> getSmsCollection() {
         return smsCollection;
     }
