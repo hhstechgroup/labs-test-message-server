@@ -4,10 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import com.engagepoint.university.messaging.dao.repository.UserDAO;
-import com.engagepoint.university.messaging.dao.repository.impl.UserDAOImpl;
 import com.engagepoint.university.messaging.dto.UserDTO;
-import com.engagepoint.university.messaging.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
