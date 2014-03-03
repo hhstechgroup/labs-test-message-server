@@ -6,6 +6,7 @@ import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -22,7 +23,7 @@ import java.util.List;
 public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
-    @Inject
+    @Autowired
     private EmailDAO emailDAO;
 
     private List<EmailDTO> emailDTOList;
