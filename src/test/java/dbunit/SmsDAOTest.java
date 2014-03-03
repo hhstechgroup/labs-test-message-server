@@ -16,7 +16,7 @@ public class SmsDAOTest extends DBUnitContextInit{
     private SmsDAO smsDAO;
 
     @Test
-    @DatabaseSetup("sampleData.xml")
+    @DatabaseSetup("insertDataSmsDAO.xml")
     public void testSave() throws Exception {
 
         List<SmsDTO> smsList = smsDAO.getAll();

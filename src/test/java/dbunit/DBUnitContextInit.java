@@ -1,7 +1,5 @@
 package dbunit;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;

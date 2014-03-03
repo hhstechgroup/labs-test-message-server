@@ -47,7 +47,7 @@ public class Email implements Serializable, BaseEntity {
     @ManyToMany(mappedBy = "emailCollection")
     private Collection<User> userCollection;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "email_attachment", joinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")

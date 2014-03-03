@@ -63,7 +63,6 @@ public class Attachment implements Serializable, BaseEntity {
         this.content = content;
     }
 
-
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }

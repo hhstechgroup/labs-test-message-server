@@ -5,25 +5,31 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import com.engagepoint.university.messaging.dao.repository.UserDAO;
 import com.engagepoint.university.messaging.dto.UserDTO;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class UserServiceTest extends DBUnitContextInit{
+public class UserDAOTest extends DBUnitContextInit{
 
     @Autowired
     private UserDAO userDAO;
 
     @Test
-    @DatabaseSetup("sampleData.xml")
+    @DatabaseSetup("insertDataUserDAO.xml")
     public void testSave() throws Exception {
-
         List<UserDTO> userList = userDAO.getAll();
-        for(UserDTO userTemp: userList)
-            System.out.println(userTemp);
 
-        assertEquals(1, userList.size());
+        assertEquals(2, userList.size());
         assertEquals("jonny", userList.get(0).getName());
+    }
+
+    @Test
+    @DatabaseSetup("insertDataUserDAO.xml")
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "expectedDataUserDAO.xml")
+    public void testRemove() throws Exception {
+        userDAO.delete(1);
     }
 
 }

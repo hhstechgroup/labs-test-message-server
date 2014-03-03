@@ -7,30 +7,36 @@
     <groupId>labs-test-message-server</groupId>
     <artifactId>labs-test-message-server</artifactId>
     <packaging>war</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <dependencies>
 
+        <!-- Mail Server -->
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp</artifactId>
             <version>3.1.7</version>
         </dependency>
+
         <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-smtp</artifactId>
             <version>1.0.3</version>
         </dependency>
+
+        <!-- UI libs -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>3.5.8</version>
         </dependency>
+
         <dependency>
             <groupId>com.engagepoint</groupId>
             <artifactId>ui-bootstrap-components</artifactId>
             <version>2.0.14</version>
         </dependency>
+
         <!-- Database connection. -->
         <dependency>
             <groupId>org.hsqldb</groupId>
