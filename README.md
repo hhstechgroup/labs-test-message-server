@@ -10,7 +10,7 @@ asadmin add-resources path/glassfish-resource.xml
 
 asadmin stop-domain domain1
 
-messagingserver/hsql - JNDI
+After executing this command you can see JNDI on your localhost:4848 called messagingserver/hsql.
 
 Execute following commands for HSQLDB:
 
