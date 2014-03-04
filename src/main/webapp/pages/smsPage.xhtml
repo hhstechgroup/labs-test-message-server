@@ -76,8 +76,11 @@
                     <h:outputText value="#{email.receiver}"/>
                 </p:column>-->
 
-                <p:column id="body" sortBy="#{sms.body}" headerText="Text">
-                    <h:outputText value="#{sms.body}"/>
+                <p:column id="body" headerText="Text">
+                    <h:outputText value="#{sms.shortBody}  "/>
+                    <p:inplace id="slidingInplace" label="    More info ...">
+                        <h:outputText value="#{sms.body}"/>
+                    </p:inplace>
                 </p:column>
             </uib:dataTable>
 

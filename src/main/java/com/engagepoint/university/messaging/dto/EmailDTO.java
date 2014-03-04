@@ -35,6 +35,12 @@ public class EmailDTO extends BaseDTO {
         return body;
     }
 
+    public String getShortBody() {
+        if(body.length()<50)
+            return body;
+        return body.substring(1, 50);
+    }
+
     public void setBody(String body) {
         this.body = body;
     }

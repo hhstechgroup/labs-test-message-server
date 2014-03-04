@@ -57,25 +57,27 @@
                     <h:outputText value="#{email.id}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 20%">
                     <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
                 <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender"
-                          style="width: 10%">
+                          style="width: 15%">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.subject}" headerText="subject" style="width: 10%">
+                <p:column sortBy="#{email.subject}" headerText="subject" style="width: 15%">
                     <h:outputText value="#{email.subject}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.body}" headerText="Text" style="width: 50%">
-                    <h:outputText value="#{email.body}"/>
+                <p:column headerText="Text" style="width: 30%">
+                        <h:outputText value="#{email.shortBody}  "/>
+                        <p:inplace id="slidingInplace" label="    More info ...">
+                            <h:outputText value="#{email.body}"/>
+                        </p:inplace>
                 </p:column>
 
-                <p:column headerText="attachments" style="width: 10%">
-
+                <p:column headerText="attachments" style="width: 15%">
                     <p:growl id="growl" showDetail="true"/>
                     <p:accordionPanel  id="accordionPanel">
                     <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
