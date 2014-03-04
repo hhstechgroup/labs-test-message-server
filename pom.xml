@@ -7,7 +7,7 @@
     <groupId>labs-test-message-server</groupId>
     <artifactId>labs-test-message-server</artifactId>
     <packaging>war</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <dependencies>
 
