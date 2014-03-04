@@ -13,7 +13,7 @@
 
             <p:panel id="quickSearchSmsPanel" name="Quick Search">
                 <p:inputText value="#{smsService.quickSearch}" style="width:150px"/>
-                <p:commandButton value="Search" update="SmsTable"
+                <p:commandButton id="search" value="Search" update="SmsTable"
                                  actionListener="#{smsService.doQuickSearch}" styleClass="small"/>
             </p:panel>
 
@@ -21,9 +21,9 @@
                 <p:inputText id="inputSmsSender" value="#{smsService.senderForFilteringSms}"/>
                 <p:watermark for="inputSmsSender" value="input sender.."/>
                 <uib:buttonGroup>
-                    <p:commandButton value="Do Filter" update="SmsTable" styleClass="small"
+                    <p:commandButton id="DoFilter" value="Do Filter" update="SmsTable" styleClass="small"
                                      actionListener="#{smsService.doFilterSms}"/>
-                    <p:commandButton value="Cancel Filter" update="SmsTable,FilterPanel" styleClass="small"
+                    <p:commandButton id="CancelFilter" value="Cancel Filter" update="SmsTable,FilterPanel" styleClass="small"
                                      actionListener="#{smsService.cancelFilterSms}"/>
                 </uib:buttonGroup>
             </p:panel>
@@ -38,10 +38,10 @@
 
                     <h:outputText value="SMS  "/>
                     <uib:buttonGroup>
-                        <p:commandButton value="Refresh"
+                        <p:commandButton id= "Refresh" value="Refresh"
                                          icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.refreshSms}"/>
-                        <p:commandButton value="Delete" update="SmsTable" styleClass="small blue"
+                        <p:commandButton id= "Delete" value="Delete" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.deleteCheckedSMS}"/>
                     </uib:buttonGroup>
 
@@ -49,7 +49,7 @@
 
                 <uib:column style="width: 3%">
                     <f:facet name="header">
-                        <p:outputLabel for="selectAllSMSReportChkBox" value="select all checkbox"
+                        <p:outputLabel id="selectAllChkBox" for="selectAllSMSReportChkBox" value="select all checkbox"
                                        style="display: none;"/>
                         <p:selectBooleanCheckbox id="selectAllSMSReportChkBox"
                                                  onchange="selectAllChkBox(this,'reportRecordSMSChkBox')"/>
@@ -60,15 +60,15 @@
                                              onchange="selectAllChkBoxDisable('selectAllSMSReportChkBox')"/>
                 </uib:column>
 
-                <p:column sortBy="#{sms.id}" headerText="id" style="width: 2%">
+                <p:column id="columId" sortBy="#{sms.id}" headerText="id" style="width: 2%">
                     <h:outputText value="#{sms.id}"/>
                 </p:column>
 
-                <p:column sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                <p:column id="deliveryDate" sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
                     <h:outputText value="#{sms.deliveryDate}"/>
                 </p:column>
 
-                <p:column sortBy="#{sms.sender}" headerText="sender" style="width: 10%">
+                <p:column id="sender" sortBy="#{sms.sender}" headerText="sender" style="width: 10%">
                     <h:outputText value="#{sms.sender}"/>
                 </p:column>
 
@@ -76,7 +76,7 @@
                     <h:outputText value="#{email.receiver}"/>
                 </p:column>-->
 
-                <p:column sortBy="#{sms.body}" headerText="Text">
+                <p:column id="body" sortBy="#{sms.body}" headerText="Text">
                     <h:outputText value="#{sms.body}"/>
                 </p:column>
             </uib:dataTable>
