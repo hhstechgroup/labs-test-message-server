@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <email id="1" sender="Mona" body="HI-HI" delivery_date="2013-11-05" send_date="2013-10-09"/>
-    <email id="2" sender="Masha" body="Aliluya" delivery_date="2013-05-09" send_date="2013-10-09"/>
-    <email id="3" sender="Ann" body="Slava Ukraine" delivery_date="2012-10-08" send_date="2010-10-09"/>
-    <email id="4" sender="Jesica" body="Happy Birthday" delivery_date="2015-11-29" send_date="2014-10-09"/>
-</dataset>

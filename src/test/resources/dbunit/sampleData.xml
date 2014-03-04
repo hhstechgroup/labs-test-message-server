@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+	<user id="1" name="jonny" password="12345" email="kae@gmail.com" phone_number="543221"/>
     <sms sender="Mona" body="HI-HI" delivery_date="2013-11-09" send_date="2013-10-09"/>
 </dataset>

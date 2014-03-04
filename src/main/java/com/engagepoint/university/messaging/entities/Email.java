@@ -47,11 +47,11 @@ public class Email implements Serializable, BaseEntity {
     @ManyToMany(mappedBy = "emailCollection")
     private Collection<User> userCollection;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "email_attachment", joinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")
-            })
+    })
     private Collection<Attachment> attachmentCollection;
 
     public Long getId() {

@@ -9,5 +9,4 @@
         <jta-data-source>messagingserver/hsql</jta-data-source>
     </persistence-unit>
 
-
 </persistence>

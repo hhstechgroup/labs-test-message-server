@@ -10,13 +10,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class SmsDAOTest extends DBUnitContextInit{
+public class SmsDAOTest extends DBUnitContextInit {
 
     @Autowired
     private SmsDAO smsDAO;
 
     @Test
-    @DatabaseSetup("insertDataSmsDAO.xml")
+    @DatabaseSetup("sampleData.xml")
     public void testSave() throws Exception {
 
         List<SmsDTO> smsList = smsDAO.getAll();
