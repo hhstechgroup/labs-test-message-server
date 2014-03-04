@@ -79,7 +79,7 @@
 
                 <p:column headerText="attachments" style="width: 15%">
                     <p:growl id="growl" showDetail="true"/>
-                    <p:accordionPanel  id="accordionPanel">
+                    <p:accordionPanel  id="accordionPanel" activeIndex="null">
                     <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
                     <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
                         <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
