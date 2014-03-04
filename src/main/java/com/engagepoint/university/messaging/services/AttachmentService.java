@@ -26,16 +26,19 @@ public class AttachmentService {
     @Inject
     private EmailDAO emailDAO;
 
-    private BASE64Decoder decoder;
+    private static BASE64Decoder decoder;
 
-    private BASE64Encoder encoder;
+    private static BASE64Encoder encoder;
 
-    public AttachmentService() {
+    static {
         decoder = new BASE64Decoder();
         encoder = new BASE64Encoder();
     }
 
-    public AttachmentDTO encodeAttachment(String name, byte[] content) {
+    public AttachmentService() {
+    }
+
+    public static AttachmentDTO encodeAttachment(String name, byte[] content) {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setName(name);
         attachmentDTO.setContent(encoder.encode(content));

@@ -2,17 +2,21 @@ package com.engagepoint.university.messaging.smtp;
 
 import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dao.specific.impl.EmailDAOImpl;
+import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.services.AttachmentService;
+import com.sun.mail.util.BASE64DecoderStream;
+import org.apache.commons.io.IOUtils;
 import org.subethamail.smtp.MessageContext;
-import org.subethamail.smtp.MessageHandler;
-import org.subethamail.smtp.MessageHandlerFactory;
-import org.subethamail.smtp.RejectException;
+import org.subethamail.smtp.*;
 
-import java.io.BufferedReader;
+import javax.mail.*;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Properties;
 
 public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
 
@@ -28,9 +32,40 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
 
         MessageContext ctx;
         EmailDAO mdao = new EmailDAOImpl();
-        SMTPMailParser mailParser = new SMTPMailParser();
         EmailDTO mail;
-        private final String WARNING2 = "Sorry, the message body was too big.";
+
+        public void handleMessage(Message message) throws IOException, MessagingException {
+            Object content = message.getContent();
+            if (content instanceof String) {
+                mail.setBody(String.valueOf(content));
+            } else if (content instanceof Multipart) {
+                Multipart mp = (Multipart) content;
+                handleMultipart(mp);
+            }
+        }
+
+        public void handleMultipart(Multipart mp) throws MessagingException, IOException {
+            int count = mp.getCount();
+            Collection<AttachmentDTO> attachmentDTOs = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                BodyPart bp = mp.getBodyPart(i);
+                Object content = bp.getContent();
+                if (content instanceof String) {
+                    mail.setBody(String.valueOf(content));
+                } else if (content instanceof InputStream) {
+                    BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;
+                    byte[] byteArray = IOUtils.toByteArray(base64DecoderStream);
+                    attachmentDTOs.add(AttachmentService.encodeAttachment(bp.getFileName(), byteArray));
+                } else if (content instanceof Message) {
+                    Message message = (Message) content;
+                    handleMessage(message);
+                } else if (content instanceof Multipart) {
+                    Multipart mp2 = (Multipart) content;
+                    handleMultipart(mp2);
+                }
+            }
+            mail.setAttachmentCollection(attachmentDTOs);
+        }
 
         public EmailHandler(MessageContext ctx) {
             this.ctx = ctx;
@@ -45,54 +80,17 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
 //            mail.set(recipient);
         }
 
-        public String convertStreamToStringTwo(InputStream is) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return sb.toString();
-        }
-
         @Override
-        public void data(InputStream data) {
-            //TODO fantasticheskoe rakovstvo. Peredelat'.
-            String s = this.convertStreamToStringTwo(data);
-
-            if (mailParser.getMailSendDate(s) != null) {
-                mail.setDeliveryDate(new Date(mailParser.getMailSendDate(s)));
-            } else {
-                mail.setDeliveryDate(null);
-            }
-
-            if (s.contains("Subject:")) {
-                mail.setSubject(mailParser.getMailSubject(s));
-            } else {
-                mail.setSubject("");
-            }
-
-            byte[] msgBodyArr = mailParser.getMailContent(s).getBytes();
-            if (!(msgBodyArr.length > 1553)) {
-                mail.setBody(mailParser.getMailContent(s));
-            } else {
-                mail.setBody(WARNING2);
-            }
-
-            // checking if email has attachments
-            if (s.contains("filename")) {
-                // getting total attachment size
-                // checking credentials
-                if (!(mailParser.totalAttachmentSize(s) > 15000000)) {
-                    mail.setAttachmentCollection(mailParser.getAttachment(s));
-                } else {
-                    mail.setAttachmentCollection(null);
-                }
+        public void data(InputStream data) throws RejectException, TooMuchDataException, IOException {
+            Session s = Session.getDefaultInstance(new Properties());
+            try {
+                MimeMessage message = new MimeMessage(s, data);
+                mail.setSubject(message.getSubject());
+                mail.setDeliveryDate(message.getSentDate());
+                mail.setSendDate(message.getReceivedDate());
+                handleMessage(message);
+            } catch (MessagingException e) {
+                e.printStackTrace();
             }
         }
 
