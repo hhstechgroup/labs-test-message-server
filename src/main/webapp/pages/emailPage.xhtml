@@ -12,13 +12,19 @@
 
         <h:form>
 
+            <p:panel id="quickSearchEmailPanel" name="Quick Search">
+                <p:inputText value="#{emailService.quickSearch}" style="width:150px"/>
+                <p:commandButton id="search" value="Search" update="EmailTable"
+                                 actionListener="#{emailService.doQuickSearch}" styleClass="small"/>
+            </p:panel>
+
             <p:panel id="FilterPanel">
                 <p:inputText id="inputEmailSender" value="#{emailService.senderForFilteringEmail}"/>
                 <p:watermark for="inputEmailSender" value="input sender.."/>
                 <uib:buttonGroup>
-                    <p:commandButton value="Do Filter" update="EmailTable"
+                    <p:commandButton id="DoFilter" value="Do Filter" update="EmailTable"
                                      actionListener="#{emailService.doFilterEmail}" styleClass="small"/>
-                    <p:commandButton value="Cancel Filter" update="EmailTable,FilterPanel"
+                    <p:commandButton id="CancelFilter" value="Cancel Filter" update="EmailTable,FilterPanel"
                                      actionListener="#{emailService.cancelFilterEmail}" styleClass="small"/>
                 </uib:buttonGroup>
             </p:panel>
@@ -53,31 +59,33 @@
                                              onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
                 </uib:column>
 
-                <p:column sortBy="#{email.id}" headerText="id" style="width: 2%">
+                <p:column id="columeId" sortBy="#{email.id}" headerText="id" style="width: 2%">
                     <h:outputText value="#{email.id}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                <p:column id="deliveryDate" sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 20%">
                     <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
                 <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender"
-                          style="width: 10%">
+                          style="width: 15%">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.subject}" headerText="subject" style="width: 10%">
+                <p:column id="subject" sortBy="#{email.subject}" headerText="subject" style="width: 15%">
                     <h:outputText value="#{email.subject}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.body}" headerText="Text" style="width: 50%">
-                    <h:outputText value="#{email.body}"/>
+                <p:column headerText="Text" style="width: 30%">
+                        <h:outputText id="text" value="#{email.shortBody}  "/>
+                        <p:inplace id="slidingInplace" label="    More info ...">
+                            <h:outputText value="#{email.body}"/>
+                        </p:inplace>
                 </p:column>
 
-                <p:column headerText="attachments" style="width: 10%">
-
+                <p:column headerText="attachments" style="width: 15%">
                     <p:growl id="growl" showDetail="true"/>
-                    <p:accordionPanel  id="accordionPanel">
+                    <p:accordionPanel  id="accordionPanel" activeIndex="null">
                     <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
                     <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
                         <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
