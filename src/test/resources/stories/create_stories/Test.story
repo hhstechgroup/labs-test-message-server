@@ -1,2 +1,5 @@
-Scenario: Open Labs Test Messaging
-!--When the user opens the 'http://localhost:8080/labs-test-message-server/' link
+Scenario: Send Email
+When 'lol@lol.lol' send 'qwe@QWE.QWE' email to 'localhost':'25' with 'YO' and 'hi!!!'
+When 'lol@lol.lol' send 'qwe@QWE.QWE' email to 'localhost':'25' with 'YO' and 'hi2!!!'
+
+

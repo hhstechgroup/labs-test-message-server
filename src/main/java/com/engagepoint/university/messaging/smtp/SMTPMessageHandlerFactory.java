@@ -51,6 +51,13 @@ public class SMTPMessageHandlerFactory implements MessageHandlerFactory {
                 BodyPart bp = mp.getBodyPart(i);
                 Object content = bp.getContent();
                 if (content instanceof String) {
+//                    if(bp.getFileName()!=null || !bp.getFileName().equals("")){
+//                        byte[] byteArray = IOUtils.toByteArray(bp.getDataHandler().getInputStream());
+//                        attachmentDTOs.add(AttachmentService.encodeAttachment(bp.getFileName(), byteArray));
+//                    }
+//                    else{
+//                        mail.setBody(String.valueOf(content));
+//                    }
                     mail.setBody(String.valueOf(content));
                 } else if (content instanceof InputStream) {
                     BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;

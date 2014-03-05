@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest;
+package com.engagepoint.acceptancetest.sms;
 
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.commons.util.windowing.WindowFuture;
@@ -10,7 +10,6 @@ import com.cloudhopper.smpp.pdu.PduRequest;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.type.*;
-import com.engagepoint.university.messaging.smpp.MySmppSessionHandler;
 import com.engagepoint.university.messaging.smpp.SMSClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,14 +45,14 @@ public class SendSMSAcceptanceTest {
             SmppSession session = client.bind(sessionConfig, new SmppHandlerAcceptanceTest());
 
             SubmitSm sm2 = createSubmitSm(sender, receiver, body, "UCS-2");
-            sm2.setReferenceObject("Hello2" + sm2+"//***//");
+            sm2.setReferenceObject("Hello2" + sm2 + "//***//");
 
             WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(10), false);
             while (!future2.isDone()) {
                 log.debug("Not done");
                 log.debug("Not done Succes is {}", future2.isSuccess());
             }
-            log.info("",future2);
+            log.info("", future2);
 
             log.info("Got response  {}", future2.getResponse());
 
@@ -80,24 +79,8 @@ public class SendSMSAcceptanceTest {
 
             log.info("Bye!");
             System.out.println("Bye!");
-        } catch (SmppTimeoutException ex) {
+        } catch (SmppTimeoutException | SmppChannelException | InterruptedException | UnrecoverablePduException | RecoverablePduException ex) {
             log.error("{}", ex);
-            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SmppChannelException ex) {
-            log.error("{}", ex);
-            // Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SmppBindException ex) {
-            log.error("{}", ex);
-            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnrecoverablePduException ex) {
-            log.error("{}", ex);
-            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            log.error("{}", ex);
-            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RecoverablePduException ex) {
-            log.error("{}", ex);
-            //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,22 +90,22 @@ public class SendSMSAcceptanceTest {
         // For alpha numeric will use
         // TON=5
         // NPI=0
-        sm.setSourceAddress(new Address((byte)5, (byte)0, src));
+        sm.setSourceAddress(new Address((byte) 5, (byte) 0, src));
 
         // For national numbers will use
         // TON=1
         // NPI=1
-        sm.setDestAddress(new Address((byte)1, (byte)1, dst));
+        sm.setDestAddress(new Address((byte) 1, (byte) 1, dst));
 
         // Set datacoding to UCS-2
-        sm.setDataCoding((byte)8);
+        sm.setDataCoding((byte) 8);
 
         // Encode text
         sm.setShortMessage(CharsetUtil.encode(text, charset));
 
 // ДОБАВИЛИ!!!     отчет о доставке
         //We would like to get delivery receipt
-        sm.setRegisteredDelivery((byte)1);
+        sm.setRegisteredDelivery((byte) 1);
 
         return sm;
     }
