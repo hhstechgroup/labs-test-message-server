@@ -35,13 +35,23 @@ public class Email implements Serializable, BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "sender")
     private String sender;
+
+    @Column(name = "subject")
     private String subject;
 
+    @Lob
+    @Size(max = 1553)
+    @Column(name = "body")
     private String body;
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "send_date")
     private Date sendDate;
+
     @Temporal(TemporalType.DATE)
+    @Column(name = "delivery_date")
     private Date deliveryDate;
 
     @ManyToMany(mappedBy = "emailCollection")
@@ -62,7 +72,6 @@ public class Email implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    @Column(name = "sender")
     public String getSender() {
         return sender;
     }
@@ -71,7 +80,6 @@ public class Email implements Serializable, BaseEntity {
         this.sender = sender;
     }
 
-    @Column(name = "subject")
     public String getSubject() {
         return subject;
     }
@@ -80,9 +88,7 @@ public class Email implements Serializable, BaseEntity {
         this.subject = subject;
     }
 
-    @Lob
-    @Size(max = 1553)
-    @Column(name = "body")
+
     public String getBody() {
         return body;
     }
@@ -91,7 +97,6 @@ public class Email implements Serializable, BaseEntity {
         this.body = body;
     }
 
-    @Column(name = "send_date")
     public Date getSendDate() {
         return sendDate;
     }
@@ -100,7 +105,6 @@ public class Email implements Serializable, BaseEntity {
         this.sendDate = sendDate;
     }
 
-    @Column(name = "delivery_date")
     public Date getDeliveryDate() {
         return deliveryDate;
     }

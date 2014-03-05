@@ -29,12 +29,16 @@ public class Attachment implements Serializable, BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Lob
+    @Size(max = 14000000)
+    @Column(name = "content")
     private String content;
 
     @ManyToMany(mappedBy = "attachmentCollection")
     private Collection<Email> emailCollection;
-
 
     public Long getId() {
         return id;
@@ -44,7 +48,6 @@ public class Attachment implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -52,9 +55,7 @@ public class Attachment implements Serializable, BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-    @Lob
-    @Size(max = 14000000)
-    @Column(name = "content")
+
     public String getContent() {
         return content;
     }

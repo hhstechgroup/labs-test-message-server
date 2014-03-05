@@ -5,23 +5,21 @@ import com.engagepoint.university.messaging.dao.repository.UserDAO;
 import com.engagepoint.university.messaging.dto.UserDTO;
 import com.engagepoint.university.messaging.entities.User;
 import com.engagepoint.university.messaging.util.Converter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Service("userDAO")
 public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+    @Inject
     private SpringDataUserDAO springDataUserDAO;
 
     @Override

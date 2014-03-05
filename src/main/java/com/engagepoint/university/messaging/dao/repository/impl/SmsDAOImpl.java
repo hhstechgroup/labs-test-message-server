@@ -5,23 +5,22 @@ import com.engagepoint.university.messaging.dao.repository.SpringDataSmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.entities.Sms;
 import com.engagepoint.university.messaging.util.Converter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Service("smsDAO")
 public class SmsDAOImpl implements SmsDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+    @Inject
     private SpringDataSmsDAO springDataSmsDAO;
 
     @Override

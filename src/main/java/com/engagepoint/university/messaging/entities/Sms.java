@@ -34,18 +34,24 @@ public class Sms implements Serializable, BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "sender")
     private String sender;
+
     @Lob
     @Size(max = 65535)
+    @Column(name = "body")
     private String body;
+
+    @Column(name = "send_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
+
     @Temporal(TemporalType.DATE)
+    @Column(name = "delivery_date")
     private Date deliveryDate;
 
     @ManyToMany(mappedBy = "smsCollection")
     private Collection<User> userCollection;
-
 
     public Long getId() {
         return id;
@@ -55,7 +61,6 @@ public class Sms implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    @Column(name = "sender")
     public String getSender() {
         return sender;
     }
@@ -64,7 +69,6 @@ public class Sms implements Serializable, BaseEntity {
         this.sender = sender;
     }
 
-    @Column(name = "body")
     public String getBody() {
         return body;
     }
@@ -73,7 +77,6 @@ public class Sms implements Serializable, BaseEntity {
         this.body = body;
     }
 
-    @Column(name = "send_date")
     public Date getSendDate() {
         return sendDate;
     }
@@ -82,7 +85,6 @@ public class Sms implements Serializable, BaseEntity {
         this.sendDate = sendDate;
     }
 
-    @Column(name = "delivery_date")
     public Date getDeliveryDate() {
         return deliveryDate;
     }
@@ -90,7 +92,6 @@ public class Sms implements Serializable, BaseEntity {
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
-
 
     public Collection<User> getUserCollection() {
         return userCollection;

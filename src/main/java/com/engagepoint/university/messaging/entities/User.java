@@ -29,9 +29,16 @@ public class User implements Serializable, BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -54,7 +61,6 @@ public class User implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -63,7 +69,6 @@ public class User implements Serializable, BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -72,7 +77,6 @@ public class User implements Serializable, BaseEntity {
         this.email = email;
     }
 
-    @Column(name = "phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -81,7 +85,6 @@ public class User implements Serializable, BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -90,7 +93,6 @@ public class User implements Serializable, BaseEntity {
         this.password = password;
     }
 
-
     public Collection<Email> getEmailCollection() {
         return emailCollection;
     }
@@ -98,7 +100,6 @@ public class User implements Serializable, BaseEntity {
     public void setEmailCollection(Collection<Email> emailCollection) {
         this.emailCollection = emailCollection;
     }
-
 
     public Collection<Sms> getSmsCollection() {
         return smsCollection;

@@ -5,25 +5,23 @@ import com.engagepoint.university.messaging.dao.repository.SpringDataEmailDAO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.util.Converter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+    @Inject
     private SpringDataEmailDAO springDataEmailDAO;
-
 
     @Override
     @Transactional
@@ -50,6 +48,7 @@ public class EmailDAOImpl implements EmailDAO {
     public void save(EmailDTO emailDTO) {
         Email email = Converter.convert(emailDTO);
         springDataEmailDAO.save(email);
+        //entityManager.persist(email);
     }
 
     @Override

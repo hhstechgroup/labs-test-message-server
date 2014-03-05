@@ -3,18 +3,16 @@
 <resources>
 
   <jdbc-connection-pool
-    is-isolation-level-guaranteed="false" driver-classname="org.hsqldb.jdbcDriver"
-    datasource-classname="org.hsqldb.jdbc.JDBCDataSource"
-    res-type="javax.sql.DataSource" name="HSQL-messagingserver-inmemory-pool"
+    datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+    res-type="javax.sql.DataSource" name="MySQLPool"
     ping="true">
-    <property name="PortNumber" value="9001" />
+    <property name="PortNumber" value="3306" />
     <property name="serverName" value="localhost" />
-    <property name="DatabaseName" value="jdbc:hsqldb:hsql://localhost:9001/messagingserver" />
-    <property name="user" value="sa" />
-    <property name="password" value="" />
-    <property name="connectionAttributes" value=";ifexists=true"></property>
+    <property name="DatabaseName" value="messagingserver" />
+    <property name="user" value="root" />
+    <property name="password" value="root" />
   </jdbc-connection-pool>
 
-  <jdbc-resource jndi-name="messagingserver/hsql" pool-name="HSQL-messagingserver-inmemory-pool" />
+  <jdbc-resource jndi-name="jdbc/mysql" pool-name="MySQLPool" />
 
 </resources>
