@@ -2,7 +2,9 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.services.lazy.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
+import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +35,13 @@ public class SmsService implements Serializable {
 
     private List<SmsDTO> smsDTOList;
 
+    private LazyDataModel lazyDataModel;
+
     @PostConstruct
     public void init() {
         smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsDAO.getAll();
+        lazyDataModel = new LazySmsDTODataModel(smsDTOList);
     }
 
     private String senderForFilteringSms;  //word which the list of sms will be sorted by
@@ -152,5 +157,9 @@ public class SmsService implements Serializable {
     public List<SmsDTO> doQuickSearch(){
         CustSearchFiltUse = 2;
         return smsDAO.search(getQuickSearch());
+    }
+
+    public LazyDataModel getLazyDataModel() {
+        return lazyDataModel;
     }
 }

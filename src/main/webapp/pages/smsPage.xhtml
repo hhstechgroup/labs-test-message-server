@@ -28,10 +28,11 @@
                 </uib:buttonGroup>
             </p:panel>
 
-            <uib:dataTable id="SmsTable" var="sms" value="#{smsService.smsDTOList}" rows="10"
+            <uib:dataTable id="SmsTable" var="sms" value="#{smsService.lazyDataModel}" rows="10"
                            paginator="true" paginatorAlwaysVisible="false"
                            paginatorPosition="top"
                            sortBy="sender" sortOrder="descending"
+                           lazy=""
                            styleClass="smsTable">
 
                 <f:facet name="header">

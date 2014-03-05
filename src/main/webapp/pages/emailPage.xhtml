@@ -29,9 +29,14 @@
                 </uib:buttonGroup>
             </p:panel>
 
-            <uib:dataTable id="EmailTable" var="email" value="#{emailService.emailDTOList}" rows="10"
+            <uib:dataTable id="EmailTable"
+                           var="email"
+                           value="#{emailService.lazyDataModel}"
+                           rows="10"
                            summary="Table with pagination"
-                           paginator="true" paginatorAlwaysVisible="false"
+                           paginator="true"
+                           paginatorAlwaysVisible="false"
+                           lazy="true"
                            paginatorPosition="top">
 
                 <f:facet name="header">

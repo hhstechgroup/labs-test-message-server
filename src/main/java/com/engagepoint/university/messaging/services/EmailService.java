@@ -3,7 +3,9 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.services.lazy.impl.LazyEmailDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
+import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +37,8 @@ public class EmailService implements Serializable {
 
     private List<EmailDTO> emailDTOList;
 
+    private LazyDataModel lazyDataModel;
+
     private String senderForFilteringEmail;  //word which the list of email will be sorted by
     private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
@@ -62,6 +66,7 @@ public class EmailService implements Serializable {
         emailDTOList = new ArrayList<EmailDTO>();
         addEmail();
         emailDTOList = emailDAO.getAll();
+        lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
     public void setEmailDTOList(List<EmailDTO> emails) {
@@ -179,5 +184,9 @@ public class EmailService implements Serializable {
     public List<EmailDTO> doQuickSearch(){
         CustSearchFiltUse = 2;
         return emailDAO.search(getQuickSearch());
+    }
+
+    public LazyDataModel getLazyDataModel() {
+        return lazyDataModel;
     }
 }
