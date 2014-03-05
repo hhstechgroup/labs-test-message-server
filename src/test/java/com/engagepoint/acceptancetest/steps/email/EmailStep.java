@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest.email.step;
+package com.engagepoint.acceptancetest.steps.email;
 
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
 import net.thucydides.core.pages.Pages;

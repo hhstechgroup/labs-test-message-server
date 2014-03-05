@@ -3,7 +3,7 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.specific.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.services.lazy.impl.LazyEmailDTODataModel;
+import com.engagepoint.university.messaging.services.paginator.impl.LazyEmailDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;

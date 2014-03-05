@@ -9,8 +9,6 @@ When '2chupacabre@l2.we' send '2qwe@qwe.qwe' email to 'localhost':'25' with 'WAZ
 When '3chupacabre@l2.we' send '3qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 3' and html '<html><body><h2>HIIIIIIII 3</h2></body></html>'
 When '4chupacabre@l2.we' send '4qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 4' and html '<html><body><h2>HIIIIIIII 4</h2></body></html>'
 
-When press 'Refresh' button
-
 Scenario: Email quickSearch
 When the user opens the default page
 When clicks link with text 'Emais'

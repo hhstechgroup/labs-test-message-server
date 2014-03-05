@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest.sms;
+package com.engagepoint.acceptancetest.steps.sms;
 
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.commons.util.windowing.WindowFuture;
@@ -59,12 +59,6 @@ public class SendSMSAcceptanceTest {
             log.info("Done Succes status is {}", future2.isSuccess());
 
             log.info("Response time is {}", future2.getAcceptToDoneTime());
-
-            log.info("Wait 10 seconds");
-
-            TimeUnit.SECONDS.sleep(10);
-            log.info("Wait 10 seconds");
-
 
             log.debug("Destroy session");
             System.out.println("DESTROY SESSION");

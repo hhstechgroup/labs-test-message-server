@@ -2,7 +2,7 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.specific.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.lazy.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.services.paginator.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -23,9 +23,11 @@ public class SmsService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(SmsService.class);
 
     private String quickSearch;
+
     public String getQuickSearch() {
         return quickSearch;
     }
+
     public void setQuickSearch(String quickSearch) {
         this.quickSearch = quickSearch;
     }
@@ -50,7 +52,7 @@ public class SmsService implements Serializable {
 
     public List<SmsDTO> getSmsDTOList() {
         List<SmsDTO> forReturnOnUI;
-        switch (CustSearchFiltUse){
+        switch (CustSearchFiltUse) {
             case 1:
                 forReturnOnUI = doFilterSms();
                 break;
@@ -108,14 +110,14 @@ public class SmsService implements Serializable {
         CustSearchFiltUse = 1;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
-        if((smsDTOList) != null){
-        if (senderForFilteringSms.equals("")) listForReturn = l;
-        else {
-            for (SmsDTO i : l) {
-                if (i.getSender().indexOf(getSenderForFilteringSms()) >= 0)
-                    listForReturn.add(i);
+        if ((smsDTOList) != null) {
+            if (senderForFilteringSms.equals("")) listForReturn = l;
+            else {
+                for (SmsDTO i : l) {
+                    if (i.getSender().indexOf(getSenderForFilteringSms()) >= 0)
+                        listForReturn.add(i);
+                }
             }
-        }
         }
         return listForReturn;
     }
@@ -154,7 +156,7 @@ public class SmsService implements Serializable {
         smsDTOList = smsDAO.getAll();
     }
 
-    public List<SmsDTO> doQuickSearch(){
+    public List<SmsDTO> doQuickSearch() {
         CustSearchFiltUse = 2;
         return smsDAO.search(getQuickSearch());
     }

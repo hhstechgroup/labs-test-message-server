@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.services.lazy;
+package com.engagepoint.university.messaging.services.paginator;
 
 import com.engagepoint.university.messaging.dto.base.BaseDTO;
 import org.primefaces.model.LazyDataModel;

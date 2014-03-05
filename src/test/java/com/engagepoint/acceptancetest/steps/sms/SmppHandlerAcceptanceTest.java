@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest.sms;
+package com.engagepoint.acceptancetest.steps.sms;
 
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.PduAsyncResponse;
