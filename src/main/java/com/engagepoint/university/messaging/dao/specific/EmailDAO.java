@@ -10,4 +10,6 @@ public interface EmailDAO extends GenericDAO<EmailDTO> {
     public List<EmailDTO> getEmailsBySubject(String subject);
     public List<EmailDTO> getEmailsSortByDeliverDate();
     public void deleteIdList(List<Long> idList);
+
+    public List<EmailDTO> search(String s);
 }

@@ -130,4 +130,24 @@ public class EmailDAOImpl implements EmailDAO {
             EntityManagerUtil.getEntityManager().getTransaction().commit();
         }
     }
+
+    public List<EmailDTO> search(String s){
+        EntityManagerUtil.getEntityManager().getTransaction().begin();
+
+        String[] SearchingWords =  s.trim().split("\\s+");
+
+        List<Email> forReturn = EntityManagerUtil.getEntityManager().createNamedQuery(Email.GET_SEARCHING_EMAIL)
+                .setParameter("attachName", "%"+s+"%")
+                .setParameter("sender", "%" + s + "%")
+                .setParameter("subject", "%"+s+"%" )
+                .setParameter("body", "%"+s+"%" )
+                .getResultList();
+        List<EmailDTO> EmailDTOs = new ArrayList<>();
+        Iterator<Email> EmailIterator = forReturn.iterator();
+        while (EmailIterator.hasNext()) {
+            EmailDTOs.add(Converter.convert(EmailIterator.next()));
+        }
+        EntityManagerUtil.getEntityManager().getTransaction().commit();
+        return EmailDTOs;
+    }
 }

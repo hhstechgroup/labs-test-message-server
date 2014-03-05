@@ -24,7 +24,6 @@ public class SmsService implements Serializable {
     public String getQuickSearch() {
         return quickSearch;
     }
-
     public void setQuickSearch(String quickSearch) {
         this.quickSearch = quickSearch;
     }
@@ -42,8 +41,6 @@ public class SmsService implements Serializable {
 
     private String senderForFilteringSms;  //word which the list of sms will be sorted by
 
-    private boolean flagFilterSms = false;  //checks if user use FilterSms
-    private boolean flagQuickSearchSms = false; //checks if user use QuickSearch
     private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
     public List<SmsDTO> getSmsDTOList() {
@@ -121,7 +118,6 @@ public class SmsService implements Serializable {
     //performed when user press Cancel FilterSms button
     public List<SmsDTO> cancelFilterSms() {
         CustSearchFiltUse = 0;
-        //setSenderForFilteringSms("");
         return smsDTOList;
     }
 

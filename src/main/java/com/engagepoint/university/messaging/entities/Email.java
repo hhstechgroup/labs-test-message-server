@@ -10,6 +10,12 @@ import java.util.Date;
 @Entity
 @Table(name = "email")
 @NamedQueries({
+        @NamedQuery(name = Email.GET_SEARCHING_EMAIL, query = "SELECT em FROM Email em WHERE" +
+                " em.id  IN (SELECT at.id FROM Attachment at WHERE at.name LIKE :attachName) OR" +
+                " em.sender LIKE :sender OR" +
+                " em.subject LIKE :subject OR" +
+                " em.body LIKE :body "),
+
         @NamedQuery(name = Email.GET_ALL, query = "SELECT e FROM Email e"),
         @NamedQuery(name = Email.GET_ALL_BY_EMAIL_ID, query = "SELECT em FROM Email em WHERE em.id = :idEmail"),
         @NamedQuery(name = Email.GET_ALL_BY_SENDER, query = "SELECT em FROM Email em WHERE em.sender = :sender"),
@@ -21,6 +27,8 @@ import java.util.Date;
 public class Email implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 985345798781234739L;
+    public static final String GET_SEARCHING_EMAIL = "Email.findSearchingEmail";
+
     public static final String GET_ALL = "Email.findAll";
     public static final String GET_ALL_BY_EMAIL_ID = "Email.findByIdEmail";
     public static final String GET_ALL_BY_SENDER = "Email.findBySender";

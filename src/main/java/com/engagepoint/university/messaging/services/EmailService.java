@@ -22,33 +22,51 @@ import java.util.List;
 public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
+    private String quickSearch;
+    public String getQuickSearch() {
+        return quickSearch;
+    }
+    public void setQuickSearch(String quickSearch) {
+        this.quickSearch = quickSearch;
+    }
+
     @Inject
     private EmailDAO emailDAO;
 
     private List<EmailDTO> emailDTOList;
 
     private String senderForFilteringEmail;  //word which the list of email will be sorted by
+    private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
-    private boolean flagFilterEmail = false;  //checks if user use FilterEmail
+    public List<EmailDTO> getEmailDTOList() {
+        List<EmailDTO> forReturnOnUI;
+        switch (CustSearchFiltUse){
+            case 1:
+                forReturnOnUI = doFilterEmail();
+                break;
+            case 2:
+                forReturnOnUI = doQuickSearch();
+                break;
+            case 0:
+                forReturnOnUI = cancelFilterEmail();
+                break;
+            default:
+                forReturnOnUI = cancelFilterEmail();
+                break;
+        }
+        return forReturnOnUI;
+    }
 
     @PostConstruct
     public void init() {
         emailDTOList = new ArrayList<EmailDTO>();
+        addEmail();
         emailDTOList = emailDAO.getAll();
     }
 
     public void setEmailDTOList(List<EmailDTO> emails) {
 
         this.emailDTOList = emails;
-    }
-
-    public List<EmailDTO> getEmailDTOList() {
-
-        if (flagFilterEmail) return doFilterEmail();
-        else {
-
-            return cancelFilterEmail();
-        }
     }
 
     public String getSenderForFilteringEmail() {
@@ -86,7 +104,7 @@ public class EmailService implements Serializable {
 
     //performed when user press Do FilterEmail button
     public List<EmailDTO> doFilterEmail() {
-        flagFilterEmail = true;
+        CustSearchFiltUse = 1;
         List<EmailDTO> emailListToFilter = emailDTOList;
         List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
         if((emailDTOList) != null){
@@ -104,23 +122,22 @@ public class EmailService implements Serializable {
 
     //performed when user press Cancel FilterEmail button
     public List<EmailDTO> cancelFilterEmail() {
-        flagFilterEmail = false;
-        //setSenderForFilteringEmail("");
+        CustSearchFiltUse = 0;
         return emailDTOList;
     }
 
     public void addEmail() {
         LOG.debug("Create attachment");
         AttachmentDTO attachmentDTO = new AttachmentDTO();
-        attachmentDTO.setName("attachment.txt");
+        attachmentDTO.setName("Justin.txt");
         attachmentDTO.setContent("YXR0YWNobWVudA==");
 
         AttachmentDTO attachmentDTO1 = new AttachmentDTO();
-        attachmentDTO1.setName("attachment1.txt");
+        attachmentDTO1.setName("Songs of love.txt");
         attachmentDTO1.setContent("YXR0YWNobWVudCBURVNU");
 
         AttachmentDTO attachmentDTO2 = new AttachmentDTO();
-        attachmentDTO2.setName("attachment2.txt");
+        attachmentDTO2.setName("best.txt");
         attachmentDTO2.setContent("SGkgSXZhbiBWYXNpbGlpdiEhIQ==");
 
         Collection<AttachmentDTO> attachmentCollection = new ArrayList<>();
@@ -132,7 +149,7 @@ public class EmailService implements Serializable {
         EmailDTO emailDTO1 = new EmailDTO();
         emailDTO1.setSender("author 1");
         emailDTO1.setSubject("Hello 1!");
-        emailDTO1.setBody("Body 1");
+        emailDTO1.setBody("Deploy took 169 453 milliseconds");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         emailDTO1.setAttachmentCollection(attachmentCollection);
@@ -142,7 +159,7 @@ public class EmailService implements Serializable {
         EmailDTO emailDTO2 = new EmailDTO();
         emailDTO2.setSender("author 2");
         emailDTO2.setSubject("Hello 2!");
-        emailDTO2.setBody("Body 2");
+        emailDTO2.setBody("Artifact is deployed successfully");
         emailDTO2.setSendDate(new Date());
         emailDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO2.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
@@ -151,7 +168,7 @@ public class EmailService implements Serializable {
         EmailDTO emailDTO3 = new EmailDTO();
         emailDTO3.setSender("author 3");
         emailDTO3.setSubject("Hello 3!");
-        emailDTO3.setBody("Body 3");
+        emailDTO3.setBody("Artifact is being deployed, please wait");
         emailDTO3.setSendDate(new Date());
         emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO3.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
@@ -159,4 +176,8 @@ public class EmailService implements Serializable {
         emailDTOList = emailDAO.getAll();
     }
 
+    public List<EmailDTO> doQuickSearch(){
+        CustSearchFiltUse = 2;
+        return emailDAO.search(getQuickSearch());
+    }
 }

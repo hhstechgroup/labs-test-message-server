@@ -40,7 +40,7 @@ public class Sms implements Serializable, BaseEntity {
     private Long id;
     private String sender;
     @Lob
-    @Size(max = 65535)
+   // @Size(max = 65535)
     private String body;
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
