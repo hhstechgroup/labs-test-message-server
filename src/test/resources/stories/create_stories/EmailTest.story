@@ -1,17 +1,14 @@
-Scenario: OpenPages
-When the user opens the default page
-When clicks link with text 'SMS'
-When clicks link with text 'Emails'
-When clicks link with text 'Info'
-When clicks link with text 'Emails'
-
 Scenario: Send Email
-When 'lol@lol.lol' send email to test mailbox with subject 'Hi 1' and body 'Hello'
-When 'lol@lol.lol' send email to test mailbox with subject 'Hi 2' and body 'hi'
-When 'lol@lol.lol' send email to test mailbox with subject 'Hi 3' and body 'how are you?'
-When 'lol@lol.lol' send email to test mailbox with subject 'Hi 4' and body 'fine LOL'
-When 'lol@lol.lol' send email to test mailbox with subject 'Hi 1' and body 'Good Joyke =)'
-When '123@mail.ru' send email to test mailbox with subject 'WARNING' and body from file '$fileName'
+When 'masya@mail.ru' send 'motia@gmail.ch' email to 'localhost':'25' with 'YO' and 'hi!!!'
+When 'vasya@gopomail.net' send 'motia@gmail.ch' email to 'localhost':'25' with 'YO' and 'hi2!!!'
+When 'motia@gmail.ch' send 'motia@gmail.ch' email to 'localhost':'25' with 'YO' and 'hi2!!!'
+When 'vesyolii_ogyrechik@pz.de' send 'vasya@gopomail.net' email to 'localhost':'25' with 'YO' and 'hi2!!!'
+When 'lol@lol.lol' send 'vasya@gopomail.net' email to 'localhost':'25' with 'YO' and 'hi2!!!'
+When '1chupacabre@l2.we' send '1qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 1' and html '<html><body><h2>HIIIIIIII 1</h2></body></html>'
+When '2chupacabre@l2.we' send '2qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 2' and html '<html><body><h2>HIIIIIIII 2</h2></body></html>'
+When '3chupacabre@l2.we' send '3qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 3' and html '<html><body><h2>HIIIIIIII 3</h2></body></html>'
+When '4chupacabre@l2.we' send '4qwe@qwe.qwe' email to 'localhost':'25' with 'WAZZZAP 4' and html '<html><body><h2>HIIIIIIII 4</h2></body></html>'
+
 When press 'Refresh' button
 
 Scenario: Email quickSearch

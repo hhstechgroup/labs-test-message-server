@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest;
+package com.engagepoint.acceptancetest.sms;
 
 import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.PduAsyncResponse;
@@ -15,7 +15,7 @@ public class SmppHandlerAcceptanceTest extends DefaultSmppSessionHandler {
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
         if (pduRequest.isRequest()
-                        && pduRequest.getClass() == DeliverSm.class) {
+                && pduRequest.getClass() == DeliverSm.class) {
             System.out.println("Got DELIVER_SM");
             log.info("Got DELIVER_SM");
 

@@ -23,9 +23,11 @@ public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
     private String quickSearch;
+
     public String getQuickSearch() {
         return quickSearch;
     }
+
     public void setQuickSearch(String quickSearch) {
         this.quickSearch = quickSearch;
     }
@@ -40,7 +42,7 @@ public class EmailService implements Serializable {
 
     public List<EmailDTO> getEmailDTOList() {
         List<EmailDTO> forReturnOnUI;
-        switch (CustSearchFiltUse){
+        switch (CustSearchFiltUse) {
             case 1:
                 forReturnOnUI = doFilterEmail();
                 break;
@@ -60,7 +62,6 @@ public class EmailService implements Serializable {
     @PostConstruct
     public void init() {
         emailDTOList = new ArrayList<EmailDTO>();
-        addEmail();
         emailDTOList = emailDAO.getAll();
     }
 
@@ -107,8 +108,8 @@ public class EmailService implements Serializable {
         CustSearchFiltUse = 1;
         List<EmailDTO> emailListToFilter = emailDTOList;
         List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
-        if((emailDTOList) != null){
-            if (getSenderForFilteringEmail().equals("")){
+        if ((emailDTOList) != null) {
+            if (getSenderForFilteringEmail().equals("")) {
                 listForReturn = emailListToFilter;
             } else {
                 for (EmailDTO filteredEmails : emailListToFilter) {
@@ -176,7 +177,7 @@ public class EmailService implements Serializable {
         emailDTOList = emailDAO.getAll();
     }
 
-    public List<EmailDTO> doQuickSearch(){
+    public List<EmailDTO> doQuickSearch() {
         CustSearchFiltUse = 2;
         return emailDAO.search(getQuickSearch());
     }
