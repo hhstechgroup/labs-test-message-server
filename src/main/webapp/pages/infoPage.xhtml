@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="../template/default.xhtml">
+
+    <ui:define name="page">
+
+        <h:form>
+
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText id="emailServerHostNameLabel" value="Email server host:"
+                              style="font-weight: bold"/>
+                <h:outputText id="emailServerHostName" value="#{serverInfoService.SMTPhostName}"/>
+
+                <h:outputText id="emailServerPortLabel" value="Email server port:" style="font-weight: bold"/>
+                <h:outputText id="emailServerPort" value="#{serverInfoService.SMTPport}"/>
+
+                <h:outputText id="smsServerHostNameLabel" value="SMS Server host:" style="font-weight: bold"/>
+                <h:outputText id="smsServerHostName" value="#{serverInfoService.SMPPhost}"/>
+
+                <h:outputText id="smsServerPortLabel" value="SMS server port:" style="font-weight: bold"/>
+                <h:outputText id="smsServerPort" value="#{serverInfoService.SMPPport}"/>
+            </h:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

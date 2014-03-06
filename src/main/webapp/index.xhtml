@@ -1,71 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                template="template.xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://primefaces.org/ui ">
-    <ui:define name="content">
-        <h:form>
-            <p:tabView id="tabView" dynamic="true">
+                xmlns:uib="http://engagepoint.com/uib"
+                template="template/default.xhtml"
+        >
 
-            <p:tab title="Email Messages" id="EmailMessages">
-
-                <p:dataTable id="EmailTable" var="email" value="#{emailService.emailDTOList}"
-                         paginator="true" rows="10" paginatorAlwaysVisible="false"
-                         paginatorPosition="top"
-                         sortBy="deliveryDate" sortOrder="descending"
-                         >
-                    <f:facet name="header">
-                        Email List
-                    </f:facet>
-
-                    <p:column sortBy="#{email.id}" headerText="id" >
-                        <h:outputText value="#{email.id}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{email.sendDate}" headerText="sendDate">
-                        <h:outputText value="#{email.sendDate}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate">
-                        <h:outputText value="#{email.deliveryDate}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{email.sender}" headerText="sender">
-                        <h:outputText value="#{email.sender}"/>
-                    </p:column>
-
-                    <!--
-                    <p:column headerText="receiver">
-                        <ui:repeat var="userCollection" value="#{email.userCollection}">
-                            <h:outputText value="#{userCollection.name}" /><br />
-                        </ui:repeat>
-                    </p:column>-->
-
-                    <p:column sortBy="#{email.subject}" headerText="subject">
-                        <h:outputText value="#{email.subject}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{email.body}" headerText="Text">
-                        <h:outputText value="#{email.body}"/>
-                    </p:column>
-
-                    <!--<p:column headerText="attachments">
-                        <h:outputText value="#{email.attachments}"/>
-                    </p:column>-->
-
-                </p:dataTable>
-                <p:commandButton value="Generate Message" update="EmailTable"
-                                 actionListener="#{emailService.addEmail}"/>
-                <p:commandButton value="Refresh" update="EmailTable"
-                                 actionListener="#{emailService.refreshEmail}"/>
-            </p:tab>
-
-
-
-            </p:tabView>
-
-        </h:form>
-    </ui:define>
 </ui:composition>

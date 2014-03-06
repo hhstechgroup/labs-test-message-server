@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -108,9 +109,24 @@ public class EmailService implements Serializable {
         return emailDTOList;
     }
 
-
     public void addEmail() {
         LOG.debug("Create attachment");
+        AttachmentDTO attachmentDTO = new AttachmentDTO();
+        attachmentDTO.setName("attachment.txt");
+        attachmentDTO.setContent("YXR0YWNobWVudA==");
+
+        AttachmentDTO attachmentDTO1 = new AttachmentDTO();
+        attachmentDTO1.setName("attachment1.txt");
+        attachmentDTO1.setContent("YXR0YWNobWVudCBURVNU");
+
+        AttachmentDTO attachmentDTO2 = new AttachmentDTO();
+        attachmentDTO2.setName("attachment2.txt");
+        attachmentDTO2.setContent("SGkgSXZhbiBWYXNpbGlpdiEhIQ==");
+
+        Collection<AttachmentDTO> attachmentCollection = new ArrayList<>();
+        attachmentCollection.add(attachmentDTO);
+        attachmentCollection.add(attachmentDTO1);
+        attachmentCollection.add(attachmentDTO2);
 
         LOG.debug("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
@@ -119,10 +135,12 @@ public class EmailService implements Serializable {
         emailDTO1.setBody("Body 1");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        emailDTO1.setAttachmentCollection(attachmentCollection);
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailDAO.save(emailDTO1);
 
 
+        //emailDTOList = emailDAO.getAll();
     }
 
 }
