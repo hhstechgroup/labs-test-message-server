@@ -9,21 +9,6 @@
     <packaging>war</packaging>
     <version>0.3-SNAPSHOT</version>
 
-    <repositories>
-        <repository>
-            <id>Apache Repository</id>
-            <url>https://repository.apache.org/content/repositories/releases</url>
-        </repository>
-        <repository>
-            <id>Apache Snapshot Repository</id>
-            <url>https://repository.apache.org/content/repositories/snapshots</url>
-        </repository>
-        <repository>
-            <id>jboss-releases</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
 
         <!--Front-end and web server dependecies-->
@@ -66,10 +51,78 @@
             <version>1.4.3.RELEASE</version>
         </dependency>
 
+        <!-- Logger -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+
+        <!-- Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp</artifactId>
+            <version>3.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-smtp</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+        <!--CloudHopper dependencies-->
+
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-smpp</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-util</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-charset</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.9.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cloudhopper</groupId>
+            <artifactId>ch-commons-gsm</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- For tests-->
+
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.3.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>

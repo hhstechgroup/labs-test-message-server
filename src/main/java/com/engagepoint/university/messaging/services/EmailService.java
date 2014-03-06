@@ -109,8 +109,13 @@ public class EmailService implements Serializable {
         return emailDTOList;
     }
 
+    public void saveEmail(EmailDTO emailDTO) {
+        emailDAO.save(emailDTO);
+    }
+
     public void addEmail() {
-        LOG.debug("Create attachment");
+        /*
+        LOG.warn("Create attachment");
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setName("attachment.txt");
         attachmentDTO.setContent("YXR0YWNobWVudA==");
@@ -128,16 +133,18 @@ public class EmailService implements Serializable {
         attachmentCollection.add(attachmentDTO1);
         attachmentCollection.add(attachmentDTO2);
 
-        LOG.debug("Begin add email");
+        */
+
+        LOG.warn("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
         emailDTO1.setSender("author 1");
         emailDTO1.setSubject("Hello 1!");
         emailDTO1.setBody("Body 1");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        emailDTO1.setAttachmentCollection(attachmentCollection);
+        //emailDTO1.setAttachmentCollection(attachmentCollection);
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        emailDAO.save(emailDTO1);
+        saveEmail(emailDTO1);
 
 
         //emailDTOList = emailDAO.getAll();

@@ -47,8 +47,8 @@ public class EmailDAOImpl implements EmailDAO {
     @Transactional
     public void save(EmailDTO emailDTO) {
         Email email = Converter.convert(emailDTO);
-        springDataEmailDAO.save(email);
-        //entityManager.persist(email);
+        springDataEmailDAO.saveAndFlush(email);
+
     }
 
     @Override
