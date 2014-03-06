@@ -94,8 +94,12 @@ public class SmsDAOImpl implements SmsDAO {
     @Transactional
     public void deleteIdList(List<Long> idList) {
         if (idList != null) {
-            entityManager.createNamedQuery(Sms.DELETE_SMS_LIST)
-                    .setParameter(Sms.PARAM_IDS_LIST, idList).executeUpdate();
+            for (Long id : idList) {
+                Sms sms = springDataSmsDAO.findOne(id);
+                if (sms != null) {
+                    springDataSmsDAO.delete(sms);
+                }
+            }
         }
     }
 }
