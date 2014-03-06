@@ -27,8 +27,16 @@ When press 'Refresh' button
 When the sender 'Sender1' send sms to '575757' the body is 'by by!'
 When press 'Refresh' button
 
+Scenario: SortByColume Email
+When clicks on element with id/name/className 'columId'
+When clicks on element with id/name/className 'columId'
+When clicks on element with id/name/className 'deliveryDate'
+When clicks on element with id/name/className 'deliveryDate'
+When clicks on element with id/name/className 'sender'
+When clicks on element with id/name/className 'sender'
+
+
 Scenario: SMS quickSearch
-When clicks link with text 'SMS'
 When the user fills 'quickSearchSmsPanel' field with 'i'
 When press 'Search' button
 When the user fills 'quickSearchSmsPanel' field with 'F'
@@ -47,37 +55,14 @@ When press 'Refresh' button
 When clicks link with text 'Info'
 When clicks link with text 'SMS'
 
-Scenario: SortByColume SMS Email
-When clicks link with text 'SMS'
-When clicks link with text 'Emails'
-When clicks link with text 'Info'
-When clicks link with text 'SMS'
-When clicks on element with id/name/className 'columnId'
-When clicks on element with id/name/className 'columnId'
-When clicks on element with id/name/className 'deliveryDate'
-When clicks on element with id/name/className 'deliveryDate'
-When clicks on element with id/name/className 'sender'
-When clicks on element with id/name/className 'sender'
-When clicks on element with id/name/className 'body'
-When clicks on element with id/name/className 'body'
-
 Scenario: SMS delete
-When clicks link with text 'SMS'
-When press 'Refresh' button
-When clicks on element with id/name/className 'selectAllSMSReportChkBox'
 When make 'selectAllSMSReportChkBox' checked
 When make 'selectAllSMSReportChkBox' unchecked
-When clicks on element with id/name/className 'reportRecordSMSChkBox'
 When make 'reportRecordSMSChkBox' checked
 When make 'reportRecordSMSChkBox' unchecked
 When make 'reportRecordSMSChkBox' checked
 When press 'Delete' button
 When press 'Refresh' button
-When clicks on element with id/name/className 'reportRecordSMSChkBox'
-When make 'reportRecordSMSChkBox' checked
-When press 'Delete' button
-When press 'Refresh' button
-When clicks on element with id/name/className 'selectAllSMSReportChkBox'
 When make 'selectAllSMSReportChkBox' checked
 When press 'Delete' button
 When press 'Refresh' button
