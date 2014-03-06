@@ -12,8 +12,8 @@
 
         <h:form>
 
-            <p:panel id="quickSearchEmailPanel" name="Quick Search">
-                <p:inputText value="#{emailService.quickSearch}" style="width:150px"/>
+            <p:panel name="QuickSearch">
+                <p:inputText id="quickSearchEmailPanel" value="#{emailService.quickSearch}" style="width:150px"/>
                 <p:commandButton id="search" value="Search" update="EmailTable"
                                  actionListener="#{emailService.doQuickSearch}" styleClass="small"/>
             </p:panel>

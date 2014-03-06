@@ -11,7 +11,7 @@ When '4chupacabre@l2.we' send '4qwe@qwe.qwe' email to 'localhost':'25' with 'WAZ
 
 Scenario: Email quickSearch
 When the user opens the default page
-When clicks link with text 'Emais'
+When clicks on element with id/name/className 'emailItem'
 When the user fills 'quickSearchEmailPanel' field with 'i'
 When press 'Search' button
 When the user fills 'quickSearchEmailPanel' field with 'F'
@@ -31,7 +31,7 @@ When clicks link with text 'Info'
 When clicks link with text 'SMS'
 
 Scenario: SortByColume Email
-When clicks link with text 'Emails'
+When clicks on element with id/name/className 'emailItem'
 When clicks on element with id/name/className 'emailId'
 When clicks on element with id/name/className 'emailId'
 When clicks on element with id/name/className 'sender'
@@ -45,22 +45,7 @@ When clicks on element with id/name/className 'deliveryDate'
 
 Scenario: Emails delete
 When the user opens the default page
-When clicks link with text 'Emails'
+When clicks on element with id/name/className 'emailItem'
 When press 'Refresh' button
-When clicks on element with id/name/className 'selectAllEmailReportChkBox'
 When make 'selectAllEmailReportChkBox' checked
 When make 'selectAllEmailReportChkBox' unchecked
-When clicks on element with id/name/className 'reportRecordEmailChkBox'
-When make 'reportRecordEmailChkBox' checked
-When make 'reportRecordEmailChkBox' unchecked
-When make 'reportRecordEmailChkBox' checked
-When press 'Delete' button
-When press 'Refresh' button
-When clicks on element with id/name/className 'reportRecordEmailChkBox'
-When make 'reportRecordEmailChkBox' checked
-When press 'Delete' button
-When press 'Refresh' button
-When clicks on element with id/name/className 'selectAllEmailReportChkBox'
-When make 'selectAllEmailReportChkBox' checked
-When press 'Delete' button
-When press 'Refresh' button

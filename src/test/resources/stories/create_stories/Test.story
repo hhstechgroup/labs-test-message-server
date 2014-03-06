@@ -1,5 +1,5 @@
-Scenario: Send Email
-When 'lol@lol.lol' send 'qwe@QWE.QWE' email to 'localhost':'25' with 'YO' and 'hi!!!'
-When 'lol@lol.lol' send 'qwe@QWE.QWE' email to 'localhost':'25' with 'YO' and 'hi2!!!'
-
+Scenario: Emails delete
+When the user opens the default page
+When clicks on element with id/name/className 'emailItem'
+When make 'selectAllEmailReportChkBox' checked
 
