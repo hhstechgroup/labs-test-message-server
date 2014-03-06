@@ -17,7 +17,6 @@
 
         <uib:pageHeaderFacet hideHelpMenu="true"
                              logo="#{resource['gfx/logo.png']}">
-            <p:menubar model="#{topMenuBar.model}"/>
         </uib:pageHeaderFacet>
 
         <ui-headerUtilityBar:headerUtilityBar id="headerUtilityBarId">
@@ -33,9 +32,9 @@
             </p:ajaxStatus>
         </ui-headerUtilityBar:headerUtilityBar>
 
-        <!--<uib:pageMenuFacet id="pageMenu">-->
-        <!--<ui:include src="leftMenu.xhtml"/>-->
-        <!--</uib:pageMenuFacet>-->
+        <uib:pageMenuFacet id="pageMenu">
+            <p:menubar model="#{leftMenuBar.model}"/>
+        </uib:pageMenuFacet>
 
         <uib:pageBodyFacet>
             <ui:insert name="page"/>

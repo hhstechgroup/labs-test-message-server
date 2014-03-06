@@ -10,10 +10,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-@ManagedBean(name = "topMenuBar")
+@ManagedBean(name = "leftMenuBar")
 @RequestScoped
-public class TopMenuBarBean {
-
+public class LeftMenuBarBean {
     private MenuModel model;
 
     @PostConstruct
