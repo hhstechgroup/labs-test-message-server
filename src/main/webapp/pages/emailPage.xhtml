@@ -12,6 +12,12 @@
 
         <h:form>
 
+            <p:panel id="quickSearchEmailPanel" name="Quick Search">
+                <p:inputText value="#{quickSearchEmailService.quicksearch}" style="width:460px"/>
+                <p:commandButton id="search" value="Search" update="EmailTable"
+                                 actionListener="#{quickSearchEmailService.search}" styleClass="medium"/>
+            </p:panel>
+
             <p:panel id="FilterPanel">
                 <p:inputText id="inputEmailSender" value="#{emailService.senderForFilteringEmail}"/>
                 <p:watermark for="inputEmailSender" value="input sender.."/>
