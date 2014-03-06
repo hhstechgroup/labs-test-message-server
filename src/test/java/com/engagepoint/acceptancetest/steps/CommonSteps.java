@@ -1,4 +1,4 @@
-package com.engagepoint.acceptancetest;
+package com.engagepoint.acceptancetest.steps;
 
 import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;

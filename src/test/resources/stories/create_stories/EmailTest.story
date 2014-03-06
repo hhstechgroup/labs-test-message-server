@@ -32,8 +32,8 @@ When clicks link with text 'SMS'
 
 Scenario: SortByColume Email
 When clicks link with text 'Emails'
-When clicks on element with id/name/className 'columnId'
-When clicks on element with id/name/className 'columnId'
+When clicks on element with id/name/className 'emailId'
+When clicks on element with id/name/className 'emailId'
 When clicks on element with id/name/className 'sender'
 When clicks on element with id/name/className 'sender'
 When clicks on element with id/name/className 'subject'

@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:uib="http://engagepoint.com/uib"
                 template="../template/default.xhtml"
-                >
+        >
 
     <ui:define name="page">
 
@@ -64,8 +64,8 @@
                                              onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
                 </uib:column>
 
-                <p:column id="columeId" sortBy="#{email.id}" headerText="id" style="width: 2%">
-                    <h:outputText value="#{email.id}"/>
+                <p:column id="emailId" sortBy="#{email.id}" headerText="id" style="width: 2%">
+                <h:outputText value="#{email.id}"/>
                 </p:column>
 
                 <p:column id="deliveryDate" sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 20%">
