@@ -75,7 +75,7 @@ public class SMPPServerMain {
     public void setConfiguration() {
         this.configuration = new SmppServerConfiguration();
         configuration.setPort(PORT);
-        configuration.setMaxConnectionSize(1000);
+        configuration.setMaxConnectionSize(10);
         configuration.setNonBlockingSocketsEnabled(true);
         configuration.setDefaultRequestExpiryTimeout(30000);
         configuration.setDefaultWindowMonitorInterval(15000);

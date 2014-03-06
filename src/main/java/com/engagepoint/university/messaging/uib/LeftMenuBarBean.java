@@ -1,5 +1,4 @@
 package com.engagepoint.university.messaging.uib;
-
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
