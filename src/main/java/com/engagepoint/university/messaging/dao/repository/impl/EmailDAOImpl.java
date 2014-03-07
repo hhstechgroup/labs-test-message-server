@@ -200,8 +200,8 @@ public class EmailDAOImpl implements EmailDAO {
         List<EmailDTO> emailDTOs = new ArrayList<>();
         emailDTOs.addAll(this.fullEmailQuickSearchByAttachment(criteria));
         emailDTOs.addAll(this.partialEmailQuickSearchByAttachment(criteria));
-        emailDTOs.addAll(this.fullEmailQuickSearchByEmails(criteria));
-        emailDTOs.addAll(this.partialEmailQuickSearchByEmails(criteria));
+//        emailDTOs.addAll(this.fullEmailQuickSearchByEmails(criteria));
+//        emailDTOs.addAll(this.partialEmailQuickSearchByEmails(criteria));
         return emailDTOs;
     }
 }
