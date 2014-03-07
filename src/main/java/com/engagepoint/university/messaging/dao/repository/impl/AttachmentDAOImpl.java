@@ -7,6 +7,7 @@ import com.engagepoint.university.messaging.entities.Attachment;
 import com.engagepoint.university.messaging.util.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Service("attachmentDAO")
 public class AttachmentDAOImpl implements AttachmentDAO {
     private static final Logger LOG = LoggerFactory.getLogger(AttachmentDAOImpl.class);
 

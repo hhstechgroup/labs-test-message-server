@@ -5,6 +5,7 @@ import com.engagepoint.university.messaging.dao.repository.SpringDataEmailDAO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entities.Email;
 import com.engagepoint.university.messaging.util.Converter;
+import org.springframework.stereotype.Service;
 
 
 import javax.inject.Inject;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+@Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
 
     @PersistenceContext
