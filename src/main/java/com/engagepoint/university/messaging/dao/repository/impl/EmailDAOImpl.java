@@ -199,7 +199,7 @@ public class EmailDAOImpl implements EmailDAO {
         String[] criterias = criteria.trim().split("\\s");
         List<EmailDTO> emailDTOs = new ArrayList<>();
         emailDTOs.addAll(this.fullEmailQuickSearchByAttachment(criteria));
-        emailDTOs.addAll(this.partialEmailQuickSearchByAttachment(criteria));
+//        emailDTOs.addAll(this.partialEmailQuickSearchByAttachment(criteria));
 //        emailDTOs.addAll(this.fullEmailQuickSearchByEmails(criteria));
 //        emailDTOs.addAll(this.partialEmailQuickSearchByEmails(criteria));
         return emailDTOs;

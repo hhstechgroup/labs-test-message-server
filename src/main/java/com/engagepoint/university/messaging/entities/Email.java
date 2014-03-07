@@ -19,13 +19,13 @@ import java.util.Date;
         @NamedQuery(name = Email.GET_ALL_BY_DELIVERY_DATE, query = "SELECT em FROM Email em WHERE em.deliveryDate = :deliveryDate"),
         @NamedQuery(name = Email.GET_ALL_SORT_BY_DELIVERY_DATE, query = "SELECT em FROM Email em ORDER BY em.sender DESC"),
         @NamedQuery(name = Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, query = "SELECT em FROM Email em "
-            + "JOIN em.attachmentCollection attc WHERE (attc.name IN (:searchCriteria) OR attc.content IN (:searchCriteria)) "
-            + "AND attc.id IN (SELECT att2.id FROM Email att2 JOIN att2.attachmentCollection tt2 "
-            + "GROUP BY att2 HAVING COUNT(tt2) =:attachmentCount) "
-            + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
+        + "JOIN em.attachmentCollection attc WHERE (attc.name IN (:searchCriteria) OR attc.content IN (:searchCriteria)) "
+        + "AND attc.id IN (SELECT att2.id FROM Email att2 JOIN att2.attachmentCollection tt2 "
+        + "GROUP BY att2 HAVING COUNT(tt2) =:attachmentCount) "
+        + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
         @NamedQuery(name = Email.GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, query = "SELECT em FROM Email em "
-            + "JOIN em.attachmentCollection attc WHERE attc.name IN (:searchCriteria) "
-            + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
+                + "JOIN em.attachmentCollection attc WHERE attc.name IN (:searchCriteria) "
+                + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
 //        @NamedQuery(name = Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_EMAILS, query = "SELECT em FROM Email em "
 //            + "JOIN em.attachmentCollection attc WHERE (em.body IN (:searchCriteria) "
 //            + "OR em.subject IN (:searchCriteria) OR em.sender IN (:searchCriteria) "
