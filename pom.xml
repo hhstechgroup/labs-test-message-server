@@ -185,24 +185,27 @@
         </dependency>
 
         <!--Acceptense Integration TEST-->
-        <!--
+
                 <dependency>
                     <groupId>com.engagepoint</groupId>
                     <artifactId>acceptancetest-base</artifactId>
                     <version>${acceptancetest.base.version}</version>
+                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>net.thucydides</groupId>
                     <artifactId>thucydides-core</artifactId>
                     <version>${thucydides.version}</version>
+                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>net.thucydides</groupId>
                     <artifactId>thucydides-jbehave-plugin</artifactId>
                     <version>${thucydides.jbehave.version}</version>
+                    <scope>test</scope>
                 </dependency>
 
-                 -->
+
 
 
 
