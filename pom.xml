@@ -7,7 +7,7 @@
     <groupId>com.engagepoint.university.messaging</groupId>
     <artifactId>labs-test-message-server</artifactId>
     <packaging>war</packaging>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
