@@ -11,8 +11,8 @@
 
         <h:form>
 
-            <p:panel id="quickSearchSmsPanel" name="Quick Search">
-                <p:inputText value="#{quickSearchSmsService.quicksearch}" style="width:460px"/>
+            <p:panel name="Quick Search">
+                <p:inputText id="quickSearchSms" value="#{quickSearchSmsService.quicksearch}" style="width:460px"/>
                 <p:commandButton id="search" value="Search" update="SmsTable"
                                  actionListener="#{quickSearchSmsService.search}" styleClass="medium"/>
             </p:panel>

@@ -22,7 +22,7 @@
 
     <dependencies>
 
-        <!--Front-end and web server dependecies-->
+        <!--Front-end and web server dependencies-->
         <dependency>
             <groupId>com.engagepoint</groupId>
             <artifactId>ui-bootstrap-components</artifactId>

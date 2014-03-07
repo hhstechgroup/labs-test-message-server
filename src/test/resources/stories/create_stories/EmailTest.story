@@ -12,23 +12,23 @@ When '4chupacabre@l2.we' send '4qwe@qwe.qwe' email to 'localhost':'25' with 'WAZ
 Scenario: Email quickSearch
 When the user opens the default page
 When clicks on element with id/name/className 'emailItem'
-When the user fills 'quickSearchEmailPanel' field with 'i'
+When the user fills 'quickSearchEmail' field with 'i'
 When press 'Search' button
-When the user fills 'quickSearchEmailPanel' field with 'F'
+When the user fills 'quickSearchEmail' field with 'F'
 When press 'Search' button
-When the user fills 'quickSearchEmailPanel' field with '1'
+When the user fills 'quickSearchEmail' field with '1'
 When press 'Search' button
-When the user fills 'quickSearchEmailPanel' field with 'w'
+When the user fills 'quickSearchEmail' field with 'w'
 When press 'Search' button
 
 Scenario: Do Filter Email
-When the user fills 'inputEmailSender' field with 'Sen'
-When clicks on element with id/name/className 'DoFilter'
-When clicks on element with id/name/className 'CancelFilter'
+When clicks on element with id/name/className 'emailItem'
+When the user fills 'inputEmailSender' field with 'mail'
+When clicks on element with id/name/className 'emailFilterButton'
+Then wait for '1' sec
+When clicks on element with id/name/className 'emailCancelButton'
+Then wait for '1' sec
 When press 'Refresh' button
-When press 'Refresh' button
-When clicks link with text 'Info'
-When clicks link with text 'SMS'
 
 Scenario: SortByColume Email
 When clicks on element with id/name/className 'emailItem'
@@ -40,8 +40,6 @@ When clicks on element with id/name/className 'subject'
 When clicks on element with id/name/className 'subject'
 When clicks on element with id/name/className 'text'
 When clicks on element with id/name/className 'text'
-When clicks on element with id/name/className 'deliveryDate'
-When clicks on element with id/name/className 'deliveryDate'
 
 Scenario: Emails delete
 When the user opens the default page

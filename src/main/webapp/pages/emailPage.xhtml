@@ -12,8 +12,9 @@
 
         <h:form>
 
-            <p:panel id="quickSearchEmailPanel" name="Quick Search">
-                <p:inputText value="#{quickSearchEmailService.quickSearchPhrase}" style="width:460px"/>
+            <p:panel name="Quick Search">
+                <p:inputText id="quickSearchEmail" value="#{quickSearchEmailService.quickSearchPhrase}"
+                             style="width:460px"/>
                 <p:commandButton id="search" value="Search" update="EmailTable"
                                  actionListener="#{quickSearchEmailService.search}" styleClass="medium"/>
             </p:panel>
@@ -22,9 +23,9 @@
                 <p:inputText id="inputEmailSender" value="#{emailService.senderForFilteringEmail}"/>
                 <p:watermark for="inputEmailSender" value="input sender.."/>
                 <uib:buttonGroup>
-                    <p:commandButton value="Do Filter" update="EmailTable"
+                    <p:commandButton id="emailFilterButton" value="Do Filter" update="EmailTable"
                                      actionListener="#{emailService.doFilterEmail}" styleClass="small"/>
-                    <p:commandButton value="Cancel Filter" update="EmailTable,FilterPanel"
+                    <p:commandButton id="emailCancelButton" value="Cancel Filter" update="EmailTable,FilterPanel"
                                      actionListener="#{emailService.cancelFilterEmail}" styleClass="small"/>
                 </uib:buttonGroup>
             </p:panel>
@@ -67,8 +68,8 @@
                                              onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
                 </uib:column>
 
-                <p:column sortBy="#{email.id}" headerText="id" style="width: 2%">
-                    <h:outputText value="#{email.id}"/>
+                <p:column id="emailId" sortBy="#{email.id}" headerText="id" style="width: 2%">
+                <h:outputText value="#{email.id}"/>
                 </p:column>
 
                 <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 20%">
@@ -80,12 +81,12 @@
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.subject}" headerText="subject" style="width: 15%">
-                    <h:outputText value="#{email.subject}"/>
+                <p:column id="subject" sortBy="#{email.subject}" headerText="subject" style="width: 15%">
+                <h:outputText value="#{email.subject}"/>
                 </p:column>
 
-                <p:column headerText="Text" style="width: 20%">
-                        <h:outputText value="#{email.shortBody}  "/>
+                <p:column id="text" headerText="Text" style="width: 20%">
+                <h:outputText value="#{email.shortBody}  "/>
                         <p:inplace id="slidingInplace" label="    More info ...">
                             <h:outputText value="#{email.body}"/>
                         </p:inplace>
