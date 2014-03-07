@@ -11,7 +11,6 @@ import com.engagepoint.university.messaging.dto.SmsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import java.lang.ref.WeakReference;
 import java.util.Date;
@@ -140,6 +139,7 @@ public class SMPPServerMain {
             smsDTO.setDeliveryDate(new Date());
             smsDTO.setSendDate(new Date());
 
+            // SmsDAOImpl smsDAO = new SmsDAOImpl();
             smsDAO.save(smsDTO);
 
             return pduRequest.createResponse();

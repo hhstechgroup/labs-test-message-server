@@ -10,6 +10,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "attachment")
 @NamedQueries({
+        @NamedQuery(name = Attachment.GET_BY_QUICKSEARCH, query = "SELECT at.id FROM Attachment at WHERE at.name = :attachName"),
+
         @NamedQuery(name = Attachment.GET_ALL_BY_ATTACHMENT_ID, query = "SELECT at FROM Attachment at WHERE at.id = :idAttachment"),
         @NamedQuery(name = Attachment.GET_ALL_BY_NAME, query = "SELECT at FROM Attachment at WHERE at.name = :name"),
         @NamedQuery(name = Attachment.GET_ALL_BY_CONTENT, query = "SELECT at FROM Attachment at WHERE at.content = :content"),
@@ -18,6 +20,8 @@ import java.util.Collection;
 public class Attachment implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 765348739781231295L;
+public static final String GET_BY_QUICKSEARCH = "Attachment.findByQuickSearch";
+
     public static final String GET_ALL_BY_ATTACHMENT_ID = "Attachment.findByIdAttachment";
     public static final String GET_ALL_BY_MIME_TYPE = "Attachment.findByMimeType";
     public static final String GET_ALL_BY_NAME = "Attachment.findByName";

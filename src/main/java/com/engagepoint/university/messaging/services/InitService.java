@@ -18,7 +18,7 @@ public class InitService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(InitService.class);
 
     @Inject
-    SMPPServerMain serverSMPP;
+    private SMPPServerMain serverSMPP;
 
     @Inject
     private SMTPServerMain serverSMTP;

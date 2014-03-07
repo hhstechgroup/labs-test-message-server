@@ -2,7 +2,9 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.services.paginator.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
+import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +23,13 @@ public class SmsService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(SmsService.class);
 
     private String quickSearch;
-    public String getQuickSearch() {
-        return quickSearch;
-    }
 
     public void setQuickSearch(String quickSearch) {
         this.quickSearch = quickSearch;
+    }
+
+    public String getQuickSearch() {
+        return quickSearch;
     }
 
     @Inject
@@ -34,21 +37,22 @@ public class SmsService implements Serializable {
 
     private List<SmsDTO> smsDTOList;
 
+    private LazyDataModel lazyDataModel;
+
     @PostConstruct
     public void init() {
         smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsDAO.getAll();
+        lazyDataModel = new LazySmsDTODataModel(smsDTOList);
     }
 
     private String senderForFilteringSms;  //word which the list of sms will be sorted by
 
-    private boolean flagFilterSms = false;  //checks if user use FilterSms
-    private boolean flagQuickSearchSms = false; //checks if user use QuickSearch
     private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
     public List<SmsDTO> getSmsDTOList() {
         List<SmsDTO> forReturnOnUI;
-        switch (CustSearchFiltUse){
+        switch (CustSearchFiltUse) {
             case 1:
                 forReturnOnUI = doFilterSms();
                 break;
@@ -106,22 +110,22 @@ public class SmsService implements Serializable {
         CustSearchFiltUse = 1;
         List<SmsDTO> l = smsDTOList;
         List<SmsDTO> listForReturn = new ArrayList<SmsDTO>();
-        if((smsDTOList) != null){
-        if (senderForFilteringSms.equals("")) listForReturn = l;
-        else {
-            for (SmsDTO i : l) {
-                if (i.getSender().indexOf(getSenderForFilteringSms()) >= 0)
-                    listForReturn.add(i);
+        if ((smsDTOList) != null) {
+            if (senderForFilteringSms.equals("")) listForReturn = l;
+            else {
+                for (SmsDTO i : l) {
+                    if (i.getSender().indexOf(getSenderForFilteringSms()) >= 0)
+                        listForReturn.add(i);
+                }
             }
         }
-        }
+
         return listForReturn;
     }
 
     //performed when user press Cancel FilterSms button
     public List<SmsDTO> cancelFilterSms() {
         CustSearchFiltUse = 0;
-        //setSenderForFilteringSms("");
         return smsDTOList;
     }
 
@@ -134,11 +138,31 @@ public class SmsService implements Serializable {
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         smsDAO.save(smsDTO1);
 
-        //smsDTOList = smsDAO.getAll();
+        SmsDTO smsDTO2 = new SmsDTO();
+        smsDTO2.setSender("author 2");
+        smsDTO2.setBody("Hello 2!");
+        smsDTO2.setSendDate(new Date());
+        smsDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
+        smsDAO.save(smsDTO2);
+
+        SmsDTO smsDTO3 = new SmsDTO();
+        smsDTO3.setSender("author 3");
+        smsDTO3.setBody("Hello 3!");
+        smsDTO3.setSendDate(new Date());
+        smsDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
+        smsDAO.save(smsDTO3);
+
+        smsDTOList = smsDAO.getAll();
     }
 
-    public List<SmsDTO> doQuickSearch(){
+    public List<SmsDTO> doQuickSearch() {
         CustSearchFiltUse = 2;
-        return null;//smsDAO.search(getQuickSearch());
+        return null; //smsDAO.search(getQuickSearch());
+    }
+
+    public LazyDataModel getLazyDataModel() {
+        return lazyDataModel;
     }
 }

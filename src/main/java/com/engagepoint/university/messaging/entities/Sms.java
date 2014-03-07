@@ -11,6 +11,10 @@ import java.util.Date;
 @Entity
 @Table(name = "sms")
 @NamedQueries({
+        @NamedQuery(name = Sms.GET_SEARCHING_SMS, query = "SELECT sm FROM Sms sm WHERE" +
+                " sm.sender LIKE :sender OR" +
+                " sm.body LIKE :body"),
+
         @NamedQuery(name = Sms.GET_ALL_SMS, query = "SELECT sm FROM Sms sm"),
         @NamedQuery(name = Sms.GET_ALL_BY_SMS_ID, query = "SELECT sm FROM Sms sm WHERE sm.id = :idSms"),
         @NamedQuery(name = Sms.GET_ALL_BY_SENDER, query = "SELECT sm FROM Sms sm WHERE sm.sender = :sender"),
@@ -21,6 +25,8 @@ import java.util.Date;
 public class Sms implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 6745638798781234739L;
+    public static final String GET_SEARCHING_SMS = "Sms.findSearchingSms";
+
     public static final String GET_ALL_SMS = "Sms.findAll";
     public static final String GET_ALL_BY_SMS_ID = "Sms.findByIdSms";
     public static final String GET_ALL_BY_SENDER = "Sms.findBySender";
