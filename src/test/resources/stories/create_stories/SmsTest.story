@@ -1,9 +1,9 @@
 Scenario: OpenPages
 When the user opens the default page
-When clicks link with text 'SMS'
-When clicks link with text 'Emails'
-When clicks link with text 'Info'
-When clicks link with text 'SMS'
+When clicks on element with id/name/className 'smsItem'
+When clicks on element with id/name/className 'emailItem'
+When clicks on element with id/name/className 'infoItem'
+When clicks on element with id/name/className 'smsItem'
 
 Scenario: SendSMS
 When clicks link with text 'SMS'
@@ -35,13 +35,13 @@ When clicks on element with id/name/className 'sender'
 
 
 Scenario: SMS quickSearch
-When the user fills 'quickSearchSmsPanel' field with 'i'
+When the user fills 'quickSearchSms' field with 'i'
 When press 'Search' button
-When the user fills 'quickSearchSmsPanel' field with 'F'
+When the user fills 'quickSearchSms' field with 'F'
 When press 'Search' button
-When the user fills 'quickSearchSmsPanel' field with '1'
+When the user fills 'quickSearchSms' field with '1'
 When press 'Search' button
-When the user fills 'quickSearchSmsPanel' field with 'w'
+When the user fills 'quickSearchSms' field with 'w'
 When press 'Search' button
 
 Scenario: Do Filter SMS

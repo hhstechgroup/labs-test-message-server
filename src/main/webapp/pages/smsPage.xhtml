@@ -37,15 +37,15 @@
 
                 <f:facet name="header">
 
-                    <h:outputText value="SMS  "/>
+                    <h:outputText value="SMS"/>
                     <uib:buttonGroup>
-                        <p:commandButton id= "Refresh" value="Refresh"
+                        <p:commandButton id="Refresh" value="Refresh"
                                          icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.refreshSms}"/>
-                        <p:commandButton id= "AddSms" value="AddSms"
+                        <p:commandButton id="AddSms" value="AddSms"
                                          update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.addSms}"/>
-                        <p:commandButton id= "Delete" value="Delete" update="SmsTable" styleClass="small blue"
+                        <p:commandButton id="Delete" value="Delete" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsService.deleteCheckedSMS}"/>
                     </uib:buttonGroup>
 
