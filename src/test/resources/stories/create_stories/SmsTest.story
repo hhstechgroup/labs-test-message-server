@@ -7,8 +7,6 @@ When clicks link with text 'SMS'
 
 Scenario: SendSMS
 When clicks link with text 'SMS'
-Given create sender sms
-Then wait for '5' sec
 When press 'Refresh' button
 When the sender 'Stuart' send sms to '21212121' the body is 'Hello Tom it's Stuart'
 When press 'Refresh' button
