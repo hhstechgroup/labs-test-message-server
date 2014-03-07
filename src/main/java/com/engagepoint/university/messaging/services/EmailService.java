@@ -114,7 +114,7 @@ public class EmailService implements Serializable {
     }
 
     public void addEmail() {
-        /*
+
         LOG.warn("Create attachment");
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setName("attachment.txt");
@@ -133,7 +133,7 @@ public class EmailService implements Serializable {
         attachmentCollection.add(attachmentDTO1);
         attachmentCollection.add(attachmentDTO2);
 
-        */
+
 
         LOG.warn("Begin add email");
         EmailDTO emailDTO1 = new EmailDTO();
@@ -142,7 +142,7 @@ public class EmailService implements Serializable {
         emailDTO1.setBody("Body 1");
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        //emailDTO1.setAttachmentCollection(attachmentCollection);
+        emailDTO1.setAttachmentCollection(attachmentCollection);
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         saveEmail(emailDTO1);
 

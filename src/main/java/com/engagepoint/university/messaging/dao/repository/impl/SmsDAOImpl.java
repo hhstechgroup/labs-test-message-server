@@ -102,4 +102,10 @@ public class SmsDAOImpl implements SmsDAO {
             }
         }
     }
+
+    @Override
+    @Transactional
+    public void smsQuickSearch() {
+
+    }
 }

@@ -3,8 +3,10 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,14 +14,15 @@ import java.util.List;
  */
 
 @Named
-public class QuickSearchEmailService {
+@ViewScoped
+public class QuickSearchEmailService implements Serializable {
 
     @Inject
     private EmailDAO emailDAO;
 
     private List<EmailDTO> emailDTOList;
 
-    private String quicksearch;
+    private String quickSearchPhrase;
 
     public List<EmailDTO> getEmailDTOList() {
         return emailDTOList;
@@ -29,15 +32,17 @@ public class QuickSearchEmailService {
         this.emailDTOList = emailDTOList;
     }
 
-    public String getQuicksearch() {
-        return quicksearch;
+    public String getQuickSearchPhrase() {
+        return quickSearchPhrase;
     }
 
-    public void setQuicksearch(String quicksearch) {
-        this.quicksearch = quicksearch;
+    public void setQuickSearchPhrase(String quicksearch) {
+        this.quickSearchPhrase = quicksearch;
     }
 
     public void search(){
-
+        if (this.getQuickSearchPhrase() != "") {
+            this.setEmailDTOList(emailDAO.emailQuickSearch(this.getQuickSearchPhrase()));
+        }
     }
 }
