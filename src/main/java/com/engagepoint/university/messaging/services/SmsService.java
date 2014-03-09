@@ -82,7 +82,9 @@ public class SmsService implements Serializable {
     }
 
     public void refreshSms() {
+        smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsDAO.getAll();
+        lazyDataModel = new LazySmsDTODataModel(smsDTOList);    
     }
 
     public void deleteCheckedSMS() {

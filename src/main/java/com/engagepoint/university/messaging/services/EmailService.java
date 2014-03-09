@@ -39,7 +39,7 @@ public class EmailService implements Serializable {
 
     private List<EmailDTO> emailDTOList;
 
-    private LazyDataModel lazyDataModel;
+    private LazyEmailDTODataModel lazyDataModel;
 
     private String senderForFilteringEmail;  //word which the list of email will be sorted by
     private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
@@ -70,11 +70,6 @@ public class EmailService implements Serializable {
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
-    public void setEmailDTOList(List<EmailDTO> emails) {
-
-        this.emailDTOList = emails;
-    }
-
     public String getSenderForFilteringEmail() {
         return senderForFilteringEmail;
     }
@@ -84,7 +79,9 @@ public class EmailService implements Serializable {
     }
 
     public void refreshEmail() {
+        emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailDAO.getAll();
+        lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
     public void deleteCheckedEmails() {
