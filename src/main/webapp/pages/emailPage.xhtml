@@ -86,10 +86,10 @@
                 </p:column>
 
                 <p:column id="text" headerText="Text" style="width: 20%">
-                <h:outputText value="#{email.shortBody}  "/>
-                        <p:inplace id="slidingInplace" label="    More info ...">
-                            <h:outputText value="#{email.body}"/>
-                        </p:inplace>
+                    <h:outputLabel value="#{email.body}" rendered="#{email.bodyLength gt 0 and email.bodyLength le 10}" />
+                    <p:inplace rendered="#{email.bodyLength gt 10}" id="slidingInplace" label="#{email.shortBody}    More info ..." >
+                        <h:outputText value="#{email.body}"/>
+                    </p:inplace>
                 </p:column>
 
                 <p:column headerText="attachments" style="width: 20%">

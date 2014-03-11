@@ -28,10 +28,14 @@ public class SmsDTO extends BaseDTO {
         return body;
     }
 
+    public int getBodyLength(){
+        return body.length();
+    }
+
     public String getShortBody() {
-        if(body.length()<50)
+        if(body.length()<10)
             return body;
-        return body.substring(1, 50);
+        return body.substring(1, 10);
     }
 
     public void setBody(String body) {
