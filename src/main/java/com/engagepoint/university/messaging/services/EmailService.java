@@ -3,7 +3,9 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.services.paginator.impl.LazyEmailDTODataModel;
+import com.engagepoint.university.messaging.services.paginator.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -42,25 +44,9 @@ public class EmailService implements Serializable {
     private LazyEmailDTODataModel lazyDataModel;
 
     private String senderForFilteringEmail;  //word which the list of email will be sorted by
-    private int CustSearchFiltUse = 0;//checks if user use filter, quick search or custom output of list
 
     public List<EmailDTO> getEmailDTOList() {
-        List<EmailDTO> forReturnOnUI;
-        switch (CustSearchFiltUse) {
-            case 1:
-                forReturnOnUI = doFilterEmail();
-                break;
-            case 2:
-                forReturnOnUI = doQuickSearch();
-                break;
-            case 0:
-                forReturnOnUI = cancelFilterEmail();
-                break;
-            default:
-                forReturnOnUI = cancelFilterEmail();
-                break;
-        }
-        return forReturnOnUI;
+        return emailDTOList;
     }
 
     @PostConstruct
@@ -106,26 +92,14 @@ public class EmailService implements Serializable {
     }
 
     //performed when user press Do FilterEmail button
-    public List<EmailDTO> doFilterEmail() {
-        CustSearchFiltUse = 1;
-        List<EmailDTO> emailListToFilter = emailDTOList;
-        List<EmailDTO> listForReturn = new ArrayList<EmailDTO>();
-        if ((emailDTOList) != null) {
-            if (getSenderForFilteringEmail().equals("")) {
-                listForReturn = emailListToFilter;
-            } else {
-                for (EmailDTO filteredEmails : emailListToFilter) {
-                    if (filteredEmails.getSender().contains(getSenderForFilteringEmail()))
-                        listForReturn.add(filteredEmails);
-                }
-            }
-        }
-        return listForReturn;
+    public void doFilterEmail() {
+        List<EmailDTO> listForReturn;
+        listForReturn = emailDAO.getEmailsBySender(senderForFilteringEmail);
+        lazyDataModel = new LazyEmailDTODataModel(listForReturn);
     }
 
     //performed when user press Cancel FilterEmail button
     public List<EmailDTO> cancelFilterEmail() {
-        CustSearchFiltUse = 0;
         return emailDTOList;
     }
 
@@ -159,11 +133,24 @@ public class EmailService implements Serializable {
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailDAO.save(emailDTO1);
 
+        EmailDTO emailDTO2 = new EmailDTO();
+        emailDTO2.setSender("author 2");
+        emailDTO2.setSubject("Hello 2!");
+        emailDTO2.setBody("Body 2");
+        emailDTO2.setSendDate(new Date());
+        emailDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        emailDAO.save(emailDTO2);
 
+        EmailDTO emailDTO3 = new EmailDTO();
+        emailDTO3.setSender("author 3");
+        emailDTO3.setSubject("Hello 3!");
+        emailDTO3.setBody("Body 3");
+        emailDTO3.setSendDate(new Date());
+        emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
+        emailDAO.save(emailDTO3);
     }
 
     public List<EmailDTO> doQuickSearch() {
-        CustSearchFiltUse = 2;
         return null; //emailDAO.search(getQuickSearch());
     }
 

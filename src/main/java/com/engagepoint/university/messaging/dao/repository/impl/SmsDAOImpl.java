@@ -87,6 +87,20 @@ public class SmsDAOImpl implements SmsDAO {
 
     @Override
     @Transactional
+    public List<SmsDTO> getSmsAllByQuery() {
+        List<Sms> smses = entityManager
+                .createNamedQuery(Sms.GET_ALL_SMS, Sms.class)
+                .getResultList();
+        List<SmsDTO> smsDTOs = new ArrayList<>();
+        Iterator<Sms> smsIterator = smses.iterator();
+        while (smsIterator.hasNext()) {
+            smsDTOs.add(Converter.convert(smsIterator.next()));
+        }
+        return smsDTOs;
+    }
+
+    @Override
+    @Transactional
     public void saveSmsDAO(SmsDTO smsDTO) {
 
     }

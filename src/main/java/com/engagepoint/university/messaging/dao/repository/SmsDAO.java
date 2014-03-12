@@ -9,4 +9,5 @@ public interface SmsDAO extends GenericDAO<SmsDTO> {
     public void saveSmsDAO(SmsDTO smsDTO);
     public void deleteIdList(List<Long> idList);
     public void smsQuickSearch();
+    public List<SmsDTO> getSmsAllByQuery();
 }
