@@ -77,7 +77,7 @@ public class EmailDAOImpl implements EmailDAO {
     public List<EmailDTO> getEmailsBySender(String sender) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_BY_SENDER, Email.class)
-                .setParameter("sender", sender).getResultList();
+                .setParameter("sender", "%" + sender + "%").getResultList();
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {

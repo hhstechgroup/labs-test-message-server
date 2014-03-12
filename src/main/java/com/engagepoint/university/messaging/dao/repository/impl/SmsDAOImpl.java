@@ -76,7 +76,7 @@ public class SmsDAOImpl implements SmsDAO {
     public List<SmsDTO> getSmsBySender(String sender) {
         List<Sms> smses = entityManager
                 .createNamedQuery(Sms.GET_ALL_BY_SENDER, Sms.class)
-                .setParameter("sender", sender).getResultList();
+                .setParameter("sender", "%" + sender + "%").getResultList();
         List<SmsDTO> smsDTOs = new ArrayList<>();
         Iterator<Sms> smsIterator = smses.iterator();
         while (smsIterator.hasNext()) {

@@ -99,8 +99,9 @@ public class EmailService implements Serializable {
     }
 
     //performed when user press Cancel FilterEmail button
-    public List<EmailDTO> cancelFilterEmail() {
-        return emailDTOList;
+    public void cancelFilterEmail() {
+        emailDTOList = emailDAO.getAll();
+        lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
     public void addEmail() {
@@ -134,7 +135,7 @@ public class EmailService implements Serializable {
         emailDAO.save(emailDTO1);
 
         EmailDTO emailDTO2 = new EmailDTO();
-        emailDTO2.setSender("author 2");
+        emailDTO2.setSender("aura 2");
         emailDTO2.setSubject("Hello 2!");
         emailDTO2.setBody("Body 2");
         emailDTO2.setSendDate(new Date());
@@ -142,7 +143,7 @@ public class EmailService implements Serializable {
         emailDAO.save(emailDTO2);
 
         EmailDTO emailDTO3 = new EmailDTO();
-        emailDTO3.setSender("author 3");
+        emailDTO3.setSender("authora 3");
         emailDTO3.setSubject("Hello 3!");
         emailDTO3.setBody("Body 3");
         emailDTO3.setSendDate(new Date());

@@ -80,16 +80,16 @@ public class SmsService implements Serializable {
         }
     }
 
-    //performed when user press Do FilterSms button
+
     public void doFilterSms() {
         List<SmsDTO> listForReturn;
         listForReturn = smsDAO.getSmsBySender(senderForFilteringSms);
         lazyDataModel = new LazySmsDTODataModel(listForReturn);
     }
 
-    //performed when user press Cancel FilterSms button
-    public List<SmsDTO> cancelFilterSms() {
-        return smsDTOList;
+    public void cancelFilterSms() {
+        smsDTOList = smsDAO.getAll();
+        lazyDataModel = new LazySmsDTODataModel(smsDTOList);
     }
 
     public void addSms() {
