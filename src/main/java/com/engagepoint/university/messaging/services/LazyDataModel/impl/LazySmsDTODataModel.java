@@ -1,14 +1,12 @@
-package com.engagepoint.university.messaging.services.paginator.impl;
+package com.engagepoint.university.messaging.services.LazyDataModel.impl;
 
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.services.LazyDataModel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serializable {
     private List<SmsDTO> datasource;
@@ -33,15 +31,14 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
     }
 
     @Override
-    public List<SmsDTO> load(int first,
-                             int pageSize,
-                             String sortField,
-                             SortOrder sortOrder,
-                             Map<String, String> filters) {
+    public List<SmsDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder,Map<String, String> filters){
         List<SmsDTO> data = new ArrayList<SmsDTO>();
         performFilter(filters, data);
 
-//        perforSort(sortField, sortOrder, data);
+        //sort
+        if(sortField != null) {
+            Collections.sort(data, new LazySorter(sortField, sortOrder));
+        }
 
         performRowCount(data);
 
@@ -65,12 +62,6 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
         int dataSize = data.size();
         this.setRowCount(dataSize);
     }
-
-//    public void perforSort(String sortField, SortOrder sortOrder, List<SmsDTO> data) {
-//        if (sortField != null) {
-//            Collections.sort(data, new LazySorter(sortField, sortOrder));
-//        }
-//    }
 
     public void performFilter(Map<String, String> filters, List<SmsDTO> data) {
         for (SmsDTO mail : datasource) {

@@ -2,7 +2,7 @@ package com.engagepoint.university.messaging.services;
 
 import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.paginator.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.services.LazyDataModel.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;

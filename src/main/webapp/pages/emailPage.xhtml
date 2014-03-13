@@ -38,7 +38,8 @@
                            paginator="true"
                            paginatorAlwaysVisible="false"
                            lazy="true"
-                           paginatorPosition="bottom">
+                           paginatorPosition="bottom"
+                           >
 
             <f:facet name="header">
 
@@ -72,16 +73,18 @@
                 <h:outputText value="#{email.id}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate" style="width: 20%">
+                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate"
+                          style="width: 20%">
                     <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
-                <p:column id="sender" sortBy="#{email.sender}" filterBy="sender" headerText="sender"
+                <p:column id="sender" sortBy="#{email.sender}" headerText="sender"
                           style="width: 15%">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column id="subject" sortBy="#{email.subject}" headerText="subject" style="width: 15%">
+                <p:column id="subject" sortBy="#{email.subject}" headerText="subject"
+                          style="width: 15%">
                 <h:outputText value="#{email.subject}"/>
                 </p:column>
 

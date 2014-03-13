@@ -3,9 +3,7 @@ package com.engagepoint.university.messaging.services;
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.paginator.impl.LazyEmailDTODataModel;
-import com.engagepoint.university.messaging.services.paginator.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.services.LazyDataModel.impl.LazyEmailDTODataModel;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -25,16 +23,6 @@ import java.util.List;
 @ViewScoped
 public class EmailService implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
-
-    private String quickSearch;
-
-    public String getQuickSearch() {
-        return quickSearch;
-    }
-
-    public void setQuickSearch(String quickSearch) {
-        this.quickSearch = quickSearch;
-    }
 
     @Inject
     private EmailDAO emailDAO;
@@ -149,10 +137,6 @@ public class EmailService implements Serializable {
         emailDTO3.setSendDate(new Date());
         emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         emailDAO.save(emailDTO3);
-    }
-
-    public List<EmailDTO> doQuickSearch() {
-        return null; //emailDAO.search(getQuickSearch());
     }
 
     public LazyDataModel getLazyDataModel() {
