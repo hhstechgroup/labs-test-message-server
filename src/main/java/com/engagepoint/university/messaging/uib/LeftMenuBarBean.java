@@ -46,6 +46,15 @@ public class LeftMenuBarBean {
         menuItem.setValue("Info");
         menuItem.setUrl("/pages/infoPage.xhtml");
         model.addMenuItem(menuItem);
+
+        menuItem = new MenuItem();
+        menuItem.setId("webServiceItem");
+        if (viewId.endsWith("/webServicePage.xhtml")) {
+            menuItem.setStyleClass("active");
+        }
+        menuItem.setValue("WebService");
+        menuItem.setUrl("/pages/webServicePage.xhtml");
+        model.addMenuItem(menuItem);
     }
 
     public MenuModel getModel() {
