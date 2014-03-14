@@ -17,17 +17,6 @@
                                  actionListener="#{quickSearchSmsService.search}" styleClass="medium"/>
             </p:panel>
 
-            <p:panel id="FilterPanel">
-                <p:inputText id="inputSmsSender" value="#{smsService.senderForFilteringSms}"/>
-                <p:watermark for="inputSmsSender" value="input sender.."/>
-                <uib:buttonGroup>
-                    <p:commandButton id="DoFilter" value="Do Filter" update="SmsTable" styleClass="small"
-                                     actionListener="#{smsService.doFilterSms}"/>
-                    <p:commandButton id="CancelFilter" value="Cancel Filter" update="SmsTable,FilterPanel" styleClass="small"
-                                     actionListener="#{smsService.cancelFilterSms}"/>
-                </uib:buttonGroup>
-            </p:panel>
-
             <uib:dataTable id="SmsTable"
                            var="sms"
                            value="#{smsService.lazyDataModel}"
@@ -69,15 +58,18 @@
                                              onchange="selectAllChkBoxDisable('selectAllSMSReportChkBox')"/>
                 </uib:column>
 
-                <p:column id="columId" sortBy="#{sms.id}" headerText="id" style="width: 2%">
+                <p:column id="columId" sortBy="#{sms.id}" filterBy="#{sms.id}" filterStyle="width: 100%"
+                          headerText="id" style="width: 2%">
                     <h:outputText value="#{sms.id}"/>
                 </p:column>
 
-                <p:column id="deliveryDate" sortBy="#{sms.deliveryDate}" headerText="deliveryDate" style="width: 15%">
+                <p:column id="deliveryDate" sortBy="#{sms.deliveryDate}" filterBy="#{sms.deliveryDate}" filterStyle="width: 100%"
+                          headerText="deliveryDate" style="width: 15%">
                     <h:outputText value="#{sms.deliveryDate}"/>
                 </p:column>
 
-                <p:column id="sender" sortBy="#{sms.sender}" headerText="sender" style="width: 10%">
+                <p:column id="sender" sortBy="#{sms.sender}" filterBy="#{sms.sender}" filterStyle="width: 100%"
+                          headerText="sender" style="width: 10%">
                     <h:outputText value="#{sms.sender}"/>
                 </p:column>
 
