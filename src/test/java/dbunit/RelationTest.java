@@ -3,7 +3,7 @@ package dbunit;
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.Email;
+import com.engagepoint.university.messaging.service.repository.EmailService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class RelationTest extends DBUnitContextInit{
 
     @Autowired
-    EmailDAO emailDAO;
+    EmailService emailService;
 
     @Test
     public void testManyToManyAnnotation() {
@@ -44,9 +44,9 @@ public class RelationTest extends DBUnitContextInit{
 
         emailDTO.setAttachmentCollection(attachmentCollection);
 
-        emailDAO.save(emailDTO);
+        emailService.save(emailDTO);
 
-        List<EmailDTO> emailList = emailDAO.getAll();
+        List<EmailDTO> emailList = emailService.getAll();
         assertEquals(1, emailList.size());
         assertEquals("engagepoint-sender-email", emailList.get(0).getSender());
     }

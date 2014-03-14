@@ -1,7 +1,7 @@
 package dbunit;
 
-import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.service.repository.SmsService;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,13 @@ import static org.junit.Assert.assertEquals;
 public class SmsDAOTest extends DBUnitContextInit{
 
     @Autowired
-    private SmsDAO smsDAO;
+    private SmsService smsService;
 
     @Test
     @DatabaseSetup("insertDataSmsDAO.xml")
     public void testSave() throws Exception {
 
-        List<SmsDTO> smsList = smsDAO.getAll();
+        List<SmsDTO> smsList = smsService.getAll();
         for(SmsDTO smsTemp: smsList)
             System.out.println(smsTemp);
 

@@ -14,16 +14,16 @@
             <h:panelGrid columns="2" cellpadding="10">
                 <h:outputText id="emailServerHostNameLabel" value="Email server host:"
                               style="font-weight: bold"/>
-                <h:outputText id="emailServerHostName" value="#{serverInfoService.SMTPhostName}"/>
+                <h:outputText id="emailServerHostName" value="#{serverInfoController.SMTPhostName}"/>
 
                 <h:outputText id="emailServerPortLabel" value="Email server port:" style="font-weight: bold"/>
-                <h:outputText id="emailServerPort" value="#{serverInfoService.SMTPport}"/>
+                <h:outputText id="emailServerPort" value="#{serverInfoController.SMTPport}"/>
 
                 <h:outputText id="smsServerHostNameLabel" value="SMS Server host:" style="font-weight: bold"/>
-                <h:outputText id="smsServerHostName" value="#{serverInfoService.SMPPhost}"/>
+                <h:outputText id="smsServerHostName" value="#{serverInfoController.SMPPhost}"/>
 
                 <h:outputText id="smsServerPortLabel" value="SMS server port:" style="font-weight: bold"/>
-                <h:outputText id="smsServerPort" value="#{serverInfoService.SMPPport}"/>
+                <h:outputText id="smsServerPort" value="#{serverInfoController.SMPPport}"/>
             </h:panelGrid>
 
         </h:form>

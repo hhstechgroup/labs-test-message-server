@@ -1,6 +1,6 @@
-package com.engagepoint.university.messaging.entities;
+package com.engagepoint.university.messaging.entity;
 
-import com.engagepoint.university.messaging.entities.base.BaseEntity;
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -77,7 +77,7 @@ public class Email implements Serializable, BaseEntity {
     @ManyToMany(mappedBy = "emailCollection")
     private Collection<User> userCollection;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "email_attachment", joinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")

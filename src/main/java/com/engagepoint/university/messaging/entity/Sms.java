@@ -1,6 +1,6 @@
-package com.engagepoint.university.messaging.entities;
+package com.engagepoint.university.messaging.entity;
 
-import com.engagepoint.university.messaging.entities.base.BaseEntity;
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -56,7 +56,7 @@ public class Sms implements Serializable, BaseEntity {
     @Column(name = "delivery_date")
     private Date deliveryDate;
 
-    @ManyToMany(mappedBy = "smsCollection")
+    @ManyToMany(mappedBy = "smsCollection", fetch = FetchType.EAGER)
     private Collection<User> userCollection;
 
     public Long getId() {

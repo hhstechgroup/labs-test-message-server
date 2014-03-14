@@ -8,6 +8,7 @@ import com.cloudhopper.smpp.pdu.*;
 import com.cloudhopper.smpp.type.SmppProcessingException;
 import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
+import com.engagepoint.university.messaging.service.repository.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ public class SMPPServerMain {
     @Inject
     private SmsDTO smsDTO;
     @Inject
-    private SmsDAO smsDAO;
+    private SmsService smsService;
 
     public SMPPServerMain() {
         setExecutor();
@@ -140,7 +141,7 @@ public class SMPPServerMain {
             smsDTO.setSendDate(new Date());
 
             // SmsDAOImpl smsDAO = new SmsDAOImpl();
-            smsDAO.save(smsDTO);
+            smsService.save(smsDTO);
 
             return pduRequest.createResponse();
         }

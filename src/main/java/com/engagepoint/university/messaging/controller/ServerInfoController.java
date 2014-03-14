@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.services;
+package com.engagepoint.university.messaging.controller;
 
 import com.engagepoint.university.messaging.smpp.SMPPServerMain;
 import com.engagepoint.university.messaging.smtp.SMTPServerMain;
@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class ServerInfoService {
+public class ServerInfoController {
 
     @Inject
     SMPPServerMain serverSMPP;

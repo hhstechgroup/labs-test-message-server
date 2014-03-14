@@ -1,6 +1,6 @@
 package com.engagepoint.university.messaging.dao.repository;
 
-import com.engagepoint.university.messaging.entities.WebService;
+import com.engagepoint.university.messaging.entity.WebService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

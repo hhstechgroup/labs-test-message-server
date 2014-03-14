@@ -12,14 +12,14 @@
         <h:form>
 
             <p:panel name="Quick Search">
-                <p:inputText id="quickSearchSms" value="#{quickSearchSmsService.quicksearch}" style="width:460px"/>
+                <p:inputText id="quickSearchSms" value="#{smsController.quicksearch}" style="width:460px"/>
                 <p:commandButton id="search" value="Search" update="SmsTable"
-                                 actionListener="#{quickSearchSmsService.search}" styleClass="medium"/>
+                                 actionListener="#{smsController.search}" styleClass="medium"/>
             </p:panel>
 
             <uib:dataTable id="SmsTable"
                            var="sms"
-                           value="#{smsService.lazyDataModel}"
+                           value="#{smsController.lazyDataModel}"
                            rows="10"
                            paginator="true"
                            paginatorAlwaysVisible="false"
@@ -35,12 +35,12 @@
                     <uib:buttonGroup>
                         <p:commandButton id="Refresh" value="Refresh"
                                          icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"
-                                         actionListener="#{smsService.refreshSms}"/>
+                                         actionListener="#{smsController.refreshSms}"/>
                         <p:commandButton id="AddSms" value="AddSms"
                                          update="SmsTable" styleClass="small blue"
-                                         actionListener="#{smsService.addSms}"/>
+                                         actionListener="#{smsController.addSms}"/>
                         <p:commandButton id="Delete" value="Delete" update="SmsTable" styleClass="small blue"
-                                         actionListener="#{smsService.deleteCheckedSMS}"/>
+                                         actionListener="#{smsController.deleteCheckedSMS}"/>
                     </uib:buttonGroup>
 
                 </f:facet>

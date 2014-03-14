@@ -1,8 +1,8 @@
-package com.engagepoint.university.messaging.services;
+package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dao.repository.AttachmentDAO;
-import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
+import com.engagepoint.university.messaging.service.repository.AttachmentService;
+import com.engagepoint.university.messaging.service.repository.EmailService;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -17,14 +17,14 @@ import java.io.IOException;
 import java.util.List;
 
 @Named
-public class AttachmentService {
-    private static final Logger LOG = LoggerFactory.getLogger(AttachmentService.class);
+public class AttachmentController {
+    private static final Logger LOG = LoggerFactory.getLogger(AttachmentController.class);
 
     @Inject
-    private AttachmentDAO attachmentDAO;
+    private AttachmentService attachmentService;
 
     @Inject
-    private EmailDAO emailDAO;
+    private EmailService emailService;
 
     private static BASE64Decoder decoder;
 
@@ -35,7 +35,7 @@ public class AttachmentService {
         encoder = new BASE64Encoder();
     }
 
-    public AttachmentService() {
+    public AttachmentController() {
     }
 
     public static AttachmentDTO encodeAttachment(String name, byte[] content) {
@@ -46,7 +46,7 @@ public class AttachmentService {
     }
 
     public StreamedContent downloadAttachment(Long id) {
-        AttachmentDTO attachmentDTO = attachmentDAO.getById(id);
+        AttachmentDTO attachmentDTO = attachmentService.getById(id);
         LOG.info(attachmentDTO.toString());
         try {
             return new DefaultStreamedContent(
@@ -60,7 +60,7 @@ public class AttachmentService {
     }
 
     public List<AttachmentDTO> allAttachment() {
-        return attachmentDAO.getAll();
+        return attachmentService.getAll();
     }
 
 }

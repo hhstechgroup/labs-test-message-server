@@ -1,6 +1,6 @@
 package com.engagepoint.university.messaging.util;
 
-import com.engagepoint.university.messaging.entities.User;
+import com.engagepoint.university.messaging.entity.User;
 
 import java.util.*;
 

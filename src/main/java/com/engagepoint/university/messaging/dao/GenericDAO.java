@@ -1,16 +1,15 @@
 package com.engagepoint.university.messaging.dao;
 
-import com.engagepoint.university.messaging.dto.base.BaseDTO;
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import java.util.List;
 
-public interface GenericDAO<DTOType extends BaseDTO> {
+public interface GenericDAO<EntityType extends BaseEntity> {
 
-    public DTOType getById(Long id);
-
-    public List<DTOType> getAll();
-    public void save(DTOType DTOType);
-    public void update(DTOType DTOType);
-    public void delete(Integer id);
-    public void delete(DTOType DTOType);
+    public EntityType getById(Long id);
+    public List<EntityType> getAll();
+    public void save(EntityType EntityType);
+    public void update(EntityType EntityType);
+    public void delete(Long id);
+    public void delete(EntityType EntityType);
 }

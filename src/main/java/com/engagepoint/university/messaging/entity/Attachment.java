@@ -1,4 +1,6 @@
-package com.engagepoint.university.messaging.entities;
+package com.engagepoint.university.messaging.entity;
+
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -15,7 +17,7 @@ import java.util.Collection;
         @NamedQuery(name = Attachment.GET_ALL_BY_CONTENT, query = "SELECT at FROM Attachment at WHERE at.content = :content"),
         @NamedQuery(name = Attachment.GET_ALL_ATTACHMENTS, query = "SELECT at FROM Attachment at")})
 
-public class Attachment implements Serializable{
+public class Attachment implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 765348739781231295L;
 public static final String GET_BY_QUICKSEARCH = "Attachment.findByQuickSearch";
@@ -39,7 +41,7 @@ public static final String GET_BY_QUICKSEARCH = "Attachment.findByQuickSearch";
     @Column(name = "content")
     private String content;
 
-    @ManyToMany(mappedBy = "attachmentCollection")
+    @ManyToMany(mappedBy = "attachmentCollection", fetch = FetchType.EAGER)
     private Collection<Email> emailCollection;
 
     public Long getId() {

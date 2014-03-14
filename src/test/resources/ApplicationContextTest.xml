@@ -9,6 +9,7 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
+    <context:component-scan base-package="com.engagepoint.university.messaging.service" />
     <context:component-scan base-package="com.engagepoint.university.messaging.dao" />
     <tx:annotation-driven />
 
@@ -22,7 +23,7 @@
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-        <property name="packagesToScan" value="com.engagepoint.university.messaging.entities"/>
+        <property name="packagesToScan" value="com.engagepoint.university.messaging.entity"/>
         <property name="jpaDialect">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
 		</property>
@@ -41,6 +42,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+    <jpa:repositories base-package="com.engagepoint.university.messaging.service.repository"/>
     <jpa:repositories base-package="com.engagepoint.university.messaging.dao.repository"/>
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 

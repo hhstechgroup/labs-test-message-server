@@ -3,6 +3,7 @@ package com.engagepoint.university.messaging.dao.repository.impl;
 import com.engagepoint.university.messaging.dao.repository.SpringDataWebServiceDAO;
 import com.engagepoint.university.messaging.dao.repository.WebServiceDAO;
 import com.engagepoint.university.messaging.dto.WebServiceDTO;
+import com.engagepoint.university.messaging.entity.WebService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -26,42 +27,42 @@ public class WebServiceDAOImpl implements WebServiceDAO{
     }
 
     @Override
-    public void saveWebServiceDAO(WebServiceDTO webServiceDTO) {
+    public void saveWebServiceDAO(WebService webService) {
 
     }
 
     @Override
-    public List<WebServiceDTO> getWebServiceBySender(String sender) {
+    public List<WebService> getWebServiceBySender(String sender) {
         return null;
     }
 
     @Override
-    public WebServiceDTO getById(Long id) {
+    public WebService getById(Long id) {
         return null;
     }
 
     @Override
-    public List<WebServiceDTO> getAll() {
+    public List<WebService> getAll() {
         return null;
     }
 
     @Override
-    public void save(WebServiceDTO DTOType) {
+    public void save(WebService EntityType) {
 
     }
 
     @Override
-    public void update(WebServiceDTO DTOType) {
+    public void update(WebService EntityType) {
 
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
 
     }
 
     @Override
-    public void delete(WebServiceDTO DTOType) {
+    public void delete(WebService EntityType) {
 
     }
 }

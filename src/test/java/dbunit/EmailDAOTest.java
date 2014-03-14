@@ -1,6 +1,6 @@
 package dbunit;
 
-import com.engagepoint.university.messaging.dao.repository.EmailDAO;
+import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -18,14 +18,14 @@ import static org.junit.Assert.assertEquals;
 
 public class EmailDAOTest extends DBUnitContextInit{
     @Autowired
-    private EmailDAO emailDAO;
+    private EmailService emailService;
 
     @Test
     @DatabaseSetup("insertDataEmailDAO.xml")
     @DatabaseTearDown(value="insertDataEmailDAO.xml", type=DatabaseOperation.DELETE_ALL)
     public void testSave() throws Exception {
 
-        List<EmailDTO> emailList = emailDAO.getAll();
+        List<EmailDTO> emailList = emailService.getAll();
         assertEquals(4, emailList.size());
         assertEquals("Mona", emailList.get(0).getSender());
     }
@@ -34,11 +34,11 @@ public class EmailDAOTest extends DBUnitContextInit{
     @DatabaseSetup("insertDataEmailDAO.xml")
     @DatabaseTearDown(value="insertDataEmailDAO.xml", type=DatabaseOperation.DELETE_ALL)
     public void testDeleteList() throws Exception {
-        List<EmailDTO> emailList = emailDAO.getAll();
+        List<EmailDTO> emailList = emailService.getAll();
         assertEquals(4, emailList.size());
         List<Long> deleteList = Arrays.asList(1L, 2L, 4L);
-        emailDAO.deleteIdList(deleteList);
-        emailList = emailDAO.getAll();
+        emailService.deleteIdList(deleteList);
+        emailList = emailService.getAll();
         for (EmailDTO temp: emailList)
             System.out.println(temp);
         assertEquals(1, emailList.size());

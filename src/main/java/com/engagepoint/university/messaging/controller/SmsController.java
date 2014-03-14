@@ -1,8 +1,8 @@
-package com.engagepoint.university.messaging.services;
+package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.LazyDataModel.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.service.repository.SmsService;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -19,11 +19,11 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class SmsService implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(SmsService.class);
+public class SmsController implements Serializable {
+    private static final Logger LOG = LoggerFactory.getLogger(SmsController.class);
 
     @Inject
-    private SmsDAO smsDAO;
+    private SmsService smsService;
 
     private List<SmsDTO> smsDTOList;
 
@@ -32,7 +32,7 @@ public class SmsService implements Serializable {
     @PostConstruct
     public void init() {
         smsDTOList = new ArrayList<SmsDTO>();
-        smsDTOList = smsDAO.getAll();
+        smsDTOList = smsService.getAll();
         lazyDataModel = new LazySmsDTODataModel(smsDTOList);
     }
 
@@ -56,7 +56,7 @@ public class SmsService implements Serializable {
 
     public void refreshSms() {
         smsDTOList = new ArrayList<SmsDTO>();
-        smsDTOList = smsDAO.getAll();
+        smsDTOList = smsService.getAll();
         lazyDataModel = new LazySmsDTODataModel(smsDTOList);    
     }
 
@@ -74,7 +74,7 @@ public class SmsService implements Serializable {
             for (SmsDTO item : removeList) {
                 smsDTOList.remove(item);
             }
-            smsDAO.deleteIdList(idList);
+            smsService.deleteIdList(idList);
             idList.clear();
             removeList.clear();
         }
@@ -83,12 +83,12 @@ public class SmsService implements Serializable {
 
     public void doFilterSms() {
         List<SmsDTO> listForReturn;
-        listForReturn = smsDAO.getSmsBySender(senderForFilteringSms);
+        listForReturn = smsService.getSmsBySender(senderForFilteringSms);
         lazyDataModel = new LazySmsDTODataModel(listForReturn);
     }
 
     public void cancelFilterSms() {
-        smsDTOList = smsDAO.getAll();
+        smsDTOList = smsService.getAll();
         lazyDataModel = new LazySmsDTODataModel(smsDTOList);
     }
 
@@ -99,7 +99,7 @@ public class SmsService implements Serializable {
         smsDTO1.setSendDate(new Date());
         smsDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(smsDTO1);
+        smsService.save(smsDTO1);
 
         SmsDTO smsDTO2 = new SmsDTO();
         smsDTO2.setSender("author 2");
@@ -107,7 +107,7 @@ public class SmsService implements Serializable {
         smsDTO2.setSendDate(new Date());
         smsDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(smsDTO2);
+        smsService.save(smsDTO2);
 
         SmsDTO smsDTO3 = new SmsDTO();
         smsDTO3.setSender("author 3");
@@ -115,9 +115,9 @@ public class SmsService implements Serializable {
         smsDTO3.setSendDate(new Date());
         smsDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        smsDAO.save(smsDTO3);
+        smsService.save(smsDTO3);
 
-        smsDTOList = smsDAO.getAll();
+        smsDTOList = smsService.getAll();
     }
 
     public LazyDataModel getLazyDataModel() {

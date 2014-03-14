@@ -1,7 +1,7 @@
-package com.engagepoint.university.messaging.services.LazyDataModel.impl;
+package com.engagepoint.university.messaging.controller.LazyDataModel.impl;
 
-import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.LazyDataModel.LazySorter;
+import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.controller.LazyDataModel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
 
-public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serializable {
-    private List<SmsDTO> datasource;
+public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Serializable {
+    private List<EmailDTO> datasource;
 
-    public LazySmsDTODataModel(List<SmsDTO> datasource) {
+    public LazyEmailDTODataModel(List<EmailDTO> datasource) {
         this.datasource = datasource;
     }
 
     @Override
-    public SmsDTO getRowData(String rowKey) {
-        for (SmsDTO mail : datasource) {
+    public EmailDTO getRowData(String rowKey) {
+        for (EmailDTO mail : datasource) {
             if (mail.getSender().equals(rowKey))
                 return mail;
         }
@@ -27,13 +27,13 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
     }
 
     @Override
-    public Object getRowKey(SmsDTO mail) {
+    public Object getRowKey(EmailDTO mail) {
         return mail.getSender();
     }
 
     @Override
-    public List<SmsDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters){
-        List<SmsDTO> data = new ArrayList<SmsDTO>();
+    public List<EmailDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
+        List<EmailDTO> data = new ArrayList<EmailDTO>();
 
         //filter
         performFilter(filters, data);
@@ -48,7 +48,7 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
         return paginatedUserList(first, pageSize, data);
     }
 
-    public List<SmsDTO> paginatedUserList(int first, int pageSize, List<SmsDTO> data) {
+    public List<EmailDTO> paginatedUserList(int first, int pageSize, List<EmailDTO> data) {
         int dataSize = data.size();
         if (dataSize > pageSize) {
             try {
@@ -61,44 +61,45 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
         }
     }
 
-    public void performRowCount(List<SmsDTO> data) {
+    public void performRowCount(List<EmailDTO> data) {
         int dataSize = data.size();
         this.setRowCount(dataSize);
     }
 
-    public void performFilter(Map<String, String> filters, List<SmsDTO> data) {
-        for (SmsDTO smsDTO : datasource) {
+    public void performFilter(Map<String, String> filters, List<EmailDTO> data) {
+        for(EmailDTO emailDTO : datasource) {
             boolean match = true;
 
-            for (Iterator<String> it = filters.keySet().iterator(); it.hasNext(); ) {
+            for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
                 try {
                     String filterProperty = it.next();
                     String filterValue = filters.get(filterProperty);
                     String fieldValue;
 
                     if(filterProperty.equals("id")){
-                        fieldValue = String.valueOf(smsDTO.getId());
+                        fieldValue = String.valueOf(emailDTO.getId());
                     }
                     else{
 
-                        Field field = smsDTO.getClass().getDeclaredField(filterProperty);
+                        Field field = emailDTO.getClass().getDeclaredField(filterProperty);
                         field.setAccessible(true);
-                        fieldValue = String.valueOf(field.get(smsDTO));
+                        fieldValue = String.valueOf(field.get(emailDTO));
                     }
 
-                    if (filterValue == null || fieldValue.startsWith(filterValue)) {
+                    if(filterValue == null || fieldValue.startsWith(filterValue)) {
                         match = true;
-                    } else {
+                    }
+                    else {
                         match = false;
                         break;
                     }
-                } catch (Exception e) {
+                } catch(Exception e) {
                     match = false;
                 }
             }
 
-            if (match) {
-                data.add(smsDTO);
+            if(match) {
+                data.add(emailDTO);
             }
         }
     }

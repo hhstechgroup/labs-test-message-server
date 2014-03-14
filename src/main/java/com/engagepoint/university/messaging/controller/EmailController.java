@@ -1,9 +1,9 @@
-package com.engagepoint.university.messaging.services;
+package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.services.LazyDataModel.impl.LazyEmailDTODataModel;
+import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazyEmailDTODataModel;
+import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -21,11 +21,11 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class EmailService implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
+public class EmailController implements Serializable {
+    private static final Logger LOG = LoggerFactory.getLogger(EmailController.class);
 
     @Inject
-    private EmailDAO emailDAO;
+    private EmailService emailService;
 
     private List<EmailDTO> emailDTOList;
 
@@ -42,7 +42,7 @@ public class EmailService implements Serializable {
     @PostConstruct
     public void init() {
         emailDTOList = new ArrayList<EmailDTO>();
-        emailDTOList = emailDAO.getAll();
+        emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
@@ -56,7 +56,7 @@ public class EmailService implements Serializable {
 
     public void refreshEmail() {
         emailDTOList = new ArrayList<EmailDTO>();
-        emailDTOList = emailDAO.getAll();
+        emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
@@ -75,7 +75,7 @@ public class EmailService implements Serializable {
                 emailDTOList.remove(item);
             }
 
-            emailDAO.deleteIdList(idList);
+            emailService.deleteIdList(idList);
             idList.clear();
             removeList.clear();
         }
@@ -84,13 +84,13 @@ public class EmailService implements Serializable {
     //performed when user press Do FilterEmail button
     public void doFilterEmail() {
         List<EmailDTO> listForReturn;
-        listForReturn = emailDAO.getEmailsBySender(senderForFilteringEmail);
+        listForReturn = emailService.getEmailsBySender(senderForFilteringEmail);
         lazyDataModel = new LazyEmailDTODataModel(listForReturn);
     }
 
     //performed when user press Cancel FilterEmail button
     public void cancelFilterEmail() {
-        emailDTOList = emailDAO.getAll();
+        emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
     }
 
@@ -122,7 +122,7 @@ public class EmailService implements Serializable {
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         emailDTO1.setAttachmentCollection(attachmentCollection);
         //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
-        emailDAO.save(emailDTO1);
+        emailService.save(emailDTO1);
 
         EmailDTO emailDTO2 = new EmailDTO();
         emailDTO2.setSender("aura 2");
@@ -130,7 +130,7 @@ public class EmailService implements Serializable {
         emailDTO2.setBody("Body 2");
         emailDTO2.setSendDate(new Date());
         emailDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        emailDAO.save(emailDTO2);
+        emailService.save(emailDTO2);
 
         EmailDTO emailDTO3 = new EmailDTO();
         emailDTO3.setSender("authora 3");
@@ -138,7 +138,7 @@ public class EmailService implements Serializable {
         emailDTO3.setBody("Body 3");
         emailDTO3.setSendDate(new Date());
         emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        emailDAO.save(emailDTO3);
+        emailService.save(emailDTO3);
     }
 
     public LazyDataModel getLazyDataModel() {
@@ -157,7 +157,7 @@ public class EmailService implements Serializable {
         if (this.getQuickSearchPhrase().equals(null) || this.getQuickSearchPhrase().equals("")) {
             this.refreshEmail();
         } else {
-            emailDTOList = emailDAO.quickSearch(this.getQuickSearchPhrase());
+            emailDTOList = emailService.quickSearch(this.getQuickSearchPhrase());
             lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
         }
     }

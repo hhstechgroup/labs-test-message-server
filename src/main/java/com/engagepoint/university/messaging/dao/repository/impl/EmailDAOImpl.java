@@ -3,7 +3,7 @@ package com.engagepoint.university.messaging.dao.repository.impl;
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dao.repository.SpringDataEmailDAO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entities.Email;
+import com.engagepoint.university.messaging.entity.Email;
 import com.engagepoint.university.messaging.util.Converter;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 @Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
@@ -26,91 +25,68 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     @Transactional
-    public EmailDTO getById(Long id) {
+    public Email getById(Long id) {
         Email email = springDataEmailDAO.findOne(id);
-        EmailDTO emailDTO = Converter.convert(email);
-        return emailDTO;
+
+        return email;
     }
 
     @Override
     @Transactional
-    public List<EmailDTO> getAll() {
-        List<Email> attachments = springDataEmailDAO.findAll();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = attachments.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
+    public List<Email> getAll() {
+        List<Email> emails = springDataEmailDAO.findAll();
+        return emails;
     }
 
     @Override
     @Transactional
-    public void save(EmailDTO emailDTO) {
-        Email email = Converter.convert(emailDTO);
+    public void save(Email email) {
         springDataEmailDAO.saveAndFlush(email);
 
     }
 
     @Override
     @Transactional
-    public void update(EmailDTO emailDTO) {
-        Email email = Converter.convert(emailDTO);
+    public void update(Email email) {
         springDataEmailDAO.save(email);
     }
 
     @Override
     @Transactional
-    public void delete(Integer id) {
-        springDataEmailDAO.delete(id.longValue());
+    public void delete(Long id) {
+        springDataEmailDAO.delete(id);
     }
 
     @Override
     @Transactional
-    public void delete(EmailDTO emailDTO) {
-        Email email = Converter.convert(emailDTO);
+    public void delete(Email email) {
         springDataEmailDAO.delete(email);
     }
 
     @Override
     @Transactional
-    public List<EmailDTO> getEmailsBySender(String sender) {
+    public List<Email> getEmailsBySender(String sender) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_BY_SENDER, Email.class)
                 .setParameter("sender", "%" + sender + "%").getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
+        return emails;
     }
 
     @Override
     @Transactional
-    public List<EmailDTO> getEmailsBySubject(String subject) {
+    public List<Email> getEmailsBySubject(String subject) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_BY_SUBJECT, Email.class)
                 .setParameter("subject", subject).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
+        return emails;
     }
 
     @Override
     @Transactional
-    public List<EmailDTO> getEmailsSortByDeliverDate() {
+    public List<Email> getEmailsSortByDeliverDate() {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_SORT_BY_DELIVERY_DATE, Email.class).getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
+        return emails;
     }
 
     @Override
@@ -127,7 +103,7 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
-    public List<EmailDTO> quickSearch(String quickSearchPhrase) {
+    public List<Email> quickSearch(String quickSearchPhrase) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)
                 .setParameter("attachName", "%" + quickSearchPhrase + "%")
@@ -141,11 +117,6 @@ public class EmailDAOImpl implements EmailDAO {
                 .setParameter("subject", "%" + quickSearchPhrase + "%")
                 .setParameter("body", "%" + quickSearchPhrase + "%")
                 .getResultList());
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
+       return emails;
     }
 }

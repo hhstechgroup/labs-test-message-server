@@ -13,16 +13,16 @@
         <h:form>
 
             <p:panel name="Quick Search">
-                <p:inputText id="quickSearchEmail" value="#{emailService.quickSearchPhrase}"
+                <p:inputText id="quickSearchEmail" value="#{emailController.quickSearchPhrase}"
                              style="width:460px"/>
                 <p:watermark for="quickSearchEmail" value="Input quick search phrase.."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="EmailTable"
-                                 actionListener="#{emailService.quickSearch}" styleClass="medium"/>
+                                 actionListener="#{emailController.quickSearch}" styleClass="medium"/>
             </p:panel>
 
             <uib:dataTable id="EmailTable"
                            var="email"
-                           value="#{emailService.lazyDataModel}"
+                           value="#{emailController.lazyDataModel}"
                            rows="10"
                            summary="Table with pagination"
                            paginator="true"
@@ -37,12 +37,12 @@
                     <uib:buttonGroup>
                         <p:commandButton value="Refresh" icon="ui-icon-refresh" update="EmailTable"
                                          styleClass="small blue"
-                                         actionListener="#{emailService.refreshEmail}"/>
+                                         actionListener="#{emailController.refreshEmail}"/>
                         <p:commandButton value="AddEmail" update="EmailTable"
                                          styleClass="small blue"
-                                         actionListener="#{emailService.addEmail}"/>
+                                         actionListener="#{emailController.addEmail}"/>
                         <p:commandButton value="Delete" update="EmailTable" styleClass="small blue"
-                                         actionListener="#{emailService.deleteCheckedEmails}"/>
+                                         actionListener="#{emailController.deleteCheckedEmails}"/>
                     </uib:buttonGroup>
             </f:facet>
 
@@ -93,7 +93,7 @@
                     <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
                         <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
                             width: 0px; height: 0px; font-size: 9pt">
-                            <p:fileDownload value="#{attachmentService.downloadAttachment(attachment.id)}"/>
+                            <p:fileDownload value="#{emailController.downloadAttachment(attachment.id)}"/>
                         </p:commandButton>
                         <a href="#"
                            onclick="document.getElementById('#{p:component('attachmentId')}').click();">

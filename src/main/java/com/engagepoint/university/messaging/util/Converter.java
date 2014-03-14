@@ -5,11 +5,11 @@ import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.dto.UserDTO;
 import com.engagepoint.university.messaging.dto.base.BaseDTO;
-import com.engagepoint.university.messaging.entities.Attachment;
-import com.engagepoint.university.messaging.entities.Email;
-import com.engagepoint.university.messaging.entities.Sms;
-import com.engagepoint.university.messaging.entities.User;
-import com.engagepoint.university.messaging.entities.base.BaseEntity;
+import com.engagepoint.university.messaging.entity.Attachment;
+import com.engagepoint.university.messaging.entity.Email;
+import com.engagepoint.university.messaging.entity.Sms;
+import com.engagepoint.university.messaging.entity.User;
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

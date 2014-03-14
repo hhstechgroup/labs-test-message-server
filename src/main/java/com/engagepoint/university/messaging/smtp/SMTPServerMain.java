@@ -4,7 +4,8 @@ import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.services.AttachmentService;
+import com.engagepoint.university.messaging.controller.AttachmentController;
+import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
 import org.subethamail.smtp.*;
@@ -29,7 +30,7 @@ public class SMTPServerMain{
     @Inject
     private SmsDTO smsDTO;
     @Inject
-    private EmailDAO emailDAO;
+    private EmailService emailService;
 
     public SMTPServerMain() {
         setMessageHandlerFactory();
@@ -125,7 +126,7 @@ public class SMTPServerMain{
                     } else if (content instanceof InputStream) {
                         BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;
                         byte[] byteArray = IOUtils.toByteArray(base64DecoderStream);
-                        attachmentDTOs.add(AttachmentService.encodeAttachment(bp.getFileName(), byteArray));
+                        attachmentDTOs.add(AttachmentController.encodeAttachment(bp.getFileName(), byteArray));
                     } else if (content instanceof Message) {
                         Message message = (Message) content;
                         handleMessage(message);
@@ -162,7 +163,7 @@ public class SMTPServerMain{
 
             @Override
             public void done() {
-                emailDAO.save(mail);
+                emailService.save(mail);
             }
         }
     }

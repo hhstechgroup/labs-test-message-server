@@ -1,6 +1,6 @@
-package com.engagepoint.university.messaging.entities;
+package com.engagepoint.university.messaging.entity;
 
-import com.engagepoint.university.messaging.entities.base.BaseEntity;
+import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -19,7 +19,7 @@ import java.util.Date;
         @NamedQuery(name = WebService.GET_ALL_BY_SENDER, query = "SELECT sm FROM WebService sm WHERE sm.sender = :sender"),
         @NamedQuery(name = WebService.GET_ALL_BY_SEND_DATE, query = "SELECT sm FROM WebService sm WHERE sm.sendDate = :sendDate"),
         @NamedQuery(name = WebService.DELETE_WEB_SERVICE_LIST, query = "DELETE FROM WebService sm WHERE sm.id IN :idList")})
-public class WebService implements Serializable, BaseEntity {
+public class WebService implements Serializable,BaseEntity {
 
 
     private static final long serialVersionUID = 6745638798781234739L;

@@ -2,13 +2,14 @@ package com.engagepoint.university.messaging.dao.repository;
 
 import com.engagepoint.university.messaging.dao.GenericDAO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.entity.Email;
 
 import java.util.List;
 
-public interface EmailDAO extends GenericDAO<EmailDTO> {
-    public List<EmailDTO> getEmailsBySender(String sender);
-    public List<EmailDTO> getEmailsBySubject(String subject);
-    public List<EmailDTO> getEmailsSortByDeliverDate();
+public interface EmailDAO extends GenericDAO<Email> {
+    public List<Email> getEmailsBySender(String sender);
+    public List<Email> getEmailsBySubject(String subject);
+    public List<Email> getEmailsSortByDeliverDate();
     public void deleteIdList(List<Long> idList);
-    public List<EmailDTO> quickSearch(String quickSearchPhrase);
+    public List<Email> quickSearch(String quickSearchPhrase);
 }

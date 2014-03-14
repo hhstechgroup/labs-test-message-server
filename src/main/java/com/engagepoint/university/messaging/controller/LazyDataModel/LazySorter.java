@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.services.LazyDataModel;
+package com.engagepoint.university.messaging.controller.LazyDataModel;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;
