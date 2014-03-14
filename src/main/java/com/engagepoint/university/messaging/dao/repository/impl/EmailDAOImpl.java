@@ -127,82 +127,25 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
-    @Transactional
-    public List<EmailDTO> fullEmailQuickSearchByAttachment(String criteria) {
-        String[] criterias = criteria.trim().split("\\s");
+    public List<EmailDTO> quickSearch(String quickSearchPhrase) {
         List<Email> emails = entityManager
-                .createNamedQuery(Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, Email.class)
-                .setParameter("searchCriteria", criterias)
-                .setParameter("attachmentCount", criterias.length)
+                .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)
+                .setParameter("attachName", "%" + quickSearchPhrase + "%")
+                .setParameter("sender", "%" + quickSearchPhrase + "%")
+                .setParameter("subject", "%" + quickSearchPhrase + "%" )
+                .setParameter("body", "%" + quickSearchPhrase + "%" )
                 .getResultList();
+        emails.addAll(entityManager
+                .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, Email.class)
+                .setParameter("sender", "%" + quickSearchPhrase + "%")
+                .setParameter("subject", "%" + quickSearchPhrase + "%")
+                .setParameter("body", "%" + quickSearchPhrase + "%")
+                .getResultList());
         List<EmailDTO> emailDTOs = new ArrayList<>();
         Iterator<Email> emailIterator = emails.iterator();
         while (emailIterator.hasNext()) {
             emailDTOs.add(Converter.convert(emailIterator.next()));
         }
-        return emailDTOs;
-    }
-
-    @Override
-    @Transactional
-    public List<EmailDTO> partialEmailQuickSearchByAttachment(String criteria) {
-        String[] criterias = criteria.trim().split("\\s");
-        List<Email> emails = entityManager
-                .createNamedQuery(Email.GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, Email.class)
-                .setParameter("searchCriteria", criterias)
-                .setParameter("attachmentCount", criterias.length)
-                .getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
-    }
-
-    @Override
-    @Transactional
-    public List<EmailDTO> fullEmailQuickSearchByEmails(String criteria) {
-        String[] criterias = criteria.trim().split("\\s");
-        List<Email> emails = entityManager
-                .createNamedQuery(Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_EMAILS, Email.class)
-                .setParameter("searchCriteria", criterias)
-                .setParameter("attachmentCount", criterias.length)
-                .getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
-    }
-
-    @Override
-    @Transactional
-    public List<EmailDTO> partialEmailQuickSearchByEmails(String criteria) {
-        String[] criterias = criteria.trim().split("\\s");
-        List<Email> emails = entityManager
-                .createNamedQuery(Email.GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_EMAILS, Email.class)
-                .setParameter("searchCriteria", criterias)
-                .setParameter("attachmentCount", criterias.length)
-                .getResultList();
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
-        }
-        return emailDTOs;
-    }
-
-    @Override
-    @Transactional
-    public List<EmailDTO> emailQuickSearch(String criteria) {
-        String[] criterias = criteria.trim().split("\\s");
-        List<EmailDTO> emailDTOs = new ArrayList<>();
-        emailDTOs.addAll(this.fullEmailQuickSearchByAttachment(criteria));
-//        emailDTOs.addAll(this.partialEmailQuickSearchByAttachment(criteria));
-//        emailDTOs.addAll(this.fullEmailQuickSearchByEmails(criteria));
-//        emailDTOs.addAll(this.partialEmailQuickSearchByEmails(criteria));
         return emailDTOs;
     }
 }

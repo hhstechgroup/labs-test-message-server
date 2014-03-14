@@ -31,6 +31,8 @@ public class EmailService implements Serializable {
 
     private LazyEmailDTODataModel lazyDataModel;
 
+    private String quickSearchPhrase;
+
     private String senderForFilteringEmail;  //word which the list of email will be sorted by
 
     public List<EmailDTO> getEmailDTOList() {
@@ -141,5 +143,22 @@ public class EmailService implements Serializable {
 
     public LazyDataModel getLazyDataModel() {
         return lazyDataModel;
+    }
+
+    public String getQuickSearchPhrase() {
+        return quickSearchPhrase;
+    }
+
+    public void setQuickSearchPhrase(String quickSearchPhrase) {
+        this.quickSearchPhrase = quickSearchPhrase;
+    }
+
+    public void quickSearch(){
+        if (this.getQuickSearchPhrase().equals(null) || this.getQuickSearchPhrase().equals("")) {
+            this.refreshEmail();
+        } else {
+            emailDTOList = emailDAO.quickSearch(this.getQuickSearchPhrase());
+            lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
+        }
     }
 }

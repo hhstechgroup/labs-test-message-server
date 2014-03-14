@@ -11,12 +11,6 @@ import java.util.Date;
 @Entity
 @Table(name = "email")
 @NamedQueries({
-        @NamedQuery(name = Email.GET_SEARCHING_EMAIL, query = "SELECT em FROM Email em WHERE" +
-                " em.id  IN (SELECT at.id FROM Attachment at WHERE at.name LIKE :attachName) OR" +
-                " em.sender LIKE :sender OR" +
-                " em.subject LIKE :subject OR" +
-                " em.body LIKE :body "),
-
         @NamedQuery(name = Email.GET_ALL, query = "SELECT e FROM Email e"),
         @NamedQuery(name = Email.GET_ALL_BY_EMAIL_ID, query = "SELECT em FROM Email em WHERE em.id = :idEmail"),
         @NamedQuery(name = Email.GET_ALL_BY_SENDER, query = "SELECT em FROM Email em WHERE em.sender LIKE :sender"),
@@ -24,26 +18,21 @@ import java.util.Date;
         @NamedQuery(name = Email.GET_ALL_BY_SEND_DATE, query = "SELECT em FROM Email em WHERE em.sendDate = :sendDate"),
         @NamedQuery(name = Email.GET_ALL_BY_DELIVERY_DATE, query = "SELECT em FROM Email em WHERE em.deliveryDate = :deliveryDate"),
         @NamedQuery(name = Email.GET_ALL_SORT_BY_DELIVERY_DATE, query = "SELECT em FROM Email em ORDER BY em.sender DESC"),
-        @NamedQuery(name = Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, query = "SELECT em FROM Email em "
-        + "JOIN em.attachmentCollection attc WHERE (attc.name IN (:searchCriteria) OR attc.content IN (:searchCriteria)) "
-        + "AND attc.id IN (SELECT att2.id FROM Email att2 JOIN att2.attachmentCollection tt2 "
-        + "GROUP BY att2 HAVING COUNT(tt2) =:attachmentCount) "
-        + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
-        @NamedQuery(name = Email.GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS, query = "SELECT em FROM Email em "
-                + "JOIN em.attachmentCollection attc WHERE attc.name IN (:searchCriteria) "
-                + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
-//        @NamedQuery(name = Email.GET_FULL_EMAIL_QUICK_SEARCH_BY_EMAILS, query = "SELECT em FROM Email em "
-//            + "JOIN em.attachmentCollection attc WHERE (em.body IN (:searchCriteria) "
-//            + "OR em.subject IN (:searchCriteria) OR em.sender IN (:searchCriteria) "
-//            + "OR em.sendDate IN (:searchCriteria) OR em.deliveryDate IN (:searchCriteria)) "
-//            + "AND attc.id IN (SELECT att2.id FROM Email att2 JOIN att2.attachmentCollection tt2 "
-//            + "GROUP BY att2 HAVING COUNT(tt2) =:attachmentCount) "
-//            + "GROUP BY em HAVING COUNT(attc) =:attachmentCount"),
-//        @NamedQuery(name = Email.GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_EMAILS, query = "SELECT em FROM Email em "
-//            + "JOIN em.attachmentCollection attc WHERE (em.body IN (:searchCriteria) "
-//            + "OR em.subject IN (:searchCriteria) OR em.sender IN (:searchCriteria) "
-//            + "OR em.sendDate IN (:searchCriteria) OR em.deliveryDate IN (:searchCriteria)) "
-//            + "GROUP BY em HAVING COUNT(attc) =:attachmentCount")
+        @NamedQuery(name = Email.GET_EMAIL_QUICK_SEARCH, query = "SELECT DISTINCT em FROM Email em" +
+                " JOIN FETCH em.attachmentCollection attachmentCollection" +
+                " WHERE" +
+                " attachmentCollection.name IN (SELECT attachment.name FROM Attachment attachment" +
+                " WHERE attachment.name LIKE :attachName) OR" +
+                " em.sender LIKE :sender OR" +
+                " em.subject LIKE :subject OR" +
+                " em.body LIKE :body"),
+        @NamedQuery(name = Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, query = "SELECT DISTINCT em FROM Email em" +
+                " LEFT JOIN FETCH em.attachmentCollection attachmentCollection" +
+                " GROUP BY em" +
+                " HAVING COUNT (attachmentCollection) = NULL AND" +
+                " em.sender LIKE :sender OR" +
+                " em.subject LIKE :subject OR" +
+                " em.body LIKE :body"),
 })
 
 public class Email implements Serializable, BaseEntity {
@@ -58,10 +47,8 @@ public class Email implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_SEND_DATE = "Email.findBySendDate";
     public static final String GET_ALL_BY_DELIVERY_DATE = "Email.findByDeliveryDate";
     public static final String GET_ALL_SORT_BY_DELIVERY_DATE = "Email.sortByDeliveryDate";
-    public static final String GET_FULL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS = "Email.fullEmailQuickSearchByAttachments";
-    public static final String GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_ATTACHMENTS = "Email.partialEmailQuickSearchByAttachments";
-    public static final String GET_FULL_EMAIL_QUICK_SEARCH_BY_EMAILS = "Email.fullEmailQuickSearchByEmails";
-    public static final String GET_PARTIAL_EMAIL_QUICK_SEARCH_BY_EMAILS= "Email.partialEmailQuickSearchByEmails";
+    public static final String GET_EMAIL_QUICK_SEARCH = "Email.emailQuickSearch";
+    public static final String GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS = "Email.emailQuickSearchWithoutAttachments";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
