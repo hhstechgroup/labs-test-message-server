@@ -6,6 +6,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serializable {
@@ -31,8 +32,10 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
     }
 
     @Override
-    public List<SmsDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder,Map<String, String> filters){
+    public List<SmsDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters){
         List<SmsDTO> data = new ArrayList<SmsDTO>();
+
+        //filter
         performFilter(filters, data);
 
         //sort
@@ -64,14 +67,24 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
     }
 
     public void performFilter(Map<String, String> filters, List<SmsDTO> data) {
-        for (SmsDTO mail : datasource) {
+        for (SmsDTO smsDTO : datasource) {
             boolean match = true;
 
             for (Iterator<String> it = filters.keySet().iterator(); it.hasNext(); ) {
                 try {
                     String filterProperty = it.next();
                     String filterValue = filters.get(filterProperty);
-                    String fieldValue = String.valueOf(mail.getClass().getField(filterProperty).get(mail));
+                    String fieldValue;
+
+                    if(filterProperty.equals("id")){
+                        fieldValue = String.valueOf(smsDTO.getId());
+                    }
+                    else{
+
+                        Field field = smsDTO.getClass().getDeclaredField(filterProperty);
+                        field.setAccessible(true);
+                        fieldValue = String.valueOf(field.get(smsDTO));
+                    }
 
                     if (filterValue == null || fieldValue.startsWith(filterValue)) {
                         match = true;
@@ -85,7 +98,7 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
             }
 
             if (match) {
-                data.add(mail);
+                data.add(smsDTO);
             }
         }
     }

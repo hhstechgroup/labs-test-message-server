@@ -20,17 +20,6 @@
                                  actionListener="#{emailService.quickSearch}" styleClass="medium"/>
             </p:panel>
 
-            <p:panel id="FilterPanel">
-                <p:inputText id="inputEmailSender" value="#{emailService.senderForFilteringEmail}"/>
-                <p:watermark for="inputEmailSender" value="input sender.."/>
-                <uib:buttonGroup>
-                    <p:commandButton id="emailFilterButton" value="Do Filter" update="EmailTable"
-                                     actionListener="#{emailService.doFilterEmail}" styleClass="small"/>
-                    <p:commandButton id="emailCancelButton" value="Cancel Filter" update="EmailTable,FilterPanel"
-                                     actionListener="#{emailService.cancelFilterEmail}" styleClass="small"/>
-                </uib:buttonGroup>
-            </p:panel>
-
             <uib:dataTable id="EmailTable"
                            var="email"
                            value="#{emailService.lazyDataModel}"
@@ -55,7 +44,7 @@
                         <p:commandButton value="Delete" update="EmailTable" styleClass="small blue"
                                          actionListener="#{emailService.deleteCheckedEmails}"/>
                     </uib:buttonGroup>
-                </f:facet>
+            </f:facet>
 
                 <uib:column style="width: 3%">
                     <f:facet name="header">
@@ -70,22 +59,23 @@
                                              onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
                 </uib:column>
 
-                <p:column id="emailId" sortBy="#{email.id}" headerText="id" style="width: 2%">
+                <p:column id="emailId" sortBy="#{email.id}" filterBy="#{email.id}" filterStyle="width: 100%"
+                          headerText="id" style="width: 2%">
                 <h:outputText value="#{email.id}"/>
                 </p:column>
 
-                <p:column sortBy="#{email.deliveryDate}" headerText="deliveryDate"
-                          style="width: 20%">
+                <p:column sortBy="#{email.deliveryDate}" filterBy="#{email.deliveryDate}" filterStyle="width: 100%"
+                          headerText="deliveryDate" style="width: 20%">
                     <h:outputText value="#{email.deliveryDate}"/>
                 </p:column>
 
-                <p:column id="sender" sortBy="#{email.sender}" headerText="sender"
-                          style="width: 15%">
+                <p:column id="sender" sortBy="#{email.sender}" filterBy="#{email.sender}" filterStyle="width: 100%"
+                          headerText="sender" style="width: 15%">
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column id="subject" sortBy="#{email.subject}" headerText="subject"
-                          style="width: 15%">
+                <p:column id="subject" sortBy="#{email.subject}" filterBy="#{email.subject}" filterStyle="width: 100%"
+                          headerText="subject" style="width: 15%">
                 <h:outputText value="#{email.subject}"/>
                 </p:column>
 

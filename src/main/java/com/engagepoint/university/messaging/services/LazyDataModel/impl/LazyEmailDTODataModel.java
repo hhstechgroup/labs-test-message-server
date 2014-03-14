@@ -1,11 +1,13 @@
 package com.engagepoint.university.messaging.services.LazyDataModel.impl;
 
 import com.engagepoint.university.messaging.dto.EmailDTO;
+import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.services.LazyDataModel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Serializable {
@@ -35,31 +37,7 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
         List<EmailDTO> data = new ArrayList<EmailDTO>();
 
         //filter
-        for(EmailDTO emailDTO : datasource) {
-            boolean match = true;
-
-            for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
-                try {
-                    String filterProperty = it.next();
-                    String filterValue = filters.get(filterProperty);
-                    String fieldValue = String.valueOf(emailDTO.getClass().getField(filterProperty).get(emailDTO));
-
-                    if(filterValue == null || fieldValue.startsWith(filterValue)) {
-                        match = true;
-                    }
-                    else {
-                        match = false;
-                        break;
-                    }
-                } catch(Exception e) {
-                    match = false;
-                }
-            }
-
-            if(match) {
-                data.add(emailDTO);
-            }
-        }
+        performFilter(filters, data);
 
         //sort
         if(sortField != null) {
@@ -89,4 +67,41 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
         this.setRowCount(dataSize);
     }
 
+    public void performFilter(Map<String, String> filters, List<EmailDTO> data) {
+        for(EmailDTO emailDTO : datasource) {
+            boolean match = true;
+
+            for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+                try {
+                    String filterProperty = it.next();
+                    String filterValue = filters.get(filterProperty);
+                    String fieldValue;
+
+                    if(filterProperty.equals("id")){
+                        fieldValue = String.valueOf(emailDTO.getId());
+                    }
+                    else{
+
+                        Field field = emailDTO.getClass().getDeclaredField(filterProperty);
+                        field.setAccessible(true);
+                        fieldValue = String.valueOf(field.get(emailDTO));
+                    }
+
+                    if(filterValue == null || fieldValue.startsWith(filterValue)) {
+                        match = true;
+                    }
+                    else {
+                        match = false;
+                        break;
+                    }
+                } catch(Exception e) {
+                    match = false;
+                }
+            }
+
+            if(match) {
+                data.add(emailDTO);
+            }
+        }
+    }
 }
