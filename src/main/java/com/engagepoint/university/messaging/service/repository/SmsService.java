@@ -10,4 +10,5 @@ public interface SmsService extends GenericService<SmsDTO> {
     public void deleteIdList(List<Long> idList);
     public void smsQuickSearch();
     public List<SmsDTO> getSmsAllByQuery();
+    public List<SmsDTO> quickSearch(String quickSearchPhrase);
 }

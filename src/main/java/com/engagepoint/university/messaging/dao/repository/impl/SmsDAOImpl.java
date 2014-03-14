@@ -78,6 +78,22 @@ public class SmsDAOImpl implements SmsDAO {
     }
 
     @Override
+    public List<Sms> quickSearch(String quickSearchPhrase) {
+        List<Sms> smses = entityManager
+                .createNamedQuery(Sms.GET_SMS_QUICK_SEARCH, Sms.class)
+                .setParameter("userName", "%" + quickSearchPhrase + "%")
+                .setParameter("sender", "%" + quickSearchPhrase + "%")
+                .setParameter("body", "%" + quickSearchPhrase + "%" )
+                .getResultList();
+        smses.addAll(entityManager
+                .createNamedQuery(Sms.GET_SMS_QUICK_SEARCH_WITHOUT_USERS, Sms.class)
+                .setParameter("sender", "%" + quickSearchPhrase + "%")
+                .setParameter("body", "%" + quickSearchPhrase + "%")
+                .getResultList());
+        return smses;
+    }
+
+    @Override
     @Transactional
     public void saveSmsDAO(Sms sms) {
 

@@ -11,21 +11,30 @@ import java.util.Date;
 @Entity
 @Table(name = "sms")
 @NamedQueries({
-        @NamedQuery(name = Sms.GET_SEARCHING_SMS, query = "SELECT sm FROM Sms sm WHERE" +
-                " sm.sender LIKE :sender OR" +
-                " sm.body LIKE :body"),
-
         @NamedQuery(name = Sms.GET_ALL_SMS, query = "SELECT sm FROM Sms sm"),
         @NamedQuery(name = Sms.GET_ALL_BY_SMS_ID, query = "SELECT sm FROM Sms sm WHERE sm.id = :idSms"),
         @NamedQuery(name = Sms.GET_ALL_BY_SENDER, query = "SELECT sm FROM Sms sm WHERE sm.sender LIKE :sender"),
         @NamedQuery(name = Sms.GET_ALL_BY_SEND_DATE, query = "SELECT sm FROM Sms sm WHERE sm.sendDate = :sendDate"),
         @NamedQuery(name = Sms.GET_ALL_BY_DELIVERY_DATE, query = "SELECT sm FROM Sms sm WHERE sm.deliveryDate = :deliveryDate"),
-        @NamedQuery(name = Sms.DELETE_SMS_LIST, query = "DELETE FROM Sms sm WHERE sm.id IN :idList")})
+        @NamedQuery(name = Sms.DELETE_SMS_LIST, query = "DELETE FROM Sms sm WHERE sm.id IN :idList"),
+        @NamedQuery(name = Sms.GET_SMS_QUICK_SEARCH, query = "SELECT DISTINCT sm FROM Sms sm" +
+                " JOIN FETCH sm.userCollection userCollection" +
+                " WHERE" +
+                " userCollection.name IN (SELECT users.name FROM User users" +
+                " WHERE users.name LIKE :userName) OR" +
+                " sm.sender LIKE :sender OR" +
+                " sm.body LIKE :body"),
+        @NamedQuery(name = Sms.GET_SMS_QUICK_SEARCH_WITHOUT_USERS, query = "SELECT DISTINCT sm FROM Sms sm" +
+                " LEFT JOIN FETCH sm.userCollection userCollection" +
+                " GROUP BY sm" +
+                " HAVING COUNT (userCollection) = NULL OR" +
+                " sm.sender LIKE :sender OR" +
+                " sm.body LIKE :body"),
+})
 
 public class Sms implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 6745638798781234739L;
-    public static final String GET_SEARCHING_SMS = "Sms.findSearchingSms";
 
     public static final String GET_ALL_SMS = "Sms.findAll";
     public static final String GET_ALL_BY_SMS_ID = "Sms.findByIdSms";
@@ -33,7 +42,8 @@ public class Sms implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_SEND_DATE = "Sms.findBySendDate";
     public static final String GET_ALL_BY_DELIVERY_DATE = "Sms.findByDeliveryDate";
     public static final String DELETE_SMS_LIST = "Sms.deleteSmsList";
-    public static final String PARAM_IDS_LIST = "idList";
+    public static final String GET_SMS_QUICK_SEARCH = "Sms.smsQuickSearch";
+    public static final String GET_SMS_QUICK_SEARCH_WITHOUT_USERS = "Sms.smsQuickSearchWithoutUsers";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

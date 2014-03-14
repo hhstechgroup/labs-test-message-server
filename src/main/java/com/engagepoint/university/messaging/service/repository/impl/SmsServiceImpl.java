@@ -52,6 +52,17 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
+    public List<SmsDTO> quickSearch(String quickSearchPhrase) {
+        List<Sms> smses = smsDAO.quickSearch(quickSearchPhrase);
+        List<SmsDTO> smsesDTOs = new ArrayList<>();
+        Iterator<Sms> smsIterator = smses.iterator();
+        while (smsIterator.hasNext()) {
+            smsesDTOs.add(Converter.convert(smsIterator.next()));
+        }
+        return smsesDTOs;
+    }
+
+    @Override
     public SmsDTO getById(Long id) {
         Sms sms = smsDAO.getById(id);
         SmsDTO smsDTO = Converter.convert(sms);

@@ -29,6 +29,8 @@ public class SmsController implements Serializable {
 
     private LazyDataModel lazyDataModel;
 
+    private String quickSearchPhrase;
+
     @PostConstruct
     public void init() {
         smsDTOList = new ArrayList<SmsDTO>();
@@ -122,5 +124,22 @@ public class SmsController implements Serializable {
 
     public LazyDataModel getLazyDataModel() {
         return lazyDataModel;
+    }
+
+    public String getQuickSearchPhrase() {
+        return quickSearchPhrase;
+    }
+
+    public void setQuickSearchPhrase(String quickSearchPhrase) {
+        this.quickSearchPhrase = quickSearchPhrase;
+    }
+
+    public void quickSearch(){
+        if (this.getQuickSearchPhrase().equals(null) || this.getQuickSearchPhrase().equals("")) {
+            this.refreshSms();
+        } else {
+            smsDTOList = smsService.quickSearch(this.getQuickSearchPhrase());
+            lazyDataModel = new LazySmsDTODataModel(smsDTOList);
+        }
     }
 }

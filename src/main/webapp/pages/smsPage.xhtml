@@ -12,9 +12,11 @@
         <h:form>
 
             <p:panel name="Quick Search">
-                <p:inputText id="quickSearchSms" value="#{smsController.quicksearch}" style="width:460px"/>
-                <p:commandButton id="search" value="Search" update="SmsTable"
-                                 actionListener="#{smsController.search}" styleClass="medium"/>
+                <p:inputText id="quickSearchSms" value="#{smsController.quickSearchPhrase}"
+                             style="width:460px"/>
+                <p:watermark for="quickSearchSms" value="Input quick search phrase.."/>
+                <p:commandButton id="search" value="Search" icon="ui-icon-search" update="SmsTable"
+                                 actionListener="#{smsController.quickSearch}" styleClass="medium"/>
             </p:panel>
 
             <uib:dataTable id="SmsTable"

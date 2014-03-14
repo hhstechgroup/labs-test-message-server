@@ -29,7 +29,7 @@ import java.util.Date;
         @NamedQuery(name = Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, query = "SELECT DISTINCT em FROM Email em" +
                 " LEFT JOIN FETCH em.attachmentCollection attachmentCollection" +
                 " GROUP BY em" +
-                " HAVING COUNT (attachmentCollection) = NULL AND" +
+                " HAVING COUNT (attachmentCollection) = NULL OR" +
                 " em.sender LIKE :sender OR" +
                 " em.subject LIKE :subject OR" +
                 " em.body LIKE :body"),
