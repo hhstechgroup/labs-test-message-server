@@ -14,10 +14,12 @@
 
             <p:panel name="Quick Search">
                 <p:inputText id="quickSearchEmail" value="#{emailController.quickSearchPhrase}"
-                             style="width:460px"/>
+                             style="width:425px"/>
                 <p:watermark for="quickSearchEmail" value="Input quick search phrase.."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="EmailTable"
-                                 actionListener="#{emailController.quickSearch}" styleClass="medium"/>
+                                 actionListener="#{emailController.quickSearch}" styleClass="medium blue"/>
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="EmailTable"
+                                 actionListener="#{emailController.refreshEmail}" styleClass="small blue"/>
             </p:panel>
 
             <uib:dataTable id="EmailTable"
@@ -38,7 +40,7 @@
                         <p:commandButton value="Refresh" icon="ui-icon-refresh" update="EmailTable"
                                          styleClass="small blue"
                                          actionListener="#{emailController.refreshEmail}"/>
-                        <p:commandButton value="AddEmail" update="EmailTable"
+                        <p:commandButton value="Add Email" update="EmailTable"
                                          styleClass="small blue"
                                          actionListener="#{emailController.addEmail}"/>
                         <p:commandButton value="Delete" update="EmailTable" styleClass="small blue"

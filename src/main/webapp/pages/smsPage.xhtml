@@ -13,10 +13,12 @@
 
             <p:panel name="Quick Search">
                 <p:inputText id="quickSearchSms" value="#{smsController.quickSearchPhrase}"
-                             style="width:460px"/>
+                             style="width:425px"/>
                 <p:watermark for="quickSearchSms" value="Input quick search phrase.."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="SmsTable"
-                                 actionListener="#{smsController.quickSearch}" styleClass="medium"/>
+                                 actionListener="#{smsController.quickSearch}" styleClass="medium blue"/>
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="SmsTable"
+                                 actionListener="#{smsController.refreshSms}" styleClass="small blue"/>
             </p:panel>
 
             <uib:dataTable id="SmsTable"
