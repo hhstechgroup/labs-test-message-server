@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 @Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
@@ -104,19 +106,42 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public List<Email> quickSearch(String quickSearchPhrase) {
+        List<Email> emails = searchWithAttachments(quickSearchPhrase);
+        List<Email> emailsWithoutAttachments = searchWithoutAttachments(quickSearchPhrase);
+        if (emails.isEmpty()) {
+            emails.addAll(emailsWithoutAttachments);
+        } else {
+            for (Email email : emails) {
+                for (Email emailWithoutAttachment : emailsWithoutAttachments) {
+                    if (emailWithoutAttachment.getId() != email.getId()) {
+                        emails.add(emailWithoutAttachment);
+                    }
+                }
+            }
+        }
+        return emails;
+    }
+
+    @Override
+    public List<Email> searchWithoutAttachments(String searchPhrase) {
+        List<Email> emails = entityManager
+                .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, Email.class)
+                .setParameter("sender", "%" + searchPhrase + "%")
+                .setParameter("subject", "%" + searchPhrase + "%")
+                .setParameter("body", "%" + searchPhrase + "%")
+                .getResultList();
+        return emails;
+    }
+
+    @Override
+    public List<Email> searchWithAttachments(String searchPhrase) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)
-                .setParameter("attachName", "%" + quickSearchPhrase + "%")
-                .setParameter("sender", "%" + quickSearchPhrase + "%")
-                .setParameter("subject", "%" + quickSearchPhrase + "%" )
-                .setParameter("body", "%" + quickSearchPhrase + "%" )
+                .setParameter("attachName", "%" + searchPhrase + "%")
+                .setParameter("sender", "%" + searchPhrase + "%")
+                .setParameter("subject", "%" + searchPhrase + "%")
+                .setParameter("body", "%" + searchPhrase + "%")
                 .getResultList();
-        emails.addAll(entityManager
-                .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, Email.class)
-                .setParameter("sender", "%" + quickSearchPhrase + "%")
-                .setParameter("subject", "%" + quickSearchPhrase + "%")
-                .setParameter("body", "%" + quickSearchPhrase + "%")
-                .getResultList());
-       return emails;
+        return emails;
     }
 }
