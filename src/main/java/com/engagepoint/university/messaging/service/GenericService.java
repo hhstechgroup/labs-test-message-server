@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface GenericService<DTOType extends BaseDTO> {
     public DTOType getById(Long id);
-
     public List<DTOType> getAll();
     public void save(DTOType DTOType);
     public void update(DTOType DTOType);

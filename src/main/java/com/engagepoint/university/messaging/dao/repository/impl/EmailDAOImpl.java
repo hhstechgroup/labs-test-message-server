@@ -2,20 +2,15 @@ package com.engagepoint.university.messaging.dao.repository.impl;
 
 import com.engagepoint.university.messaging.dao.repository.EmailDAO;
 import com.engagepoint.university.messaging.dao.repository.SpringDataEmailDAO;
-import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entity.Email;
-import com.engagepoint.university.messaging.util.Converter;
 import org.springframework.stereotype.Service;
-
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
+
 @Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
 
@@ -105,6 +100,7 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
+    @Transactional
     public List<Email> quickSearch(String quickSearchPhrase) {
         List<Email> emails = searchWithAttachments(quickSearchPhrase);
         List<Email> emailsWithoutAttachments = searchWithoutAttachments(quickSearchPhrase);
@@ -123,6 +119,7 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
+    @Transactional
     public List<Email> searchWithoutAttachments(String searchPhrase) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, Email.class)
@@ -134,6 +131,7 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
+    @Transactional
     public List<Email> searchWithAttachments(String searchPhrase) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)

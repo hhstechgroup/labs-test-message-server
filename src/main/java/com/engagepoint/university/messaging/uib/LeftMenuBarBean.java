@@ -39,12 +39,12 @@ public class LeftMenuBarBean {
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
-        menuItem.setId("infoItem");
-        if (viewId.endsWith("/infoPage.xhtml")) {
+        menuItem.setId("jmsItem");
+        if (viewId.endsWith("/jmsPage.xhtml")) {
             menuItem.setStyleClass("active");
         }
-        menuItem.setValue("Info");
-        menuItem.setUrl("/pages/infoPage.xhtml");
+        menuItem.setValue("Jms");
+        menuItem.setUrl("/pages/jmsPage.xhtml");
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
@@ -54,6 +54,15 @@ public class LeftMenuBarBean {
         }
         menuItem.setValue("WebService");
         menuItem.setUrl("/pages/webServicePage.xhtml");
+        model.addMenuItem(menuItem);
+
+        menuItem = new MenuItem();
+        menuItem.setId("infoItem");
+        if (viewId.endsWith("/infoPage.xhtml")) {
+            menuItem.setStyleClass("active");
+        }
+        menuItem.setValue("Info");
+        menuItem.setUrl("/pages/infoPage.xhtml");
         model.addMenuItem(menuItem);
     }
 

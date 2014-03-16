@@ -11,4 +11,6 @@ public interface SmsDAO extends GenericDAO<Sms> {
     public void smsQuickSearch();
     public List<Sms> getSmsAllByQuery();
     public List<Sms> quickSearch(String quickSearchPhrase);
+    public List<Sms> searchWithoutUsers(String searchPhrase);
+    public List<Sms> searchWithUsers(String searchPhrase);
 }

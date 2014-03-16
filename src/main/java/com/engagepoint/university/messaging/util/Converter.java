@@ -1,14 +1,8 @@
 package com.engagepoint.university.messaging.util;
 
-import com.engagepoint.university.messaging.dto.AttachmentDTO;
-import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.dto.UserDTO;
+import com.engagepoint.university.messaging.dto.*;
 import com.engagepoint.university.messaging.dto.base.BaseDTO;
-import com.engagepoint.university.messaging.entity.Attachment;
-import com.engagepoint.university.messaging.entity.Email;
-import com.engagepoint.university.messaging.entity.Sms;
-import com.engagepoint.university.messaging.entity.User;
+import com.engagepoint.university.messaging.entity.*;
 import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import java.util.ArrayList;
@@ -127,5 +121,23 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
             attachmentDTOs.add(convert(attachment));
         }
         return attachmentDTOs;
+    }
+
+    public static JmsDTO convert(Jms from) {
+        JmsDTO jmsDTO = new JmsDTO();
+        jmsDTO.setId(from.getId());
+        jmsDTO.setSender(from.getSender());
+        jmsDTO.setBody(from.getBody());
+        jmsDTO.setSendDate(from.getSendDate());
+        return jmsDTO;
+    }
+
+    public static Jms convert(JmsDTO from) {
+        Jms jms = new Jms();
+        jms.setId(from.getId());
+        jms.setSender(from.getSender());
+        jms.setBody(from.getBody());
+        jms.setSendDate(from.getSendDate());
+        return jms;
     }
 }
