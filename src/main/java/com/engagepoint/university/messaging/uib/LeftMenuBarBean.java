@@ -43,7 +43,7 @@ public class LeftMenuBarBean {
         if (viewId.endsWith("/jmsPage.xhtml")) {
             menuItem.setStyleClass("active");
         }
-        menuItem.setValue("Jms");
+        menuItem.setValue("JMS");
         menuItem.setUrl("/pages/jmsPage.xhtml");
         model.addMenuItem(menuItem);
 

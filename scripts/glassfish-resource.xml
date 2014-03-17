@@ -2,17 +2,24 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
 
-  <jdbc-connection-pool
-    datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
-    res-type="javax.sql.DataSource" name="MySQLPool"
-    ping="true">
-    <property name="PortNumber" value="3306" />
-    <property name="serverName" value="localhost" />
-    <property name="DatabaseName" value="messagingserver" />
-    <property name="user" value="root" />
-    <property name="password" value="root" />
-  </jdbc-connection-pool>
+	<jdbc-connection-pool
+    		datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+    		res-type="javax.sql.DataSource" name="MySQLPool"
+    		ping="true">
+    		<property name="PortNumber" value="3306" />
+		<property name="serverName" value="localhost" />
+    		<property name="DatabaseName" value="messagingserver" />
+   		<property name="user" value="root" />
+    		<property name="password" value="root" />
+  	</jdbc-connection-pool>
 
-  <jdbc-resource jndi-name="jdbc/mysql" pool-name="MySQLPool" />
+  	<jdbc-resource jndi-name="jdbc/mysql" pool-name="MySQLPool" />
+	<admin-object-resource enabled="true" jndi-name="jms/myQueue" res-type="javax.jms.Queue" res-adapter="jmsra">
+        	<property name="Name" value="myQueue"/>
+    	</admin-object-resource>
+
+	<admin-object-resource enabled="true" jndi-name="jms/myTopic" res-adapter="jmsra" res-type="javax.jms.Topic">
+  		<property name="Name" value="myTopic"/>
+	</admin-object-resource>
 
 </resources>

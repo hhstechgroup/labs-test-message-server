@@ -11,7 +11,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import java.util.Date;
 
-@MessageDriven(mappedName = "jms/testQueue")
+@MessageDriven(mappedName = "jms/myQueue")
 public class JMSConsumer implements MessageListener {
 
     @Inject
