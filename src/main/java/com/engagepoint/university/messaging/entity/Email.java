@@ -66,11 +66,10 @@ public class Email implements Serializable, BaseEntity {
     @Column(name = "body")
     private String body;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "send_date")
     private Date sendDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "delivery_date")
     private Date deliveryDate;
 
@@ -81,7 +80,7 @@ public class Email implements Serializable, BaseEntity {
     @JoinTable(name = "email_attachment", joinColumns = {
             @JoinColumn(name = "email_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")
-            })
+    })
     private Collection<Attachment> attachmentCollection;
 
     public Long getId() {

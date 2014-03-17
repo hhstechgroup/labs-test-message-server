@@ -1,3 +1,4 @@
+
 Scenario: OpenPages
 When the user opens the default page
 When clicks on element with id/name/className 'smsItem'
@@ -41,17 +42,8 @@ When the user fills 'quickSearchSms' field with 'F'
 When press 'Search' button
 When the user fills 'quickSearchSms' field with '1'
 When press 'Search' button
-When the user fills 'quickSearchSms' field with 'w'
+When the user fills 'quickSearchSms' field with 'well'
 When press 'Search' button
-
-Scenario: Do Filter SMS
-When the user fills 'inputSmsSender' field with 'Sen'
-When clicks on element with id/name/className 'DoFilter'
-When clicks on element with id/name/className 'CancelFilter'
-When press 'Refresh' button
-When press 'Refresh' button
-When clicks link with text 'Info'
-When clicks link with text 'SMS'
 
 Scenario: SMS delete
 When make 'selectAllSMSReportChkBox' checked

@@ -31,9 +31,9 @@
                            paginatorAlwaysVisible="false"
                            lazy="true"
                            paginatorPosition="bottom"
-                           >
+                    >
 
-            <f:facet name="header">
+                <f:facet name="header">
 
                     <h:outputText value="Emails  "/>
                     <uib:buttonGroup>
@@ -46,7 +46,7 @@
                         <p:commandButton value="Delete" update="EmailTable" styleClass="small blue"
                                          actionListener="#{emailController.deleteCheckedEmails}"/>
                     </uib:buttonGroup>
-            </f:facet>
+                </f:facet>
 
                 <uib:column style="width: 3%">
                     <f:facet name="header">
@@ -63,7 +63,7 @@
 
                 <p:column id="emailId" sortBy="#{email.id}" filterBy="#{email.id}" filterStyle="width: 100%"
                           headerText="id" style="width: 2%">
-                <h:outputText value="#{email.id}"/>
+                    <h:outputText value="#{email.id}"/>
                 </p:column>
 
                 <p:column sortBy="#{email.deliveryDate}" filterBy="#{email.deliveryDate}" filterStyle="width: 100%"
@@ -78,30 +78,32 @@
 
                 <p:column id="subject" sortBy="#{email.subject}" filterBy="#{email.subject}" filterStyle="width: 100%"
                           headerText="subject" style="width: 15%">
-                <h:outputText value="#{email.subject}"/>
+                    <h:outputText value="#{email.subject}"/>
                 </p:column>
 
                 <p:column id="text" headerText="Text" style="width: 20%">
-                    <h:outputLabel value="#{email.body}" rendered="#{email.bodyLength gt 0 and email.bodyLength le 10}" />
-                    <p:inplace rendered="#{email.bodyLength gt 10}" id="slidingInplace" label="#{email.shortBody}    More info ..." >
+                    <h:outputLabel value="#{email.body}"
+                                   rendered="#{email.bodyLength gt 0 and email.bodyLength le 10}"/>
+                    <p:inplace rendered="#{email.bodyLength gt 10}" id="slidingInplace"
+                               label="#{email.shortBody}    More info ...">
                         <h:outputText value="#{email.body}"/>
                     </p:inplace>
                 </p:column>
 
                 <p:column headerText="attachments" style="width: 20%">
                     <p:growl id="growl" showDetail="true"/>
-                    <p:accordionPanel  id="accordionPanel" activeIndex="null">
-                    <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
-                    <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
-                        <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
+                    <p:accordionPanel id="accordionPanel" activeIndex="null">
+                        <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
+                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
+                                <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
                             width: 0px; height: 0px; font-size: 9pt">
-                            <p:fileDownload value="#{emailController.downloadAttachment(attachment.id)}"/>
-                        </p:commandButton>
-                        <a href="#"
-                           onclick="document.getElementById('#{p:component('attachmentId')}').click();">
-                            #{attachment.name}</a>
-                    </p:dataList>
-                    </p:tab>
+                                    <p:fileDownload value="#{attachmentController.downloadAttachment(attachment.id)}"/>
+                                </p:commandButton>
+                                <a href="#"
+                                   onclick="document.getElementById('#{p:component('attachmentId')}').click();">
+                                    #{attachment.name}</a>
+                            </p:dataList>
+                        </p:tab>
                     </p:accordionPanel>
                 </p:column>
 

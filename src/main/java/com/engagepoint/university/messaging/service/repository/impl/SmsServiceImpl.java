@@ -32,7 +32,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public void deleteIdList(List<Long> idList) {
-       smsDAO.deleteIdList(idList);
+        smsDAO.deleteIdList(idList);
     }
 
     @Override
@@ -82,14 +82,12 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public void save(SmsDTO smsDTO) {
-        Sms sms = Converter.convert(smsDTO);
-        smsDAO.save(sms);
+        smsDAO.save(Converter.convert(smsDTO));
     }
 
     @Override
     public void update(SmsDTO smsDTO) {
-        Sms sms = Converter.convert(smsDTO);
-        smsDAO.save(sms);
+        smsDAO.save(Converter.convert(smsDTO));
     }
 
     @Override
@@ -99,7 +97,6 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public void delete(SmsDTO smsDTO) {
-        Sms sms = Converter.convert(smsDTO);
-        smsDAO.delete(sms);
+        smsDAO.delete(Converter.convert(smsDTO));
     }
 }

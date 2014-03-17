@@ -1,12 +1,11 @@
 package com.engagepoint.university.messaging.smpp;
 
+import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.PduAsyncResponse;
-import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.cloudhopper.commons.charset.CharsetUtil;
 
 
 public class MySmppSessionHandler extends DefaultSmppSessionHandler {
@@ -15,18 +14,8 @@ public class MySmppSessionHandler extends DefaultSmppSessionHandler {
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
         if (pduRequest.isRequest()
-                        && pduRequest.getClass() == DeliverSm.class) {
-            System.out.println("Got DELIVER_SM");
-            log.info("Got DELIVER_SM");
-
+                && pduRequest.getClass() == DeliverSm.class) {
             DeliverSm dlr = (DeliverSm) pduRequest;
-
-            System.out.println("Msg id={} " + dlr.getOptionalParameter(SmppConstants.TAG_RECEIPTED_MSG_ID));
-            log.info("Msg id={}", dlr.getOptionalParameter(SmppConstants.TAG_RECEIPTED_MSG_ID));
-
-            System.out.println("Status={}" + dlr.getOptionalParameter(SmppConstants.TAG_MSG_STATE));
-            log.info("Status={}", dlr.getOptionalParameter(SmppConstants.TAG_MSG_STATE));
-
             return pduRequest.createResponse();
         }
 

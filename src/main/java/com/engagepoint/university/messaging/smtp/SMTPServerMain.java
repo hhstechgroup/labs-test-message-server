@@ -1,15 +1,14 @@
 package com.engagepoint.university.messaging.smtp;
 
-import com.engagepoint.university.messaging.dao.repository.EmailDAO;
+import com.engagepoint.university.messaging.controller.AttachmentController;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.controller.AttachmentController;
 import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
-import org.subethamail.smtp.*;
 import org.subethamail.smtp.MessageContext;
+import org.subethamail.smtp.*;
 import org.subethamail.smtp.server.SMTPServer;
 
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 
-public class SMTPServerMain{
+public class SMTPServerMain {
     private static final int PORT = 25;
     private static final String HOSTNAME = "localhost";
     SMTPServer server;
@@ -41,19 +40,19 @@ public class SMTPServerMain{
         this.messageHandlerFactory = new SMTPMessageHandlerFactory();
     }
 
-    private MessageHandlerFactory getMessageHandlerFactory () {
+    private MessageHandlerFactory getMessageHandlerFactory() {
         return this.messageHandlerFactory;
     }
 
-    private void setSMTPServer () {
+    private void setSMTPServer() {
         this.server = new SMTPServer(getMessageHandlerFactory());
     }
 
-    private SMTPServer getServer () {
+    private SMTPServer getServer() {
         return this.server;
     }
 
-    public void startSMTPServer () {
+    public void startSMTPServer() {
         getServer().setPort(getPort());
         getServer().setHostName(getHostname());
         getServer().start();
@@ -63,15 +62,15 @@ public class SMTPServerMain{
         */
     }
 
-    public void shutDownSMTPServer () {
+    public void shutDownSMTPServer() {
         getServer().stop();
     }
 
-    public int getPort () {
+    public int getPort() {
         return PORT;
     }
 
-    public String getHostname () {
+    public String getHostname() {
         return HOSTNAME;
     }
 
@@ -86,7 +85,6 @@ public class SMTPServerMain{
         }
 
         class EmailHandler implements MessageHandler {
-
 
 
             MessageContext ctx;

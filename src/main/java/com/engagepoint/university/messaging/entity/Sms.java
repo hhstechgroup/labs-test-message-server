@@ -59,10 +59,9 @@ public class Sms implements Serializable, BaseEntity {
     private String body;
 
     @Column(name = "send_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "delivery_date")
     private Date deliveryDate;
 

@@ -1,18 +1,17 @@
 package com.engagepoint.university.messaging.smpp;
 
-import com.cloudhopper.commons.charset.CharsetUtil;
 import com.cloudhopper.smpp.*;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.*;
 import com.cloudhopper.smpp.type.SmppProcessingException;
-import com.engagepoint.university.messaging.dao.repository.SmsDAO;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.service.repository.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.concurrent.Executors;
@@ -31,8 +30,6 @@ public class SMPPServerMain {
     private final static int PORT = 2776;
     private final static String HOST = "127.0.0.1";
 
-    @Inject
-    private SmsDTO smsDTO;
     @Inject
     private SmsService smsService;
 
@@ -132,9 +129,14 @@ public class SMPPServerMain {
 
             SubmitSm req = (SubmitSm) pduRequest;
 
-            String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
-
-            // SmsDTO smsDTO = new SmsDTO();
+//            String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
+            String str = null;
+            try {
+                str = new String(req.getShortMessage(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            SmsDTO smsDTO = new SmsDTO();
             smsDTO.setBody(str);
             smsDTO.setSender(req.getSourceAddress().getAddress());
             smsDTO.setDeliveryDate(new Date());

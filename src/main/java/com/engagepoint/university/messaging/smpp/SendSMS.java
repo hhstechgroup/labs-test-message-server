@@ -44,40 +44,12 @@ public class SendSMS {
             SmppSession session = client.bind(sessionConfig, new MySmppSessionHandler());
 
             SubmitSm sm2 = createSubmitSm(sender, receiver, body, "UCS-2");
-            sm2.setReferenceObject("Hello2" + sm2+"//***//");
+            sm2.setReferenceObject("Hello2" + sm2 + "//***//");
 
             WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(10), false);
-            while (!future2.isDone()) {
-                log.debug("Not done");
-                log.debug("Not done Succes is {}", future2.isSuccess());
-            }
-            log.info("",future2);
-
-            log.info("Got response  {}", future2.getResponse());
-
-            log.info("Done Succes status is {}", future2.isSuccess());
-
-            log.info("Response time is {}", future2.getAcceptToDoneTime());
-
-            log.info("Wait 10 seconds");
-
-            TimeUnit.SECONDS.sleep(10);
-            log.info("Wait 10 seconds");
-
-
-            log.debug("Destroy session");
-            System.out.println("DESTROY SESSION");
-
             session.close();
             session.destroy();
-
-            log.info("Destroy client");
-            System.out.println("Destroy client");
-
             client.destroy();
-
-            log.info("Bye!");
-            System.out.println("Bye!");
         } catch (SmppTimeoutException ex) {
             log.error("{}", ex);
             //Logger.getLogger(SMSClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,22 +77,22 @@ public class SendSMS {
         // For alpha numeric will use
         // TON=5
         // NPI=0
-        sm.setSourceAddress(new Address((byte)5, (byte)0, src));
+        sm.setSourceAddress(new Address((byte) 5, (byte) 0, src));
 
         // For national numbers will use
         // TON=1
         // NPI=1
-        sm.setDestAddress(new Address((byte)1, (byte)1, dst));
+        sm.setDestAddress(new Address((byte) 1, (byte) 1, dst));
 
         // Set datacoding to UCS-2
-        sm.setDataCoding((byte)8);
+        sm.setDataCoding((byte) 8);
 
         // Encode text
         sm.setShortMessage(CharsetUtil.encode(text, charset));
 
 // ДОБАВИЛИ!!!     отчет о доставке
         //We would like to get delivery receipt
-        sm.setRegisteredDelivery((byte)1);
+        sm.setRegisteredDelivery((byte) 1);
 
         return sm;
     }
