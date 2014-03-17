@@ -10,7 +10,47 @@
     <ui:define name="page">
 
         <h:form>
-            <h:outputText value="JMS page."/>
+
+            <uib:dataTable id="JmsTable"
+                           var="jms"
+                           value="#{jmsController.jmsDTOList}"
+                           rows="10"
+                           summary="Table with pagination"
+                           paginator="true"
+                           paginatorAlwaysVisible="false"
+                           lazy="true"
+                           paginatorPosition="bottom">
+
+                <f:facet name="header">
+
+                    <h:outputText value="Emails  "/>
+                    <uib:buttonGroup>
+                        <p:commandButton value="Refresh" icon="ui-icon-refresh" update="JmsTable"
+                                         styleClass="small blue"
+                                         actionListener="#{jmsController.refreshEmail}"/>
+                        <p:commandButton value="Add JMS" update="JmsTable"
+                                         styleClass="small blue"
+                                         actionListener="#{jmsController.addJMS}"/>
+                    </uib:buttonGroup>
+                </f:facet>
+
+                <p:column id="jmsId" sortBy="#{jms.id}" filterBy="#{jms.id}" filterStyle="width: 100%"
+                          headerText="id" style="width: 2%">
+                    <h:outputText value="#{jms.id}"/>
+                </p:column>
+
+                <p:column id="sendDate" sortBy="#{jms.sendDate}" filterBy="#{jms.sendDate}" filterStyle="width: 100%"
+                          headerText="sendDate" style="width: 20%">
+                    <h:outputText value="#{jms.sendDate}"/>
+                </p:column>
+
+                <p:column id="body" sortBy="#{jms.body}" filterBy="#{jms.body}" filterStyle="width: 100%"
+                          headerText="body" style="width: 15%">
+                    <h:outputText value="#{jms.body}"/>
+                </p:column>
+
+            </uib:dataTable>
+
         </h:form>
 
     </ui:define>

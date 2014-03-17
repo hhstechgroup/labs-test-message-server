@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Jms")
+@Table(name = "jms")
 @NamedQueries({
         @NamedQuery(name = Jms.GET_ALL_JMS_MESSAGES, query = "SELECT jms FROM Jms jms"),
         @NamedQuery(name = Jms.GET_ALL_BY_JMS_MESSAGES_ID, query = "SELECT jms FROM Jms jms WHERE jms.id = :idJms"),
-        @NamedQuery(name = Jms.GET_ALL_BY_SENDER, query = "SELECT jms FROM Jms jms WHERE jms.sender = :sender"),
+        //@NamedQuery(name = Jms.GET_ALL_BY_SENDER, query = "SELECT jms FROM Jms jms WHERE jms.sender = :sender"),
         @NamedQuery(name = Jms.GET_ALL_BY_SEND_DATE, query = "SELECT jms FROM Jms jms WHERE jms.sendDate = :sendDate"),
         @NamedQuery(name = Jms.DELETE_JMS_MESSAGES_LIST, query = "DELETE FROM Jms jms WHERE jms.id IN :idList")})
 
@@ -31,9 +31,6 @@ public class Jms implements Serializable, BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "sender")
-    private String sender;
-
     @Lob
     @Size(max = 65535)
     @Column(name = "body")
@@ -51,14 +48,6 @@ public class Jms implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getBody() {
         return body;
     }
@@ -74,4 +63,5 @@ public class Jms implements Serializable, BaseEntity {
     public void setSendDate(Date sendDate) {
         this.sendDate = sendDate;
     }
+
 }

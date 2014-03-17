@@ -53,13 +53,14 @@ public class JmsDAOImpl implements JmsDAO {
     @Override
     @Transactional
     public List<Jms> getAll() {
-        return null;
+        List<Jms> jmsList = springDataJmsDAO.findAll();
+        return jmsList;
     }
 
     @Override
     @Transactional
-    public void save(Jms EntityType) {
-
+    public void save(Jms jms) {
+        springDataJmsDAO.saveAndFlush(jms);
     }
 
     @Override

@@ -126,7 +126,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
     public static JmsDTO convert(Jms from) {
         JmsDTO jmsDTO = new JmsDTO();
         jmsDTO.setId(from.getId());
-        jmsDTO.setSender(from.getSender());
+        //jmsDTO.setSender(from.getSender());
         jmsDTO.setBody(from.getBody());
         jmsDTO.setSendDate(from.getSendDate());
         return jmsDTO;
@@ -135,7 +135,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
     public static Jms convert(JmsDTO from) {
         Jms jms = new Jms();
         jms.setId(from.getId());
-        jms.setSender(from.getSender());
+        //jms.setSender(from.getSender());
         jms.setBody(from.getBody());
         jms.setSendDate(from.getSendDate());
         return jms;
