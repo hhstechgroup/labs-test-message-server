@@ -84,10 +84,7 @@
 
 
                 <p:column id="body" headerText="Text">
-                    <h:outputLabel value="#{sms.body}" rendered="#{sms.bodyLength gt 0 and sms.bodyLength le 10}" />
-                    <p:inplace rendered="#{sms.bodyLength gt 10}" id="slidingInplace" label="#{sms.shortBody}    More info ..." >
                         <h:outputText value="#{sms.body}"/>
-                    </p:inplace>
                 </p:column>
             </uib:dataTable>
 
