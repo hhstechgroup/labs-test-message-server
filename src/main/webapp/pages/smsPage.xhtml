@@ -77,9 +77,11 @@
                     <h:outputText value="#{sms.sender}"/>
                 </p:column>
 
-                <!--<p:column headerText="receiver">
-                    <h:outputText value="#{email.receiver}"/>
-                </p:column>-->
+                <p:column id="recipient" sortBy="#{sms.recipient}" filterBy="#{sms.recipient}" filterStyle="width: 100%"
+                          headerText="sender" style="width: 10%">
+                    <h:outputText value="#{sms.recipient}"/>
+                </p:column>
+
 
                 <p:column id="body" headerText="Text">
                     <h:outputLabel value="#{sms.body}" rendered="#{sms.bodyLength gt 0 and sms.bodyLength le 10}" />
