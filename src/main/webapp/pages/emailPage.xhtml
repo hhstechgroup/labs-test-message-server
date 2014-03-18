@@ -76,6 +76,11 @@
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
+                <p:column id="recipient" sortBy="#{email.recipient}" filterBy="#{email.recipient}" filterStyle="width: 100%"
+                          headerText="recipient" style="width: 15%">
+                    <h:outputText value="#{email.recipient}"/>
+                </p:column>
+
                 <p:column id="subject" sortBy="#{email.subject}" filterBy="#{email.subject}" filterStyle="width: 100%"
                           headerText="subject" style="width: 15%">
                     <h:outputText value="#{email.subject}"/>

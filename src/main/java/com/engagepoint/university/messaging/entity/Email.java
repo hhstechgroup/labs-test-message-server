@@ -58,6 +58,9 @@ public class Email implements Serializable, BaseEntity {
     @Column(name = "sender")
     private String sender;
 
+    @Column(name = "recipient")
+    private String recipient;
+
     @Column(name = "subject")
     private String subject;
 
@@ -82,6 +85,14 @@ public class Email implements Serializable, BaseEntity {
             @JoinColumn(name = "attachment_id", referencedColumnName = "id")
     })
     private Collection<Attachment> attachmentCollection;
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
 
     public Long getId() {
         return id;

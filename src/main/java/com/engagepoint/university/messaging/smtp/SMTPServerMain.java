@@ -142,7 +142,7 @@ public class SMTPServerMain {
             }
 
             public void recipient(String recipient) throws RejectException {
-//            mail.set(recipient);
+            mail.setRecipient(recipient);
             }
 
             @Override

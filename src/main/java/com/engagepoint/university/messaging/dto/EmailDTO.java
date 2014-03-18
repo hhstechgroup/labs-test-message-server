@@ -14,6 +14,15 @@ public class EmailDTO extends BaseDTO {
     private Date deliveryDate;
     private Collection<AttachmentDTO> attachmentCollection;
     private Boolean flag = Boolean.FALSE;
+    private String recipient;
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
 
     public String getSender() {
         return sender;
