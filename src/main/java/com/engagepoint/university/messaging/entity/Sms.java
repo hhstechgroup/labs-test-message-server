@@ -18,18 +18,9 @@ import java.util.Date;
         @NamedQuery(name = Sms.GET_ALL_BY_DELIVERY_DATE, query = "SELECT sm FROM Sms sm WHERE sm.deliveryDate = :deliveryDate"),
         @NamedQuery(name = Sms.DELETE_SMS_LIST, query = "DELETE FROM Sms sm WHERE sm.id IN :idList"),
         @NamedQuery(name = Sms.GET_SMS_QUICK_SEARCH, query = "SELECT DISTINCT sm FROM Sms sm" +
-                " JOIN FETCH sm.userCollection userCollection" +
-                " WHERE" +
-                " userCollection.name IN (SELECT users.name FROM User users" +
-                " WHERE users.name LIKE :userName) OR" +
-                " sm.sender LIKE :sender OR" +
-                " sm.body LIKE :body"),
-        @NamedQuery(name = Sms.GET_SMS_QUICK_SEARCH_WITHOUT_USERS, query = "SELECT DISTINCT sm FROM Sms sm" +
-                " LEFT JOIN FETCH sm.userCollection userCollection" +
-                " GROUP BY sm" +
-                " HAVING COUNT (userCollection) = NULL OR" +
-                " sm.sender LIKE :sender OR" +
-                " sm.body LIKE :body"),
+                " LEFT JOIN sm.userCollection userCollection" +
+                " WHERE userCollection.name IN (SELECT us.name FROM User us WHERE us.name LIKE :userName) OR" +
+                " sm.sender LIKE :sender OR sm.recipient LIKE :recipient OR sm.body LIKE :body OR cast(sm.deliveryDate as string) LIKE :deliveryDate"),
 })
 
 public class Sms implements Serializable, BaseEntity {
@@ -43,7 +34,6 @@ public class Sms implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_DELIVERY_DATE = "Sms.findByDeliveryDate";
     public static final String DELETE_SMS_LIST = "Sms.deleteSmsList";
     public static final String GET_SMS_QUICK_SEARCH = "Sms.smsQuickSearch";
-    public static final String GET_SMS_QUICK_SEARCH_WITHOUT_USERS = "Sms.smsQuickSearchWithoutUsers";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

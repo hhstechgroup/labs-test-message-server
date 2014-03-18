@@ -19,26 +19,14 @@ import java.util.Date;
         @NamedQuery(name = Email.GET_ALL_BY_DELIVERY_DATE, query = "SELECT em FROM Email em WHERE em.deliveryDate = :deliveryDate"),
         @NamedQuery(name = Email.GET_ALL_SORT_BY_DELIVERY_DATE, query = "SELECT em FROM Email em ORDER BY em.sender DESC"),
         @NamedQuery(name = Email.GET_EMAIL_QUICK_SEARCH, query = "SELECT DISTINCT em FROM Email em" +
-                " JOIN FETCH em.attachmentCollection attachmentCollection" +
-                " WHERE" +
-                " attachmentCollection.name IN (SELECT attachment.name FROM Attachment attachment" +
-                " WHERE attachment.name LIKE :attachName) OR" +
-                " em.sender LIKE :sender OR" +
-                " em.subject LIKE :subject OR" +
-                " em.body LIKE :body"),
-        @NamedQuery(name = Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, query = "SELECT DISTINCT em FROM Email em" +
-                " LEFT JOIN FETCH em.attachmentCollection attachmentCollection" +
-                " GROUP BY em" +
-                " HAVING COUNT (attachmentCollection) = NULL OR" +
-                " em.sender LIKE :sender OR" +
-                " em.subject LIKE :subject OR" +
-                " em.body LIKE :body"),
+                " LEFT JOIN em.attachmentCollection attachmentCollection" +
+                " WHERE attachmentCollection.name IN (SELECT attachment.name FROM Attachment attachment WHERE attachment.name LIKE :attachName) OR" +
+                " em.sender LIKE :sender OR em.subject LIKE :subject OR em.body LIKE :body OR cast(em.deliveryDate as string) LIKE :deliveryDate"),
 })
 
 public class Email implements Serializable, BaseEntity {
 
     private static final long serialVersionUID = 985345798781234739L;
-    public static final String GET_SEARCHING_EMAIL = "Email.findSearchingEmail";
 
     public static final String GET_ALL = "Email.findAll";
     public static final String GET_ALL_BY_EMAIL_ID = "Email.findByIdEmail";
@@ -48,7 +36,6 @@ public class Email implements Serializable, BaseEntity {
     public static final String GET_ALL_BY_DELIVERY_DATE = "Email.findByDeliveryDate";
     public static final String GET_ALL_SORT_BY_DELIVERY_DATE = "Email.sortByDeliveryDate";
     public static final String GET_EMAIL_QUICK_SEARCH = "Email.emailQuickSearch";
-    public static final String GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS = "Email.emailQuickSearchWithoutAttachments";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

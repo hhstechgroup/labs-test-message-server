@@ -12,6 +12,5 @@ public interface EmailDAO extends GenericDAO<Email> {
     public List<Email> getEmailsSortByDeliverDate();
     public void deleteIdList(List<Long> idList);
     public List<Email> quickSearch(String quickSearchPhrase);
-    public List<Email> searchWithoutAttachments(String searchPhrase);
-    public List<Email> searchWithAttachments(String searchPhrase);
+    public List<Email> emailsSearch(String searchPhrase);
 }

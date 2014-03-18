@@ -102,43 +102,20 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     @Transactional
     public List<Email> quickSearch(String quickSearchPhrase) {
-        List<Email> emails = searchWithAttachments(quickSearchPhrase);
-        List<Email> emailsWithoutAttachments = searchWithoutAttachments(quickSearchPhrase);
-        if (emails.isEmpty()) {
-            emails.addAll(emailsWithoutAttachments);
-        } else {
-            for (Email email : emails) {
-                for (Email emailWithoutAttachment : emailsWithoutAttachments) {
-                    if (emailWithoutAttachment.getId() != email.getId()) {
-                        emails.add(emailWithoutAttachment);
-                    }
-                }
-            }
-        }
+        List<Email> emails = emailsSearch(quickSearchPhrase);
         return emails;
     }
 
     @Override
     @Transactional
-    public List<Email> searchWithoutAttachments(String searchPhrase) {
-        List<Email> emails = entityManager
-                .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH_WITHOUT_ATTACHMENTS, Email.class)
-                .setParameter("sender", "%" + searchPhrase + "%")
-                .setParameter("subject", "%" + searchPhrase + "%")
-                .setParameter("body", "%" + searchPhrase + "%")
-                .getResultList();
-        return emails;
-    }
-
-    @Override
-    @Transactional
-    public List<Email> searchWithAttachments(String searchPhrase) {
+    public List<Email> emailsSearch(String searchPhrase) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)
-                .setParameter("attachName", "%" + searchPhrase + "%")
-                .setParameter("sender", "%" + searchPhrase + "%")
-                .setParameter("subject", "%" + searchPhrase + "%")
-                .setParameter("body", "%" + searchPhrase + "%")
+                .setParameter("attachName", "%" +searchPhrase+ "%")
+                .setParameter("sender", "%" +searchPhrase+ "%")
+                .setParameter("subject", "%" +searchPhrase+ "%")
+                .setParameter("body", "%" +searchPhrase+ "%")
+                .setParameter("deliveryDate", "%" +searchPhrase+ "%")
                 .getResultList();
         return emails;
     }
