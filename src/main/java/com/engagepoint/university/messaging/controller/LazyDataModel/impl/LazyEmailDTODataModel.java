@@ -70,10 +70,10 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
         for(EmailDTO emailDTO : datasource) {
             boolean match = true;
 
-            for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+            for (Map.Entry<String, String> entry : filters.entrySet()) {
                 try {
-                    String filterProperty = it.next();
-                    String filterValue = filters.get(filterProperty);
+                    String filterProperty = entry.getKey();
+                    String filterValue = entry.getValue();
                     String fieldValue;
 
                     if(filterProperty.equals("id")){
@@ -86,7 +86,7 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
                         fieldValue = String.valueOf(field.get(emailDTO));
                     }
 
-                    if(filterValue == null || fieldValue.startsWith(filterValue)) {
+                    if(filterValue == null || fieldValue.matches("(.*)" + filterValue + "(.*)")) {
                         match = true;
                     }
                     else {
