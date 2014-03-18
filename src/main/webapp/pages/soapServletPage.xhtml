@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="../template/default.xhtml">
+
+    <ui:define name="page">
+
+        <h:form>
+
+            <p:panel name="Add Matching Request and Response">
+                <p:inputText id="requestId" value="#{soapImitationController.request}"
+                             style="width:425px"/>
+                <p:watermark for="requestId" value="Request"/>
+                <p:inputText id="responseId" value="#{soapImitationController.response}"
+                             style="width:425px"/>
+                <p:watermark for="responseId" value="Response"/>
+                <p:commandButton id="addMatching" value="Add" icon="ui-icon-submit" update="MatchingTable"
+                                 actionListener="#{soapImitationController.addMatching}" styleClass="medium blue"/>
+            </p:panel>
+
+            <uib:dataTable id="MatchingTable"
+                           value="#{soapImitationController.matchingReqResp.entrySet().toArray()}"
+                           var="matching"
+                           rows="10"
+                           paginator="true"
+                           paginatorAlwaysVisible="false"
+                           paginatorPosition="bottom"
+                           sortBy="sender"
+                           sortOrder="descending"
+                           lazy="true"
+                           styleClass="soapTable"
+                    >
+                <f:facet name="header">
+                    <h:outputText value="URI Request&#38;Response"/>
+                    <uib:buttonGroup>
+                        <p:commandButton id="Delete" value="Delete" update="MatchingTable" styleClass="small blue"/>
+                    </uib:buttonGroup>
+                </f:facet>
+
+                <uib:column style="width: 3%">
+                    <f:facet name="header">
+                        <p:outputLabel for="selectAllEmailReportChkBox" value="select all checkbox"
+                                       style="display: none;"/>
+                        <p:selectBooleanCheckbox id="selectAllEmailReportChkBox"
+                                                 onchange="selectAllChkBox(this,'reportRecordEmailChkBox')"/>
+                    </f:facet>
+                    <p:outputLabel for="reportRecordEmailChkBox" value="select row checkbox"
+                                   style="display: none;"/>
+                    <p:selectBooleanCheckbox id="reportRecordEmailChkBox"
+                                             onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
+                </uib:column>
+
+                <p:column headerText="Request">
+                    <h:outputText value="#{matching.key}"/>
+                </p:column>
+
+                <p:column headerText="Response">
+                    <h:outputText value="#{matching.value}"/>
+                </p:column>
+
+            </uib:dataTable>
+
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -31,11 +31,12 @@
                            sortBy="sender"
                            sortOrder="descending"
                            lazy="true"
-                           styleClass="smsTable">
+                           styleClass="smsTable"
+                           rowsPerPageTemplate="5,10,15,20,25,30">
 
                 <f:facet name="header">
 
-                    <h:outputText value="SMS"/>
+                <h:outputText value="SMS"/>
                     <uib:buttonGroup>
                         <p:commandButton id="Refresh" value="Refresh"
                                          icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"

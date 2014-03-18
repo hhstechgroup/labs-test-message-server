@@ -3,7 +3,6 @@ package com.engagepoint.university.messaging.smtp;
 import com.engagepoint.university.messaging.controller.AttachmentController;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
@@ -26,8 +25,6 @@ public class SMTPServerMain {
     SMTPServer server;
     MessageHandlerFactory messageHandlerFactory;
 
-    @Inject
-    private SmsDTO smsDTO;
     @Inject
     private EmailService emailService;
 
@@ -142,7 +139,7 @@ public class SMTPServerMain {
             }
 
             public void recipient(String recipient) throws RejectException {
-            mail.setRecipient(recipient);
+                mail.setRecipient(recipient);
             }
 
             @Override
