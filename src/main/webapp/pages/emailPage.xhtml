@@ -12,13 +12,13 @@
 
         <h:form>
 
-            <p:panel name="Quick Search">
+            <p:panel id="quickSearchEmailPanel" name="Quick Search">
                 <p:inputText id="quickSearchEmail" value="#{emailController.quickSearchPhrase}"
                              style="width:425px"/>
-                <p:watermark id="quickSearchEmailwatermark" for="quickSearchEmail" value="Input quick search phrase.."/>
+                <p:watermark id="quickSearchEmailwatermark" for="quickSearchEmail" value="Input quick search phrase..."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="EmailTable"
                                  actionListener="#{emailController.quickSearch}" styleClass="medium blue"/>
-                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="EmailTable quickSearchEmail"
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="EmailTable quickSearchEmailPanel"
                                  actionListener="#{emailController.refreshEmail}" styleClass="small blue"/>
             </p:panel>
 
