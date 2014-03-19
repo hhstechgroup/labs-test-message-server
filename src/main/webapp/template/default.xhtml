@@ -20,9 +20,9 @@
             <!--<p:menubar model="#{topMenuBar.model}"/>-->
         </uib:pageHeaderFacet>
 
-        <ui-headerUtilityBar:headerUtilityBar id="headerUtilityBarId">
+        <ui-headerUtilityBar:headerUtilityBar id="headerUtilityBarId" style="visibility: hidden;" rendered="false">
 
-            <p:ajaxStatus id="ajaxLoader" styleClass="ajax-loader">
+            <p:ajaxStatus id="ajaxLoader" styleClass="ajax-loader" >
                 <f:facet name="start">
                     <h:panelGroup id="ajaxVisible" styleClass="ajax-loader-visible"/>
                 </f:facet>

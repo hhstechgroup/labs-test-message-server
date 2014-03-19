@@ -95,21 +95,9 @@
                     </p:inplace>
                 </p:column>
 
-                <p:column headerText="attachments" style="width: 20%">
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:accordionPanel id="accordionPanel" activeIndex="null">
-                        <p:tab id="accordionTab" title="#{email.attachmentCollection.size()} files">
-                            <p:dataList value="#{email.attachmentCollection}" var="attachment" type="ordered">
-                                <p:commandButton id="attachmentId" value="Download" ajax="false" style="visibility: hidden;
-                            width: 0px; height: 0px; font-size: 9pt">
-                                    <p:fileDownload value="#{attachmentController.downloadAttachment(attachment.id)}"/>
-                                </p:commandButton>
-                                <a href="#"
-                                   onclick="document.getElementById('#{p:component('attachmentId')}').click();">
-                                    #{attachment.name}</a>
-                            </p:dataList>
-                        </p:tab>
-                    </p:accordionPanel>
+                <p:column headerText="Attachments" style="width: 20%">
+                    <h:outputText id="countOfAttachments" value="#{email.attachmentCollection.size()}"/>
+
                 </p:column>
 
             </uib:dataTable>
