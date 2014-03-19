@@ -41,9 +41,24 @@
                         <p:commandButton value="Add JMS" update="JmsTable"
                                          styleClass="small blue"
                                          actionListener="#{jmsController.addJms}"/>
+                        <p:commandButton id="Delete" value="Delete" update="JmsTable" styleClass="small blue"
+                                         actionListener="#{jmsController.deleteCheckedJmses}"/>
 
                     </uib:buttonGroup>
                 </f:facet>
+
+                <uib:column style="width: 3%">
+                    <f:facet name="header">
+                        <p:outputLabel id="selectAllChkBox" for="selectAllJmsReportChkBox" value="select all checkbox"
+                                       style="display: none;"/>
+                        <p:selectBooleanCheckbox id="selectAllJmsReportChkBox"
+                                                 onchange="selectAllChkBox(this,'reportRecordJmsChkBox')"/>
+                    </f:facet>
+                    <p:outputLabel for="reportRecordJmsChkBox" value="select row checkbox"
+                                   style="display: none;"/>
+                    <p:selectBooleanCheckbox value="#{jms.flag}" id="reportRecordJmsChkBox"
+                                             onchange="selectAllChkBoxDisable('selectAllJmsReportChkBox')"/>
+                </uib:column>
 
                 <p:column id="jmsId" sortBy="#{jms.id}" filterBy="#{jms.id}" filterStyle="width: 100%"
                           headerText="id" style="width: 2%">

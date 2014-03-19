@@ -60,7 +60,7 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public void deleteIdList(List<Long> idList) {
-
+        jmsDAO.deleteIdList(idList);
     }
 
     @Override
