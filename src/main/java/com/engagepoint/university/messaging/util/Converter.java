@@ -50,6 +50,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
         smsDTO.setBody(sms.getBody());
         smsDTO.setSendDate(sms.getSendDate());
         smsDTO.setDeliveryDate(sms.getDeliveryDate());
+        smsDTO.setRecipient(sms.getRecipient());
         return smsDTO;
     }
 
@@ -60,6 +61,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
         sms.setBody(from.getBody());
         sms.setSendDate(from.getSendDate());
         sms.setDeliveryDate(from.getDeliveryDate());
+        sms.setRecipient(from.getRecipient());
         return sms;
     }
 
@@ -71,6 +73,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
         emailDTO.setBody(email.getBody());
         emailDTO.setSendDate(email.getSendDate());
         emailDTO.setDeliveryDate(email.getDeliveryDate());
+        emailDTO.setRecipient(email.getRecipient());
         if (email.getAttachmentCollection() != null) {
             emailDTO.setAttachmentCollection(convertInAttachmentDTO(email.getAttachmentCollection()));
         }
@@ -85,6 +88,7 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
         email.setBody(from.getBody());
         email.setSendDate(from.getSendDate());
         email.setDeliveryDate(from.getDeliveryDate());
+        email.setRecipient(from.getRecipient());
         if (from.getAttachmentCollection() != null) {
             email.setAttachmentCollection(convertInAttachment(from.getAttachmentCollection()));
         }
