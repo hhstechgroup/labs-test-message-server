@@ -39,6 +39,15 @@ public class LeftMenuBarBean {
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
+        menuItem.setId("jmsItem");
+        if (viewId.endsWith("/jmsPage.xhtml")) {
+            menuItem.setStyleClass("active");
+        }
+        menuItem.setValue("JMS");
+        menuItem.setUrl("/pages/jmsPage.xhtml");
+        model.addMenuItem(menuItem);
+
+        menuItem = new MenuItem();
         menuItem.setId("soapServletItem");
         if (viewId.endsWith("/soapServletPage.xhtml")) {
             menuItem.setStyleClass("active");
