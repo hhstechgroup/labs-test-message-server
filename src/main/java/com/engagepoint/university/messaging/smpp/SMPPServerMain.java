@@ -141,8 +141,8 @@ public class SMPPServerMain {
             smsDTO.setSender(req.getSourceAddress().getAddress());
             smsDTO.setDeliveryDate(new Date());
             smsDTO.setSendDate(new Date());
+            smsDTO.setRecipient(req.getDestAddress().getAddress());
 
-            // SmsDAOImpl smsDAO = new SmsDAOImpl();
             smsService.save(smsDTO);
 
             return pduRequest.createResponse();
