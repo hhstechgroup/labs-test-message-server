@@ -80,10 +80,9 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
                     String filterValue = entry.getValue();
                     String fieldValue;
 
-                    if(filterProperty.equals("id")){
+                    if("id".equals(filterProperty)){
                         fieldValue = String.valueOf(smsDTO.getId());
-                    }
-                    else{
+                    } else {
 
                         Field field = smsDTO.getClass().getDeclaredField(filterProperty);
                         field.setAccessible(true);

@@ -8,8 +8,8 @@ public interface GenericDAO<EntityType extends BaseEntity> {
 
     public EntityType getById(Long id);
     public List<EntityType> getAll();
-    public void save(EntityType EntityType);
-    public void update(EntityType EntityType);
+    public void save(EntityType entityType);
+    public void update(EntityType entityType);
     public void delete(Long id);
-    public void delete(EntityType EntityType);
+    public void delete(EntityType entityType);
 }

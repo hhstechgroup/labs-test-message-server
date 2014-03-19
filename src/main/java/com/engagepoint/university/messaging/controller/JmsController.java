@@ -68,7 +68,7 @@ public class JmsController {
     }
 
     public void quickSearch(){
-        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
+        if (this.getQuickSearchPhrase() == null || "".equals(getQuickSearchPhrase()) ) {
             this.refreshJms();
         } else {
             jmsDTOList = jmsService.quickSearch(this.getQuickSearchPhrase());

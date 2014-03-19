@@ -80,10 +80,9 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
                     String filterValue = entry.getValue();
                     String fieldValue;
 
-                    if(filterProperty.equals("id")){
+                    if("id".equals(filterProperty)){
                         fieldValue = String.valueOf(emailDTO.getId());
-                    }
-                    else{
+                    } else {
 
                         Field field = emailDTO.getClass().getDeclaredField(filterProperty);
                         field.setAccessible(true);
@@ -92,8 +91,7 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
 
                     if(filterValue == null || fieldValue.matches("(.*)" + filterValue + "(.*)")) {
                         match = true;
-                    }
-                    else {
+                    } else {
                         match = false;
                         break;
                     }

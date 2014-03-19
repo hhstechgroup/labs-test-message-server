@@ -29,7 +29,6 @@ public class JMSConsumer implements MessageListener {
             jmsDTO.setBody(msg);
             jmsDTO.setSendDate(new Date());
             jmsService.save(jmsDTO);
-            System.out.println("jms Message received: " + msg);
         } catch (JMSException e) {
             LOG.warn("Error while fetching message:" + e.getMessage(), e);
         }

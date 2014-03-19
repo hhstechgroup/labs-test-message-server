@@ -104,7 +104,7 @@ public class SmsController implements Serializable {
     }
 
     public void quickSearch(){
-        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
+        if (this.getQuickSearchPhrase() == null || "".equals(getQuickSearchPhrase()) ) {
             this.refreshSms();
         } else {
             smsDTOList = smsService.quickSearch(this.getQuickSearchPhrase());

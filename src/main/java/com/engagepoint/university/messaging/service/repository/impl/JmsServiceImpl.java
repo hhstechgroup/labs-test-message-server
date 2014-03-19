@@ -44,7 +44,8 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public void update(JmsDTO jmsDTO) {
-
+        Jms jms = Converter.convert(jmsDTO);
+        jmsDAO.update(jms);
     }
 
     @Override
@@ -53,23 +54,8 @@ public class JmsServiceImpl implements JmsService {
     }
 
     @Override
-    public void delete(JmsDTO DTOType) {
+    public void delete(JmsDTO jmsDTO) {
 
-    }
-
-    @Override
-    public List<JmsDTO> getEmailsBySender(String sender) {
-        return null;
-    }
-
-    @Override
-    public List<JmsDTO> getEmailsBySubject(String subject) {
-        return null;
-    }
-
-    @Override
-    public List<JmsDTO> getEmailsSortByDeliverDate() {
-        return null;
     }
 
     @Override

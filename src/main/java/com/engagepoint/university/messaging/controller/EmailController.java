@@ -134,7 +134,7 @@ public class EmailController implements Serializable {
     }
 
     public void quickSearch(){
-        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
+        if (this.getQuickSearchPhrase() == null || "".equals(getQuickSearchPhrase())) {
             this.refreshEmail();
         } else {
             emailDTOList = emailService.quickSearch(this.getQuickSearchPhrase());

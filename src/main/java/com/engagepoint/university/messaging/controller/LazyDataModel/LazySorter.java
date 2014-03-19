@@ -37,11 +37,10 @@ public class LazySorter<T> implements Comparator<T> {
         try {
             Field field1;
             Field field2;
-            if(this.sortField.equalsIgnoreCase("id")){
+            if("id".equalsIgnoreCase(sortField)){
                 field1 = object1.getClass().getSuperclass().getDeclaredField(this.sortField);
                 field2 = object2.getClass().getSuperclass().getDeclaredField(this.sortField);
-            }
-            else {
+            } else {
                 field1 = object1.getClass().getDeclaredField(this.sortField);
                 field2 = object2.getClass().getDeclaredField(this.sortField);
             }
@@ -52,11 +51,10 @@ public class LazySorter<T> implements Comparator<T> {
             Object value2 = field2.get(object2);
 
 
-                int value = ((Comparable)value1).compareTo(value2);
+            int value = ((Comparable)value1).compareTo(value2);
 
             return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
-        }
-        catch(Exception e) {
+        } catch(Exception e) {
             LOG.info(e.getMessage(), e);
             throw new RuntimeException();
         }

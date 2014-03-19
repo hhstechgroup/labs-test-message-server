@@ -38,9 +38,6 @@ public class MySmppSessionHandler extends DefaultSmppSessionHandler {
 
             SubmitSmResp ssmr = (SubmitSmResp) pduAsyncResponse.getResponse();
 
-            System.out.println("!!! fireExpectedPduResponseReceived ssmr.getResultMessage()" + ssmr.getResultMessage());
-            System.out.println("!!! fireExpectedPduResponseReceived ssmr.getName()" + ssmr.getName());
-
             log.info("Got response with MSG ID={} for seqnum={}", ssmr.getMessageId(), ssmr.getSequenceNumber());
         }
     }

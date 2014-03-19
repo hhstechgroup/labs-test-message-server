@@ -61,20 +61,16 @@ public class SendSMS {
             TimeUnit.SECONDS.sleep(10);
             LOG.info("Wait 10 seconds");
 
-
             LOG.debug("Destroy session");
-            System.out.println("DESTROY SESSION");
 
             session.close();
             session.destroy();
-
             LOG.info("Destroy client");
-            System.out.println("Destroy client");
+
 
             client.destroy();
-
             LOG.info("Bye!");
-            System.out.println("Bye!");
+
         } catch (SmppTimeoutException | SmppChannelException | UnrecoverablePduException | InterruptedException
                 | RecoverablePduException e) {
             LOG.error("{}", e);
