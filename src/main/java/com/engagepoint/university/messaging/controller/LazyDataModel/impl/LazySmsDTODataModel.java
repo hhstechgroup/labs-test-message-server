@@ -4,12 +4,15 @@ import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.controller.LazyDataModel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
 
 public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serializable {
+    private static final Logger LOG = LoggerFactory.getLogger(LazySmsDTODataModel.class);
     private List<SmsDTO> datasource;
 
     public LazySmsDTODataModel(List<SmsDTO> datasource) {
@@ -54,6 +57,7 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
             try {
                 return data.subList(first, first + pageSize);
             } catch (IndexOutOfBoundsException e) {
+                LOG.info(e.getMessage(), e);
                 return data.subList(first, first + (dataSize % pageSize));
             }
         } else {
@@ -93,6 +97,7 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
                         break;
                     }
                 } catch (Exception e) {
+                    LOG.info(e.getMessage(), e);
                     match = false;
                 }
             }

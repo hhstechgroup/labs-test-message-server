@@ -24,7 +24,6 @@ public class SmsDAOImpl implements SmsDAO {
     @Transactional
     public Sms getById(Long id) {
         Sms sms = springDataSmsDAO.findOne(id);
-
         return sms;
     }
 
@@ -99,12 +98,6 @@ public class SmsDAOImpl implements SmsDAO {
 
     @Override
     @Transactional
-    public void saveSmsDAO(Sms sms) {
-
-    }
-
-    @Override
-    @Transactional
     public void deleteIdList(List<Long> idList) {
         if (idList != null) {
             for (Long id : idList) {
@@ -116,9 +109,4 @@ public class SmsDAOImpl implements SmsDAO {
         }
     }
 
-    @Override
-    @Transactional
-    public void smsQuickSearch() {
-
-    }
 }

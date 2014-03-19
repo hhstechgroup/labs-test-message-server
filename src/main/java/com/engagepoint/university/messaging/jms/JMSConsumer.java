@@ -2,6 +2,8 @@ package com.engagepoint.university.messaging.jms;
 
 import com.engagepoint.university.messaging.dto.JmsDTO;
 import com.engagepoint.university.messaging.service.repository.JmsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import java.util.Date;
 
 @MessageDriven(mappedName = "jms/myQueue")
 public class JMSConsumer implements MessageListener {
+    private static final Logger LOG = LoggerFactory.getLogger(JMSConsumer.class);
 
     @Inject
     JmsService jmsService;
@@ -28,7 +31,7 @@ public class JMSConsumer implements MessageListener {
             jmsService.save(jmsDTO);
             System.out.println("jms Message received: " + msg);
         } catch (JMSException e) {
-            System.err.println("Error while fetching message: " + e.getMessage());
+            LOG.warn("Error while fetching message:" + e.getMessage(), e);
         }
     }
 }

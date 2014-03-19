@@ -6,48 +6,33 @@ import com.engagepoint.university.messaging.entity.Jms;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service("jmsDAO")
 public class JmsDAOImpl implements JmsDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Inject
     private SpringDataJmsDAO springDataJmsDAO;
 
     @Override
     @Transactional
-    public List<Jms> getJmsBySender(String sender) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public void saveJms(Jms jms) {
-
-    }
-
-    @Override
-    @Transactional
     public void deleteIdList(List<Long> idList) {
-
-    }
-
-    @Override
-    @Transactional
-    public List<Jms> quickSearch(String quickSearchPhrase) {
-        return null;
+        if (idList != null) {
+            for (Long id : idList) {
+                Jms jms = springDataJmsDAO.findOne(id);
+                if (jms != null) {
+                    springDataJmsDAO.delete(jms);
+                }
+            }
+        }
     }
 
     @Override
     @Transactional
     public Jms getById(Long id) {
-        return null;
+        Jms jms = springDataJmsDAO.findOne(id);
+        return jms;
     }
 
     @Override
@@ -65,19 +50,19 @@ public class JmsDAOImpl implements JmsDAO {
 
     @Override
     @Transactional
-    public void update(Jms EntityType) {
-
+    public void update(Jms jms) {
+        springDataJmsDAO.save(jms);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-
+        springDataJmsDAO.delete(id.longValue());
     }
 
     @Override
     @Transactional
-    public void delete(Jms EntityType) {
-
+    public void delete(Jms jms) {
+        springDataJmsDAO.delete(jms);
     }
 }

@@ -23,9 +23,6 @@ public class AttachmentController {
     @Inject
     private AttachmentService attachmentService;
 
-    @Inject
-    private EmailService emailService;
-
     private static BASE64Decoder decoder;
 
     private static BASE64Encoder encoder;
@@ -54,7 +51,7 @@ public class AttachmentController {
                     "application/force-download",
                     attachmentDTO.getName());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage(), e);
             return null;
         }
     }

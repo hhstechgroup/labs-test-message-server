@@ -36,22 +36,6 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public void smsQuickSearch() {
-        smsDAO.smsQuickSearch();
-    }
-
-    @Override
-    public List<SmsDTO> getSmsAllByQuery() {
-        List<Sms> smses = smsDAO.getSmsAllByQuery();
-        List<SmsDTO> smsDTOs = new ArrayList<>();
-        Iterator<Sms> smsIterator = smses.iterator();
-        while (smsIterator.hasNext()) {
-            smsDTOs.add(Converter.convert(smsIterator.next()));
-        }
-        return smsDTOs;
-    }
-
-    @Override
     public List<SmsDTO> quickSearch(String quickSearchPhrase) {
         List<Sms> smses = smsDAO.quickSearch(quickSearchPhrase);
         List<SmsDTO> smsesDTOs = new ArrayList<>();

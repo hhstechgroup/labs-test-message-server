@@ -3,13 +3,15 @@ package com.engagepoint.university.messaging.controller.LazyDataModel;
 import java.lang.reflect.Field;
 import java.util.Comparator;
 import org.primefaces.model.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generic sorting utility class
  * @param <T>
  */
 public class LazySorter<T> implements Comparator<T> {
-
+    private static final Logger LOG = LoggerFactory.getLogger(LazySorter.class);
     private String sortField;
 
     private SortOrder sortOrder;
@@ -55,7 +57,7 @@ public class LazySorter<T> implements Comparator<T> {
             return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
         }
         catch(Exception e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage(), e);
             throw new RuntimeException();
         }
     }

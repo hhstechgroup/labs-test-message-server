@@ -3,11 +3,14 @@ package com.engagepoint.university.messaging.smtp;
 import com.engagepoint.university.messaging.controller.AttachmentController;
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
+
 import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
-import org.subethamail.smtp.MessageContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.*;
+import org.subethamail.smtp.MessageContext;
 import org.subethamail.smtp.server.SMTPServer;
 
 import javax.inject.Inject;
@@ -53,10 +56,6 @@ public class SMTPServerMain {
         getServer().setPort(getPort());
         getServer().setHostName(getHostname());
         getServer().start();
-        /*
-        Thread t = new Thread(this,"SMTPServeSubetha");
-        t.start();
-        */
     }
 
     public void shutDownSMTPServer() {
@@ -72,7 +71,7 @@ public class SMTPServerMain {
     }
 
     class SMTPMessageHandlerFactory implements MessageHandlerFactory {
-
+        private final Logger LOG = LoggerFactory.getLogger(SMTPMessageHandlerFactory.class);
         private EmailHandler emailHandler;
 
         @Override
@@ -110,13 +109,6 @@ public class SMTPServerMain {
                     BodyPart bp = mp.getBodyPart(i);
                     Object content = bp.getContent();
                     if (content instanceof String) {
-//                    if(bp.getFileName()!=null || !bp.getFileName().equals("")){
-//                        byte[] byteArray = IOUtils.toByteArray(bp.getDataHandler().getInputStream());
-//                        attachmentDTOs.add(AttachmentService.encodeAttachment(bp.getFileName(), byteArray));
-//                    }
-//                    else{
-//                        mail.setBody(String.valueOf(content));
-//                    }
                         mail.setBody(String.valueOf(content));
                     } else if (content instanceof InputStream) {
                         BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;
@@ -143,7 +135,7 @@ public class SMTPServerMain {
             }
 
             @Override
-            public void data(InputStream data) throws RejectException, TooMuchDataException, IOException {
+            public void data(InputStream data) throws RejectException, IOException {
                 Session s = Session.getDefaultInstance(new Properties());
                 try {
                     MimeMessage message = new MimeMessage(s, data);
@@ -152,7 +144,7 @@ public class SMTPServerMain {
                     mail.setSendDate(message.getReceivedDate());
                     handleMessage(message);
                 } catch (MessagingException e) {
-                    e.printStackTrace();
+                    LOG.info(e.getMessage(), e);
                 }
             }
 

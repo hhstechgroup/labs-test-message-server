@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SMPPServerMain {
-    private static final Logger logger = LoggerFactory.getLogger(SMPPServerMain.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SMPPServerMain.class);
 
     private ThreadPoolExecutor executor;
     private ScheduledThreadPoolExecutor monitorExecutor;
@@ -100,16 +100,16 @@ public class SMPPServerMain {
 
         @Override
         public void sessionCreated(Long sessionId, SmppServerSession session, BaseBindResp preparedBindResponse) throws SmppProcessingException {
-            logger.info("Session created: {}", session);
+            LOG.info("Session created: {}", session);
             // need to do something it now (flag we're ready)
             session.serverReady(new TestSmppSessionHandler(session));
         }
 
         @Override
         public void sessionDestroyed(Long sessionId, SmppServerSession session) {
-            logger.info("Session destroyed: {}", session);
+            LOG.info("Session destroyed: {}", session);
             if (session.hasCounters()) {
-                logger.info(" final session rx-submitSM: {}", session.getCounters().getRxSubmitSM());
+                LOG.info(" final session rx-submitSM: {}", session.getCounters().getRxSubmitSM());
             }
             session.destroy();
         }
@@ -126,15 +126,13 @@ public class SMPPServerMain {
         @Override
         public PduResponse firePduRequestReceived(PduRequest pduRequest) {
             SmppSession session = sessionRef.get();
-
             SubmitSm req = (SubmitSm) pduRequest;
-
-//            String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
             String str = null;
+
             try {
                 str = new String(req.getShortMessage(), "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                LOG.info(e.getMessage(), e);
             }
             SmsDTO smsDTO = new SmsDTO();
             smsDTO.setBody(str);

@@ -20,7 +20,6 @@ import java.util.List;
 @Named
 @ViewScoped
 public class SmsController implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(SmsController.class);
 
     @Inject
     private SmsService smsService;
@@ -36,24 +35,6 @@ public class SmsController implements Serializable {
         smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsService.getAll();
         lazyDataModel = new LazySmsDTODataModel(smsDTOList);
-    }
-
-    private String senderForFilteringSms;  //word which the list of sms will be sorted by
-
-    public List<SmsDTO> getSmsDTOList() {
-        return smsDTOList;
-    }
-
-    public void setSmsDTOList(List<SmsDTO> smsDTOList) {
-        this.smsDTOList = smsDTOList;
-    }
-
-    public String getSenderForFilteringSms() {
-        return senderForFilteringSms;
-    }
-
-    public void setSenderForFilteringSms(String senderForFilteringSms) {
-        this.senderForFilteringSms = senderForFilteringSms;
     }
 
     public void refreshSms() {
@@ -82,25 +63,12 @@ public class SmsController implements Serializable {
         }
     }
 
-
-    public void doFilterSms() {
-        List<SmsDTO> listForReturn;
-        listForReturn = smsService.getSmsBySender(senderForFilteringSms);
-        lazyDataModel = new LazySmsDTODataModel(listForReturn);
-    }
-
-    public void cancelFilterSms() {
-        smsDTOList = smsService.getAll();
-        lazyDataModel = new LazySmsDTODataModel(smsDTOList);
-    }
-
     public void addSms() {
         SmsDTO smsDTO1 = new SmsDTO();
         smsDTO1.setSender("author 1");
         smsDTO1.setBody("Hello 1!");
         smsDTO1.setSendDate(new Date());
         smsDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         smsService.save(smsDTO1);
 
         SmsDTO smsDTO2 = new SmsDTO();
@@ -108,7 +76,6 @@ public class SmsController implements Serializable {
         smsDTO2.setBody("Hello 2!");
         smsDTO2.setSendDate(new Date());
         smsDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         smsService.save(smsDTO2);
 
         SmsDTO smsDTO3 = new SmsDTO();
@@ -116,7 +83,6 @@ public class SmsController implements Serializable {
         smsDTO3.setBody("Hello 3!");
         smsDTO3.setSendDate(new Date());
         smsDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         smsService.save(smsDTO3);
 
         smsDTOList = smsService.getAll();
@@ -135,7 +101,7 @@ public class SmsController implements Serializable {
     }
 
     public void quickSearch(){
-        if (this.getQuickSearchPhrase().equals(null) || this.getQuickSearchPhrase().equals("")) {
+        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
             this.refreshSms();
         } else {
             smsDTOList = smsService.quickSearch(this.getQuickSearchPhrase());

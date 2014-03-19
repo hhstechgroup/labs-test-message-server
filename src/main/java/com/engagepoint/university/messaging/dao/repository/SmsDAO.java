@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface SmsDAO extends GenericDAO<Sms> {
     public List<Sms> getSmsBySender(String sender);
-    public void saveSmsDAO(Sms sms);
     public void deleteIdList(List<Long> idList);
-    public void smsQuickSearch();
     public List<Sms> getSmsAllByQuery();
     public List<Sms> quickSearch(String quickSearchPhrase);
     public List<Sms> smsSearch(String searchPhrase);

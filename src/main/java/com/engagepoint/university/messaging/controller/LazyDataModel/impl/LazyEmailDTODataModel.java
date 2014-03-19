@@ -4,12 +4,15 @@ import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.controller.LazyDataModel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
 
 public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Serializable {
+    private static final Logger LOG = LoggerFactory.getLogger(LazyEmailDTODataModel.class);
     private List<EmailDTO> datasource;
 
     public LazyEmailDTODataModel(List<EmailDTO> datasource) {
@@ -54,6 +57,7 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
             try {
                 return data.subList(first, first + pageSize);
             } catch (IndexOutOfBoundsException e) {
+                LOG.info(e.getMessage(), e);
                 return data.subList(first, first + (dataSize % pageSize));
             }
         } else {
@@ -94,6 +98,7 @@ public class LazyEmailDTODataModel extends LazyDataModel<EmailDTO> implements Se
                         break;
                     }
                 } catch(Exception e) {
+                    LOG.info(e.getMessage(), e);
                     match = false;
                 }
             }

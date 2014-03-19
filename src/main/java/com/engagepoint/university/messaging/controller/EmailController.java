@@ -33,8 +33,6 @@ public class EmailController implements Serializable {
 
     private String quickSearchPhrase;
 
-    private String senderForFilteringEmail;  //word which the list of email will be sorted by
-
     public List<EmailDTO> getEmailDTOList() {
         return emailDTOList;
     }
@@ -44,14 +42,6 @@ public class EmailController implements Serializable {
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
-    }
-
-    public String getSenderForFilteringEmail() {
-        return senderForFilteringEmail;
-    }
-
-    public void setSenderForFilteringEmail(String senderForFilteringEmail) {
-        this.senderForFilteringEmail = senderForFilteringEmail;
     }
 
     public void refreshEmail() {
@@ -81,19 +71,6 @@ public class EmailController implements Serializable {
         }
     }
 
-    //performed when user press Do FilterEmail button
-    public void doFilterEmail() {
-        List<EmailDTO> listForReturn;
-        listForReturn = emailService.getEmailsBySender(senderForFilteringEmail);
-        lazyDataModel = new LazyEmailDTODataModel(listForReturn);
-    }
-
-    //performed when user press Cancel FilterEmail button
-    public void cancelFilterEmail() {
-        emailDTOList = emailService.getAll();
-        lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
-    }
-
     public void addEmail() {
         LOG.debug("Create attachment");
         AttachmentDTO attachmentDTO = new AttachmentDTO();
@@ -121,7 +98,6 @@ public class EmailController implements Serializable {
         emailDTO1.setSendDate(new Date());
         emailDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         emailDTO1.setAttachmentCollection(attachmentCollection);
-        //emailDTO1.setRecieverList(UtilGeneratorMessage.getRandomRecieverCollection());
         emailService.save(emailDTO1);
 
         EmailDTO emailDTO2 = new EmailDTO();
@@ -139,6 +115,7 @@ public class EmailController implements Serializable {
         emailDTO3.setSendDate(new Date());
         emailDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
         emailService.save(emailDTO3);
+        LOG.warn("ADD 3 EMAILS");
     }
 
     public LazyDataModel getLazyDataModel() {
@@ -154,7 +131,7 @@ public class EmailController implements Serializable {
     }
 
     public void quickSearch(){
-        if (this.getQuickSearchPhrase().equals(null) || this.getQuickSearchPhrase().equals("")) {
+        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
             this.refreshEmail();
         } else {
             emailDTOList = emailService.quickSearch(this.getQuickSearchPhrase());

@@ -7,7 +7,6 @@ import java.util.Date;
 public class JmsDTO extends BaseDTO {
 
     private Long id;
-    //private String sender;
     private String body;
     private Date sendDate;
     private Boolean flag = Boolean.FALSE;
@@ -23,15 +22,7 @@ public class JmsDTO extends BaseDTO {
     public void setId(Long id) {
         this.id = id;
     }
-    /*
-    public String getSender() {
-        return sender;
-    }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-*/
     public String getBody() {
         return body;
     }
