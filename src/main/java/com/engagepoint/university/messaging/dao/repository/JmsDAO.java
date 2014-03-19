@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface JmsDAO extends GenericDAO<Jms> {
     public void deleteIdList(List<Long> idList);
+    public List<Jms> quickSearch(String quickSearchPhrase);
+    public List<Jms> jmsesSearch(String searchPhrase);
 }

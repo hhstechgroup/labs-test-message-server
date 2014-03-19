@@ -12,9 +12,10 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = Jms.GET_ALL_JMS_MESSAGES, query = "SELECT jms FROM Jms jms"),
         @NamedQuery(name = Jms.GET_ALL_BY_JMS_MESSAGES_ID, query = "SELECT jms FROM Jms jms WHERE jms.id = :idJms"),
-        //@NamedQuery(name = Jms.GET_ALL_BY_SENDER, query = "SELECT jms FROM Jms jms WHERE jms.sender = :sender"),
         @NamedQuery(name = Jms.GET_ALL_BY_SEND_DATE, query = "SELECT jms FROM Jms jms WHERE jms.sendDate = :sendDate"),
-        @NamedQuery(name = Jms.DELETE_JMS_MESSAGES_LIST, query = "DELETE FROM Jms jms WHERE jms.id IN :idList")})
+        @NamedQuery(name = Jms.DELETE_JMS_MESSAGES_LIST, query = "DELETE FROM Jms jms WHERE jms.id IN :idList"),
+        @NamedQuery(name = Jms.GET_JMS_QUICK_SEARCH, query = "SELECT jms FROM Jms jms WHERE" +
+                    " cast(jms.sendDate as string) LIKE :sendDate OR jms.body LIKE :body")})
 
 public class Jms implements Serializable, BaseEntity {
     private static final long serialVersionUID = 8756335744756867929L;
@@ -22,9 +23,10 @@ public class Jms implements Serializable, BaseEntity {
 
     public static final String GET_ALL_JMS_MESSAGES = "Jms.findAll";
     public static final String GET_ALL_BY_JMS_MESSAGES_ID = "Jms.findByIdSms";
-    public static final String GET_ALL_BY_SENDER = "Jms.findBySender";
     public static final String GET_ALL_BY_SEND_DATE = "Jms.findBySendDate";
     public static final String DELETE_JMS_MESSAGES_LIST = "Jms.deleteSmsList";
+
+    public static final String GET_JMS_QUICK_SEARCH = "Jms.getJmsQuickSearch";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

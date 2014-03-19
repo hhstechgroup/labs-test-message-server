@@ -6,6 +6,8 @@ import com.engagepoint.university.messaging.entity.Jms;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class JmsDAOImpl implements JmsDAO {
 
     @Inject
     private SpringDataJmsDAO springDataJmsDAO;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     @Transactional
@@ -26,6 +31,24 @@ public class JmsDAOImpl implements JmsDAO {
                 }
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Jms> quickSearch(String quickSearchPhrase) {
+        List<Jms> emails = jmsesSearch(quickSearchPhrase);
+        return emails;
+    }
+
+    @Override
+    @Transactional
+    public List<Jms> jmsesSearch(String searchPhrase) {
+        List<Jms> emails = entityManager
+                .createNamedQuery(Jms.GET_JMS_QUICK_SEARCH, Jms.class)
+                .setParameter("sendDate", "%" +searchPhrase+ "%")
+                .setParameter("body", "%" +searchPhrase+ "%")
+                .getResultList();
+        return emails;
     }
 
     @Override

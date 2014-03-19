@@ -65,6 +65,12 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public List<JmsDTO> quickSearch(String quickSearchPhrase) {
-        return null;
+        List<Jms> jmses = jmsDAO.quickSearch(quickSearchPhrase);
+        List<JmsDTO> jmsesDTOs = new ArrayList<>();
+        Iterator<Jms> jmsesIterator = jmses.iterator();
+        while (jmsesIterator.hasNext()) {
+            jmsesDTOs.add(Converter.convert(jmsesIterator.next()));
+        }
+        return jmsesDTOs;
     }
 }

@@ -40,6 +40,9 @@ public class JmsController {
     public void refreshJms() {
         jmsDTOList = new ArrayList<JmsDTO>();
         jmsDTOList = jmsService.getAll();
+        if (this.getQuickSearchPhrase() != null) {
+            this.setQuickSearchPhrase("");
+        }
     }
 
     public void addJms() {
