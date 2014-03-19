@@ -11,6 +11,16 @@
 
         <h:form>
 
+            <p:panel name="Quick Search">
+                <p:inputText id="quickSearchJms" value="#{jmsController.quickSearchPhrase}"
+                             style="width:425px"/>
+                <p:watermark id="quickSearchJmsWatermark" for="quickSearchJms" value="Input quick search phrase.."/>
+                <p:commandButton id="search" value="Search" icon="ui-icon-search" update="JmsTable"
+                                 actionListener="#{jmsController.quickSearch}" styleClass="medium blue"/>
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="JmsTable quickSearchJms"
+                                 actionListener="#{jmsController.refreshJms}" styleClass="small blue"/>
+            </p:panel>
+
             <uib:dataTable id="JmsTable"
                            var="jms"
                            value="#{jmsController.jmsDTOList}"
@@ -27,10 +37,10 @@
                     <uib:buttonGroup>
                         <p:commandButton value="Refresh" icon="ui-icon-refresh" update="JmsTable"
                                          styleClass="small blue"
-                                         actionListener="#{jmsController.refreshEmail}"/>
+                                         actionListener="#{jmsController.refreshJms}"/>
                         <p:commandButton value="Add JMS" update="JmsTable"
                                          styleClass="small blue"
-                                         actionListener="#{jmsController.addJMS}"/>
+                                         actionListener="#{jmsController.addJms}"/>
 
                     </uib:buttonGroup>
                 </f:facet>

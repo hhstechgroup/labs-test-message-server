@@ -23,6 +23,8 @@ public class JmsController {
     @Inject
     private JMSProducer jmsProducer;
 
+    private String quickSearchPhrase;
+
     private List<JmsDTO> jmsDTOList;
 
     public List<JmsDTO> getJmsDTOList() {
@@ -35,16 +37,16 @@ public class JmsController {
         jmsDTOList = jmsService.getAll();
     }
 
-    public void refreshEmail() {
+    public void refreshJms() {
         jmsDTOList = new ArrayList<JmsDTO>();
         jmsDTOList = jmsService.getAll();
     }
 
-    public void addJMS() {
+    public void addJms() {
         jmsProducer.sendMessage();
     }
 
-    public void deleteCheckedEmails() {
+    public void deleteCheckedJmses() {
         List<Long> idList = new ArrayList<Long>();
         List<JmsDTO> removeList = new ArrayList<JmsDTO>();
         if (jmsDTOList != null) {
@@ -65,4 +67,19 @@ public class JmsController {
         }
     }
 
+    public void quickSearch(){
+        if (this.getQuickSearchPhrase() == null || this.getQuickSearchPhrase().equals("")) {
+            this.refreshJms();
+        } else {
+            jmsDTOList = jmsService.quickSearch(this.getQuickSearchPhrase());
+        }
+    }
+
+    public String getQuickSearchPhrase() {
+        return quickSearchPhrase;
+    }
+
+    public void setQuickSearchPhrase(String quickSearchPhrase) {
+        this.quickSearchPhrase = quickSearchPhrase;
+    }
 }
