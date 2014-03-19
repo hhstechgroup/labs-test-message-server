@@ -48,6 +48,9 @@ public class EmailController implements Serializable {
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);
+        if (this.getQuickSearchPhrase() != null) {
+            this.setQuickSearchPhrase("");
+        }
     }
 
     public void deleteCheckedEmails() {

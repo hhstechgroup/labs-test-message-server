@@ -40,7 +40,10 @@ public class SmsController implements Serializable {
     public void refreshSms() {
         smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsService.getAll();
-        lazyDataModel = new LazySmsDTODataModel(smsDTOList);    
+        lazyDataModel = new LazySmsDTODataModel(smsDTOList);
+        if (this.getQuickSearchPhrase() != null) {
+            this.setQuickSearchPhrase("");
+        }
     }
 
     public void deleteCheckedSMS() {

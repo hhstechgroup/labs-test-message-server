@@ -17,7 +17,7 @@
                 <p:watermark for="quickSearchSms" value="Input quick search phrase.."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="SmsTable"
                                  actionListener="#{smsController.quickSearch}" styleClass="medium blue"/>
-                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="SmsTable"
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="SmsTable quickSearchSms"
                                  actionListener="#{smsController.refreshSms}" styleClass="small blue"/>
             </p:panel>
 
