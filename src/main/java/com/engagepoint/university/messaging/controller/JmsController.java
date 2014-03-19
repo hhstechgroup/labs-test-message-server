@@ -1,7 +1,7 @@
 package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.entity.Jms;
+import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazyJmsDTODataModel;
+import org.primefaces.model.LazyDataModel;
 import com.engagepoint.university.messaging.jms.JMSProducer;
 import com.engagepoint.university.messaging.dto.JmsDTO;
 import com.engagepoint.university.messaging.service.repository.JmsService;
@@ -25,6 +25,8 @@ public class JmsController {
 
     private String quickSearchPhrase;
 
+    private LazyJmsDTODataModel lazyDataModel;
+
     private List<JmsDTO> jmsDTOList;
 
     public List<JmsDTO> getJmsDTOList() {
@@ -35,11 +37,13 @@ public class JmsController {
     public void init() {
         jmsDTOList = new ArrayList<JmsDTO>();
         jmsDTOList = jmsService.getAll();
+        lazyDataModel = new LazyJmsDTODataModel(jmsDTOList);
     }
 
     public void refreshJms() {
         jmsDTOList = new ArrayList<JmsDTO>();
         jmsDTOList = jmsService.getAll();
+        lazyDataModel = new LazyJmsDTODataModel(jmsDTOList);
         if (this.getQuickSearchPhrase() != null) {
             this.setQuickSearchPhrase("");
         }
@@ -75,6 +79,7 @@ public class JmsController {
             this.refreshJms();
         } else {
             jmsDTOList = jmsService.quickSearch(this.getQuickSearchPhrase());
+            lazyDataModel = new LazyJmsDTODataModel(jmsDTOList);
         }
     }
 
@@ -84,5 +89,9 @@ public class JmsController {
 
     public void setQuickSearchPhrase(String quickSearchPhrase) {
         this.quickSearchPhrase = quickSearchPhrase;
+    }
+
+    public LazyDataModel getLazyDataModel() {
+        return lazyDataModel;
     }
 }
