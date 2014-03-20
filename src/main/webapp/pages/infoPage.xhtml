@@ -21,8 +21,11 @@
 
                 <h:outputText id="smsServerPortLabel" value="   SMS server port:" style="font-weight: bold"/>
                 <h:outputText id="smsServerPort" value="#{serverInfoController.SMPPport}"/>
-            </h:panelGrid>
 
+                <h:outputText id="soapServletLabel" value="3. HOST URL for requests Proxy SoapServlet"
+                              style="font-weight: bold"/>
+                <h:outputText id="soapServlet" value="#{serverInfoController.soapServletHOST}"/>
+            </h:panelGrid>
         </h:form>
 
     </ui:define>

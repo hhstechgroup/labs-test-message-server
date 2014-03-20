@@ -12,6 +12,9 @@
         <h:form>
 
             <p:panel name="Add Matching Request and Response">
+                <p:inputText id="urlId" value="#{soapImitationController.url}"
+                             style="width:425px"/>
+                <p:watermark for="urlId" value="URL"/>
                 <p:inputText id="requestId" value="#{soapImitationController.request}"
                              style="width:425px"/>
                 <p:watermark for="requestId" value="Request"/>
@@ -23,7 +26,7 @@
             </p:panel>
 
             <uib:dataTable id="MatchingTable"
-                           value="#{soapImitationController.matchingReqResp.entrySet().toArray()}"
+                           value="#{soapImitationController.allReqResps}"
                            var="matching"
                            rows="10"
                            paginator="true"
@@ -54,12 +57,16 @@
                                              onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
                 </uib:column>
 
+                <p:column headerText="URL">
+                    <h:outputText value="#{matching.url}"/>
+                </p:column>
+
                 <p:column headerText="Request">
-                    <h:outputText value="#{matching.key}"/>
+                    <h:outputText value="#{matching.request}"/>
                 </p:column>
 
                 <p:column headerText="Response">
-                    <h:outputText value="#{matching.value}"/>
+                    <h:outputText value="#{matching.response}"/>
                 </p:column>
 
             </uib:dataTable>

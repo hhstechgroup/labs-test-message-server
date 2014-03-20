@@ -8,6 +8,7 @@
     <welcome-file-list>
         <welcome-file>pages/emailPage.xhtml</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -17,6 +18,18 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SoapServlet</servlet-name>
+        <servlet-class>com.engagepoint.university.messaging.servlet.SoapImitationServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SoapServlet</servlet-name>
+        <url-pattern>/soap/*</url-pattern>
+    </servlet-mapping>
+
     <mime-mapping>
         <extension>eot</extension>
         <mime-type>font/eot</mime-type>

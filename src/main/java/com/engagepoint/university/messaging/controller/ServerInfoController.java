@@ -16,6 +16,8 @@ public class ServerInfoController {
     @Inject
     SMTPServerMain serverSMTP;
 
+    private String soapServletHOST = "{host}/soap/*";
+
     public String getSMTPhostName () {
         return serverSMTP.getHostname();
     }
@@ -32,4 +34,11 @@ public class ServerInfoController {
         return serverSMPP.getPort();
     }
 
+    public String getSoapServletHOST() {
+        return soapServletHOST;
+    }
+
+    public void setSoapServletHOST(String soapServletHOST) {
+        this.soapServletHOST = soapServletHOST;
+    }
 }
