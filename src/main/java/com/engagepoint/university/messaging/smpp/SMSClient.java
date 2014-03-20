@@ -1,24 +1,8 @@
 package com.engagepoint.university.messaging.smpp;
 
-import com.cloudhopper.commons.charset.CharsetUtil;
-import com.cloudhopper.commons.util.windowing.WindowFuture;
-import com.cloudhopper.smpp.SmppBindType;
-import com.cloudhopper.smpp.SmppSession;
-import com.cloudhopper.smpp.SmppSessionConfiguration;
-import com.cloudhopper.smpp.impl.DefaultSmppClient;
-import com.cloudhopper.smpp.pdu.PduRequest;
-import com.cloudhopper.smpp.pdu.PduResponse;
-import com.cloudhopper.smpp.pdu.SubmitSm;
-import com.cloudhopper.smpp.pdu.SubmitSmResp;
 import com.cloudhopper.smpp.type.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
 
 public class SMSClient {
-    public static Logger log = LoggerFactory.getLogger(SMSClient.class);
-
     public static void main(String[] args) throws SmppInvalidArgumentException {
 
         SendSMS sendSMS = new SendSMS();
@@ -33,7 +17,6 @@ public class SMSClient {
         sendSMS.sendSMS("Sender 9", "96969696", "Hi-Htyi-Hi");
         sendSMS.sendSMS("Sender 10", "96969696", "What?");
         sendSMS.sendSMS("Sender 11", "96969696", "Hi-Hi-Hi");
-
 
     }
 
