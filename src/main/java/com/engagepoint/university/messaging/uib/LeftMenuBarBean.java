@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class LeftMenuBarBean {
     private MenuModel model;
+    private static final String ACTIVE = "active";
 
     @PostConstruct
     public void initModel() {
@@ -23,7 +24,7 @@ public class LeftMenuBarBean {
         MenuItem menuItem = new MenuItem();
         menuItem.setId("emailItem");
         if (viewId.endsWith("/emailPage.xhtml")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("Emails");
         menuItem.setUrl("/pages/emailPage.xhtml");
@@ -32,7 +33,7 @@ public class LeftMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("smsItem");
         if (viewId.endsWith("/smsPage.xhtml")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("SMS");
         menuItem.setUrl("/pages/smsPage.xhtml");
@@ -41,7 +42,7 @@ public class LeftMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("jmsItem");
         if (viewId.endsWith("/jmsPage.xhtml")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("JMS");
         menuItem.setUrl("/pages/jmsPage.xhtml");
@@ -50,7 +51,7 @@ public class LeftMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("soapServletItem");
         if (viewId.endsWith("/soapServletPage.xhtml")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("SoapServlet");
         menuItem.setUrl("/pages/soapServletPage.xhtml");
@@ -59,7 +60,7 @@ public class LeftMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("infoItem");
         if (viewId.endsWith("/infoPage.xhtml")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("Info");
         menuItem.setUrl("/pages/infoPage.xhtml");

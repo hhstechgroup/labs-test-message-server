@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 public class SendSMS {
-    private final static Logger LOG = LoggerFactory.getLogger(SendSMS.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SendSMS.class);
 
     public void sendSMS(String sender, String receiver, String body) {
         DefaultSmppClient client = new DefaultSmppClient();
@@ -40,7 +40,7 @@ public class SendSMS {
 
             SmppSession session = client.bind(sessionConfig, new MySmppSessionHandler());
 
-            SubmitSm sm2 = createSubmitSm(sender, receiver, body, "UCS-2");
+            SubmitSm sm2 = createSubmitSm(sender, receiver, body, "UTF-8");
             sm2.setReferenceObject("Hello2" + sm2+"//***//");
 
             WindowFuture<Integer, PduRequest, PduResponse> future2 = session.sendRequestPdu(sm2, TimeUnit.SECONDS.toMillis(10), false);
@@ -59,7 +59,6 @@ public class SendSMS {
             LOG.info("Wait 10 seconds");
 
             TimeUnit.SECONDS.sleep(10);
-            LOG.info("Wait 10 seconds");
 
             LOG.debug("Destroy session");
 

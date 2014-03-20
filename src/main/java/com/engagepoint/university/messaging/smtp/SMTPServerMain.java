@@ -124,16 +124,16 @@ public class SMTPServerMain {
             }
 
             @Override
-            public void from(String from) throws RejectException {
+            public void from(String from) {
                 mail.setSender(from);
             }
 
-            public void recipient(String recipient) throws RejectException {
+            public void recipient(String recipient) {
                 mail.setRecipient(recipient);
             }
 
             @Override
-            public void data(InputStream data) throws RejectException, IOException {
+            public void data(InputStream data) throws IOException {
                 Session s = Session.getDefaultInstance(new Properties());
                 try {
                     MimeMessage message = new MimeMessage(s, data);

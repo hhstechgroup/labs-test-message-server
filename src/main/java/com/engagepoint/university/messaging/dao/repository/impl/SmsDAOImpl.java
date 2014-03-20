@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 @Service("smsDAO")
 public class SmsDAOImpl implements SmsDAO {
+    private static final String SENDER = "sender";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -59,19 +60,19 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     @Transactional
     public List<Sms> getSmsBySender(String sender) {
-        List<Sms> smses = entityManager
+        List<Sms> smsList = entityManager
                 .createNamedQuery(Sms.GET_ALL_BY_SENDER, Sms.class)
-                .setParameter("sender", "%" + sender + "%").getResultList();
-        return smses;
+                .setParameter(SENDER, "%" + sender + "%").getResultList();
+        return smsList;
     }
 
     @Override
     @Transactional
     public List<Sms> getSmsAllByQuery() {
-        List<Sms> smses = entityManager
+        List<Sms> smsList = entityManager
                 .createNamedQuery(Sms.GET_ALL_SMS, Sms.class)
                 .getResultList();
-        return smses;
+        return smsList;
     }
 
     @Override
@@ -83,15 +84,15 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     @Transactional
     public List<Sms> smsSearch(String searchPhrase) {
-        List<Sms> smses = entityManager
+        List<Sms> smsList = entityManager
                 .createNamedQuery(Sms.GET_SMS_QUICK_SEARCH, Sms.class)
                 .setParameter("userName", "%" + searchPhrase + "%")
-                .setParameter("sender", "%" + searchPhrase + "%")
+                .setParameter(SENDER, "%" + searchPhrase + "%")
                 .setParameter("recipient", "%" + searchPhrase + "%" )
                 .setParameter("body", "%" + searchPhrase + "%" )
                 .setParameter("deliveryDate", "%" + searchPhrase + "%" )
                 .getResultList();
-        return smses;
+        return smsList;
     }
 
     @Override

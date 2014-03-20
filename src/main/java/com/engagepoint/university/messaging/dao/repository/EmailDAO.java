@@ -1,7 +1,6 @@
 package com.engagepoint.university.messaging.dao.repository;
 
 import com.engagepoint.university.messaging.dao.GenericDAO;
-import com.engagepoint.university.messaging.dto.EmailDTO;
 import com.engagepoint.university.messaging.entity.Email;
 
 import java.util.List;

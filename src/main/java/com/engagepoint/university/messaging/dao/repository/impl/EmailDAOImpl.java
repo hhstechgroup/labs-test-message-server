@@ -13,6 +13,8 @@ import java.util.List;
 
 @Service("emailDAO")
 public class EmailDAOImpl implements EmailDAO {
+    private static final String SENDER = "sender";
+    private static final String SUBJECT = "subject";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -62,7 +64,7 @@ public class EmailDAOImpl implements EmailDAO {
     public List<Email> getEmailsBySender(String sender) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_BY_SENDER, Email.class)
-                .setParameter("sender", "%" + sender + "%").getResultList();
+                .setParameter(SENDER, "%" + sender + "%").getResultList();
         return emails;
     }
 
@@ -71,7 +73,7 @@ public class EmailDAOImpl implements EmailDAO {
     public List<Email> getEmailsBySubject(String subject) {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_ALL_BY_SUBJECT, Email.class)
-                .setParameter("subject", subject).getResultList();
+                .setParameter(SUBJECT, subject).getResultList();
         return emails;
     }
 
@@ -108,8 +110,8 @@ public class EmailDAOImpl implements EmailDAO {
         List<Email> emails = entityManager
                 .createNamedQuery(Email.GET_EMAIL_QUICK_SEARCH, Email.class)
                 .setParameter("attachName", "%" +searchPhrase+ "%")
-                .setParameter("sender", "%" +searchPhrase+ "%")
-                .setParameter("subject", "%" +searchPhrase+ "%")
+                .setParameter(SENDER, "%" +searchPhrase+ "%")
+                .setParameter(SUBJECT, "%" +searchPhrase+ "%")
                 .setParameter("body", "%" +searchPhrase+ "%")
                 .setParameter("deliveryDate", "%" +searchPhrase+ "%")
                 .getResultList();

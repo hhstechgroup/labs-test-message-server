@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class MySmppSessionHandler extends DefaultSmppSessionHandler {
-    private final static Logger LOG = LoggerFactory.getLogger(MySmppSessionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MySmppSessionHandler.class);
 
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {

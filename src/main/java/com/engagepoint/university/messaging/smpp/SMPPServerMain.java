@@ -28,8 +28,8 @@ public class SMPPServerMain {
     private ScheduledThreadPoolExecutor monitorExecutor;
     private SmppServerConfiguration configuration;
     private DefaultSmppServer smppServer;
-    private final static int PORT = 2776;
-    private final static String HOST = "127.0.0.1";
+    private static final  int PORT = 2776;
+    private static final  String HOST = "127.0.0.1";
 
     @Inject
     private SmsService smsService;
