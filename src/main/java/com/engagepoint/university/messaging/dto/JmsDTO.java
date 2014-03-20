@@ -6,22 +6,9 @@ import java.util.Date;
 
 public class JmsDTO extends BaseDTO {
 
-    private Long id;
     private String body;
     private Date sendDate;
-    private Boolean flag = Boolean.FALSE;
-
-    public JmsDTO() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Boolean flag;
 
     public String getBody() {
         return body;

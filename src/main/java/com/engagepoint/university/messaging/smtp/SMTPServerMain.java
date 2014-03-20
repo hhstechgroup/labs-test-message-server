@@ -71,7 +71,7 @@ public class SMTPServerMain {
     }
 
     class SMTPMessageHandlerFactory implements MessageHandlerFactory {
-        private final Logger LOG = LoggerFactory.getLogger(SMTPMessageHandlerFactory.class);
+        private final Logger log = LoggerFactory.getLogger(SMTPMessageHandlerFactory.class);
         private EmailHandler emailHandler;
 
         @Override
@@ -144,7 +144,7 @@ public class SMTPServerMain {
                     mail.setSendDate(message.getReceivedDate());
                     handleMessage(message);
                 } catch (MessagingException e) {
-                    LOG.info(e.getMessage(), e);
+                    log.info(e.getMessage(), e);
                 }
             }
 

@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 
 
 public class MySmppSessionHandler extends DefaultSmppSessionHandler {
-    public static Logger log = LoggerFactory.getLogger(MySmppSessionHandler.class);
+    private final static Logger LOG = LoggerFactory.getLogger(MySmppSessionHandler.class);
 
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
         if (pduRequest.isRequest()
                 && pduRequest.getClass() == DeliverSm.class) {
-            DeliverSm dlr = (DeliverSm) pduRequest;
             return pduRequest.createResponse();
         }
 
@@ -28,17 +27,17 @@ public class MySmppSessionHandler extends DefaultSmppSessionHandler {
         if (pduAsyncResponse.getResponse().getClass() == SubmitSmResp.class) {
             SubmitSm req = (SubmitSm) pduAsyncResponse.getRequest();
 
-            log.info("Got response for APPID={}", req.getReferenceObject());
-            log.info("!!! SubmitSm req.getDestAddress(); - " + req.getDestAddress());
-            log.info("!!! SubmitSm req.getSourceAddress(); - " + req.getSourceAddress());
-            log.info("!!! SubmitSm req.getShortMessage() in byte - " + req.getShortMessage());
+            LOG.info("Got response for APPID={}", req.getReferenceObject());
+            LOG.info("!!! SubmitSm req.getDestAddress(); - " + req.getDestAddress());
+            LOG.info("!!! SubmitSm req.getSourceAddress(); - " + req.getSourceAddress());
+            LOG.info("!!! SubmitSm req.getShortMessage() in byte - " + req.getShortMessage());
 
             String str = CharsetUtil.decode(req.getShortMessage(), CharsetUtil.CHARSET_MODIFIED_UTF8);
-            log.info("!!! SubmitSm body - " + str);
+            LOG.info("!!! SubmitSm body - " + str);
 
             SubmitSmResp ssmr = (SubmitSmResp) pduAsyncResponse.getResponse();
 
-            log.info("Got response with MSG ID={} for seqnum={}", ssmr.getMessageId(), ssmr.getSequenceNumber());
+            LOG.info("Got response with MSG ID={} for seqnum={}", ssmr.getMessageId(), ssmr.getSequenceNumber());
         }
     }
 }

@@ -21,33 +21,30 @@ public class EmailServiceImpl implements EmailService{
 
     @Override
     public List<EmailDTO> getEmailsBySender(String sender) {
-        List<Email> emails = emailDAO.getEmailsBySender(sender);
+        List<Email> emailList = emailDAO.getEmailsBySender(sender);
         List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
+        for (Email email :emailList) {
+            emailDTOs.add(Converter.convert(email));
         }
         return emailDTOs;
     }
 
     @Override
     public List<EmailDTO> getEmailsBySubject(String subject) {
-        List<Email> emails = emailDAO.getEmailsBySubject(subject);
+        List<Email> emailList = emailDAO.getEmailsBySubject(subject);
         List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
+        for (Email email :emailList) {
+            emailDTOs.add(Converter.convert(email));
         }
         return emailDTOs;
     }
 
     @Override
     public List<EmailDTO> getEmailsSortByDeliverDate() {
-        List<Email> emails = emailDAO.getEmailsSortByDeliverDate();
+        List<Email> emailList = emailDAO.getEmailsSortByDeliverDate();
         List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
+        for (Email email :emailList) {
+            emailDTOs.add(Converter.convert(email));
         }
         return emailDTOs;
     }
@@ -59,11 +56,10 @@ public class EmailServiceImpl implements EmailService{
 
     @Override
     public List<EmailDTO> quickSearch(String quickSearchPhrase) {
-        List<Email> emails = emailDAO.quickSearch(quickSearchPhrase);
+        List<Email> emailList = emailDAO.quickSearch(quickSearchPhrase);
         List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
+        for (Email email :emailList) {
+            emailDTOs.add(Converter.convert(email));
         }
         return emailDTOs;
     }
@@ -71,17 +67,15 @@ public class EmailServiceImpl implements EmailService{
     @Override
     public EmailDTO getById(Long id) {
         Email email = emailDAO.getById(id);
-        EmailDTO emailDTO = Converter.convert(email);
-        return emailDTO;
+        return Converter.convert(email);
     }
 
     @Override
     public List<EmailDTO> getAll() {
-        List<Email> emails = emailDAO.getAll();
+        List<Email> emailList = emailDAO.getAll();
         List<EmailDTO> emailDTOs = new ArrayList<>();
-        Iterator<Email> emailIterator = emails.iterator();
-        while (emailIterator.hasNext()) {
-            emailDTOs.add(Converter.convert(emailIterator.next()));
+        for (Email email :emailList) {
+            emailDTOs.add(Converter.convert(email));
         }
         return emailDTOs;
     }

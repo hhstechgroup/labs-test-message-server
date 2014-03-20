@@ -26,15 +26,13 @@ public class UserDAOImpl implements UserDAO {
     @Override
     @Transactional
     public User getById(Long id) {
-        User user = springDataUserDAO.findOne(id);
-        return user;
+        return springDataUserDAO.findOne(id);
     }
 
     @Override
     @Transactional
     public List<User> getAll() {
-        List<User> users = springDataUserDAO.findAll();
-        return users;
+        return springDataUserDAO.findAll();
     }
 
     @Override

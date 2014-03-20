@@ -4,6 +4,7 @@ import com.cloudhopper.smpp.*;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.*;
+import com.cloudhopper.smpp.type.SmppChannelException;
 import com.cloudhopper.smpp.type.SmppProcessingException;
 import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.service.repository.SmsService;
@@ -39,14 +40,17 @@ public class SMPPServerMain {
         setMonitorExecutor();
     }
 
-    public void startSmppServer() throws Exception {
+    public void startSmppServer() {
         smppServer = new DefaultSmppServer(this.configuration, new DefaultSmppServerHandler(),
                 this.executor, this.monitorExecutor);
-        smppServer.start();
-
+        try {
+            smppServer.start();
+        } catch (SmppChannelException e) {
+            LOG.warn(e.getMessage(), e);
+        }
     }
 
-    public void stopSmppServer() throws Exception {
+    public void stopSmppServer() {
         smppServer.stop();
         smppServer.destroy();
     }
@@ -125,7 +129,6 @@ public class SMPPServerMain {
 
         @Override
         public PduResponse firePduRequestReceived(PduRequest pduRequest) {
-            SmppSession session = sessionRef.get();
             SubmitSm req = (SubmitSm) pduRequest;
             String str = null;
 

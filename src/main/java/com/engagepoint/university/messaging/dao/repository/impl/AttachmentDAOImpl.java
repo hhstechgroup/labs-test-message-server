@@ -24,15 +24,13 @@ public class AttachmentDAOImpl implements AttachmentDAO {
     @Override
     @Transactional
     public Attachment getById(Long id) {
-        Attachment attachment = springDataAttachmentDAO.findOne(id);
-        return attachment;
+        return springDataAttachmentDAO.findOne(id);
     }
 
     @Override
     @Transactional
     public List<Attachment> getAll() {
-        List<Attachment> attachments = springDataAttachmentDAO.findAll();
-        return attachments;
+        return springDataAttachmentDAO.findAll();
     }
 
     @Override

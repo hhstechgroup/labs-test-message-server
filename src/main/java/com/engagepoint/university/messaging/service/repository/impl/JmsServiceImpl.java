@@ -22,16 +22,16 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public JmsDTO getById(Long id) {
-        return null;
+        Jms jms = jmsDAO.getById(id);
+        return Converter.convert(jms);
     }
 
     @Override
     public List<JmsDTO> getAll() {
         List<Jms> jmsList = jmsDAO.getAll();
         List<JmsDTO> jmsDTOs = new ArrayList<>();
-        Iterator<Jms> jmsIterator = jmsList.iterator();
-        while (jmsIterator.hasNext()) {
-            jmsDTOs.add(Converter.convert(jmsIterator.next()));
+        for (Jms jms :jmsList) {
+            jmsDTOs.add(Converter.convert(jms));
         }
         return jmsDTOs;
     }
@@ -50,12 +50,12 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public void delete(Long id) {
-
+        jmsDAO.delete(id);
     }
 
     @Override
     public void delete(JmsDTO jmsDTO) {
-
+        jmsDAO.delete(Converter.convert(jmsDTO));
     }
 
     @Override
@@ -65,12 +65,11 @@ public class JmsServiceImpl implements JmsService {
 
     @Override
     public List<JmsDTO> quickSearch(String quickSearchPhrase) {
-        List<Jms> jmses = jmsDAO.quickSearch(quickSearchPhrase);
-        List<JmsDTO> jmsesDTOs = new ArrayList<>();
-        Iterator<Jms> jmsesIterator = jmses.iterator();
-        while (jmsesIterator.hasNext()) {
-            jmsesDTOs.add(Converter.convert(jmsesIterator.next()));
+        List<Jms> jmsList = jmsDAO.quickSearch(quickSearchPhrase);
+        List<JmsDTO> jmsDTOs = new ArrayList<>();
+        for (Jms jms :jmsList) {
+            jmsDTOs.add(Converter.convert(jms));
         }
-        return jmsesDTOs;
+        return jmsDTOs;
     }
 }

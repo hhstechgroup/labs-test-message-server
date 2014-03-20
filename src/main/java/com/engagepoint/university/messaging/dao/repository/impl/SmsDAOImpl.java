@@ -23,15 +23,13 @@ public class SmsDAOImpl implements SmsDAO {
     @Override
     @Transactional
     public Sms getById(Long id) {
-        Sms sms = springDataSmsDAO.findOne(id);
-        return sms;
+        return springDataSmsDAO.findOne(id);
     }
 
     @Override
     @Transactional
     public List<Sms> getAll() {
-        List<Sms> smses = springDataSmsDAO.findAll();
-        return smses;
+        return springDataSmsDAO.findAll();
     }
 
     @Override

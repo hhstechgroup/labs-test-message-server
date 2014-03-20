@@ -4,12 +4,12 @@ import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
 import java.util.List;
 
-public interface GenericDAO<EntityType extends BaseEntity> {
+public interface GenericDAO<T extends BaseEntity> {
 
-    public EntityType getById(Long id);
-    public List<EntityType> getAll();
-    public void save(EntityType entityType);
-    public void update(EntityType entityType);
+    public T getById(Long id);
+    public List<T> getAll();
+    public void save(T t);
+    public void update(T t);
     public void delete(Long id);
-    public void delete(EntityType entityType);
+    public void delete(T t);
 }

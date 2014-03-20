@@ -22,11 +22,10 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public List<AttachmentDTO> getAttachmentsByName(String name) {
-        List<Attachment> attachments = attachmentDAO.getAttachmentsByName(name);
+        List<Attachment> attachmentList = attachmentDAO.getAttachmentsByName(name);
         List<AttachmentDTO> attachmentDTOs = new ArrayList<>();
-        Iterator<Attachment> attachmentIterator = attachments.iterator();
-        while (attachmentIterator.hasNext()) {
-            attachmentDTOs.add(Converter.convert(attachmentIterator.next()));
+        for (Attachment attachment:attachmentList) {
+            attachmentDTOs.add(Converter.convert(attachment));
         }
         return attachmentDTOs;
     }
@@ -34,17 +33,15 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public AttachmentDTO getById(Long id) {
         Attachment attachment = attachmentDAO.getById(id);
-        AttachmentDTO attachmentDTO = Converter.convert(attachment);
-        return attachmentDTO;
+        return Converter.convert(attachment);
     }
 
     @Override
     public List<AttachmentDTO> getAll() {
-        List<Attachment> attachments = attachmentDAO.getAll();
+        List<Attachment> attachmentList = attachmentDAO.getAll();
         List<AttachmentDTO> attachmentDTOs = new ArrayList<>();
-        Iterator<Attachment> attachmentIterator = attachments.iterator();
-        while (attachmentIterator.hasNext()) {
-            attachmentDTOs.add(Converter.convert(attachmentIterator.next()));
+        for (Attachment attachment:attachmentList) {
+            attachmentDTOs.add(Converter.convert(attachment));
         }
         return attachmentDTOs;
     }

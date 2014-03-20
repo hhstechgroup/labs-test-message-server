@@ -2,7 +2,7 @@ package com.engagepoint.university.messaging.controller;
 
 import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
-import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazyEmailDTODataModel;
+import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazyEmailDTODataModel;
 import com.engagepoint.university.messaging.service.repository.EmailService;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
@@ -39,6 +39,7 @@ public class EmailController implements Serializable {
 
     @PostConstruct
     public void init() {
+        quickSearchPhrase = "";
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);

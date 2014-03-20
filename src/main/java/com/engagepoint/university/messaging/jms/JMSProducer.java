@@ -6,8 +6,6 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 public class JMSProducer {
-    @Resource(lookup = "jms/__defaultConnectionFactory")
-    private ConnectionFactory connectionFactory;
 
     @Resource(lookup = "jms/myQueue")
     private Queue queue;

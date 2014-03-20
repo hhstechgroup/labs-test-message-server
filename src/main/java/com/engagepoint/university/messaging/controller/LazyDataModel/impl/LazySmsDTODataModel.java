@@ -1,7 +1,7 @@
-package com.engagepoint.university.messaging.controller.LazyDataModel.impl;
+package com.engagepoint.university.messaging.controller.lazydatamodel.impl;
 
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.controller.LazyDataModel.LazySorter;
+import com.engagepoint.university.messaging.controller.lazydatamodel.LazySorter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.slf4j.Logger;
@@ -22,8 +22,9 @@ public class LazySmsDTODataModel extends LazyDataModel<SmsDTO> implements Serial
     @Override
     public SmsDTO getRowData(String rowKey) {
         for (SmsDTO mail : datasource) {
-            if (mail.getSender().equals(rowKey))
+            if (mail.getSender().equals(rowKey)){
                 return mail;
+            }
         }
 
         return null;

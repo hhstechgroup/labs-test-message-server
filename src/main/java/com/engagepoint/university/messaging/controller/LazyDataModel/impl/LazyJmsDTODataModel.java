@@ -1,6 +1,6 @@
-package com.engagepoint.university.messaging.controller.LazyDataModel.impl;
+package com.engagepoint.university.messaging.controller.lazydatamodel.impl;
 
-import com.engagepoint.university.messaging.controller.LazyDataModel.LazySorter;
+import com.engagepoint.university.messaging.controller.lazydatamodel.LazySorter;
 import com.engagepoint.university.messaging.dto.JmsDTO;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -26,8 +26,9 @@ public class LazyJmsDTODataModel extends LazyDataModel<JmsDTO> implements Serial
     @Override
     public JmsDTO getRowData(String rowKey) {
         for (JmsDTO jms : datasource) {
-            if (jms.getBody().equals(rowKey))
+            if (jms.getBody().equals(rowKey)){
                 return jms;
+            }
         }
 
         return null;

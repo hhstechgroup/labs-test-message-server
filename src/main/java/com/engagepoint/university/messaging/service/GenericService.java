@@ -5,11 +5,11 @@ import com.engagepoint.university.messaging.dto.base.BaseDTO;
 
 import java.util.List;
 
-public interface GenericService<DTOType extends BaseDTO> {
-    public DTOType getById(Long id);
-    public List<DTOType> getAll();
-    public void save(DTOType dtoType);
-    public void update(DTOType dtoType);
+public interface GenericService<T extends BaseDTO> {
+    public T getById(Long id);
+    public List<T> getAll();
+    public void save(T t);
+    public void update(T t);
     public void delete(Long id);
-    public void delete(DTOType dtoType);
+    public void delete(T t);
 }

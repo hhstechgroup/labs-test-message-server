@@ -1,4 +1,4 @@
-package com.engagepoint.university.messaging.controller.LazyDataModel;
+package com.engagepoint.university.messaging.controller.lazydatamodel;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;
@@ -59,5 +59,6 @@ public class LazySorter<T> implements Comparator<T> {
             throw new RuntimeException();
         }
     }
+
 }
 

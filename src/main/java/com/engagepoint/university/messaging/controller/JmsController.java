@@ -1,6 +1,6 @@
 package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazyJmsDTODataModel;
+import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazyJmsDTODataModel;
 import org.primefaces.model.LazyDataModel;
 import com.engagepoint.university.messaging.jms.JMSProducer;
 import com.engagepoint.university.messaging.dto.JmsDTO;
@@ -35,6 +35,7 @@ public class JmsController {
 
     @PostConstruct
     public void init() {
+        quickSearchPhrase = "";
         jmsDTOList = new ArrayList<JmsDTO>();
         jmsDTOList = jmsService.getAll();
         lazyDataModel = new LazyJmsDTODataModel(jmsDTOList);

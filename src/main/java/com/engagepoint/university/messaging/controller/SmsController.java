@@ -1,12 +1,10 @@
 package com.engagepoint.university.messaging.controller;
 
 import com.engagepoint.university.messaging.dto.SmsDTO;
-import com.engagepoint.university.messaging.controller.LazyDataModel.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazySmsDTODataModel;
 import com.engagepoint.university.messaging.service.repository.SmsService;
 import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -32,6 +30,7 @@ public class SmsController implements Serializable {
 
     @PostConstruct
     public void init() {
+        quickSearchPhrase = "";
         smsDTOList = new ArrayList<SmsDTO>();
         smsDTOList = smsService.getAll();
         lazyDataModel = new LazySmsDTODataModel(smsDTOList);

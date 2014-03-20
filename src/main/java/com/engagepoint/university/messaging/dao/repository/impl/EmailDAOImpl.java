@@ -23,16 +23,13 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     @Transactional
     public Email getById(Long id) {
-        Email email = springDataEmailDAO.findOne(id);
-
-        return email;
+        return springDataEmailDAO.findOne(id);
     }
 
     @Override
     @Transactional
     public List<Email> getAll() {
-        List<Email> emails = springDataEmailDAO.findAll();
-        return emails;
+        return springDataEmailDAO.findAll();
     }
 
     @Override
@@ -102,8 +99,7 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     @Transactional
     public List<Email> quickSearch(String quickSearchPhrase) {
-        List<Email> emails = emailsSearch(quickSearchPhrase);
-        return emails;
+        return emailsSearch(quickSearchPhrase);
     }
 
     @Override

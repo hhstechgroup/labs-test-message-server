@@ -22,33 +22,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUsersByName(String name) {
-        List<User> users = userDAO.getUsersByName(name);
+        List<User> userList = userDAO.getUsersByName(name);
         List<UserDTO> userDTOs = new ArrayList<UserDTO>();
-        Iterator<User> userIterator = users.iterator();
-        while (userIterator.hasNext()) {
-            userDTOs.add(Converter.convert(userIterator.next()));
+        for (User user : userList) {
+            userDTOs.add(Converter.convert(user));
         }
         return userDTOs;
     }
 
     @Override
     public List<UserDTO> getUsersByEmail(String email) {
-        List<User> users = userDAO.getUsersByEmail(email);
+        List<User> userList = userDAO.getUsersByEmail(email);
         List<UserDTO> userDTOs = new ArrayList<>();
-        Iterator<User> userIterator = users.iterator();
-        while (userIterator.hasNext()) {
-            userDTOs.add(Converter.convert(userIterator.next()));
+        for (User user : userList) {
+            userDTOs.add(Converter.convert(user));
         }
         return userDTOs;
     }
 
     @Override
     public List<UserDTO> getUsersByPhoneNumber(String phoneNumber) {
-        List<User> users = userDAO.getUsersByPhoneNumber(phoneNumber);
+        List<User> userList = userDAO.getUsersByPhoneNumber(phoneNumber);
         List<UserDTO> userDTOs = new ArrayList<>();
-        Iterator<User> userIterator = users.iterator();
-        while (userIterator.hasNext()) {
-            userDTOs.add(Converter.convert(userIterator.next()));
+        for (User user : userList) {
+            userDTOs.add(Converter.convert(user));
         }
         return userDTOs;
     }
@@ -56,17 +53,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getById(Long id) {
         User user = userDAO.getById(id);
-        UserDTO userDTO = Converter.convert(user);
-        return userDTO;
+        return Converter.convert(user);
     }
 
     @Override
     public List<UserDTO> getAll() {
-        List<User> users = userDAO.getAll();
+        List<User> userList = userDAO.getAll();
         List<UserDTO> userDTOs = new ArrayList<>();
-        Iterator<User> userIterator = users.iterator();
-        while (userIterator.hasNext()) {
-            userDTOs.add(Converter.convert(userIterator.next()));
+        for (User user : userList) {
+            userDTOs.add(Converter.convert(user));
         }
         return userDTOs;
     }

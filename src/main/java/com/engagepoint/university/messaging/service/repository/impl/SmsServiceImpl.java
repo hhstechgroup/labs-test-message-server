@@ -21,11 +21,10 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public List<SmsDTO> getSmsBySender(String sender) {
-        List<Sms> smses = smsDAO.getSmsBySender(sender);
+        List<Sms> smsList = smsDAO.getSmsBySender(sender);
         List<SmsDTO> smsDTOs = new ArrayList<>();
-        Iterator<Sms> smsIterator = smses.iterator();
-        while (smsIterator.hasNext()) {
-            smsDTOs.add(Converter.convert(smsIterator.next()));
+        for (Sms sms:smsList) {
+            smsDTOs.add(Converter.convert(sms));
         }
         return smsDTOs;
     }
@@ -37,29 +36,26 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public List<SmsDTO> quickSearch(String quickSearchPhrase) {
-        List<Sms> smses = smsDAO.quickSearch(quickSearchPhrase);
-        List<SmsDTO> smsesDTOs = new ArrayList<>();
-        Iterator<Sms> smsIterator = smses.iterator();
-        while (smsIterator.hasNext()) {
-            smsesDTOs.add(Converter.convert(smsIterator.next()));
+        List<Sms> smsList = smsDAO.quickSearch(quickSearchPhrase);
+        List<SmsDTO> smsDTOs = new ArrayList<>();
+        for (Sms sms:smsList) {
+            smsDTOs.add(Converter.convert(sms));
         }
-        return smsesDTOs;
+        return smsDTOs;
     }
 
     @Override
     public SmsDTO getById(Long id) {
         Sms sms = smsDAO.getById(id);
-        SmsDTO smsDTO = Converter.convert(sms);
-        return smsDTO;
+        return Converter.convert(sms);
     }
 
     @Override
     public List<SmsDTO> getAll() {
-        List<Sms> smses = smsDAO.getAll();
+        List<Sms> smsList = smsDAO.getAll();
         List<SmsDTO> smsDTOs = new ArrayList<>();
-        Iterator<Sms> smsIterator = smses.iterator();
-        while (smsIterator.hasNext()) {
-            smsDTOs.add(Converter.convert(smsIterator.next()));
+        for (Sms sms:smsList) {
+            smsDTOs.add(Converter.convert(sms));
         }
         return smsDTOs;
     }

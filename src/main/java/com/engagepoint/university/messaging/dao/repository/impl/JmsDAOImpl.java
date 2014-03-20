@@ -36,8 +36,7 @@ public class JmsDAOImpl implements JmsDAO {
     @Override
     @Transactional
     public List<Jms> quickSearch(String quickSearchPhrase) {
-        List<Jms> emails = jmsesSearch(quickSearchPhrase);
-        return emails;
+        return jmsesSearch(quickSearchPhrase);
     }
 
     @Override
@@ -54,15 +53,13 @@ public class JmsDAOImpl implements JmsDAO {
     @Override
     @Transactional
     public Jms getById(Long id) {
-        Jms jms = springDataJmsDAO.findOne(id);
-        return jms;
+        return springDataJmsDAO.findOne(id);
     }
 
     @Override
     @Transactional
     public List<Jms> getAll() {
-        List<Jms> jmsList = springDataJmsDAO.findAll();
-        return jmsList;
+        return springDataJmsDAO.findAll();
     }
 
     @Override
