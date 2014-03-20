@@ -3,6 +3,11 @@ package com.engagepoint.university.messaging.smpp;
 import com.cloudhopper.smpp.type.*;
 
 public class SMSClient {
+
+    private SMSClient(){
+
+    }
+
     public static void main(String[] args) throws SmppInvalidArgumentException {
 
         SendSMS sendSMS = new SendSMS();

@@ -5,7 +5,6 @@ import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.dto.EmailDTO;
 
 import com.engagepoint.university.messaging.service.repository.EmailService;
-import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import java.util.Collection;
 import java.util.Properties;
 
 public class SMTPServerMain {
+    private static final Logger LOG = LoggerFactory.getLogger(SMTPServerMain.class);
     private static final int PORT = 25;
     private static final String HOSTNAME = "localhost";
     SMTPServer server;
@@ -71,7 +71,6 @@ public class SMTPServerMain {
     }
 
     class SMTPMessageHandlerFactory implements MessageHandlerFactory {
-        private final Logger log = LoggerFactory.getLogger(SMTPMessageHandlerFactory.class);
         private EmailHandler emailHandler;
 
         @Override
@@ -92,7 +91,7 @@ public class SMTPServerMain {
 
             }
 
-            public void handleMessage(Message message) throws IOException, MessagingException {
+            private void handleMessage(Message message) throws MessagingException, IOException {
                 Object content = message.getContent();
                 if (content instanceof String) {
                     mail.setBody(String.valueOf(content));
@@ -102,7 +101,7 @@ public class SMTPServerMain {
                 }
             }
 
-            public void handleMultipart(Multipart mp) throws MessagingException, IOException {
+            private void handleMultipart(Multipart mp) throws MessagingException, IOException {
                 int count = mp.getCount();
                 Collection<AttachmentDTO> attachmentDTOs = new ArrayList<>();
                 for (int i = 0; i < count; i++) {
@@ -111,8 +110,7 @@ public class SMTPServerMain {
                     if (content instanceof String) {
                         mail.setBody(String.valueOf(content));
                     } else if (content instanceof InputStream) {
-                        BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;
-                        byte[] byteArray = IOUtils.toByteArray(base64DecoderStream);
+                        byte[] byteArray = IOUtils.toByteArray((InputStream) content);
                         attachmentDTOs.add(AttachmentController.encodeAttachment(bp.getFileName(), byteArray));
                     } else if (content instanceof Message) {
                         Message message = (Message) content;
@@ -144,7 +142,7 @@ public class SMTPServerMain {
                     mail.setSendDate(message.getReceivedDate());
                     handleMessage(message);
                 } catch (MessagingException e) {
-                    log.info(e.getMessage(), e);
+                    LOG.info(e.getMessage(), e);
                 }
             }
 

@@ -8,6 +8,10 @@ public class UtilGeneratorMessage {
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static Random rnd = new Random();
 
+    private UtilGeneratorMessage(){
+
+    }
+
     public static Date getRandomDate(){
         GregorianCalendar gc = new GregorianCalendar();
 
@@ -43,7 +47,7 @@ public class UtilGeneratorMessage {
         return randUser;
     }
 
-    private static String randomString( int len ){
+    private static String randomString(int len){
         StringBuilder sb = new StringBuilder( len );
         for( int i = 0; i < len; i++ ){
             sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );

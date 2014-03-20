@@ -106,7 +106,7 @@ public class SMPPServerMain {
         public void sessionCreated(Long sessionId, SmppServerSession session, BaseBindResp preparedBindResponse) throws SmppProcessingException {
             LOG.info("Session created: {}", session);
             // need to do something it now (flag we're ready)
-            session.serverReady(new TestSmppSessionHandler(session));
+            session.serverReady(new TestSmppSessionHandler());
         }
 
         @Override
@@ -120,12 +120,6 @@ public class SMPPServerMain {
     }
 
     public class TestSmppSessionHandler extends DefaultSmppSessionHandler {
-
-        private WeakReference<SmppSession> sessionRef;
-
-        public TestSmppSessionHandler(SmppSession session) {
-            this.sessionRef = new WeakReference<SmppSession>(session);
-        }
 
         @Override
         public PduResponse firePduRequestReceived(PduRequest pduRequest) {
