@@ -39,7 +39,6 @@ public class EmailController implements Serializable {
 
     @PostConstruct
     public void init() {
-        quickSearchPhrase = "";
         emailDTOList = new ArrayList<EmailDTO>();
         emailDTOList = emailService.getAll();
         lazyDataModel = new LazyEmailDTODataModel(emailDTOList);

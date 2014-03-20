@@ -56,9 +56,14 @@ public class LazySorter<T> implements Comparator<T> {
             return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
         } catch(Exception e) {
             LOG.info(e.getMessage(), e);
-            throw new RuntimeException();
+            throw new MyRuntimeException();
         }
     }
 
+    private class MyRuntimeException extends RuntimeException {
+        public MyRuntimeException(){
+           super();
+        }
+    }
 }
 

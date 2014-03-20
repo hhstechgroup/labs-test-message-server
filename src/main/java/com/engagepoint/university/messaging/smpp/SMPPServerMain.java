@@ -55,11 +55,11 @@ public class SMPPServerMain {
         smppServer.destroy();
     }
 
-    public void setExecutor() {
+    private void setExecutor() {
         this.executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     }
 
-    public void setMonitorExecutor() {
+    private void setMonitorExecutor() {
         this.monitorExecutor = (ScheduledThreadPoolExecutor)
                 Executors.newScheduledThreadPool(1, new ThreadFactory() {
                     private AtomicInteger sequence = new AtomicInteger(0);
@@ -73,7 +73,7 @@ public class SMPPServerMain {
                 });
     }
 
-    public void setConfiguration() {
+    private void setConfiguration() {
         this.configuration = new SmppServerConfiguration();
         configuration.setPort(PORT);
         configuration.setMaxConnectionSize(10);

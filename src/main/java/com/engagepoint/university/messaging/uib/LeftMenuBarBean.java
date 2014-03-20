@@ -14,6 +14,11 @@ import javax.faces.context.FacesContext;
 public class LeftMenuBarBean {
     private MenuModel model;
     private static final String ACTIVE = "active";
+    private static final String EMAIL_PAGE="/emailPage.xhtml";
+    private static final String SMS_PAGE="/smsPage.xhtml";
+    private static final String JMS_PAGE="/jmsPage.xhtml";
+    private static final String SOAP_SERVLET_PAGE="/soapServletPage.xhtml";
+    private static final String INFO_PAGE="/infoPage.xhtml";
 
     @PostConstruct
     public void initModel() {
@@ -23,47 +28,47 @@ public class LeftMenuBarBean {
 
         MenuItem menuItem = new MenuItem();
         menuItem.setId("emailItem");
-        if (viewId.endsWith("/emailPage.xhtml")) {
+        if (viewId.endsWith(EMAIL_PAGE)) {
             menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("Emails");
-        menuItem.setUrl("/pages/emailPage.xhtml");
+        menuItem.setUrl("/pages" + EMAIL_PAGE);
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
         menuItem.setId("smsItem");
-        if (viewId.endsWith("/smsPage.xhtml")) {
+        if (viewId.endsWith(SMS_PAGE)) {
             menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("SMS");
-        menuItem.setUrl("/pages/smsPage.xhtml");
+        menuItem.setUrl("/pages" + SMS_PAGE);
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
         menuItem.setId("jmsItem");
-        if (viewId.endsWith("/jmsPage.xhtml")) {
+        if (viewId.endsWith(JMS_PAGE)) {
             menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("JMS");
-        menuItem.setUrl("/pages/jmsPage.xhtml");
+        menuItem.setUrl("/pages" + JMS_PAGE);
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
         menuItem.setId("soapServletItem");
-        if (viewId.endsWith("/soapServletPage.xhtml")) {
+        if (viewId.endsWith(SOAP_SERVLET_PAGE)) {
             menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("SoapServlet");
-        menuItem.setUrl("/pages/soapServletPage.xhtml");
+        menuItem.setUrl("/pages" + SOAP_SERVLET_PAGE);
         model.addMenuItem(menuItem);
 
         menuItem = new MenuItem();
         menuItem.setId("infoItem");
-        if (viewId.endsWith("/infoPage.xhtml")) {
+        if (viewId.endsWith(INFO_PAGE)) {
             menuItem.setStyleClass(ACTIVE);
         }
         menuItem.setValue("Info");
-        menuItem.setUrl("/pages/infoPage.xhtml");
+        menuItem.setUrl("/pages" + INFO_PAGE);
         model.addMenuItem(menuItem);
     }
 
