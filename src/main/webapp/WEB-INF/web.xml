@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
-        xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
 
@@ -28,6 +28,16 @@
     <servlet-mapping>
         <servlet-name>SoapServlet</servlet-name>
         <url-pattern>/soap/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <servlet-class>com.engagepoint.university.messaging.servlet.AttachmentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <url-pattern>/download_attachment</url-pattern>
     </servlet-mapping>
 
     <mime-mapping>

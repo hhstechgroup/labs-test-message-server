@@ -1,10 +1,11 @@
 package com.engagepoint.university.messaging.controller.lazydatamodel;
 
-import java.lang.reflect.Field;
-import java.util.Comparator;
 import org.primefaces.model.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.util.Comparator;
 
 /**
  * Generic sorting utility class
@@ -56,14 +57,14 @@ public class LazySorter<T> implements Comparator<T> {
             return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
         } catch(Exception e) {
             LOG.info(e.getMessage(), e);
-            throw new MyRuntimeException();
+            throw new RuntimeException();
         }
     }
 
-    private class MyRuntimeException extends RuntimeException {
-        public MyRuntimeException(){
-           super();
-        }
-    }
+//    private class MyRuntimeException extends RuntimeException {
+//        public MyRuntimeException(){
+//           super();
+//        }
+//    }
 }
 
