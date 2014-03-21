@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -28,9 +30,16 @@ public class SMPPServerMain {
     private ScheduledThreadPoolExecutor monitorExecutor;
     private SmppServerConfiguration configuration;
     private DefaultSmppServer smppServer;
-    private static final  int PORT = 2776;
-    private static final  String HOST = "127.0.0.1";
 
+    private String host;
+    private int port;
+
+    public String getHost() throws UnknownHostException {
+        return InetAddress.getLocalHost().getHostAddress();
+    }
+    public int getPort(){
+        return configuration.getPort();
+    }
     @Inject
     private SmsService smsService;
 
@@ -75,7 +84,6 @@ public class SMPPServerMain {
 
     private void setConfiguration() {
         this.configuration = new SmppServerConfiguration();
-        configuration.setPort(PORT);
         configuration.setMaxConnectionSize(10);
         configuration.setNonBlockingSocketsEnabled(true);
         configuration.setDefaultRequestExpiryTimeout(30000);
@@ -85,14 +93,6 @@ public class SMPPServerMain {
         configuration.setDefaultSessionCountersEnabled(true);
         configuration.setJmxEnabled(true);
         configuration.setReuseAddress(true);
-    }
-
-    public int getPort () {
-        return PORT;
-    }
-
-    public String getHost () {
-        return HOST;
     }
 
     public class DefaultSmppServerHandler implements SmppServerHandler {

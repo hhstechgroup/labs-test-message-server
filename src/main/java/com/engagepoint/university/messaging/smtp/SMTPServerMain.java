@@ -17,16 +17,28 @@ import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 
 public class SMTPServerMain {
     private static final Logger LOG = LoggerFactory.getLogger(SMTPServerMain.class);
-    private static final int PORT = 25;
-    private static final String HOSTNAME = "127.0.0.1";
+//    private static final int PORT = 25;
+//    private static final String HOSTNAME = "127.0.0.1";
     SMTPServer server;
     MessageHandlerFactory messageHandlerFactory;
+
+    private String host;
+    private int port;
+
+    public String getHost() throws UnknownHostException {
+        return InetAddress.getLocalHost().getHostAddress();
+    }
+    public int getPort(){
+        return server.getPort();
+    }
 
     @Inject
     private EmailService emailService;
@@ -53,21 +65,11 @@ public class SMTPServerMain {
     }
 
     public void startSMTPServer() {
-        getServer().setPort(getPort());
-        getServer().setHostName(getHostname());
         getServer().start();
     }
 
     public void shutDownSMTPServer() {
         getServer().stop();
-    }
-
-    public int getPort() {
-        return PORT;
-    }
-
-    public String getHostname() {
-        return HOSTNAME;
     }
 
     class SMTPMessageHandlerFactory implements MessageHandlerFactory {

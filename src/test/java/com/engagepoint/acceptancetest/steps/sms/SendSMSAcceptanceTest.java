@@ -29,7 +29,7 @@ public class SendSMSAcceptanceTest {
         sessionConfig.setName("Tester.Session.0");
         sessionConfig.setType(SmppBindType.TRANSCEIVER);
         sessionConfig.setHost("127.0.0.1");
-        sessionConfig.setPort(2776);
+        sessionConfig.setPort(2775);
         sessionConfig.setConnectTimeout(10000);
         sessionConfig.setSystemId("smppclient1");
         sessionConfig.setPassword("password");

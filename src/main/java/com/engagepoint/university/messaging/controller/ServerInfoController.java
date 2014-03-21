@@ -6,6 +6,8 @@ import com.engagepoint.university.messaging.smtp.SMTPServerMain;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @Named
 @ViewScoped
@@ -16,17 +18,15 @@ public class ServerInfoController {
     @Inject
     SMTPServerMain serverSMTP;
 
-    private String soapServletHOST = "{host}/soap/*";
-
-    public String getSMTPhostName () {
-        return serverSMTP.getHostname();
+    public String getSMTPhostName () throws UnknownHostException {
+        return serverSMTP.getHost();
     }
 
     public int getSMTPport () {
         return serverSMTP.getPort();
     }
 
-    public String getSMPPhost () {
+    public String getSMPPhost () throws UnknownHostException {
         return serverSMPP.getHost();
     }
 
@@ -34,11 +34,8 @@ public class ServerInfoController {
         return serverSMPP.getPort();
     }
 
-    public String getSoapServletHOST() {
-        return soapServletHOST;
+    public String getSoapServletHOST() throws UnknownHostException {
+        return InetAddress.getLocalHost().getHostAddress()+":8080/labs-test-message-server/soap/*";
     }
 
-    public void setSoapServletHOST(String soapServletHOST) {
-        this.soapServletHOST = soapServletHOST;
-    }
 }
