@@ -1,0 +1,32 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>scripts</directory>
+            <outputDirectory>tmp</outputDirectory>
+            <includes>
+                <include>glassfish-resource.xml</include>
+                <include>gf.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>tmp</outputDirectory>
+            <includes>
+                <include>*.war</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>scripts</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>*.sh</include>
+                <include>*.log</include>
+                <include>build.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
