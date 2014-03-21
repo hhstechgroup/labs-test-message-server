@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="../template/default.xhtml"
+        >
+
+    <ui:define name="page">
+        <h:form>
+
+            <h:panelGrid columns="4" cellpadding="3">
+
+                <h:outputText value="ID:" style="font-weight: bold"/>
+                <h:outputText value="#{emailContentController.currentEmail.id}"/>
+
+                <h:outputText value="Delivery date:" style="font-weight: bold"/>
+                <h:outputText value="#{emailContentController.currentEmail.deliveryDate}"/>
+
+                <h:outputText value="From:" style="font-weight: bold"/>
+                <h:outputText value="#{emailContentController.currentEmail.sender}"/>
+
+                <h:outputText value="To:" style="font-weight: bold"/>
+                <h:outputText value="#{emailContentController.currentEmail.recipient}"/>
+
+                <h:outputText value="Subject:" style="font-weight: bold"/>
+                <h:outputText value="#{emailContentController.currentEmail.subject}"/>
+
+            </h:panelGrid><br></br>
+
+            <h:outputText value="#{emailContentController.currentEmail.body}"/><br></br>
+
+            <a href="http://localhost:8080/labs-test-message-server/download_attachment?id=1">Attachment</a>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

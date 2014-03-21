@@ -24,7 +24,7 @@ import java.util.Properties;
 public class SMTPServerMain {
     private static final Logger LOG = LoggerFactory.getLogger(SMTPServerMain.class);
     private static final int PORT = 25;
-    private static final String HOSTNAME = "localhost";
+    private static final String HOSTNAME = "127.0.0.1";
     SMTPServer server;
     MessageHandlerFactory messageHandlerFactory;
 

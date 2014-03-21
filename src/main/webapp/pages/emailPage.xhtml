@@ -62,8 +62,11 @@
                 </uib:column>
 
                 <p:column id="emailId" sortBy="#{email.id}" filterBy="#{email.id}" filterStyle="width: 100%"
-                          headerText="id" style="width: 2%">
-                    <h:outputText value="#{email.id}"/>
+                          headerText="id" style="width: 5%">
+                    <h:commandLink value="#{email.id}" action="emailContent">
+                        <f:setPropertyActionListener value="#{email}"
+                                                     target="#{emailContentController.currentEmail}"/>
+                    </h:commandLink>
                 </p:column>
 
                 <p:column sortBy="#{email.deliveryDate}" filterBy="#{email.deliveryDate}" filterStyle="width: 100%"
@@ -86,16 +89,6 @@
                     <h:outputText value="#{email.subject}"/>
                     <a href="http://localhost:8080/labs-test-message-server/download_attachment?id=1">Attachment</a>
                 </p:column>
-
-                <p:column id="text" headerText="Text" style="width: 20%">
-                    <h:outputLabel value="#{email.body}"
-                                   rendered="#{email.bodyLength gt 0 and email.bodyLength le 10}"/>
-                    <p:inplace rendered="#{email.bodyLength gt 10}" id="slidingInplace"
-                               label="#{email.shortBody}    More info ...">
-                        <h:outputText value="#{email.body}"/>
-                    </p:inplace>
-                </p:column>
-
 
             </uib:dataTable>
 
