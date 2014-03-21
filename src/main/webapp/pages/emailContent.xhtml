@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:uib="http://engagepoint.com/uib"
                 template="../template/default.xhtml"
         >
 
@@ -30,10 +28,14 @@
 
             </h:panelGrid><br></br>
 
-            <h:outputText value="#{emailContentController.currentEmail.body}"/><br></br>
+            <b>Body:</b>
+            <h:outputText value="#{emailContentController.currentEmail.body}"/><br/>
 
-            <a href="http://localhost:8080/labs-test-message-server/download_attachment?id=1">Attachment</a>
-
+            <b>Attachments #{emailContentController.currentEmail.attachmentCollection.size()} count:</b>
+            <p:dataList value="#{emailContentController.currentEmail.attachmentCollection}" var="attachment"
+                        type="ordered">
+                <a href="#{requestScope.request.contextPath}/labs-test-message-server/download_attachment?id=#{attachment.id}">#{attachment.name}</a>
+            </p:dataList>
         </h:form>
     </ui:define>
 </ui:composition>

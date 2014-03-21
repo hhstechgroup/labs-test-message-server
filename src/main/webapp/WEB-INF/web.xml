@@ -32,7 +32,7 @@
 
     <servlet>
         <servlet-name>AttachmentServlet</servlet-name>
-        <servlet-class>com.engagepoint.university.messaging.servlet.attachmentServlet</servlet-class>
+        <servlet-class>com.engagepoint.university.messaging.servlet.AttachmentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

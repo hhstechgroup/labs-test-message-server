@@ -19,6 +19,17 @@ import java.util.concurrent.TimeUnit;
 public class SendSMSAcceptanceTest {
     public static Logger log = LoggerFactory.getLogger(SMSClient.class);
 
+    public static SubmitSm createSubmitSm(String src, String dst, String text, String charset) throws SmppInvalidArgumentException {
+        SubmitSm sm = new SubmitSm();
+        sm.setSourceAddress(new Address((byte) 5, (byte) 0, src));
+        sm.setDestAddress(new Address((byte) 1, (byte) 1, dst));
+        sm.setDataCoding((byte) 8);
+        sm.setShortMessage(CharsetUtil.encode(text, charset));
+        sm.setRegisteredDelivery((byte) 1);
+
+        return sm;
+    }
+
     //public static void main(String[] args) throws SmppInvalidArgumentException {
     public void sendSMS(String sender, String receiver, String body) {
         DefaultSmppClient client = new DefaultSmppClient();
@@ -28,7 +39,7 @@ public class SendSMSAcceptanceTest {
         sessionConfig.setWindowSize(1);
         sessionConfig.setName("Tester.Session.0");
         sessionConfig.setType(SmppBindType.TRANSCEIVER);
-        sessionConfig.setHost("127.0.0.1");
+        sessionConfig.setHost("192.168.10.108");
         sessionConfig.setPort(2775);
         sessionConfig.setConnectTimeout(10000);
         sessionConfig.setSystemId("smppclient1");
@@ -50,17 +61,6 @@ public class SendSMSAcceptanceTest {
         } catch (SmppTimeoutException | SmppChannelException | InterruptedException | UnrecoverablePduException | RecoverablePduException ex) {
             log.error("{}", ex);
         }
-    }
-
-    public static SubmitSm createSubmitSm(String src, String dst, String text, String charset) throws SmppInvalidArgumentException {
-        SubmitSm sm = new SubmitSm();
-        sm.setSourceAddress(new Address((byte) 5, (byte) 0, src));
-        sm.setDestAddress(new Address((byte) 1, (byte) 1, dst));
-        sm.setDataCoding((byte) 8);
-        sm.setShortMessage(CharsetUtil.encode(text, charset));
-        sm.setRegisteredDelivery((byte) 1);
-
-        return sm;
     }
 
 }

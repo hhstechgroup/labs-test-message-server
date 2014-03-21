@@ -21,15 +21,6 @@ When press 'Search' button
 When the user fills 'quickSearchEmail' field with 'w'
 When press 'Search' button
 
-Scenario: Do Filter Email
-When clicks on element with id/name/className 'emailItem'
-When the user fills 'inputEmailSender' field with 'mail'
-When clicks on element with id/name/className 'emailFilterButton'
-Then wait for '1' sec
-When clicks on element with id/name/className 'emailCancelButton'
-Then wait for '1' sec
-When press 'Refresh' button
-
 Scenario: SortByColume Email
 When clicks on element with id/name/className 'emailItem'
 When clicks on element with id/name/className 'emailId'

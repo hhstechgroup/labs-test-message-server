@@ -2,6 +2,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="../template/default.xhtml">
 
     <ui:define name="page">
@@ -26,6 +29,51 @@
                               style="font-weight: bold"/>
                 <a href="#{serverInfoController.soapServletHOST}">#{serverInfoController.soapServletHOST}</a>
             </h:panelGrid>
+
+
+            <p:panel name="Add Matching Request and Response">
+                <p:inputText id="urlId" value="#{soapImitationController.url}"
+                             style="width:425px"/>
+                <p:watermark for="urlId" value="URL"/>
+                <p:inputTextarea id="requestId" value="#{soapImitationController.request}"
+                                 style="width:425px"/>
+                <p:watermark for="requestId" value="Request"/>
+                <p:inputTextarea id="responseId" value="#{soapImitationController.response}"
+                                 style="width:425px"/>
+                <p:watermark for="responseId" value="Response"/>
+                <p:commandButton id="addMatching" value="Add" icon="ui-icon-submit" update="MatchingTable"
+                                 actionListener="#{soapImitationController.addMatching}" styleClass="medium blue"/>
+            </p:panel>
+
+            <uib:dataTable id="MatchingTable"
+                           value="#{soapImitationController.allReqResps}"
+                           var="matching"
+                           rows="10"
+                           paginator="true"
+                           paginatorAlwaysVisible="false"
+                           paginatorPosition="bottom"
+                           sortBy="sender"
+                           sortOrder="descending"
+                           lazy="true"
+                           styleClass="soapTable"
+                    >
+                <f:facet name="header">
+                    <h:outputText value="URI Request &#38; Response"/>
+                </f:facet>
+
+                <p:column headerText="URL">
+                    <h:outputText value="#{matching.url}"/>
+                </p:column>
+
+                <p:column headerText="Request">
+                    <h:outputText value="#{matching.request}"/>
+                </p:column>
+
+                <p:column headerText="Response">
+                    <h:outputText value="#{matching.response}"/>
+                </p:column>
+
+            </uib:dataTable>
         </h:form>
 
     </ui:define>
