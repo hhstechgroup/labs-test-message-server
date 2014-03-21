@@ -15,10 +15,12 @@
             <p:panel id="quickSearchEmailPanel" name="Quick Search">
                 <p:inputText id="quickSearchEmail" value="#{emailController.quickSearchPhrase}"
                              style="width:425px"/>
-                <p:watermark id="quickSearchEmailwatermark" for="quickSearchEmail" value="Input quick search phrase..."/>
+                <p:watermark id="quickSearchEmailwatermark" for="quickSearchEmail"
+                             value="Input quick search phrase..."/>
                 <p:commandButton id="search" value="Search" icon="ui-icon-search" update="EmailTable"
                                  actionListener="#{emailController.quickSearch}" styleClass="medium blue"/>
-                <p:commandButton id="closeSearch" value="" icon="ui-icon-close" update="EmailTable quickSearchEmailPanel"
+                <p:commandButton id="closeSearch" value="" icon="ui-icon-close"
+                                 update="EmailTable quickSearchEmailPanel"
                                  actionListener="#{emailController.refreshEmail}" styleClass="small blue"/>
             </p:panel>
 
@@ -40,9 +42,6 @@
                         <p:commandButton value="Refresh" icon="ui-icon-refresh" update="EmailTable"
                                          styleClass="small blue"
                                          actionListener="#{emailController.refreshEmail}"/>
-                        <p:commandButton value="Add Email" update="EmailTable"
-                                         styleClass="small blue"
-                                         actionListener="#{emailController.addEmail}"/>
                         <p:commandButton value="Delete" update="EmailTable" styleClass="small blue"
                                          actionListener="#{emailController.deleteCheckedEmails}"/>
                     </uib:buttonGroup>
@@ -79,7 +78,8 @@
                     <h:outputText value="#{email.sender}"/>
                 </p:column>
 
-                <p:column id="recipient" sortBy="#{email.recipient}" filterBy="#{email.recipient}" filterStyle="width: 100%"
+                <p:column id="recipient" sortBy="#{email.recipient}" filterBy="#{email.recipient}"
+                          filterStyle="width: 100%"
                           headerText="recipient" style="width: 15%">
                     <h:outputText value="#{email.recipient}"/>
                 </p:column>

@@ -11,7 +11,7 @@
 
         <h:form>
 
-            <p:panel id ="quickSearchSmsPanel" name="Quick Search">
+            <p:panel id="quickSearchSmsPanel" name="Quick Search">
                 <p:inputText id="quickSearchSms" value="#{smsController.quickSearchPhrase}"
                              style="width:425px"/>
                 <p:watermark for="quickSearchSms" value="Input quick search phrase..."/>
@@ -36,14 +36,11 @@
 
                 <f:facet name="header">
 
-                <h:outputText value="SMS"/>
+                    <h:outputText value="SMS"/>
                     <uib:buttonGroup>
                         <p:commandButton id="Refresh" value="Refresh"
                                          icon="ui-icon-refresh" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsController.refreshSms}"/>
-                        <p:commandButton id="AddSms" value="AddSms"
-                                         update="SmsTable" styleClass="small blue"
-                                         actionListener="#{smsController.addSms}"/>
                         <p:commandButton id="Delete" value="Delete" update="SmsTable" styleClass="small blue"
                                          actionListener="#{smsController.deleteCheckedSMS}"/>
                     </uib:buttonGroup>
@@ -68,7 +65,8 @@
                     <h:outputText value="#{sms.id}"/>
                 </p:column>
 
-                <p:column id="deliveryDate" sortBy="#{sms.deliveryDate}" filterBy="#{sms.deliveryDate}" filterStyle="width: 100%"
+                <p:column id="deliveryDate" sortBy="#{sms.deliveryDate}" filterBy="#{sms.deliveryDate}"
+                          filterStyle="width: 100%"
                           headerText="deliveryDate" style="width: 15%">
                     <h:outputText value="#{sms.deliveryDate}"/>
                 </p:column>
@@ -85,7 +83,7 @@
 
 
                 <p:column id="body" headerText="Text">
-                        <h:outputText value="#{sms.body}"/>
+                    <h:outputText value="#{sms.body}"/>
                 </p:column>
             </uib:dataTable>
 

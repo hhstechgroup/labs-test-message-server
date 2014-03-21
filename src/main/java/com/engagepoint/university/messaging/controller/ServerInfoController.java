@@ -18,24 +18,24 @@ public class ServerInfoController {
     @Inject
     SMTPServerMain serverSMTP;
 
-    public String getSMTPhostName () throws UnknownHostException {
+    public String getSMTPhostName() throws UnknownHostException {
         return serverSMTP.getHost();
     }
 
-    public int getSMTPport () {
+    public int getSMTPport() {
         return serverSMTP.getPort();
     }
 
-    public String getSMPPhost () throws UnknownHostException {
+    public String getSMPPhost() throws UnknownHostException {
         return serverSMPP.getHost();
     }
 
-    public int getSMPPport () {
+    public int getSMPPport() {
         return serverSMPP.getPort();
     }
 
     public String getSoapServletHOST() throws UnknownHostException {
-        return InetAddress.getLocalHost().getHostAddress()+":8080/labs-test-message-server/soap/*";
+        return "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/labs-test-message-server/soap/";
     }
 
 }

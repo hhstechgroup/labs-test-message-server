@@ -1,9 +1,8 @@
 package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazySmsDTODataModel;
+import com.engagepoint.university.messaging.dto.SmsDTO;
 import com.engagepoint.university.messaging.service.repository.SmsService;
-import com.engagepoint.university.messaging.util.UtilGeneratorMessage;
 import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -65,31 +63,6 @@ public class SmsController implements Serializable {
         }
     }
 
-    public void addSms() {
-        SmsDTO smsDTO1 = new SmsDTO();
-        smsDTO1.setSender("author 1");
-        smsDTO1.setBody("Hello 1!");
-        smsDTO1.setSendDate(new Date());
-        smsDTO1.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        smsService.save(smsDTO1);
-
-        SmsDTO smsDTO2 = new SmsDTO();
-        smsDTO2.setSender("author 2");
-        smsDTO2.setBody("Hello 2!");
-        smsDTO2.setSendDate(new Date());
-        smsDTO2.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        smsService.save(smsDTO2);
-
-        SmsDTO smsDTO3 = new SmsDTO();
-        smsDTO3.setSender("author 3");
-        smsDTO3.setBody("Hello 3!");
-        smsDTO3.setSendDate(new Date());
-        smsDTO3.setDeliveryDate(UtilGeneratorMessage.getRandomDate());
-        smsService.save(smsDTO3);
-
-        smsDTOList = smsService.getAll();
-    }
-
     public LazyDataModel getLazyDataModel() {
         return lazyDataModel;
     }
@@ -102,8 +75,8 @@ public class SmsController implements Serializable {
         this.quickSearchPhrase = quickSearchPhrase;
     }
 
-    public void quickSearch(){
-        if (this.getQuickSearchPhrase() == null || "".equals(getQuickSearchPhrase()) ) {
+    public void quickSearch() {
+        if (this.getQuickSearchPhrase() == null || "".equals(getQuickSearchPhrase())) {
             this.refreshSms();
         } else {
             smsDTOList = smsService.quickSearch(this.getQuickSearchPhrase());

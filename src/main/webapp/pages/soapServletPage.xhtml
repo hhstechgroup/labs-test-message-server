@@ -38,24 +38,8 @@
                            styleClass="soapTable"
                     >
                 <f:facet name="header">
-                    <h:outputText value="URI Request&#38;Response"/>
-                    <uib:buttonGroup>
-                        <p:commandButton id="Delete" value="Delete" update="MatchingTable" styleClass="small blue"/>
-                    </uib:buttonGroup>
+                    <h:outputText value="URI Request &#38; Response"/>
                 </f:facet>
-
-                <uib:column style="width: 3%">
-                    <f:facet name="header">
-                        <p:outputLabel for="selectAllEmailReportChkBox" value="select all checkbox"
-                                       style="display: none;"/>
-                        <p:selectBooleanCheckbox id="selectAllEmailReportChkBox"
-                                                 onchange="selectAllChkBox(this,'reportRecordEmailChkBox')"/>
-                    </f:facet>
-                    <p:outputLabel for="reportRecordEmailChkBox" value="select row checkbox"
-                                   style="display: none;"/>
-                    <p:selectBooleanCheckbox id="reportRecordEmailChkBox"
-                                             onchange="selectAllChkBoxDisable('selectAllEamilReportChkBox')"/>
-                </uib:column>
 
                 <p:column headerText="URL">
                     <h:outputText value="#{matching.url}"/>
