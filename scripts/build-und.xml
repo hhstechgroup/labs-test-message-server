@@ -1,29 +1,29 @@
 <project name="Exact" basedir="." default="undeploy">
-	
-	<property name="asinstalldir" value="c:/glassfish4/glassfish" />
-	<property name="server.name" value="localhost"/>
-	<property name="admin.port" value="4848"/>
-	<property name="app.name" value="labs-test-message-server"/>
-	<property name="gl.username" value="admin"/>
-	
-	<target name="as-ant-undeploy-init">
-		<taskdef name="sun-appserv-undeploy"
+
+    <property name="asinstalldir" value="c:/glassfish4/glassfish"/>
+    <property name="server.name" value="localhost"/>
+    <property name="admin.port" value="4848"/>
+    <property name="app.name" value="labs-test-message-server"/>
+    <property name="gl.username" value="admin"/>
+
+    <target name="as-ant-undeploy-init">
+        <taskdef name="sun-appserv-undeploy"
                  classname="org.glassfish.ant.tasks.UndeployTask">
-			<classpath>
-				<pathelement location="${asinstalldir}\lib\ant\ant-tasks.jar"/>
-			</classpath>
-		</taskdef>
-	</target>
-	
-	<target name="undeploy" depends="as-ant-undeploy-init">
-		<sun-appserv-undeploy 
-		name="${app.name}" 
-		host="${server.name}" 
-		port="${admin.port}" 
-		user="${gl.username}" 
-		passwordfile=".\tmp\gf.txt" 
-		installDir="${asinstalldir}"
-		/>
-	</target>
-	
+            <classpath>
+                <pathelement location="${asinstalldir}\lib\ant\ant-tasks.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <target name="undeploy" depends="as-ant-undeploy-init">
+        <sun-appserv-undeploy
+                name="${app.name}"
+                host="${server.name}"
+                port="${admin.port}"
+                user="${gl.username}"
+                passwordfile=".\tmp\gf.txt"
+                installDir="${asinstalldir}"
+                />
+    </target>
+
 </project>

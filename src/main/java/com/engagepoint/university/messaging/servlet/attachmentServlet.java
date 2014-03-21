@@ -4,6 +4,8 @@ import com.engagepoint.university.messaging.dto.AttachmentDTO;
 import com.engagepoint.university.messaging.service.repository.AttachmentService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class AttachmentServlet extends HttpServlet {
+    private static final Logger LOG = LoggerFactory.getLogger(AttachmentServlet.class);
 
     @Inject
     private AttachmentService attachmentService;
@@ -24,7 +27,7 @@ public class AttachmentServlet extends HttpServlet {
         try {
             id = Long.parseLong(req.getParameter("id"));
         } catch (Exception e) {
-            log("It's not a number!");
+            LOG.info("It's not a number!", e);
             return;
         }
         Base64 base64codec = new Base64();
@@ -32,7 +35,7 @@ public class AttachmentServlet extends HttpServlet {
         try {
             attachmentDTO = attachmentService.getById(id);
         } catch (NullPointerException e) {
-            log("Error 404: Attachment Not Found!");
+            LOG.info("Error 404: Attachment Not Found!", e);
             return;
         }
         resp.setContentType("application/force-download");

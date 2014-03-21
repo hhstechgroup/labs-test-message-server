@@ -13,6 +13,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>scripts</directory>
+            <includes>
+                <include>apa*/**</include>
+            </includes>
+            <outputDirectory></outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>target</directory>
             <outputDirectory>tmp</outputDirectory>
             <includes>
@@ -26,6 +33,7 @@
                 <include>*.sh</include>
                 <include>*.log</include>
                 <include>build.xml</include>
+                <include>*.cmd</include>
             </includes>
         </fileSet>
     </fileSets>

@@ -1,7 +1,7 @@
-<project name="Exact" basedir="." default="deploy">
-	
-	<property name="asinstalldir" value="c:/glassfish4/glassfish" />
-	<property name="server.name"  value="localhost"/>
+<project name="Exact" basedir="." default="open-url">
+
+    <property name="asinstalldir" value="c:\Program Files\glassfish-4.0\glassfish\"/>
+    <property name="server.name"  value="localhost"/>
 	<property name="admin.port"   value="4848"/>
 	<property name="app.name" 	  value="labs-test-message-server"/>
 	<property name="gl.username"  value="admin"/>
@@ -47,6 +47,12 @@
                 passwordfile=".\tmp\gf.txt"
                 installDir="${asinstalldir}"
                 />
+    </target>
+
+    <target name="open-url" depends="deploy">
+        <exec executable="cmd">
+            <arg line="/c start '' 'http://localhost:8080/labs-test-message-server'"/>
+        </exec>
     </target>
 	
 </project>
