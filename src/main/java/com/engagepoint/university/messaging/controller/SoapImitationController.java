@@ -1,8 +1,10 @@
 package com.engagepoint.university.messaging.controller;
 
-import com.engagepoint.university.messaging.dto.ReqResp;
+import com.engagepoint.university.messaging.dto.ReqRespDTO;
+import com.engagepoint.university.messaging.service.repository.SoapImitateService;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,18 +17,19 @@ import java.util.Map;
 public class SoapImitationController implements Serializable {
 
     private static Map<String, Map<String, String>> matchingReqResp = new HashMap<>();
+    @Inject
+    private SoapImitateService soapImitateService;
     private String url;
     private String request;
     private String response;
-
-    public Map<String, Map<String, String>> getMatchingReqResp() {
-        return matchingReqResp;
-    }
 
     public static Map<String, Map<String, String>> getStaticMatchingReqResp() {
         return matchingReqResp;
     }
 
+    public Map<String, Map<String, String>> getMatchingReqResp() {
+        return matchingReqResp;
+    }
 
     public void setMatchingReqResp(Map<String, Map<String, String>> matchingReqResp) {
         this.matchingReqResp = matchingReqResp;
@@ -66,15 +69,19 @@ public class SoapImitationController implements Serializable {
         matchingReqResp.put(url, reqResps);
     }
 
-    public List<ReqResp> getAllReqResps() {
-        List<ReqResp> reqResps = new ArrayList<>();
+    public List<ReqRespDTO> getAllMatching() {
+        List<ReqRespDTO> reqRespDTOs = new ArrayList<>();
         for (final Map.Entry<String, Map<String, String>> entry : matchingReqResp.entrySet()) {
             String url = entry.getKey();
             for (final Map.Entry<String, String> entryReqResp : entry.getValue().entrySet()) {
-                ReqResp reqResp = new ReqResp(url, entryReqResp.getKey(), entryReqResp.getValue());
-                reqResps.add(reqResp);
+                ReqRespDTO reqRespDTO = new ReqRespDTO(url, entryReqResp.getKey(), entryReqResp.getValue());
+                reqRespDTOs.add(reqRespDTO);
             }
         }
-        return reqResps;
+        return reqRespDTOs;
+    }
+
+    public List<ReqRespDTO> getAllReqResps() {
+        return soapImitateService.getAll();
     }
 }

@@ -1,11 +1,16 @@
 package com.engagepoint.university.messaging.dto;
 
-public class ReqResp {
+import com.engagepoint.university.messaging.dto.base.BaseDTO;
+
+public class ReqRespDTO extends BaseDTO {
     private String url;
     private String request;
     private String response;
 
-    public ReqResp(String url, String request, String response) {
+    public ReqRespDTO() {
+    }
+
+    public ReqRespDTO(String url, String request, String response) {
         this.url = url;
         this.request = request;
         this.response = response;

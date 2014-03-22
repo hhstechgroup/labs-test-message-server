@@ -1,8 +1,11 @@
 package com.engagepoint.university.messaging.servlet;
 
 import com.engagepoint.university.messaging.controller.SoapImitationController;
+import com.engagepoint.university.messaging.dto.ReqRespDTO;
+import com.engagepoint.university.messaging.service.repository.SoapImitateService;
 import org.apache.commons.io.IOUtils;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,9 @@ import java.util.Map;
 
 public class SoapImitationServlet extends HttpServlet {
 
+    @Inject
+    private SoapImitateService soapImitateService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -20,6 +26,8 @@ public class SoapImitationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ReqRespDTO reqRespDTO = new ReqRespDTO();
+        reqRespDTO.setUrl(req.getRequestURI());
 
         OutputStream responseStream = resp.getOutputStream();
         Map<String, String> reqResps = getReqRespByURL(req);
@@ -31,7 +39,7 @@ public class SoapImitationServlet extends HttpServlet {
         }
 
         String request = IOUtils.toString(req.getInputStream());
-
+        reqRespDTO.setRequest(request);
         if (request.isEmpty()) {
             String message = "Error 400: Bad Request! \nRequest is Empty!!!";
             responseStream.write(message.getBytes());
@@ -40,10 +48,13 @@ public class SoapImitationServlet extends HttpServlet {
             String response = reqResps.get(request);
             if (response == null || response.isEmpty()) {
                 responseStream.write(request.getBytes());
+                reqRespDTO.setResponse(request);
             } else {
                 responseStream.write(response.getBytes());
+                reqRespDTO.setResponse(response);
             }
         }
+        soapImitateService.save(reqRespDTO);
     }
 
     private Map<String, String> getReqRespByURL(HttpServletRequest req) {

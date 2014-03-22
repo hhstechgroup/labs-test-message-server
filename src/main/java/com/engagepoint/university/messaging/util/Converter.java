@@ -13,16 +13,6 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
     private Converter() {
     }
 
-    @Override
-    public BaseDTO convert(BaseEntity from) {
-        return null;
-    }
-
-    @Override
-    public BaseEntity convert(BaseDTO from) {
-        return null;
-    }
-
     public static UserDTO convert(User from) {
         UserDTO userDTO = new UserDTO();
         userDTO.setName(from.getName());
@@ -141,5 +131,32 @@ public final class Converter implements ToDtoConverter<BaseEntity, BaseDTO>, ToE
         jms.setBody(from.getBody());
         jms.setSendDate(from.getSendDate());
         return jms;
+    }
+
+    public static ReqResp convert(ReqRespDTO reqRespDTO) {
+        ReqResp reqResp = new ReqResp();
+        reqResp.setUrl(reqRespDTO.getUrl());
+        reqResp.setRequest(reqRespDTO.getRequest());
+        reqResp.setResponse(reqRespDTO.getResponse());
+        return reqResp;
+    }
+
+    public static ReqRespDTO convert(ReqResp reqResp) {
+        ReqRespDTO reqRespDTO = new ReqRespDTO();
+        reqRespDTO.setId(reqResp.getId());
+        reqRespDTO.setUrl(reqResp.getUrl());
+        reqRespDTO.setRequest(reqResp.getRequest());
+        reqRespDTO.setResponse(reqResp.getResponse());
+        return reqRespDTO;
+    }
+
+    @Override
+    public BaseDTO convert(BaseEntity from) {
+        return null;
+    }
+
+    @Override
+    public BaseEntity convert(BaseDTO from) {
+        return null;
     }
 }

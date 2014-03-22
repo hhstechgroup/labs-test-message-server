@@ -10,21 +10,6 @@
     <ui:define name="page">
 
         <h:form>
-
-            <p:panel name="Add Matching Request and Response">
-                <p:inputText id="urlId" value="#{soapImitationController.url}"
-                             style="width:425px"/>
-                <p:watermark for="urlId" value="URL"/>
-                <p:inputText id="requestId" value="#{soapImitationController.request}"
-                             style="width:425px"/>
-                <p:watermark for="requestId" value="Request"/>
-                <p:inputText id="responseId" value="#{soapImitationController.response}"
-                             style="width:425px"/>
-                <p:watermark for="responseId" value="Response"/>
-                <p:commandButton id="addMatching" value="Add" icon="ui-icon-submit" update="MatchingTable"
-                                 actionListener="#{soapImitationController.addMatching}" styleClass="medium blue"/>
-            </p:panel>
-
             <uib:dataTable id="MatchingTable"
                            value="#{soapImitationController.allReqResps}"
                            var="matching"
@@ -40,6 +25,10 @@
                 <f:facet name="header">
                     <h:outputText value="URI Request &#38; Response"/>
                 </f:facet>
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{matching.id}"/>
+                </p:column>
 
                 <p:column headerText="URL">
                     <h:outputText value="#{matching.url}"/>
