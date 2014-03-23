@@ -42,12 +42,12 @@ public class JmsDAOImpl implements JmsDAO {
     @Override
     @Transactional
     public List<Jms> jmsesSearch(String searchPhrase) {
-        List<Jms> emails = entityManager
+        List<Jms> jmses = entityManager
                 .createNamedQuery(Jms.GET_JMS_QUICK_SEARCH, Jms.class)
                 .setParameter("sendDate", "%" +searchPhrase+ "%")
                 .setParameter("body", "%" +searchPhrase+ "%")
                 .getResultList();
-        return emails;
+        return jmses;
     }
 
     @Override
