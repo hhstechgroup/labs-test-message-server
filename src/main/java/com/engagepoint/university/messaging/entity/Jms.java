@@ -2,45 +2,60 @@ package com.engagepoint.university.messaging.entity;
 
 import com.engagepoint.university.messaging.entity.base.BaseEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigInteger;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
-@Table(name = "jms")
+@Table(name = "activemq_msgs")
 @NamedQueries({
-        @NamedQuery(name = Jms.GET_ALL_JMS_MESSAGES, query = "SELECT jms FROM Jms jms"),
-        @NamedQuery(name = Jms.GET_ALL_BY_JMS_MESSAGES_ID, query = "SELECT jms FROM Jms jms WHERE jms.id = :idJms"),
-        @NamedQuery(name = Jms.GET_ALL_BY_SEND_DATE, query = "SELECT jms FROM Jms jms WHERE jms.sendDate = :sendDate"),
-        @NamedQuery(name = Jms.DELETE_JMS_MESSAGES_LIST, query = "DELETE FROM Jms jms WHERE jms.id IN :idList"),
-        @NamedQuery(name = Jms.GET_JMS_QUICK_SEARCH, query = "SELECT jms FROM Jms jms WHERE" +
-                    " cast(jms.sendDate as string) LIKE :sendDate OR jms.body LIKE :body")})
-
+        @NamedQuery(name = "ActivemqMsgs.findAll", query = "SELECT a FROM Jms a"),
+        @NamedQuery(name = "ActivemqMsgs.findById", query = "SELECT a FROM Jms a WHERE a.id = :id"),
+        @NamedQuery(name = "ActivemqMsgs.findByContainer", query = "SELECT a FROM Jms a WHERE a.container = :container"),
+        @NamedQuery(name = "ActivemqMsgs.findByMsgidProd", query = "SELECT a FROM Jms a WHERE a.msgidProd = :msgidProd"),
+        @NamedQuery(name = Jms.GET_JMS_QUICK_SEARCH, query = "SELECT a FROM Jms a WHERE a.msgidSeq = :msgidSeq"),
+        @NamedQuery(name = "ActivemqMsgs.findByExpiration", query = "SELECT a FROM Jms a WHERE a.expiration = :expiration"),
+        @NamedQuery(name = "ActivemqMsgs.findByPriority", query = "SELECT a FROM Jms a WHERE a.priority = :priority"),
+        @NamedQuery(name = "ActivemqMsgs.findByXid", query = "SELECT a FROM Jms a WHERE a.xid = :xid")})
 public class Jms implements Serializable, BaseEntity {
-    private static final long serialVersionUID = 8756335744756867929L;
+    private static final long serialVersionUID = 1L;
 
+    public static final String GET_JMS_QUICK_SEARCH = "ActivemqMsgs.findByMsgidSeq";
 
-    public static final String GET_ALL_JMS_MESSAGES = "Jms.findAll";
-    public static final String GET_ALL_BY_JMS_MESSAGES_ID = "Jms.findByIdSms";
-    public static final String GET_ALL_BY_SEND_DATE = "Jms.findBySendDate";
-    public static final String DELETE_JMS_MESSAGES_LIST = "Jms.deleteSmsList";
-
-    public static final String GET_JMS_QUICK_SEARCH = "Jms.getJmsQuickSearch";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID")
     private Long id;
-
+    @Size(max = 250)
+    @Column(name = "CONTAINER")
+    private String container;
+    @Size(max = 250)
+    @Column(name = "MSGID_PROD")
+    private String msgidProd;
+    @Column(name = "MSGID_SEQ")
+    private BigInteger msgidSeq;
+    @Column(name = "EXPIRATION")
+    private BigInteger expiration;
     @Lob
-    @Size(max = 65535)
-    @Column(name = "body")
-    private String body;
-
-    @Column(name = "send_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date sendDate;
+    @Column(name = "MSG")
+    private byte[] msg;
+    @Column(name = "PRIORITY")
+    private BigInteger priority;
+    @Size(max = 250)
+    @Column(name = "XID")
+    private String xid;
 
     public Long getId() {
         return id;
@@ -50,20 +65,59 @@ public class Jms implements Serializable, BaseEntity {
         this.id = id;
     }
 
-    public String getBody() {
-        return body;
+    public String getContainer() {
+        return container;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setContainer(String container) {
+        this.container = container;
     }
 
-    public Date getSendDate() {
-        return sendDate;
+    public String getMsgidProd() {
+        return msgidProd;
     }
 
-    public void setSendDate(Date sendDate) {
-        this.sendDate = sendDate;
+    public void setMsgidProd(String msgidProd) {
+        this.msgidProd = msgidProd;
     }
 
+    public BigInteger getMsgidSeq() {
+        return msgidSeq;
+    }
+
+    public void setMsgidSeq(BigInteger msgidSeq) {
+        this.msgidSeq = msgidSeq;
+    }
+
+    public BigInteger getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(BigInteger expiration) {
+        this.expiration = expiration;
+    }
+
+    public byte[] getMsg() {
+        return msg;
+    }
+
+    public void setMsg(byte[] msg) {
+        this.msg = msg;
+    }
+
+    public BigInteger getPriority() {
+        return priority;
+    }
+
+    public void setPriority(BigInteger priority) {
+        this.priority = priority;
+    }
+
+    public String getXid() {
+        return xid;
+    }
+
+    public void setXid(String xid) {
+        this.xid = xid;
+    }
 }

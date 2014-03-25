@@ -1,6 +1,7 @@
 package com.engagepoint.university.messaging.controller;
 
 import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazyJmsDTODataModel;
+import com.engagepoint.university.messaging.jms.JMSConsumer;
 import org.primefaces.model.LazyDataModel;
 import com.engagepoint.university.messaging.jms.JMSProducer;
 import com.engagepoint.university.messaging.dto.JmsDTO;

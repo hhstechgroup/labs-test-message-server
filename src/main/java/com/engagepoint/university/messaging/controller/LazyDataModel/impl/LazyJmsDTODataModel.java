@@ -26,7 +26,7 @@ public class LazyJmsDTODataModel extends LazyDataModel<JmsDTO> implements Serial
     @Override
     public JmsDTO getRowData(String rowKey) {
         for (JmsDTO jms : datasource) {
-            if (jms.getBody().equals(rowKey)){
+            if (jms.getMsg().equals(rowKey)){
                 return jms;
             }
         }
@@ -36,7 +36,7 @@ public class LazyJmsDTODataModel extends LazyDataModel<JmsDTO> implements Serial
 
     @Override
     public Object getRowKey(JmsDTO jms) {
-        return jms.getBody();
+        return jms.getMsg();
     }
 
     @Override

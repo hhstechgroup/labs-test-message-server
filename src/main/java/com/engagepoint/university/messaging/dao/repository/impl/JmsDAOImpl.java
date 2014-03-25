@@ -44,8 +44,6 @@ public class JmsDAOImpl implements JmsDAO {
     public List<Jms> jmsesSearch(String searchPhrase) {
         List<Jms> jmses = entityManager
                 .createNamedQuery(Jms.GET_JMS_QUICK_SEARCH, Jms.class)
-                .setParameter("sendDate", "%" +searchPhrase+ "%")
-                .setParameter("body", "%" +searchPhrase+ "%")
                 .getResultList();
         return jmses;
     }

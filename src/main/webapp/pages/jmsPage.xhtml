@@ -65,14 +65,14 @@
                     <h:outputText value="#{jms.id}"/>
                 </p:column>
 
-                <p:column id="sendDate" sortBy="#{jms.sendDate}" filterBy="#{jms.sendDate}" filterStyle="width: 100%"
-                          headerText="sendDate" style="width: 20%">
-                    <h:outputText value="#{jms.sendDate}"/>
+                <p:column id="sendDate" sortBy="#{jms.msgidProd}" filterBy="#{jms.msgidProd}" filterStyle="width: 100%"
+                          headerText="msgidProd" style="width: 20%">
+                    <h:outputText value="#{jms.msgidProd}"/>
                 </p:column>
 
-                <p:column id="body" sortBy="#{jms.body}" filterBy="#{jms.body}" filterStyle="width: 100%"
+                <p:column id="body" sortBy="#{jms.msg}" filterBy="#{jms.msg}" filterStyle="width: 100%"
                           headerText="body" style="width: 15%">
-                    <h:outputText value="#{jms.body}"/>
+                    <h:outputText value="#{jms.msg}"/>
                 </p:column>
 
             </uib:dataTable>

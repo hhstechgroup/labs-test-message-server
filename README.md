@@ -16,6 +16,11 @@
 	4. asadmin start-domain domain1
 	5. asadmin add-resources glassfish-resource.xml
 	6. Check your JNDI in glassfish
+3. Configure ActiveMQ.
+    1. Download ActiveMQ from http://activemq.apache.org/.
+    2. Extract to your destination folder.
+    3. Copy ${OurProject}/scripts/activemq.xml to ${ActiveMQ}/conf/ with replace source.
+    4. Run ${ActiveMQ}/bin/activemq.bat
 3. Deploy your project
 
 * Configure Sonar (Optional)
