@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
 @Table(name = "activemq_msgs")
 @NamedQueries({
@@ -23,7 +22,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "ActivemqMsgs.findById", query = "SELECT a FROM Jms a WHERE a.id = :id"),
         @NamedQuery(name = "ActivemqMsgs.findByContainer", query = "SELECT a FROM Jms a WHERE a.container = :container"),
         @NamedQuery(name = "ActivemqMsgs.findByMsgidProd", query = "SELECT a FROM Jms a WHERE a.msgidProd = :msgidProd"),
-        @NamedQuery(name = Jms.GET_JMS_QUICK_SEARCH, query = "SELECT a FROM Jms a WHERE a.msgidSeq = :msgidSeq"),
+        @NamedQuery(name = Jms.GET_JMS_QUICK_SEARCH, query = "SELECT a FROM Jms a WHERE a.msgidProd LIKE :msgidProd"),
         @NamedQuery(name = "ActivemqMsgs.findByExpiration", query = "SELECT a FROM Jms a WHERE a.expiration = :expiration"),
         @NamedQuery(name = "ActivemqMsgs.findByPriority", query = "SELECT a FROM Jms a WHERE a.priority = :priority"),
         @NamedQuery(name = "ActivemqMsgs.findByXid", query = "SELECT a FROM Jms a WHERE a.xid = :xid")})
@@ -31,7 +30,6 @@ public class Jms implements Serializable, BaseEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String GET_JMS_QUICK_SEARCH = "ActivemqMsgs.findByMsgidSeq";
-
 
     @Id
     @Basic(optional = false)

@@ -1,9 +1,7 @@
 package com.engagepoint.university.messaging.controller;
 
 import com.engagepoint.university.messaging.controller.lazydatamodel.impl.LazyJmsDTODataModel;
-import com.engagepoint.university.messaging.jms.JMSConsumer;
 import org.primefaces.model.LazyDataModel;
-import com.engagepoint.university.messaging.jms.JMSProducer;
 import com.engagepoint.university.messaging.dto.JmsDTO;
 import com.engagepoint.university.messaging.service.repository.JmsService;
 
@@ -20,9 +18,6 @@ public class JmsController {
 
     @Inject
     private JmsService jmsService;
-
-    @Inject
-    private JMSProducer jmsProducer;
 
     private String quickSearchPhrase;
 
@@ -49,10 +44,6 @@ public class JmsController {
         if (this.getQuickSearchPhrase() != null) {
             this.setQuickSearchPhrase("");
         }
-    }
-
-    public void addJms() {
-        jmsProducer.sendMessage();
     }
 
     public void deleteCheckedJmses() {

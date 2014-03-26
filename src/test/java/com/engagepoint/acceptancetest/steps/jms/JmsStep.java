@@ -13,11 +13,21 @@ public class JmsStep extends JbehaveBaseSteps {
         super(pages);
     }
 
-    @When("send jms to without body")
+    @When("send jms with default text")
     public void sendJms() {
         JmsProducer jmsProducer = new JmsProducer();
         try {
             jmsProducer.sendMessage();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @When("send jms with text '$text'")
+    public void sendJms(String text) {
+        JmsProducer jmsProducer = new JmsProducer();
+        try {
+            jmsProducer.sendMessage(text);
         } catch (JMSException e) {
             e.printStackTrace();
         }

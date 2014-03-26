@@ -38,9 +38,6 @@
                         <p:commandButton value="Refresh" icon="ui-icon-refresh" update="JmsTable"
                                          styleClass="small blue"
                                          actionListener="#{jmsController.refreshJms}"/>
-                        <p:commandButton value="Add JMS" update="JmsTable"
-                                         styleClass="small blue"
-                                         actionListener="#{jmsController.addJms}"/>
                         <p:commandButton id="Delete" value="Delete" update="JmsTable" styleClass="small blue"
                                          actionListener="#{jmsController.deleteCheckedJmses}"/>
 
@@ -71,7 +68,7 @@
                 </p:column>
 
                 <p:column id="body" sortBy="#{jms.msg}" filterBy="#{jms.msg}" filterStyle="width: 100%"
-                          headerText="body" style="width: 15%">
+                          headerText="msg" style="width: 15%">
                     <h:outputText value="#{jms.msg}"/>
                 </p:column>
 
